@@ -1,39 +1,56 @@
+<style>
+    .load-tabs .nav-tabs li {
+        border-bottom: 4px solid #fcb632;
+        background-color: #fff;
+        margin-bottom: 8px;
+        box-shadow: 2px 3px 8px;
+    }
+
+    .load-tabs .nav-tabs {
+        border-bottom: none !important;
+        background-color: unset !important;
+        margin-bottom: 8px;
+        box-shadow: 2px 3px 8px;
+    }
+</style>
 <div class="col-xs-12 col-sm-12 ">
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs">
-        <li class="active"><a href="#father" data-toggle="tab">بيانات الاب</a></li>
-        <li><a href="#mother" data-toggle="tab">بيانات الام </a></li>
+    <div class="col-md-2 col-sm-3 load-tabs ">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs nav-stacked">
+            <li class="active"><a href="#father" data-toggle="tab">بيانات الاب</a></li>
+            <li><a href="#mother" data-toggle="tab">بيانات الام </a></li>
 
-        <li><a href="#wakeel" data-toggle="tab">بيانات الوكيل </a></li>
-        <li><a href="#sons" data-toggle="tab">بيانات أفراد الأسرة </a></li>
-        <li><a href="#house" data-toggle="tab">بيانات السكن</a></li>
-        <li><a href="#devices" data-toggle="tab">محتويات السكن </a></li>
-        <li><a href="#home_needs" data-toggle="tab">إحتياجات الأسرة</a></li>
-        <li><a href="#attach_files" data-toggle="tab">رفع الوثائق</a></li>
-        <li><a href="#money" data-toggle="tab">مصادر الدخل والإلتزامات</a></li>
-        <!-------------------- 774 ----------------------------------->
-        <li><a href="#research" data-toggle="tab">رأى الباحث </a></li>
+            <li><a href="#wakeel" data-toggle="tab">بيانات الوكيل </a></li>
+            <li><a href="#sons" data-toggle="tab">بيانات أفراد الأسرة </a></li>
+            <li><a href="#house" data-toggle="tab">بيانات السكن</a></li>
+            <li><a href="#devices" data-toggle="tab">محتويات السكن </a></li>
+            <li><a href="#home_needs" data-toggle="tab">إحتياجات الأسرة</a></li>
+            <li><a href="#attach_files" data-toggle="tab">رفع الوثائق</a></li>
+            <li><a href="#money" data-toggle="tab">مصادر الدخل والإلتزامات</a></li>
+            <!-------------------- 774 ----------------------------------->
+            <li><a href="#research" data-toggle="tab">رأى الباحث </a></li>
 
 
-        <li><a href="#bank_account" data-toggle="tab">بيانات الحساب البنكي</a></li>
-        <!-------------------- 774 ----------------------------------->
-    </ul>
+            <li><a href="#bank_account" data-toggle="tab">بيانات الحساب البنكي</a></li>
+            <!-------------------- 774 ----------------------------------->
+        </ul>
+    </div>
     <!-- Tab panels -->
-    <div class="tab-content">
+    <div class="tab-content col-md-10">
         <!------------------------------------------------------------------------------------------------>
         <!------------------------------------------------------------------------------------------------>
         <div class="tab-pane fade in active" id="father">
-            <div class="panel-body"><br>
+            <div>
                 <?php if ($family_data['father'] != '' && $family_data['father'] != null && !empty($family_data['father'])) { ?>
                     <div class="personality">
 
                         <div class="col-xs-12 no-padding">
 
-                            <table class="table table-bordered table-devices" style="table-layout: fixed">
+                            <table class="table table-devices" style="table-layout: fixed">
                                 <tbody>
-                                <!--                                            <tr>-->
-                                <!--                                                <th colspan="6" class="title-top" style="text-align: center">بيانات الاب</th>-->
-                                <!--                                            </tr>-->
+                                <tr>
+                                    <th colspan="6" style="text-align: center">بيانات الاب</th>
+                                </tr>
                                 <tr>
 
                                     <th style="width: 14%;">الاسم رباعي</th>
@@ -51,7 +68,7 @@
 
                                     <th> مصدر الهوية</th>
                                     <td><?php if (!empty($family_data['father']->f_card_source_n)):
-                                            echo  $family_data['father']->f_card_source_n;endif; ?></td>
+                                            echo $family_data['father']->f_card_source_n;endif; ?></td>
                                     <th>تاريخ الميلاد</th>
                                     <td><?php echo $family_data['father']->f_birth_date; ?></td>
 
@@ -82,7 +99,7 @@
 
                                     <th>الجنسية</th>
                                     <td><?php if (!empty($family_data['father']->f_nationality_n)) {
-                                            echo  $family_data['father']->f_nationality_n;
+                                            echo $family_data['father']->f_nationality_n;
                                         } ?></td>
                                     <th>اضافه جنسيه اخري</th>
                                     <td> <?php echo $family_data['father']->nationality_other; ?></td>
@@ -127,7 +144,7 @@
         <!------------------------------------------------------------------------------------------------>
         <!------------------------------------------------------------------------------------------------>
         <div class="tab-pane fade  " id="mother">
-            <div class="panel-body"><br>
+            <div>
 
                 <?php if ($family_data['mother'] != '' && $family_data['mother'] != null && !empty($family_data['mother'])) { ?>
 
@@ -135,8 +152,11 @@
 
                         <div class="col-xs-12 no-padding">
 
-                            <table class="table table-bordered table-devices" style="table-layout: fixed">
+                            <table class="table table-devices" style="table-layout: fixed">
                                 <tbody>
+                                <tr>
+                                    <th colspan="6" style="text-align: center">بيانات الام</th>
+                                </tr>
                                 <tr>
                                     <th>رقم السجل المدني للأم</th>
                                     <td><?php echo $family_data['mother']->mother_national_num_fk; ?> </td>
@@ -158,15 +178,15 @@
                                         } ?></td>
                                     <th>صلة القرابة</th>
                                     <td><?php if (!empty($family_data['mother']->m_relationship_n)):
-                                            echo  $family_data['mother']->m_relationship_n;
+                                            echo $family_data['mother']->m_relationship_n;
                                         endif; ?></td>
                                 </tr>
                                 <tr>
                                     <th> الحالة الإجتماعية</th>
-                                    <td><?php echo $family_data['mother']->m_marital_status_id_fk; ?> </td>
+                                    <td><?php echo $family_data['mother']->m_marital_status_n; ?> </td>
                                     <th>الجنسية</th>
                                     <td><?php if (!empty($family_data['mother']->m_nationality_n)) {
-                                            echo  $family_data['mother']->m_nationality_n;
+                                            echo $family_data['mother']->m_nationality_n;
                                         } ?></td>
 
                                     <th> جنسيه اخري</th>
@@ -180,7 +200,7 @@
                                     <td><?php echo $family_data['mother']->m_living_place; ?> </td>
                                     <th>نوع الهوية</th>
                                     <td><?php if (!empty($family_data['mother']->m_national_type_n)) {
-                                            echo  $family_data['mother']->m_national_type_n;
+                                            echo $family_data['mother']->m_national_type_n;
                                         } ?></td>
                                 </tr>
 
@@ -195,7 +215,7 @@
                                             echo 'معاق';
                                         } else {
                                             if (!empty($family_data['mother']->m_health_status_id_fk)):
-                                                echo  $family_data['mother']->m_health_status_id_fk;
+                                                echo $family_data['mother']->m_health_status_id_fk;
                                             endif;
                                         } ?> </td>
                                     <th>
@@ -208,11 +228,11 @@
                                     <td><?php if ($family_data['mother']->m_health_status_id_fk === 'disease') {
 
                                             if (!empty($family_data['mother']->disease_n)):
-                                                echo  $family_data['mother']->disease_n;
+                                                echo $family_data['mother']->disease_n;
                                             endif;
                                         } elseif ($family_data['mother']->m_health_status_id_fk === 'disability') {
                                             if (!empty($family_data['mother']->disability_n)):
-                                                echo  $family_data['mother']->disability_n;
+                                                echo $family_data['mother']->disability_n;
                                             endif;
                                         } ?> </td>
 
@@ -223,12 +243,12 @@
                                     <th>جهة المتابعة المرض/الإعاقة</th>
                                     <td><?php
                                         if (!empty($family_data['mother']->dis_response_status_n)):
-                                            echo  $family_data['mother']->dis_response_status_n;
+                                            echo $family_data['mother']->dis_response_status_n;
                                         endif; ?> </td>
 
                                     <th>وضع الحالة المرض/الإعاقة</th>
                                     <td><?php if (!empty($family_data['mother']->dis_status_n)):
-                                            echo  $family_data['mother']->dis_status_n;
+                                            echo $family_data['mother']->dis_status_n;
                                         endif; ?> </td>
                                     <th>المهارة</th>
                                     <td><?php echo $family_data['mother']->m_skill_name; ?> </td>
@@ -238,17 +258,17 @@
                                     <td><?php
                                         $arr_work = array('', 'لا يعمل', 'يعمل');
                                         if (!empty($family_data['mother']->m_want_work)) {
-                                            echo  $family_data['mother']->m_want_work;
+                                            echo $family_data['mother']->m_want_work;
                                         } ?></td>
                                     <th> طبيعة الفرد</th>
                                     <td><?php if (!empty($family_data['mother']->person_type_n)) {
-                                            echo  $family_data['mother']->person_type_n;
+                                            echo $family_data['mother']->person_type_n;
                                         } ?></td>
 
                                     <th>المهنة</th>
                                     <td><?php
                                         if (!empty($family_data['mother']->m_job_n)) {
-                                            echo  $family_data['mother']->m_job_n;
+                                            echo $family_data['mother']->m_job_n;
                                         } ?>
                                     </td>
                                 </tr>
@@ -267,23 +287,23 @@
                                     <td><?php echo $family_data['mother']->m_education_status_id_fk; ?> </td>
                                     <th>ملتحقة بدار نسائية</th>
                                     <td><?php if (!empty($family_data['mother']->m_female_house_check)) {
-                                            echo  $family_data['mother']->m_female_house_check;
+                                            echo $family_data['mother']->m_female_house_check;
                                         } ?></td>
                                     <th>إسم الدار</th>
                                     <td><?php if (!empty($family_data['mother']->m_female_house_n)):
-                                            echo  $family_data['mother']->m_female_house_n;
+                                            echo $family_data['mother']->m_female_house_n;
                                         endif; ?> </td>
                                 </tr>
                                 <tr>
                                     <th>أداء فريضة الحج</th>
                                     <td><?php if (!empty($family_data['mother']->m_hijri)) {
-                                            echo  $family_data['mother']->m_hijri;
+                                            echo $family_data['mother']->m_hijri;
                                         } ?></td>
 
 
                                     <th>أداء فريضة العمرة</th>
                                     <td><?php if (!empty($family_data['mother']->m_ommra)) {
-                                            echo  $family_data['mother']->m_ommra;
+                                            echo $family_data['mother']->m_ommra;
                                         } ?></td>
                                     <th>رقم الجوال</th>
                                     <td><?php echo $family_data['mother']->m_mob; ?> </td>
@@ -299,25 +319,25 @@
                                     <th>القدرة علي العمل</th>
                                     <td><?php
                                         if (!empty($family_data['mother']->ability_work)) {
-                                            echo  $family_data['mother']->ability_work;
+                                            echo $family_data['mother']->ability_work;
                                         } ?> </td>
                                 </tr>
                                 <tr>
                                     <th>نوع العمل</th>
                                     <td><?php
                                         if (!empty($family_data['mother']->work_type_n)) {
-                                            echo  $family_data['mother']->work_type_n;
+                                            echo $family_data['mother']->work_type_n;
                                         } ?></td>
 
                                     <th>طبيعة الشخصية</th>
                                     <td><?php
                                         if (isset($family_data['mother']->personal_character_n)) {
-                                            echo  $family_data['mother']->personal_character_n;
+                                            echo $family_data['mother']->personal_character_n;
                                         } ?></td>
                                     <th>العلاقة بالأسرة</th>
                                     <td><?php
                                         if (isset($family_data['mother']->relation_with_family_n)) {
-                                            echo  $family_data['mother']->relation_with_family_n;
+                                            echo $family_data['mother']->relation_with_family_n;
                                         } ?> </td>
                                 </tr>
 
@@ -326,7 +346,7 @@
 
                                     <th> مكفول</th>
                                     <td><?php if (!empty($family_data['mother']->guaranteed_m)) {
-                                            echo  $family_data['mother']->guaranteed_m;
+                                            echo $family_data['mother']->guaranteed_m;
                                         } ?></td>
                                     <th>هاتف العمل</th>
                                     <td><?php if (!empty($family_data['mother']->m_place_mob)) {
@@ -336,24 +356,24 @@
 
                                     <th> طبيعة الفرد</th>
                                     <td><?php if (!empty($family_data['mother']->person_type_n)) {
-                                            echo  $family_data['mother']->person_type_n;
+                                            echo $family_data['mother']->person_type_n;
                                         } ?></td>
                                 </tr>
                                 <tr>
                                     <th>التصنيف</th>
                                     <td><?php if (!empty($family_data['mother']->categoriey_m)) {
-                                            echo  $family_data['mother']->categoriey_m;
+                                            echo $family_data['mother']->categoriey_m;
                                         } ?> </td>
 
 
                                     <th> حاله المستفيد</th>
                                     <td><?php if (!empty($family_data['mother']->halt_elmostafid_m_n)) {
-                                            echo  $family_data['mother']->halt_elmostafid_m_n;
+                                            echo $family_data['mother']->halt_elmostafid_m_n;
                                         } ?></td>
                                     <th>الجنس</th>
                                     <?php $gender_arr = array('', 'ذكر', 'أنثى'); ?>
                                     <td><?php if (!empty($family_data['mother']->m_gender)) {
-                                            echo  $family_data['mother']->m_gender;
+                                            echo $family_data['mother']->m_gender;
                                         } ?> </td>
                                 </tr>
 
@@ -387,60 +407,60 @@
 
         <!------------------ بيانات الوكيل ------------------------------------->
         <div class="tab-pane fade  " id="wakeel">
-            <div class="panel-body"><br>
+            <div>
 
                 <?php if ($family_data['wakel'] == '' && $family_data['wakel'] == null) {
                     ?>
                     <div class="col-lg-12 alert alert-danger">لا توجد بيانات للوكيل</div>
                 <?php } else { ?>
-                    <table class="table table-bordered table-devices" style="table-layout: fixed">
+                    <table class="table table-devices" style="table-layout: fixed">
                         <tbody>
                         <tr>
+                            <th colspan="6" style="text-align: center">بيانات الوكيل</th>
+                        </tr>
+                        <tr>
                             <th>رقم السجل المدني للاب</th>
-                            <td><?php if (!empty($father->f_national_id)) {
-                                    echo $father->f_national_id;
+                            <td><?php if (!empty($family_data['father']->f_national_id)) {
+                                    echo $family_data['father']->f_national_id;
                                 } ?></td>
                             <th>اسم الاب الرباعي</th>
-                            <td><?php if (!empty($father->full_name)) {
-                                    echo $father->full_name;
+                            <td><?php if (!empty($family_data['father']->full_name)) {
+                                    echo $family_data['father']->full_name;
                                 } ?></td>
                             <th>إسم الوكيل رباعي</th>
-                            <td><?php echo $w_name; ?></td>
+                            <td><?php echo $family_data['wakel']->w_name; ?></td>
                         </tr>
                         <tr>
                             <th>رقم الهوية</th>
-                            <td><?php echo $w_national_id; ?></td>
+                            <td><?php echo $family_data['wakel']->w_national_id; ?></td>
                             <th>نوع الهوية</th>
-                            <?php if (isset($national_id_array)) {
-                                echo for_each($national_id_array, $w_national_id_type);
-                            } else {
-                                echo '<td></td>';
-                            } ?>
+                            <td><?php echo $family_data['wakel']->w_national_type_n; ?></td>
+
                             <th>مصدر الهوية</th>
-                            <?php echo for_each($id_source, $w_card_source); ?>
+                            <td><?php echo $family_data['wakel']->w_card_source_n; ?></td>
                         </tr>
                         <tr>
                             <th> تاريخ الميلاد هجرى</th>
-                            <td><?php if (!empty($w_birth_date_hijri)) {
-                                    echo $w_birth_date_hijri;
+                            <td><?php if (!empty($family_data['wakel']->w_birth_date_hijri)) {
+                                    echo $family_data['wakel']->w_birth_date_hijri;
                                 } ?></td>
                             <th> تاريخ الميلاد</th>
-                            <td><?php if (!empty($w_birth_date)) {
-                                    echo $w_birth_date;
+                            <td><?php if (!empty($family_data['wakel']->w_birth_date)) {
+                                    echo $family_data['wakel']->w_birth_date;
                                 } ?></td>
                             <th> العمر</th>
                             <td>
                                 <?php
                                 if (!empty($current_year) && !empty($w_birth_date_hijri_year)) {
-                                    echo $current_year - $w_birth_date_hijri_year;
+                                    echo $current_year - $family_data['wakel']->w_birth_date_hijri_year;
                                 } ?>
                             </td>
                         </tr>
                         <tr>
                             <th>الصلة</th>
-                            <?php echo for_each($relationships, $relationship_id_fk); ?>
+                            <td><?php echo $family_data['wakel']->relationship_id_fk_n; ?></td>
                             <th>الحالة الإجتماعية</th>
-                            <?php echo for_each($marital_status_array, $w_marital_status_id_fk); ?>
+                            <td><?php echo $family_data['wakel']->w_marital_status_n; ?></td>
                             <th>رقم الجوال</th>
                             <td><?php if (!empty($w_mob)) {
                                     echo $w_mob;
@@ -448,45 +468,46 @@
                         </tr>
                         <tr>
                             <th>الحياة العملية</th>
-                            <?php $arr_job = array(1 => 'يعمل', 0 => 'لا يعمل'); ?>
-                            <?php echo for_for($arr_job, $w_want_work); ?>
+                            <td><?php echo $family_data['wakel']->w_want_work; ?></td>
+
                             <th>المهنة</th>
-                            <?php echo for_each($job_titles, $w_job_id_fk); ?>
+                            <td><?php echo $family_data['wakel']->w_job_n; ?></td>
                             <th>إسم جهة العمل</th>
-                            <td><?php if (!empty($employer)) {
-                                    echo $employer;
+                            <td><?php if (!empty($family_data['wakel']->employer)) {
+                                    echo $family_data['wakel']->employer;
                                 } ?></td>
                         </tr>
                         <tr>
                             <th>مكان العمل</th>
-                            <td><?php if (!empty($job_place)) {
-                                    echo $job_place;
+                            <td><?php if (!empty($family_data['wakel']->job_place)) {
+                                    echo $family_data['wakel']->job_place;
                                 } ?></td>
                             <th>هاتف العمل</th>
-                            <td><?php if (!empty($job_mob)) {
-                                    echo $job_mob;
+                            <td><?php if (!empty($family_data['wakel']->job_mob)) {
+                                    echo $family_data['wakel']->job_mob;
                                 } ?></td>
                             <th>الدخل الشهري</th>
-                            <td><?php if (!empty($salary)) {
-                                    echo $salary;
+                            <td><?php if (!empty($family_data['wakel']->salary)) {
+                                    echo $family_data['wakel']->salary;
                                 } ?></td>
                         </tr>
                         <tr>
                             <th>هل يعول</th>
-                            <?php $arr_guaranted = array(1 => 'نعم', 0 => 'لا'); ?>
-                            <?php echo for_for($arr_guaranted, $guaranted); ?>
+                            <td><?php echo $family_data['wakel']->guaranted; ?></td>
                             <th>عدد الأفراد</th>
-                            <td><?php if (!empty($persons_num)) {
-                                    echo $persons_num;
+                            <td><?php if (!empty($family_data['wakel']->persons_num)) {
+                                    echo $family_data['wakel']->persons_num;
                                 } ?></td>
                             <th>صورة الهوية</th>
-                            <td><?php if (!empty($w_national_img)) { ?>
-                                    <a href="<?php echo base_url() ?>uploads/images/<?php echo $w_national_img; ?>"
+                            <td><?php if (!empty($family_data['wakel']->w_national_img)) { ?>
+                                    <a href="<?php echo base_url() ?>uploads/images/<?php echo $family_data['wakel']->w_national_img; ?>"
                                        download> <i
                                                 class="fa fa-download"></i> </a>
-                                    <a href="#" data-toggle="modal" data-target="#myModal-view<?php echo $id; ?>"> <i
+                                    <a href="#" data-toggle="modal"
+                                       data-target="#myModal-view<?php echo $family_data['wakel']->id; ?>"> <i
                                                 class="fa fa-eye"></i> </a>
-                                    <div class="modal fade" id="myModal-view<?php echo $id; ?>" tabindex="-1"
+                                    <div class="modal fade" id="myModal-view<?php echo $family_data['wakel']->id; ?>"
+                                         tabindex="-1"
                                          role="dialog"
                                          aria-labelledby="myModalLabel">
                                         <div class="modal-dialog modal-lg" role="document">
@@ -498,7 +519,7 @@
                                                     <h4 class="modal-title" id="myModalLabel">صورة الهوية</h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <img src="<?php echo base_url() ?>uploads/images/<?php echo $w_national_img; ?>"
+                                                    <img src="<?php echo base_url() ?>uploads/images/<?php echo $family_data['wakel']->w_national_img; ?>"
                                                          width="100%">
                                                 </div>
                                                 <div class="modal-footer">
@@ -519,10 +540,13 @@
             </div>
         </div>
         <div class="tab-pane fade" id="sons">
-            <div class="panel-body"><br>
-                <?php if (isset($member_data) && $member_data != null) { ?>
-                    <table class="table table-bordered table-striped" style="width:100%;table-layout: fixed">
+            <div>
+                <?php if (isset($family_data['member']) && $family_data['member'] != null) { ?>
+                    <table class="table table-striped" style="width:100%;table-layout: fixed">
                         <thead>
+                        <tr>
+                            <th colspan="6" style="text-align: center">بيانات الافراد</th>
+                        </tr>
                         <tr class="greentd">
                             <th style="width: 25px;">م</th>
                             <th style="width: 17%;">الإسم</th>
@@ -540,7 +564,7 @@
                         <tbody>
                         <?php
                         $x = 2;
-                        foreach ($member_data as $row) { ?>
+                        foreach ($family_data['member'] as $row) { ?>
                             <tr>
                                 <td><?php echo $x; ?></td>
                                 <td><?php echo $row->member_full_name; ?></td>
@@ -592,8 +616,7 @@
                                         ?>
                                     </button>
                                 </td>
-                                <td style="background-color: <?= $row->color ?>"> <?php echo $row->halet_member_name; ?>
-                                </td>
+                                <td style="background-color: <?= $row->color ?>"> <?php echo $row->halet_member_name; ?></td>
                                 <td><?php
                                     if ($row->persons_process_reason == 0) {
                                         $persons_process_reason = 'غير محدد ';
@@ -614,10 +637,13 @@
             </div>
         </div>
         <div class="tab-pane fade" id="house">
-            <div class="panel-body">
+            <div>
                 <?php if ($family_data['houses'] != '' && $family_data['houses'] != null && !empty($family_data['houses'])) { ?>
-                    <table class="table table-bordered table-devices" style="table-layout: fixed">
+                    <table class="table table-devices" style="table-layout: fixed">
                         <tbody>
+                        <tr>
+                            <th colspan="6" style="text-align: center">بيانات السكن</th>
+                        </tr>
                         <tr>
                             <th>رقم حساب فاتورة الكهرباء</th>
                             <td><?php echo $family_data['houses']->h_electricity_account; ?></td>
@@ -626,17 +652,17 @@
                             <th>المنطقة</th>
                             <td>
                                 <?php if (!empty([$family_data['houses']->h_area_name])) {
-                                    echo  $family_data['houses']->h_area_name;
+                                    echo $family_data['houses']->h_area_name;
                                 } ?></td>
                         </tr>
                         <tr>
                             <th>المدينة</th>
                             <td><?php if (!empty([$family_data['houses']->h_city_name])) {
-                                    echo  $family_data['houses']->h_city_name;
+                                    echo $family_data['houses']->h_city_name;
                                 } ?></td>
                             <th>الحى</th>
                             <td><?php if (!empty([$family_data['houses']->h_village_name])) {
-                                    echo  $family_data['houses']->h_village_name;
+                                    echo $family_data['houses']->h_village_name;
                                 } ?></td>
                             <!-- <td><?php echo $family_data['houses']->hai_name; ?></td> -->
                             <th>الشارع</th>
@@ -653,31 +679,31 @@
                         <tr>
                             <th>نوع السكن</th>
                             <td><?php if (!empty([$family_data['houses']->h_house_type_tilte])) {
-                                    echo  $family_data['houses']->h_house_type_tilte;
+                                    echo $family_data['houses']->h_house_type_tilte;
                                 } ?></td>
                             <th>لون المنزل</th>
                             <td><?php echo $family_data['houses']->h_house_color; ?></td>
                             <th>اتجاه المنزل</th>
-                            <td><?php if (!empty([$family_data['houses']->h_house_direction])) {
-                                    echo  $family_data['houses']->h_house_direction;
+                            <td><?php if (!empty([$family_data['houses']->h_house_direction_tilte])) {
+                                    echo $family_data['houses']->h_house_direction_tilte;
                                 } ?></td>
                         </tr>
                         <tr>
                             <th>الحالة</th>
                             <td><?php if (!empty([$family_data['houses']->h_house_status_tilte])) {
-                                    echo  $family_data['houses']->h_house_status_tilte;
+                                    echo $family_data['houses']->h_house_status_tilte;
                                 } ?></td>
                             <th>عدد الغرف</th>
                             <td><?php echo $family_data['houses']->h_rooms_account; ?></td>
                             <th>مقترض من البنك العقارى</th>
-                            <td><?php echo  $family_data['houses']->h_borrow_from_bank; ?></td>
+                            <td><?php echo $family_data['houses']->h_borrow_from_bank; ?></td>
                         </tr>
                         <tr>
                             <th>القيمة</th>
                             <td><?php echo $family_data['houses']->h_borrow_remain; ?></td>
                             <th>ملكية السكن</th>
                             <td><?php if (!empty([$family_data['houses']->h_house_owner_tilte])) {
-                                    echo  $family_data['houses']->h_house_owner_tilte;
+                                    echo $family_data['houses']->h_house_owner_tilte;
                                 } ?></td>
                             <th>مقدار الإيجار السنوى</th>
                             <td><?php echo $family_data['houses']->h_rent_amount; ?></td>
@@ -688,7 +714,7 @@
                             <th>مساحة البناء</th>
                             <td><?php echo $family_data['houses']->h_house_size; ?></td>
                             <th>قرض ترميم من بنك التسليف</th>
-                            <td><?php echo  $family_data['houses']->h_loan_restoration; ?></td>
+                            <td><?php echo $family_data['houses']->h_loan_restoration; ?></td>
                         </tr>
                         <tr>
                             <th>القيمة المتبقية</th>
@@ -718,10 +744,13 @@
             </div>
         </div>
         <div class="tab-pane fade" id="devices">
-            <div class="panel-body"><br>
-                <?php if (isset($devices) && $devices != null): ?>
-                    <table class="table table-bordered table-striped" id="tab_logic" style="table-layout: fixed">
+            <div>
+                <?php if (isset($family_data['devices']) && $family_data['devices'] != null): ?>
+                    <table class="table table-striped" id="tab_logic" style="table-layout: fixed">
                         <thead>
+                        <tr>
+                            <th colspan="6" style="text-align: center">بيانات محتويات السكن</th>
+                        </tr>
                         <tr class="greentd">
                             <th>م</th>
                             <th style="text-align: center">النوع</th>
@@ -735,14 +764,14 @@
                         <?php
                         $house_device_status = array('إختر', 'جيد', 'متوسط', 'غير جيد', 'يحتاج');
                         $a = 1;
-                        foreach ($devices as $row): ?>
+                        foreach ($family_data['devices'] as $row): ?>
                             <tr>
                                 <td><?php echo $a; ?></td>
                                 <!-- <td><?php echo $row->title_setting; ?> </td>-->
                                 <td><?php echo $row->main_name; ?> </td>
                                 <td><?php echo $row->name; ?> </td>
                                 <td><?php echo $row->d_count ?></td>
-                                <td><?php echo $house_device_status[$row->d_house_device_status_id_fk] ?></td>
+                                <td><?php echo $row->d_house_device_status_name ?></td>
                                 <td><?php echo $row->d_note ?></td>
                             </tr>
                             <?php $a++; endforeach ?>
@@ -754,10 +783,13 @@
             </div>
         </div>
         <div class="tab-pane fade" id="home_needs">
-            <div class="panel-body"><br>
-                <?php if (isset($home_needs) && $home_needs != null): ?>
-                    <table class="table table-bordered table-striped" id="tab_logic">
+            <div>
+                <?php if (isset($family_data['home_needs']) && $family_data['home_needs'] != null): ?>
+                    <table class="table table-striped" id="tab_logic">
                         <thead>
+                        <tr>
+                            <th colspan="5" style="text-align: center">بيانات احتياجات الاسرة</th>
+                        </tr>
                         <tr class="greentd">
                             <th>م</th>
                             <th style="text-align: center">النوع</th>
@@ -769,7 +801,7 @@
                         <tbody>
                         <?php
                         $a = 1;
-                        foreach ($home_needs as $row): ?>
+                        foreach ($family_data['home_needs'] as $row): ?>
                             <tr>
                                 <td><?php echo $a; ?></td>
                                 <td><?php echo $row->main_name; ?> </td>
@@ -786,11 +818,14 @@
             </div>
         </div>
         <div class="tab-pane fade" id="attach_files">
-            <div class="panel-body"><br>
+            <div>
                 <?php if ($family_data['family_attach_files'] != '' && isset($family_data['family_attach_files'])) { ?>
                     <div class="col-xs-12 no-padding">
-                        <table class="table table-bordered table-devices table-striped" style="table-layout: fixed">
+                        <table class="table table-devices table-striped" style="table-layout: fixed">
                             <thead>
+                            <tr>
+                                <th colspan="4" style="text-align: center">بيانات الوثائق</th>
+                            </tr>
                             <tr class="greentd">
                                 <th style="width: 70px;">م</th>
                                 <th>إسم المستند</th>
@@ -799,22 +834,80 @@
                             </tr>
                             </thead>
                             <?php
-                            if (isset($files) && !empty($files)) {
+                            if (isset($family_data['family_attach_files']) && !empty($family_data['family_attach_files'])) {
                                 $x = 1;
-                                foreach ($files as $row) {
+
+                                $image_type = array('gif', 'Gif', 'ico', 'ICO', 'jpg', 'JPG', 'jpeg', 'JPEG', 'BNG', 'png', 'PNG', 'bmp', 'BMP');
+                                $files_type = array('pdf', 'PDF', 'xls', 'xlsx', ',doc', 'docx', 'txt');
+
+                                foreach ($family_data['family_attach_files'] as $row) {
+                                    $filename = $row->file_attach_name;
+                                    $ext = pathinfo($filename, PATHINFO_EXTENSION); ?>
                                     ?>
                                     <tr>
                                         <td> <?php echo $x; ?> </td>
-                                        <td><?php echo $row->title_setting; ?> </td>
+                                        <td><?php echo $row->morfaq_name; ?> </td>
                                         <td>
-                                            <?php if ($row->file != 0) {
+                                            <?php if (!empty($row->file_attach_name)) {
                                                 echo "<label class='label label-success'>تم الرفع </label>";
                                             } else {
                                                 echo " <label class='label label-danger'>لم يتم الرفع </label>";
                                             }
                                             ?>
                                         </td>
-                                        <td></td>
+                                        <td>
+                                            <a href="<?php echo base_url() . 'family_controllers/Family/downloads_new/' . $row->file_attach_name ?>"
+                                               download>
+                                                <i class="fa fa-download" title="تحميل"></i> </a>
+                                            <?php
+                                            if (in_array($ext, $image_type)) { ?>
+                                                <a data-toggle="modal" data-target="#myModal-view-<?= $row->id ?>">
+                                                    <i class="fa fa-eye" title=" قراءة"></i> </a>
+                                            <?php } elseif (in_array($ext, $files_type)) { ?>
+                                                <a href="<?php echo base_url() . 'family_controllers/Family/read_attached_file/' . $row->file_attach_name ?>"
+                                                   target="_blank">
+                                                    <i class="fa fa-eye" title=" قراءة"></i> </a>
+                                            <?php } ?></td>
+                                    </tr>
+                                    <?php
+                                    $x++;
+                                }
+                            } ?>
+                            <?php
+                            if (isset($family_data['family_attach_files_other']) && !empty($family_data['family_attach_files_other'])) {
+                                $x = 1;
+
+                                $image_type = array('gif', 'Gif', 'ico', 'ICO', 'jpg', 'JPG', 'jpeg', 'JPEG', 'BNG', 'png', 'PNG', 'bmp', 'BMP');
+                                $files_type = array('pdf', 'PDF', 'xls', 'xlsx', ',doc', 'docx', 'txt');
+
+                                foreach ($family_data['family_attach_files_other'] as $row) {
+                                    $filename = $row->file_attach_name;
+                                    $ext = pathinfo($filename, PATHINFO_EXTENSION); ?>
+                                    ?>
+                                    <tr>
+                                        <td> <?php echo $x; ?> </td>
+                                        <td><?php echo $row->file_attach_id_fk; ?> </td>
+                                        <td>
+                                            <?php if (!empty($row->file_attach_name)) {
+                                                echo "<label class='label label-success'>تم الرفع </label>";
+                                            } else {
+                                                echo " <label class='label label-danger'>لم يتم الرفع </label>";
+                                            }
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <a href="<?php echo base_url() . 'family_controllers/Family/downloads_new/' . $row->file_attach_name ?>"
+                                               download>
+                                                <i class="fa fa-download" title="تحميل"></i> </a>
+                                            <?php
+                                            if (in_array($ext, $image_type)) { ?>
+                                                <a data-toggle="modal" data-target="#myModal-view-<?= $row->id ?>">
+                                                    <i class="fa fa-eye" title=" قراءة"></i> </a>
+                                            <?php } elseif (in_array($ext, $files_type)) { ?>
+                                                <a href="<?php echo base_url() . 'family_controllers/Family/read_attached_file/' . $row->file_attach_name ?>"
+                                                   target="_blank">
+                                                    <i class="fa fa-eye" title=" قراءة"></i> </a>
+                                            <?php } ?></td>
                                     </tr>
                                     <?php
                                     $x++;
@@ -831,11 +924,11 @@
         </div>
         <!------------- بيانات ماليه -------------->
         <div class="tab-pane fade" id="money">
-            <div class="panel-body">
+            <div>
                 <div class="col-xs-12 no-padding">
-                    <?php if (!empty($income_sources)) { ?>
+                    <?php if (!empty($family_data['income_sources'])) { ?>
                         <div class="col-sm-6 col-xs-12">
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-striped">
                                 <thead>
                                 <tr>
                                     <td colspan="4" class="title-top">مصادر الدخل</td>
@@ -852,26 +945,26 @@
                                 $affect_arr = array('لا تؤثر', 'تؤثر');
                                 $d = 1;
                                 $total = 0;
-                                for ($a = 0; $a < sizeof($income_sources); $a++) {
+                                for ($a = 0; $a < sizeof($family_data['income_sources']); $a++) {
                                     ?>
                                     <tr>
                                         <td><?php echo $d; ?></td>
-                                        <td><?php echo $income_sources[$a]->title_setting ?></td>
+                                        <td><?php echo $family_data['income_sources'][$a]->title_setting ?></td>
                                         <td><?php
-                                            if (isset($family_data['family_income_duties'][$income_sources[$a]->id_setting])) {
-                                                echo $family_data['family_income_duties'][$income_sources[$a]->id_setting]->value;
+                                            if (isset($family_data['family_income_duties'][$family_data['income_sources'][$a]->id_setting])) {
+                                                echo $family_data['family_income_duties'][$family_data['income_sources'][$a]->id_setting]->value;
                                             } else {
                                                 echo 0;
                                             }
                                             ?></td>
-                                        <td><?php if (isset($family_data['family_income_duties'][$income_sources[$a]->id_setting])) {
-                                                echo $affect_arr[$family_data['family_income_duties'][$income_sources[$a]->id_setting]->affect];
+                                        <td><?php if (isset($family_data['family_income_duties'][$family_data['income_sources'][$a]->id_setting])) {
+                                                echo $affect_arr[$family_data['family_income_duties'][$family_data['income_sources'][$a]->id_setting]->affect];
                                             } else {
                                                 echo "لا تؤثر";
                                             } ?></td>
                                     </tr>
                                     <?php $d++;
-                                    $total += (isset($family_data['family_income_duties'][$income_sources[$a]->id_setting])) ? $family_data['family_income_duties'][$income_sources[$a]->id_setting]->value : 0;
+                                    $total += (isset($family_data['family_income_duties'][$family_data['income_sources'][$a]->id_setting])) ? $family_data['family_income_duties'][$family_data['income_sources'][$a]->id_setting]->value : 0;
                                 } ?>
                                 <tr>
                                     <td width="40%" colspan="2"><label class="label "
@@ -885,9 +978,9 @@
                             </table>
                         </div>
                     <?php } ?>
-                    <?php if (!empty($monthly_duties)) { ?>
+                    <?php if (!empty($family_data['monthly_duties'])) { ?>
                         <div class="col-sm-6 col-xs-12">
-                            <table class="table table-bordered  table-striped">
+                            <table class="table  table-striped">
                                 <thead>
                                 <tr>
                                     <td colspan="4" class="title-top">الالتزامات الشهرية</td>
@@ -904,26 +997,26 @@
                                 $affect_arr = array('لا تؤثر', 'تؤثر');
                                 $d = 1;
                                 $total1 = 0;
-                                for ($a = 0; $a < sizeof($monthly_duties); $a++) {
+                                for ($a = 0; $a < sizeof($family_data['monthly_duties']); $a++) {
                                     ?>
                                     <tr>
                                         <td><?php echo $d; ?></td>
-                                        <td><?php echo $monthly_duties[$a]->title_setting ?></td>
+                                        <td><?php echo $family_data['monthly_duties'][$a]->title_setting ?></td>
                                         <td><?php
-                                            if (isset($family_data['family_income_duties'][$monthly_duties[$a]->id_setting])) {
-                                                echo $family_data['family_income_duties'][$monthly_duties[$a]->id_setting]->value;
+                                            if (isset($family_data['family_income_duties'][$family_data['monthly_duties'][$a]->id_setting])) {
+                                                echo $family_data['family_income_duties'][$family_data['monthly_duties'][$a]->id_setting]->value;
                                             } else {
                                                 echo "0";
                                             }
                                             ?></td>
-                                        <td><?php if (isset($family_data['family_income_duties'][$monthly_duties[$a]->id_setting])) {
-                                                echo $affect_arr[$family_data['family_income_duties'][$monthly_duties[$a]->id_setting]->affect];
+                                        <td><?php if (isset($family_data['family_income_duties'][$family_data['monthly_duties'][$a]->id_setting])) {
+                                                echo $affect_arr[$family_data['family_income_duties'][$family_data['monthly_duties'][$a]->id_setting]->affect];
                                             } else {
                                                 echo "لا تؤثر";
                                             } ?></td>
                                     </tr>
                                     <?php $d++;
-                                    $total1 += (isset($family_data['family_income_duties'][$monthly_duties[$a]->id_setting])) ? $family_data['family_income_duties'][$monthly_duties[$a]->id_setting]->value : 0;
+                                    $total1 += (isset($family_data['family_income_duties'][$family_data['monthly_duties'][$a]->id_setting])) ? $family_data['family_income_duties'][$family_data['monthly_duties'][$a]->id_setting]->value : 0;
                                 } ?>
                                 <tr>
                                     <td width="40%" colspan="2"><label class="label "
@@ -944,13 +1037,13 @@
                         print_r($main_family_data);
                         */
                         $one_have = 0;
-                        $total_mostafdens = $main_family_data[0]->all_mostafed_mother + $main_family_data[0]->all_mostafed_member;
+                        $total_mostafdens = $family_data['basic']->all_mostafed_mother + $family_data['basic']->all_mostafed_member;
                         if ($total_mostafdens == 0) {
                             $total_mostafden = 1;
                         } elseif ($total_mostafdens > 0) {
                             $total_mostafden = $total_mostafdens;
                         }
-                        $one_have = (($family_new_cat[0]->all_mother_income - $family_new_cat[0]->all_mother_masrof) / ($total_mostafden));
+                        $one_have = (($family_data['basic']->all_mother_income - $family_data['basic']->all_mother_masrof) / ($total_mostafden));
                         ?>
                         <div class="text-center">
                             <table class="table table-bordereds  " style="width: 50%; margin: auto;">
@@ -972,18 +1065,7 @@
                                     <td class="specific_style_2"
                                         style="    width: 280px;font-size: 22px !important;border-bottom-left-radius: 50px;background-color: #fcb632;border: 1px solid #fff;"
                                         id="f2a">
-                                        <?php if (isset($all_cat) && !empty($all_cat) && $all_cat != null) {
-                                            foreach ($all_cat as $z) {
-                                                $selected = '';
-                                                $disabled = 'disabled';
-                                                if (isset($all_cat)) {
-                                                    if ($z->id == $family_new_cat[0]->category->id) {
-                                                        echo $z->title;
-                                                    }
-                                                } ?>
-                                            <?php }
-                                        }
-                                        ?>
+                                        <?php echo $family_data['basic']->category->title; ?>
                                     </td>
                                 </tr>
                             </table>
@@ -999,81 +1081,62 @@
         <!---------------- نهاية البيانات المالية ---------->
         <!-------------------- راي الباحث ----------------------------------->
         <div class="tab-pane fade" id="research">
-            <div class="panel-body">
-                <br>
+            <div>
+
 
                 <div class="personality">
                     <div class="col-xs-12 no-padding">
-                        <?php /*
-                        <table class="table table-bordered table-devices" style="table-layout: fixed">
-                            <tbody>
-                            <tr>
-                                <th>إسم الام</th>
-                                <td><?php echo $mother_data['full_name']; ?></td>
-                                <th>رقم السجل المدنى</th>
-                                <td><?php echo $mother_national_num; ?></td>
-                            </tr>
-                            <tr>
-                                <th>هل الام متواجدة</th>
-                                <td> <?=$result_opinion['is_mother_present']?></td>
+                        <?php if ((isset($family_data['researcher_opinion'])) && !empty($family_data['researcher_opinion'])) { ?>
+                            <table class="table table-devices" style="table-layout: fixed">
+                                <tbody>
+                                <tr>
+                                    <th>إسم الام</th>
+                                    <td><?php echo $family_data['mother']->full_name; ?></td>
+                                    <th>رقم السجل المدنى</th>
+                                    <td><?php echo $family_data['mother']->mother_national_num_fk; ?></td>
+                                </tr>
+                                <tr>
+                                    <th>هل الام متواجدة</th>
+                                    <td> <?= $family_data['researcher_opinion']->present ?></td>
 
-                                <th>إنطباع الام عن الزيارة</th>
-                                <?php if (isset($result_opinion)) {
-                                    echo for_each($arr_op, $result_opinion['mother_impression_visit']);
-                                } else {
-                                    echo '<td></td>';
-                                } ?>
-                            </tr>
-                            <tr>
-                                <th> الاهتمام بنظافة المنزل</th>
-                                <?php if (isset($result_opinion)) {
-                                    echo for_for(, $result_opinion['home_cleaning']);
-                                } else {
-                                    echo '<td></td>';
-                                } ?>
-                                <th>الاهتمام بنظافة الابناء</th>
-                                <?php if (isset($result_opinion)) {
-                                    echo for_for(, $result_opinion['child_cleanliness']);
-                                } else {
-                                    echo '<td></td>';
-                                } ?>
-                            </tr>
-                            <tr>
-                                <th> فئة الاسرة</th>
-                                <?php for_each_cat($all_cat, $family_new_cat[0]->category->id); ?>
-                                <?php if (isset($all_cat) && !empty($all_cat) && $all_cat != null) {
-                                    $xx = 0;
-                                    foreach ($all_cat as $z) {
-                                        if ($z->id == $family_new_cat[0]->category->id) { ?>
-                                            <td><?php echo $z->title; ?></td>
-                                        <?php }
-                                        $xx++;
-                                    }
-                                } ?>
-                                <?php
-                                //   $one_have = 0;
-                                //    $one_have = (($family_new_cat[0]->all_mother_income - $family_new_cat[0]->all_mother_masrof) / ($family_new_cat[0]->member_num + 1));
-                                ?>
-                                <th>نصيب الفرد</th>
-                                <td><?php echo round($one_have); ?></td>
-                            </tr>
-                            <tr>
-                                <th rowspan="2"> مرئيات الباحث</th>
-                                <td rowspan="2">
-                                    <?php if (isset($result_opinion['videos_researcher']) && $result_opinion['videos_researcher'] != null) {
-                                        echo $result_opinion['videos_researcher'];
-                                    } ?>
-                                </td>
-                                <th rowspan="2">مرئيات رئيس قسم شؤون الاسر</th>
-                                <td rowspan="2">
-                                    <?php if (isset($result_opinion['video_family_leader']) && $result_opinion['video_family_leader'] != null) {
-                                        echo $result_opinion['video_family_leader'];
-                                    } ?>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
- <?php  */ ?>
+                                    <th>إنطباع الام عن الزيارة</th>
+                                    <td> <?= $family_data['researcher_opinion']->impression ?></td>
+
+                                </tr>
+                                <tr>
+                                    <th> الاهتمام بنظافة المنزل</th>
+                                    <td> <?= $family_data['researcher_opinion']->home_cleaning ?></td>
+
+                                    <th>الاهتمام بنظافة الابناء</th>
+                                    <td> <?= $family_data['researcher_opinion']->child_cleanliness ?></td>
+
+                                </tr>
+                                <tr>
+                                    <th> فئة الاسرة</th>
+                                    <td> <?= $family_data['basic']->category->title ?></td>
+
+                                    <th>نصيب الفرد</th>
+                                    <td><?php echo round($one_have); ?></td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2"> مرئيات الباحث</th>
+                                    <td rowspan="2">
+                                        <?php if (isset($family_data['researcher_opinion']->videos_researcher) && $family_data['researcher_opinion']->videos_researcher != null) {
+                                            echo $family_data['researcher_opinion']->videos_researcher;
+                                        } ?>
+                                    </td>
+                                    <th rowspan="2">مرئيات رئيس قسم شؤون الاسر</th>
+                                    <td rowspan="2">
+                                        <?php if (isset($family_data['researcher_opinion']->video_family_leader) && $family_data['researcher_opinion']->video_family_leader != null) {
+                                            echo $family_data['researcher_opinion']->video_family_leader;
+                                        } ?>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        <?php } else { ?>
+                            <div class="col-lg-12 alert alert-danger">لا توجد بيانات .......</div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -1081,10 +1144,13 @@
         <!-------------------- 774 ----------------------------------->
         <!-------------------- بيانات الحساب البنكي ----------------------------------->
         <div class="tab-pane fade" id="bank_account">
-            <div class="panel-body"><br>
-                <?php if (isset($responsible_account) && $responsible_account != null) { ?>
-                    <table class=" display table table-bordered   responsive nowrap" cellspacing="0" width="100%">
+            <div>
+                <?php if (isset($family_data['responsible_account']) && $family_data['responsible_account'] != null) { ?>
+                    <table class=" display table   responsive nowrap" cellspacing="0" width="100%">
                         <header>
+                            <tr>
+                                <th colspan="9" style="text-align: center">بيانات الحساب البنكي</th>
+                            </tr>
                             <tr class="visible-md visible-lg">
                                 <th>م</th>
                                 <th>اسم المسئول الحساب البنكي</th>
@@ -1100,7 +1166,7 @@
                         <tbody>
                         <?php
                         $x = 1;
-                        foreach ($responsible_account as $row) { ?>
+                        foreach ($family_data['responsible_account'] as $row) { ?>
                             <td><?php echo $x; ?></td>
                             <td><?php echo $row->person; ?></td>
                             <td><?php echo $row->person_national_card; ?></td>
@@ -1149,7 +1215,7 @@
                         </tbody>
                     </table>
                 <?php } else { ?>
-                    <div class="col-lg-12 alert alert-danger"> لا يوجد أبناء للأسرة</div>
+                    <div class="col-lg-12 alert alert-danger"> لا يوجد بيانات الحساب البنكي</div>
                 <?php } ?>
             </div>
         </div>

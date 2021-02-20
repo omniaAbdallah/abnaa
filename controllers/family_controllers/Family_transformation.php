@@ -26,8 +26,13 @@ class Family_transformation extends CI_Controller
     function GetTransferPage()
     {
         $mother_national_num = $this->input->post('value');
-        $data['departs'] = $this->Family_transformation_m->get_all_egraat(array(801, 802, 803, 804));
-        $data['mowazf'] = $this->Family_transformation_m->get_all_emps_egraat(array(801, 802, 803, 804));
+        if ($this->input->post('id')) {
+            $data['departs'] = $this->Family_transformation_m->get_all_egraat(array(802));
+            $data['mowazf'] = $this->Family_transformation_m->get_all_emps_egraat(array(802));
+        } else {
+            $data['departs'] = $this->Family_transformation_m->get_all_egraat(array(801, 802, 803, 804));
+            $data['mowazf'] = $this->Family_transformation_m->get_all_emps_egraat(array(801, 802, 803, 804));
+        }
         $data['folder_path'] = 'uploads/family_attached/osr_talbat_files';
         $data['main_data'] = $this->Family_transformation_m->basic_data($mother_national_num);
         $data["select_process_procedures"] = $this->Family_transformation_m->select_process_procedures();
@@ -45,13 +50,21 @@ class Family_transformation extends CI_Controller
         echo json_encode($data);
     }
 
-    public function TransformationOfRegesterNew($process, $file_id)
+    public function TransformationOfRegesterNew($file_id)
     {
+        $process = $this->input->post('process');
         //-------------------- tranfor
         $this->Family_transformation_m->insert_tran_family($process, $file_id);
         //-------------------- operation
         $this->Family_transformation_m->insert_operation($process, $file_id);
         $this->Family_transformation_m->update_file_state($file_id, $process);
+
+        if ($process == 3) {
+            add_history(503, $file_id);
+        } elseif ($process == 7) {
+            add_history(507, $file_id);
+
+        }
     }
 
 

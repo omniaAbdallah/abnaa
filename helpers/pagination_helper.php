@@ -570,7 +570,7 @@ function send_email_gmail($send_from_email, $send_from_name = '', $send_to, $sub
     $CI->email->subject($sub);
     $CI->email->message($message);
 
-  //    $CI->email->attach($img_path);
+    //    $CI->email->attach($img_path);
 
     if ($CI->email->send()) {
         return true;
@@ -578,4 +578,61 @@ function send_email_gmail($send_from_email, $send_from_name = '', $send_to, $sub
         return false;
     }
 }
+
+
+//add_history
+function add_history($action_code, $mother_id)
+{
+    $CI =& get_instance();
+
+    $action_name = $CI->db->where('code', $action_code)->get('osr_action_process')->row()->process_name;
+    $data['action_code'] = $action_code;
+    $data['action_name'] = $action_name;
+    $data['mother_national_num'] = $mother_id;
+
+    // if (key_exists($action, $actions)) {
+    //     $data['action_n'] = $actions[$action];
+    // }
+    $data['date_action'] = date('Y-m-d');
+    $data['time_action'] = date('h:i a');
+    $data['publisher'] = $_SESSION["user_id"];
+    $data['publisher_name'] = getUserName($_SESSION['user_id']);
+    $CI->db->insert('osr_all_history', $data);
+}
+
+function getUserName($user_id)
+{
+    $CI =& get_instance();
+
+    $sql = $CI->db->where("user_id", $user_id)->get('users');
+    if ($sql->num_rows() > 0) {
+        $data = $sql->row();
+        if ($data->role_id_fk == 1 or $data->role_id_fk == 5) {
+            return $data->user_username;
+        } elseif ($data->role_id_fk == 2) {
+            $id = $data->user_name;
+            $table = 'magls_members_table';
+            $field = 'member_name';
+        } elseif ($data->role_id_fk == 3) {
+            $id = $data->emp_code;
+            $table = 'employees';
+            $field = 'employee';
+        } elseif ($data->role_id_fk == 4) {
+            $id = $data->user_name;
+            $table = 'general_assembley_members';
+            $field = 'name';
+        }
+        return $CI->getUserNameByRoll($id, $table, $field);
+    }
+    return false;
+}
+
+function getUserNameByRoll($id, $table, $field)
+{
+    $CI =& get_instance();
+
+    return $CI->db->where('id', $id)->get($table)->row_array()[$field];
+}
+
+
 ?>
