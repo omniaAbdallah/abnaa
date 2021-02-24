@@ -2,5 +2,8 @@
 /logs
 /cache
 /.idea
+/models__1
+/controllers__1
+/views/admin__1
 index.html
 .htaccess
