@@ -71,10 +71,20 @@ td .fa-print{
 
 <?php //if( $value->suspend != 4 ){
     ?>
+    
+    <?php  if($value->level == 6 and $value->suspend == 4 ){
+          $egraa_label = 'تفاصيل';
+        ?>
+  
+    <?php }else{
+         $egraa_label = 'الإجراء';
+    }?>
+    
+    
    <a target="_blank" href="#" 
        data-toggle="modal" data-target="#transferModal"   data-backdrop="static" data-keyboard="false"
 onclick="GetTransferPage(<?php echo$value->id;?>, <?=$value->level?>)"
-   class="btn btn-success"><i class="fa fa-list"></i>الإجراء </a>
+   class="btn btn-success"><i class="fa fa-list"></i> <?=$egraa_label?> </a>
 
 <?php 
 //} 
@@ -108,6 +118,23 @@ onclick="GetTransferPage(<?php echo$value->id;?>, <?=$value->level?>)"
   
         <?php } ?>
              
+
+  <?php
+ // echo $value->suspend;
+  if($value->level == 6 and $value->suspend == 4 and $value->qed_num ==null ){ 
+  // echo 'asdasdasd';
+   ?> 
+     <a class="btn btn-warning btn-sm"  title=" تنفيذ الصرف"
+           href="<?= base_url() . 'finance_accounting/box/ezn_sarf/Ezn_sarf/make_sand_sarf/' . $value->id ?>"
+           title=""><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+ </a>
+   
+   
+   <?php }elseif($value->level == 6 and $value->suspend == 4 and $value->qed_num !=null ){  ?>
+       <span style="    height: 31px;
+    border-radius: unset;" title="تم التنفيذ برقم قيد <?=$value->qed_num?> وسند صرف رقم <?=$value->rqm_sanad?>" class="label label-success"><i class="fa fa-check-circle" aria-hidden="true"></i>
+</span>
+<?php } ?>
 
       </div>
                     

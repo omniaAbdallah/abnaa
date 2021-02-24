@@ -67,7 +67,7 @@ public function Employee_date_new(){
    $this->db->join('hr_egraat_setting', 'hr_egraat_setting.code = employees.mosma_wazefy_code',"left");
       $this->db->where('employee_type',1);
       $this->db->where('show_in_mosayer','yes');
-        
+     //   $this->db->where('emp_code',10021); 
      //    $this->db->where('employees.id','5');
       // $this->db->order_by("employees.cat_mosayer_id_fk", "ASC");
        $this->db->order_by("employees.mosma_wazefy_tarteb", "ASC");
@@ -134,6 +134,11 @@ $data[$i]->badal_entdab = $this->get_current_entdab($row->emp_code,date('m'),dat
         $this->db->where("hr_entdab.emp_code",$emp_code);
         $this->db->where("hr_entdab.for_month",$current_month);
          $this->db->where("hr_entdab.for_year",$current_year);
+         
+       $this->db->where("hr_entdab.tanfez_hr",'yes');  
+       $this->db->where("hr_entdab.tanfez_mosayer",'no');    
+         
+         
        $this->db->where("hr_entdab.suspend",4);
 
         
@@ -1422,6 +1427,9 @@ function get_mosayer_month(){
        $this->db->update('hr_mosayer_details',$data);
     
     
+     $data_mosyer['halet_sarf']="yes";
+     $this->db->where('mosayer_rkm',$mosayer_rkm_fk);
+     $this->db->update('hr_mosayer',$data_mosyer);
     
     }
     

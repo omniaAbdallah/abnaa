@@ -1,4 +1,7 @@
 <?php
+/*
+print_r($one_data);*/
+
 if (isset($one_data) && !empty($one_data)) {
     $x = 1;
     $image = array('gif', 'Gif', 'ico', 'ICO', 'jpg', 'JPG', 'jpeg', 'JPEG', 'BNG', 'png', 'PNG', 'bmp', 'BMP');

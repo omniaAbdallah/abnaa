@@ -619,8 +619,8 @@ tfoot.report-footer {
                        	<div class="col-xs-12">
                            
        <?php 
-      
-       if($method_type == 1){ 
+    
+     //  if($method_type == 1){ 
        ?>                    
     <table class="table table-bordered">
         <thead>
@@ -653,7 +653,7 @@ tfoot.report-footer {
             </tbody>
     </table>
      <?php 
-     }
+  //   }
       ?>                      
                            
                           </div> 

@@ -257,7 +257,7 @@ if (isset($result) && $result != null) {
              </i>
        إجراءات</a>
 
-
+<!--
     <a target="_blank"
      class="btn btn-sm btn-primary"
        href="<?php echo base_url(); ?>family_controllers/Family/SocialResearcher/<?php echo $record->mother_national_num; ?>/1">
@@ -272,7 +272,7 @@ if (isset($result) && $result != null) {
        <i class="hvr-buzz-out fa fa-list" aria-hidden="true">
              </i>
        توصيات
-        مدير الإدارة </a>
+        مدير الإدارة </a>-->
 </td>
                                 <!--
     <td style="color: black;"><?php echo $record->process_title; ?></td>

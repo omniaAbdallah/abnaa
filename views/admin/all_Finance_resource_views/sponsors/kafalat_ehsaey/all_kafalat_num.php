@@ -271,7 +271,11 @@ if(isset($result)&&!empty($result))
                     <td class="text-center">
                         <a onclick="LoadTable('aytam')" data-toggle="modal" data-target="#detailsModal"><?php echo $all_aytam['num'];?></a></td>
                     <td class="text-center">
-                        <a onclick="LoadSubTable('aytam','guaranteed')" data-toggle="modal" data-target="#detailsModal2"><?php echo $all_aytam_shamla['num'] + $all_aytam_nos['num'];?></a></td>
+                        <a onclick="LoadSubTable('aytam','guaranteed')" data-toggle="modal" data-target="#detailsModal2">
+                        <?php echo $all_aytam_shamla['num'] + $all_aytam_nos['num'];?>,
+                        <?php echo $all_aytam_shamla['num'] ?> - <?php echo $all_aytam_nos['num'] ?>
+                        
+                        </a></td>
                     <td class="text-center">
                         <a onclick="LoadSubTable('aytam','not_guaranteed')" data-toggle="modal" data-target="#detailsModal2">
                             <?php echo $all_aytam['num']-( $all_aytam_shamla['num'] + $all_aytam_nos['num']);?></a></td>

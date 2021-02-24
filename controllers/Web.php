@@ -369,7 +369,7 @@ $this->load->model('Public_relations/website/about_us/Executive_Management_model
     }
     public function system()
     {
-        $data['system'] = $this->System_model->display('pr_system');
+        $data['system'] = $this->System_model->display_new('pr_system');
         $data['subview'] = 'web/media_center/system';
         $this->load->view('web_home_index',$data);
     }

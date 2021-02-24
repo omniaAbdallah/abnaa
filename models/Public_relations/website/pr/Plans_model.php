@@ -61,7 +61,7 @@ class Plans_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from("pr_plans");
-        $this->db->order_by('year','desc');
+        $this->db->order_by('year','asc');
         $this->db->group_by('year');
         $query = $this->db->get();
         if ($query->num_rows() > 0) {

@@ -9,7 +9,7 @@
     <style type="text/css">
         .main-body {
 
-           background-image: url(<?php echo base_url() ?>asisst/admin_asset/img/pills/paper-bg.png);
+          background-image: url(<?php echo base_url() ?>asisst/admin_asset/img/pills/paper-bg.png);
             background-position: 100% 100%;
             background-size: 100% 100%;
             background-repeat: no-repeat;
@@ -263,10 +263,11 @@
 
 
 </head>
-<body onload="printDiv('printDiv')" id="printDiv">
-<!--<body>-->
+<body id="printdiv">
+
 
 <section class="main-body">
+
 
     <div class="print_forma  col-xs-12 ">
         <div class="col-xs-12 no-padding" style="margin-top: -29px;">
@@ -274,7 +275,7 @@
 
             </div>
             <div class="col-xs-4 text-center">
-                <h4 class="green-border"><span style="font-size: 24px;">إذن صرف </span></h4>
+                <h4 class="green-border"><span style="font-size: 24px;margin-left: 80px;">إذن صرف </span></h4>
             </div>
             <div class="col-xs-4 text-center">
 
@@ -320,7 +321,8 @@
             <div class="piece-body">
 
                     <div class="col-xs-12">
-                        <table class="table table-bordered  table-asnaf" style="table-layout: fixed">
+                        <table class="table table-bordered  table-asnaf" style="table-layout: fixed;width: 95%;
+    margin-right: 17px;">
                             <thead>
                             <th style="width: 110px; font-size: 18px !important; font-weight: bold !important;">المبلغ</th>
                             <th style="width: 250px; font-size: 18px !important; font-weight: bold !important;">اسم الجهة/المستفيد</th>
@@ -331,8 +333,8 @@
                                 <tr>
                                   
                                     <td><?= $ezn_data->value ?></td>
-                                    <td><p style="font-size: 15px;"><?= $ezn_data->geha_name ?></p></td>
-                                    <td><p style="font-size: 15px;"><?= $ezn_data->about ?></p></td>
+                                    <td><?= $ezn_data->geha_name ?></td>
+                                    <td><?= $ezn_data->about ?></td>
                                 </tr>
    
                             </tbody>
@@ -348,18 +350,18 @@
 
      <div class="col-xs-12 hl">
                     
-                        <div class="col-xs-4 padding-4">
+                        <div class="col-xs-5 padding-4">
                             <h4>  <label style="font-weight: bold;">الاسم</label>   :<?php echo $ezn_data->emp_name ?> </h4>
                         </div>
                         <div class="col-xs-3 padding-4">
                             <h4> <label style="font-weight: bold;"> التوقيع: </label>  </h4>
                         </div>
-                        <div class="col-xs-3 padding-4">
+                        <div class="col-xs-4 padding-4">
                             <h4> <label style="font-weight: bold;">  المدير المباشر :</label>   </h4>
                         </div>
-                        <div class="col-xs-2 padding-4 text-right">
+                       <!-- <div class="col-xs-2 padding-4 text-right">
                             <h4><?=$ezn_data->action_moder_mobasher_date?>م </h4>
-                        </div>
+                        </div>-->
                     </div>
       
       
@@ -370,28 +372,7 @@
        
        </div> 
       
-        <!--<div class="col-xs-12 hl">
-      
-           <div class="col-xs-6 ">
-           <h5>  <label style="font-weight: bold;">حالة الرصيد</label> </h5>
-           </div>
-            <div class="col-xs-6 ">
-                 
-                            <?php if($ezn_data->action_mohaseb == 'accept'){ 
-                                $option= 'accept';
-                                $option_title = 'يسمح';
-                                ?>
-                            <?php }elseif($ezn_data->action_mohaseb == 'refuse'){
-                                 $option= 'refuse';
-                                  $option_title = 'لا يسمح';
-                                ?>
-                            <?php } ?>
-           <h4>  <label style="font-weight: bold;">
-           <input type="checkbox" id="checkboxSuccess<?=$option?>" value="1" name="<?=$option?>"
-                              checked />
-           <?=$option_title?></label> </h4>
-           </div>
-           </div>-->
+
     <div class="col-xs-12 hl">
               
                    
@@ -456,31 +437,7 @@
         <div class="col-xs-12 hl">
                    
          
-              <!--  <div class="col-xs-12 hl">
-      
-           <div class="col-xs-6 ">
-           <h5>  <label style="font-weight: bold;">طريقة الصرف</label> </h5>
-           </div>
-            <div class="col-xs-6 ">
-                 
-                            <?php   if($ezn_data->sarf_method == 'naqdi_ohda'){
-                            $sarf_method_name = 'نقدا من العهدة';
-                        }elseif($ezn_data->sarf_method == 'from_bank'){
-                          $sarf_method_name = 'إصدار شيك من البنك';  
-                        }elseif( $ezn_data->sarf_method == 'tahwel_banki'){
-                          $sarf_method_name = 'تحويل بنكي';    
-                        }elseif($ezn_data->sarf_method == 'sadad_hkomi'){
-                          $sarf_method_name = 'سداد مدفوعات حكومية';    
-                        }elseif($ezn_data->sarf_method == 'sadad_fwater' ){
-                         $sarf_method_name = 'سداد فواتير';   
-                        }else{
-                            $sarf_method_name = '';
-                        } ?>
-           <h4>    <input type="checkbox" id="checkboxSuccesssarf_method" value="1" name="sarf_method" checked />
-                        <label for="checkboxSuccesssarf_method"><?=$sarf_method_name?>
-                        </label> </h4>
-           </div>
-           </div>-->
+
          
                 
                   <table class="table table-bordered hl white-border" style="table-layout: fixed;">
@@ -508,7 +465,7 @@
                             
                        <td>
                         <input  style="" type="checkbox" id="checkboxSuccesssarf_method" value="1" name="sarf_method" checked />
-                        <label style="    margin-left: 400px;" for="checkboxSuccesssarf_method"><?=$sarf_method_name?>
+                        <label style="    margin-left: 340px;" for="checkboxSuccesssarf_method"><?=$sarf_method_name?>
                         </label>
                         </td>     
                         
@@ -625,204 +582,84 @@
                 </div>
        
        
-       
-                   
-                  <!--   <div class="col-xs-12 hl">
-                        <h5>استلمت الأصناف الموضحة أعلاه وبحالة سليمة . </h5>
-                        <div class="col-xs-4 padding-4">
-                            <h6>المستلم :<?php echo $get_all->responsable_name ?> </h6>
-                        </div>
-                        <div class="col-xs-2 padding-4">
-                            <h6>الجوال :<?php echo $get_all->jwal ?> </h6>
-                        </div>
-                        <div class="col-xs-3 padding-4">
-                            <h6> التوقيع:   </h6>
-                        </div>
-                        <div class="col-xs-3 padding-4 text-left">
-                            <h6>التاريخ :<?= date('d-m-Y') ?> </h6>
-                        </div>
-                    </div>
+ 
 
-               <div class="col-xs-12 hl" style="margin-top: 30px;">
-                    <div class="col-xs-4 text-center">
-                        <h5 style="margin-bottom: 40px;">أمين المستودع </h5>
-                        <h5><?= $get_all->store_emp ?></h5>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                        <h5 style="margin-bottom: 40px;">الختم </h5>
-                        <h5></h5>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                        <h5 style="margin-bottom: 40px;">مدير الإدارة/القسم</h5>
-                        <h5></h5>
-                    </div>
-
-                </div>-->
             </div>
         </div>  
-                
-              <!-- <div class="col-xs-12">
-                    <table class="table table-bordered hl white-border" style="table-layout: fixed;">
-                        <tbody>
-                        <tr>
-                            <td style="width: 100px" class="rosasy-bg">المستودع</td>
-                            <td><?= $get_all->storage_name ?></td>
-                            <td style="width: 110px" class="rosasy-bg">أمين المستودع</td>
-                            <td><?= $get_all->store_emp ?></td>
 
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>-->
 
-                <!--<div class="col-xs-12">
-                    <table class="table table-bordered hl white-border" style="table-layout: fixed;">
-                        <tbody>
-                        <tr>
-                            <td style="width: 100px" class="rosasy-bg"><?php
-                                if ($get_all->sarf_type == 1) {
-                                    echo "الاسرة";
-                                } else if ($get_all->sarf_type == 2) {
-                                    echo "الجهة";
-
-                                }
-                                ?></td>
-                            <td><?= $get_all->sarf_to_name ?></td>
-                            <td style="width: 80px" class="rosasy-bg"><?php
-                                if ($get_all->sarf_type == 1) {
-                                    echo "رقم الملف";
-                                } else if ($get_all->sarf_type == 2) {
-                                    echo "رقم الجهة";
-                                }
-                                ?></td>
-                            <td style="width: 80px"><?= $get_all->sarf_to_fk ?></td>
-                            <?php if ($get_all->sarf_type == 1) { ?>
-                                <td style="width: 80px" class="rosasy-bg">الفئة</td>
-                                <td style="width: 80px"><?= $get_all->family_cat_name ?></td>
-                            <?php } ?>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>-->
+    
             </div>
 
         </div>
 
-     <!--   <div class="piece-box no-border">
-            <div class="piece-body">
-                <?php
-                if (isset($get_all->details) && !empty($get_all->details)) {
-                    $x = 1;
-                    $total = $total_amount = 0;
-                    ?>
-                    <div class="col-xs-12">
-                        <table class="table table-bordered double table-asnaf" style="table-layout: fixed">
-                            <thead>
-                            <th style="width: 40px; font-size: 18px !important; font-weight: bold !important;">م</th>
-                            <th style="width: 100px; font-size: 18px !important; font-weight: bold !important;">كود الصنف</th>
-                            <th style="font-size: 18px !important; font-weight: bold !important;">اسم الصنف</th>
-                            <th style="width: 80px; font-size: 18px !important; font-weight: bold !important;">الوحدة</th>
-                            <th style="width: 80px; font-size: 18px !important; font-weight: bold !important;">الكمية</th>
-                            <th style="width: 100px; font-size: 18px !important; font-weight: bold !important;">سعر الوحدة</th>
-                            <th style="width: 100px; font-size: 18px !important; font-weight: bold !important;">الإجمالي</th>
-                            </thead>
-                            <tbody>
-                            <?php
-                            foreach ($get_all->details as $item) {
-                                $total += $item->all_egmali;
-                                $total_amount += $item->sanf_amount;
-                                ?>
-                                <tr>
-                                    <td><?= $x++ ?></td>
-                                    <td><?= $item->sanf_code ?></td>
-                                    <td><?= $item->sanf_name ?></td>
-                                    <td><?= $item->sanf_whda ?></td>
-                                    <td><?= $item->sanf_amount ?></td>
-                                    <td><?= $item->sanf_one_price ?></td>
-                                    <td><?= $item->all_egmali ?></td>
-                                </tr>
-                                <?php
-                            }
-                            ?>
-                            </tbody>
-                            <tfoot>
-                            <th style="font-size: 18px !important; font-weight: bold !important;" colspan="4">الإجمـــــــــــــــــــــــــــــــــــــالي</th>
-                            <th style="font-size: 18px !important; font-weight: bold !important;"><?= $total_amount ?></th>
-                            <th style="font-size: 18px !important; font-weight: bold !important;" colspan="2"><?= number_format($total, 2, '.', '') ?></th>
-                            </tfoot>
-                        </table>
-                    </div>
+  
 
-                    <div class="col-xs-12 hl">
-                        <h5>استلمت الأصناف الموضحة أعلاه وبحالة سليمة . </h5>
-                        <div class="col-xs-4 padding-4">
-                            <h6>المستلم :<?php echo $get_all->responsable_name ?> </h6>
-                        </div>
-                        <div class="col-xs-2 padding-4">
-                            <h6>الجوال :<?php echo $get_all->jwal ?> </h6>
-                        </div>
-                        <div class="col-xs-3 padding-4">
-                            <h6> التوقيع:   </h6>
-                        </div>
-                        <div class="col-xs-3 padding-4 text-left">
-                            <h6>التاريخ :<?= date('d-m-Y') ?> </h6>
-                        </div>
-                    </div>
-                    <?php
-                }
-                ?>
-                <div class="col-xs-12 hl" style="margin-top: 30px;">
-                    <div class="col-xs-4 text-center">
-                        <h5 style="margin-bottom: 40px;">أمين المستودع </h5>
-                        <h5><?= $get_all->store_emp ?></h5>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                        <h5 style="margin-bottom: 40px;">الختم </h5>
-                        <h5></h5>
-                    </div>
-                    <div class="col-xs-4 text-center">
-                        <h5 style="margin-bottom: 40px;">مدير الإدارة/القسم</h5>
-                        <h5></h5>
-                    </div>
+    </div>
+      <div class="footer-info" >
+<?PHP 
+if($_SESSION['role_id_fk'] == 1){
+   $person_print =$_SESSION['user_name'];  
+}elseif($_SESSION['role_id_fk'] == 3){
+  $person_print =$_SESSION['emp_name'];    
+}else{
+   $person_print = ''; 
+}
 
-                </div>
-            </div>
+
+?>
+         <div class="col-xs-12 no-padding print-details-footer">
+          <div class="col-xs-6">
+          <p class=" text-center" style="margin-bottom: 10px;"> <small>
+          تمت الطباعه بواسطة : 
+          <?=$person_print?>
+         	</small></p>
+
         </div>
--->
+      
+        <div class="col-xs-4">
+
+          <p class=" text-center" style="margin-bottom: 10px;"> <small>تاريخ الطباعة :   <?php echo  date('Y-m-d h:i:s');  ?></small></p>
+        </div>
+  <div class="col-xs-2">
+       <!--   <p class=" text-center" style="margin-bottom: 0;">رقم الصفحة</p> -->
+        </div>
+
+      </div>
 
     </div>
 
-
-   <!-- <div class="footer-info">
-
-        <div class="col-xs-12 no-padding print-details-footer">
-            <div class="col-xs-6">
-                <p class=" text-center" style="margin-bottom: 0;">
-                    <small> (بواسطة: <?php echo ''; ?> )</small>
-                </p>
-
-            </div>
-            <div class="col-xs-2">
-
-            </div>
-            <div class="col-xs-4">
-
-                <p class=" text-center" style="margin-bottom: 0;">
-                    <small>تاريخ الطباعة : <?= date('d-m-Y h:i a ') ?></small>
-                </p>
-            </div>
-
-
-        </div>
-
-    </div>-->
 </section>
 
-
+</html>
 <script type="text/javascript" src="<?php echo base_url() ?>asisst/admin_asset/js/jquery-1.10.1.min.js"></script>
 <script src="<?php echo base_url() ?>asisst/admin_asset/js/bootstrap-arabic.min.js"></script>
 <script src="<?php echo base_url() ?>asisst/admin_asset/js/custom.js"></script>
 
+<script>
+
+
+
+
+    var divElements = document.getElementById("printdiv").innerHTML;
+
+
+    var oldPage = document.body.innerHTML;
+
+
+    document.body.innerHTML =
+
+
+        "<html><head><title></title></head><body><div id='printdiv'>" +
+
+
+        divElements + "</div></body>";
+
+
+    window.print();
+
+
+</script>
 <script language="javascript" type="text/javascript">
 /*
     function printDiv(divID) {
@@ -843,6 +680,6 @@
         document.body.innerHTML = oldPage;
 
 
-    }
+    }*/
 </script>
 </body>

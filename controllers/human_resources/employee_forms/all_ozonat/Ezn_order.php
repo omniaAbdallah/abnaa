@@ -208,6 +208,13 @@ public function check_setting_time()
         }
     }
 }
+public function testss()
+{
+      echo  $current_month = $this->Ezn_order_model->current_date_mosayer('','month');
+      echo'<br/>';
+     echo    $current_year = $this->Ezn_order_model->current_date_mosayer('','year');
+         
+         }
 public function get_available()
 {
     $num_hours = $this->input->post('num_hours');

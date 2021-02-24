@@ -3,6 +3,21 @@ class System_model extends CI_Model
 {
 
 
+
+
+    public function display_new($table)
+    {
+        $this->db->select('*');
+        $this->db->from($table);
+$this->db->where('private_to_emp','no');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        }
+        return false;
+
+
+    }
     public function display($table)
     {
         $this->db->select('*');

@@ -102,7 +102,7 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-    'dsn' => 'mysql:host=localhost;dbname=abnaa_3-1-21',
+    'dsn' => 'mysql:host=localhost;dbname=abnaa-24-2-21',
     'hostname' => 'localhost',
     'username' => 'root',
     'password' => '',

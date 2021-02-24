@@ -48,6 +48,8 @@ class Beneficiaries_model extends CI_Model
 
   $data[$a]->mother_name = $this->getMother_name($row->mother_national_num);
    $data[$a]->mother_id = $this->getMother_id($row->mother_national_num);
+    $data[$a]->mother_mob_contact = $this->getcontact($row->mother_national_num);
+   
   
                 $a++;}
             return $data;
@@ -56,7 +58,11 @@ class Beneficiaries_model extends CI_Model
         }
 
     }
+    public function getcontact($id){
+        $h = $this->db->get_where("mother", array('mother_national_num_fk'=>$id));
+        return $h->row_array()['m_mob'];
 
+    }
 
     public function  get_bale3_full_active($mother_national_num_fk){
         $this->db->select("*");

@@ -69,7 +69,7 @@ class Users extends CI_Model
     public function get_users_name(){
         $this->db->select('*');
         $this->db->from('permissions');
-          $this->db->where('permissions.user_id !=', 19);
+      //    $this->db->where('permissions.user_id !=', 19);
         $this->db->join('users' , 'permissions.user_id = users.user_id','left');
         $this->db->group_by("permissions.user_id");
         $query = $this->db->get();

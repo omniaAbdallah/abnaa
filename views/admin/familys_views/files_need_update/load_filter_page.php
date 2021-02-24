@@ -170,7 +170,7 @@ $title = $row['family_cat_name'];
                     <i style="background-color: #0a568c" class="fa fa-print" aria-hidden="true"></i> </a>
 
 
-     <div class="btn-group mega-btn">
+     <!--<div class="btn-group mega-btn">
                         <button type="button" class="btn btn-danger"> اضافه الخطابات والمستندات</button>
                         <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
@@ -213,8 +213,45 @@ $title = $row['family_cat_name'];
                                 </ul>
                             </li>
                         </ul>
-                    </div>
-
+                    </div>-->
+<div class="btn-group ">
+    <button type="button" class="btn btn-danger"> الخطابات والمستندات</button>
+    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+    </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu3">
+            <li class="dropdown-header"> الخطابات</li>
+            <li><a target="_blank"
+                       href="<?php echo base_url(); ?>family_controllers/Family_letter/Civil_Status/<?php echo $row['mother_national_num']; ?>/<?php echo $row['file_num']; ?>">خطاب
+                        الاحوال المدنيه </a></li>
+                <li><a target="_blank"
+                       href="<?php echo base_url(); ?>family_controllers/Family_letter/Passports/<?php echo $row['mother_national_num']; ?>/<?php echo $row['file_num']; ?>">خطاب
+                        الجوازات </a></li>
+                <li><a target="_blank"
+                       href="<?php echo base_url(); ?>family_controllers/Family_letter/Insurance_letter_father/<?php echo $row['mother_national_num']; ?>/<?php echo $row['file_num']; ?>">خطاب
+                        تأمينات ( الأب ) </a></li>
+                <li><a target="_blank"
+                       href="<?php echo base_url(); ?>family_controllers/Family_letter/Insurance_letter/<?php echo $row['mother_national_num']; ?>/<?php echo $row['file_num']; ?>">خطاب
+                        تأمينات ( الأم ) </a></li>
+                <li><a target="_blank"
+                       href="<?php echo base_url(); ?>family_controllers/Family_letter/Retirement_letter/<?php echo $row['mother_national_num']; ?>/<?php echo $row['file_num']; ?>">خطاب
+                        التقاعد </a></li>
+                <li><a target="_blank"
+                       href="<?php echo base_url(); ?>family_controllers/Family_letter/daman_letter/<?php echo $row['mother_national_num']; ?>/<?php echo $row['file_num']; ?>">خطاب
+                        الضمان</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">المستندات </li>
+                <li>
+                    <a  target="_blank" href="<?= base_url() ?>family_controllers/Family/talb_mostandat/<?= $row['mother_national_num'] ?>"> اضافه المستندات
+                    </a></li>
+                <li><a onclick="print_prime_houe(<?= $row['mother_national_num'] ?>);">
+                        طباعة كروكي المنزل
+                    </a></li>
+    </ul>
+</div>
             </td>
             <td><button style="color:#fff ;width:80px; background-color:<?= $file_colors?> "
                         data-toggle="modal" data-target="#modal-info" class="btn btn-sm" >

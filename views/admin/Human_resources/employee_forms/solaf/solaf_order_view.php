@@ -53,16 +53,21 @@
                                 $halet_eltalab = 'جاري ';
                                 $halet_eltalab_class = 'warning';
                                 }elseif($row->suspend == 1){
-                                 $halet_eltalab = 'تم قبول الطلب من '.$row->current_from_user_name;
+                               //  $halet_eltalab = 'تم قبول الطلب من '.$row->current_from_user_name;
+                                 $halet_eltalab = 'تم القبول';
                                 $halet_eltalab_class = 'success';
                                 }elseif($row->suspend == 2){
-                                    $halet_eltalab = 'تم رفض الطلب  من '.$row->current_from_user_name;
+                                    
+                                     $halet_eltalab = 'تم الرفض';
+                                 //   $halet_eltalab = 'تم رفض الطلب  من '.$row->current_from_user_name;
                                     $halet_eltalab_class = 'danger';
                                 }elseif($row->suspend == 4){
-                                   $halet_eltalab = 'تم اعتماد الطلب بالموافقة  من '.$row->current_from_user_name;
+                                     $halet_eltalab = 'تم الإعتماد';
+                                //   $halet_eltalab = 'تم اعتماد الطلب بالموافقة  من '.$row->current_from_user_name;
                                    $halet_eltalab_class = 'success';
                                 }elseif($row->suspend == 5){
-                                   $halet_eltalab = 'تم اعتماد الطلب بالرفض  من '.$row->current_from_user_name;
+                                  $halet_eltalab = 'تم الرفض';  
+                                 //  $halet_eltalab = 'تم اعتماد الطلب بالرفض  من '.$row->current_from_user_name;
                                    $halet_eltalab_class = 'danger';
                                 }else{
                                      $halet_eltalab = 'غير محدد ';

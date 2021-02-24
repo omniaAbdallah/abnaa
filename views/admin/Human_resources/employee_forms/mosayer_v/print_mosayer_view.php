@@ -1019,6 +1019,10 @@ title="<?= $emp->mosma_wazefy_n ?>">
 
                              echo 'موظفى تمكين';
 
+                          }elseif($this->input->post('mosayer_fe2at')[0]==7){
+
+                             echo 'موظفى الحوكمة';
+
                           }elseif($this->input->post('mosayer_fe2at')[0] == ''){
 
                            echo ''; 
@@ -1043,7 +1047,7 @@ title="<?= $emp->mosma_wazefy_n ?>">
            <div class="col-xs-4">
 
 
-            <span  style="text-align: center;"> كشف رواتب ومكافئات شهر
+            <span  style="text-align: center;"> كشف رواتب ومكافئات شهر فبراير
             
             <?php 
             $months = array("01" => "يناير", "02" => "فبراير", "03" => "مارس", "04" => "أبريل", "05" => "مايو",

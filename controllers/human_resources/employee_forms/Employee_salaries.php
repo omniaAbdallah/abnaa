@@ -69,14 +69,15 @@ class Employee_salaries extends MY_Controller{
         // echo $this->Employee_salaries_model->current_date_mosayer('','month');
          $data['current_month']= $this->Employee_salaries_model->current_month_mosayer(date('m'));
         $data['mosayer_month'] = $this->Employee_salaries_model->get_month();
-      $data['halet_taghez'] = $this->Employee_salaries_model->get_halet_taghez($data['mosayer_month']);
+      $data['halet_taghez'] = $this->Employee_salaries_model->get_halet_taghez(date('m'));
       //  $data['mosayer_month_p'] = $this->Employee_salaries_model->current_date_mosayer('','month');
       //  $this->test($data['mosayer_month_p']);
        //  $data['all_emp']= $this->Employee_salaries_model->Employee_date();
         $data['current_month_mosayer'] = $this->Employee_salaries_model->current_date_mosayer('','month');
         $data['all_emps']= $this->Employee_salaries_model->Employee_date_new();
         $data['all_bdlat']= $this->Employee_salaries_model->get_all_badlat();
-      //$this->test($data['all_emps']);
+      //  echo date('m');
+     // $this->test($data['all_emps']);
         $data['subview']= 'admin/Human_resources/employee_forms/mosayer_v/Employee_salaries_view';
         $this->load->view('admin_index',$data);
     }
@@ -234,7 +235,7 @@ class Employee_salaries extends MY_Controller{
         $data['mosayer_date'] =  strtotime( $data['mosayer_date_ar']);
       //  $data['mosayer_month'] = $this->Employee_salaries_model->get_month($data['mosayer_date_ar']);
       
-       $data['mosayer_month'] = 12;  
+       $data['mosayer_month'] = 1;  
       //  $data['mosayer_month'] = $this->Employee_salaries_model->current_date_mosayer('','month');
         $data['mosayer_year'] = $this->Employee_salaries_model->current_date_mosayer('','year');
         

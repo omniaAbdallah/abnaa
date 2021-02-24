@@ -20,6 +20,7 @@
                     <th class="text-center">رقم الهوية  </th>
                     <th class="text-center">إسم البنك</th>
                     <th class="text-center">رقم الحساب </th>
+                     <th class="text-center">جوال تواصل </th>
                     <th class="text-center">عدد الافراد </th>
                     <th class="text-center">أرملة </th>
                     <th class="text-center">يتيم </th>
@@ -49,6 +50,7 @@
                     <td><?php echo (!empty($record->bank_details))? $record->bank_details->person_national_card : "لا يوجد حساب لهذه الأسرة"; ?></td>
                     <td><?php echo (!empty($record->bank_details))? $record->bank_details->bank_name : "لا يوجد حساب لهذه الأسرة"; ?></td>
                     <td><?php echo (!empty($record->bank_details))?$record->bank_details->bank_account_num : "لا يوجد حساب لهذه الأسرة"; ?></td>
+                     <td><?php echo $record->mother_mob_contact;?></td>
                     <td><?php  echo $total_all; ?></td>
                     <td><?php echo $record->ff_armal; ?></td>
                     <td><?php echo $record->ff_yatem; ?></td>

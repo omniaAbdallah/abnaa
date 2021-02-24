@@ -125,6 +125,7 @@
     <script>
         function put_value(rkm) {
             //     $('#hidden_rkm').val(rkm);
+          //  alert('sss');
             $.ajax({
                 type: 'post',
                 data: {rkm: rkm},

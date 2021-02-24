@@ -142,7 +142,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title"> إدارة التعميم</h3>
             </div>
-            < class="panel-body">
+            <div class="panel-body">
             <table id="" class="example table table-bordered table-striped" role="table">
                 <thead>
                 <tr class="greentd">
@@ -167,7 +167,7 @@
                         <td><?= $value->ta3mem_date ?></td>
                         <td><?= $value->ta3mem_title ?></td>
                         <td><?= substr($value->subject, 0, 80) . '...' ?></td>
-                        <!-- <td><?= $value->edara_n ?></td> -->
+                        
                         <td>
                             <?php
                             $file = $value->img;
