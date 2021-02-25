@@ -11,6 +11,13 @@ class MY_Controller extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->files_basic_in =
+        $this->count_basic_in =
+        $this->groups_title_top_menu =
+        $this->groups_top_menu =
+        $this->my_side_bar =
+        $this->page_group_num =
+        $this->rapid_query = '';
         if ($this->session->userdata('is_logged_in') == 0) {
             redirect('login');
         }

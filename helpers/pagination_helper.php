@@ -622,7 +622,7 @@ function getUserName($user_id)
             $table = 'general_assembley_members';
             $field = 'name';
         }
-        return $CI->getUserNameByRoll($id, $table, $field);
+        return getUserNameByRoll($id, $table, $field);
     }
     return false;
 }
