@@ -151,17 +151,43 @@
     }
 </style>
 <?php
+$this->load->model('familys_models/osr_crm/Osr_crm_m');
+
 $basic_data_family = $this->Osr_crm_m->get_basic_mother_num($mother_num);
 $person_account = $basic_data_family["person_account"];
 $agent_bank_account = $basic_data_family["agent_bank_account"];
 $file_num = $basic_data_family["file_num"];
-$this->load->model('familys_models/osr_crm/Osr_crm_m');
 $check_data = $this->Osr_crm_m->check_hdoor_bahth($mother_num);
+$progress_width = 22;
+$progress_num = 0;
+$progress_class = 'danger';
 if (empty($check_data)) {
 
     $check_data['taslem_mosdand'] = 'no';
     $check_data['start_bahth'] = 'no';
     $check_data['hdoor_osr_bahth'] = 'no';
+    $check_data['review_to'] = 'no';
+    $check_data['end_review'] = 'no';
+    $check_data['bahth_to'] = 'no';
+}
+if ($check_data['start_bahth'] == 'yes') {
+    $progress_width += 3;
+    $progress_num += 25;
+}
+if ($check_data['hdoor_osr_bahth'] == 'yes') {
+    $progress_width += 25;
+    $progress_num += 25;
+}
+if ($check_data['taslem_mosdand'] == 'yes') {
+    $progress_width += 25;
+    $progress_num += 25;
+}
+if ($check_data['taslem_mosdand'] == 'yes') {
+    $progress_width += 15;
+    $progress_num += 15;
+}
+if ($progress_num >= 50) {
+    $progress_class = 'success';
 }
 ?>
 
@@ -170,10 +196,10 @@ if (empty($check_data)) {
         <tr>
             <th colspan="7" scope="col">
                 <!--success-->
-                <div class="progress-bar progress-bar-danger " role="progressbar" aria-valuenow="25"
-                     aria-valuemin="0" aria-valuemax="100" style="width:22%">
+                <div class="progress-bar progress-bar-<?= $progress_class ?> " role="progressbar" aria-valuenow="25"
+                     aria-valuemin="0" aria-valuemax="100" style="width:<?= $progress_width ?>%">
                     تم إكتمال إجراءات التحديث بنسبة
-                    <span id="progress_num">0</span>
+                    <span id="progress_num"><?= $progress_num ?></span>
                     % (بنجاح)
                 </div>
             </th>
@@ -295,8 +321,8 @@ if (empty($check_data)) {
 
                         <li role="separator" class="divider"></li>
                         <li class="dropdown-header">ارسال للمراجعة</li>
-                        <li style="background: darkgreen;"><a
-                                    onclick="GetTransferPage(<?php echo $mother_num; ?>)">
+                        <li style="background: darkgreen;"><a data-toggle="modal" data-target="#modal-process-procedure"
+                                                              onclick="GetTransferPage(<?php echo $mother_num; ?>,1)">
                                 ارسال للمراجعة</a></li>
                     </ul>
 
@@ -308,7 +334,7 @@ if (empty($check_data)) {
                 <div class="btn-group" style="    margin-top: 2px;">
                     <button type="button" class="btn btn-success">مراجعة البيانات</button>
                     <button type="button"
-                            class="btn btn-success dropdown-toggle taslem_mosdand <?= $check_data['taslem_mosdand'] ?>"
+                            class="btn btn-success dropdown-toggle review_to <?= $check_data['review_to'] ?>"
                             data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                         <span class="caret"></span>
@@ -362,8 +388,8 @@ if (empty($check_data)) {
 
             <td style="width: 10%;">
                 <a style="margin: 2px;" data-toggle="modal" data-target="#modal-process-procedure"
-                   class="btn btn-sm btn-primary taslem_mosdand <?= $check_data['taslem_mosdand'] ?>"
-                   onclick="GetTransferPage(<?php echo $mother_num; ?>)"> تحويل الي الباحث
+                   class="btn btn-sm btn-primary end_review <?= $check_data['end_review'] ?>"
+                   onclick="GetTransferPage(<?php echo $mother_num; ?>,2)"> تحويل الي الباحث
                 </a></td>
 
         </tr>
@@ -395,18 +421,23 @@ if (empty($check_data)) {
     document.addEventListener('DOMContentLoaded', function () {
         $('.no').attr('disabled', 'disabled');
         $('.yes').removeAttr('disabled');
+
+        <?php if ($basic_data_family['current_to_emp_user_id'] != $_SESSION['user_id']){ ?>
+        setTimeout(function(){  $('.review_to').attr('disabled', 'disabled');
+            $('.end_review').attr('disabled', 'disabled'); }, 500);
+        <?php } ?>
     });
 
 </script>
 <script>
 
-    function GetTransferPage(value) {
+    function GetTransferPage(value, page) {
         if (value != 0 && value != '') {
             var dataString = 'id=' + value;
             $.ajax({
                 type: 'post',
                 url: '<?php echo base_url() ?>family_controllers/Family_transformation/GetTransferPage_drob_dwon',
-                data: {value: value},
+                data: {value: value, page: page},
                 dataType: 'html',
                 cache: false,
                 beforeSend: function () {
