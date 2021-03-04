@@ -1574,6 +1574,49 @@ public function eqm_ezn($id)
 
 	}
     
+    
+               	public function get_all_ozonat_canceled_new($suspend=null,$canceled=null){
+		$this->db->select('finance_ezn_sarf.*');
+		$this->db->from('finance_ezn_sarf');
+        $this->db->order_by('id','desc');
+        /*if($_SESSION['role_id_fk']==1){
+           
+        }else{
+            $this->db->where('publisher', $_SESSION['user_id']);  
+        }*/
+           if($_SESSION['role_id_fk']==1){
+           
+        }elseif($_SESSION['role_id_fk']==3){
+            if($_SESSION['user_id']== 61 
+              or $_SESSION['user_id']==62
+               or $_SESSION['user_id']==64
+               or $_SESSION['user_id']==111
+               or $_SESSION['user_id']==116
+               or $_SESSION['user_id']==120
+                or $_SESSION['user_id']==78
+                or $_SESSION['user_id']==113){
+                
+            }else{
+                 $this->db->where('publisher', $_SESSION['user_id']);   
+            }
+          
+        }
+
+           $this->db->where('suspend', $suspend);   
+        //  $this->db->or_where('canceled', $canceled);   
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) {
+				$i=0;
+				foreach ($query->result() as $row) {
+					$data[$i] = $row;
+					$i++;}
+			return $data;
+		}else{
+			return false;
+		}
+
+	}
+    
        	public function get_all_ozonat_suspended($suspend=null){
 		$this->db->select('finance_ezn_sarf.*');
 		$this->db->from('finance_ezn_sarf');

@@ -1702,9 +1702,10 @@ echo $this->uri->segment(5);
 
 
 </div>
+<!--
 <a href="<?=base_url()?>/finance_accounting/box/vouch_sarf/Vouch_sarf/printSanedSarf">sss</a>
 <a target="_blank" href="<?=base_url()?>/finance_accounting/box/vouch_sarf/Vouch_sarf/printSheek/981/19">sss</a>
-
+-->
 <div class="col-sm-12 col-md-12 col-xs-12  " style="padding: 0;">
     <div class="panel panel-bd lobidisable lobipanel lobipanel-sortable">
         <div class="panel-heading">
@@ -1737,13 +1738,20 @@ echo $this->uri->segment(5);
                         3 => ' شيك من البنك',
                         4 => 'معاملات بنكية'
                     );
+                    $method_colors = array(
+                        1 => '#5cb85c',
+                        2 => '#ffd292',
+                        3 => ' #ffc09b',
+                        4 => '#46d8c8'
+                    );
                     if (isset($records) && $records != null) {
                         $x = 1;
                         foreach ($records as $value) {
+                            
                             ?>
                             <tr>
                                 <td><?= $x++ ?></td>
-                                <td><?php if (isset($method[$value->pay_method]) && !empty($method[$value->pay_method])) {
+                                <td style="background: <?=$method_colors[$value->pay_method]?>;"><?php if (isset($method[$value->pay_method]) && !empty($method[$value->pay_method])) {
                                         echo $method[$value->pay_method];
                                     } else {
                                         echo 'غير معرفة';
@@ -1751,10 +1759,10 @@ echo $this->uri->segment(5);
                                 </td>
                                 <td><?= $value->rqm_sanad ?></td>
                                 <td><?= date('Y-m-d', $value->date_sanad) ?></td>
-                                <td><?= $value->rqm_quod ?></td>
+                                <td style="    background: #bdffb2;"><?= $value->rqm_quod ?></td>
 
-                                <td><?= $value->person_name ?></td>
-                                <td><?= $value->total_value ?></td>
+                                <td style="color: blue;background: white;"><?= $value->person_name ?></td>
+                                <td style="color: #fd003a;background: white;"><?= $value->total_value ?></td>
                                 <td>
                                     <button title=" تفاصيل سند الصرف رقم <?php echo $value->rqm_sanad;  ?>" type="button" class="btn btn-sm btn-labeled btn-add" data-toggle="modal"
                                             data-target="#detailsModal<?= $value->id ?>">
@@ -1783,10 +1791,17 @@ echo $this->uri->segment(5);
    <label for=""></label>
        
        <?php if ($value->cancel == 'no') { ?>
-            <a class="btn btn-warning btn-sm"  onclick="cancel_sheek(<?= $value->id ?>,<?= $value->rqm_quod ?>,<?= $value->rqm_sanad ?>)"
+
+                  <?php if($value->sheek_taslem_sarf == 1){ ?>      
+                     <span class="label label-success">تم صرف الشيك </span>      
+                        <?php }elseif($value->sheek_taslem_sarf == 0){ ?>
+                                    <a class="btn btn-warning btn-sm"  onclick="cancel_sheek(<?= $value->id ?>,<?= $value->rqm_quod ?>,<?= $value->rqm_sanad ?>)"
                data-toggle="modal" data-target="#modal_cancel_sheek"
-               title="إلغاء الشيك <?php echo $value->sheek_num_bank; ?>"><i
+               title="إلغاء الشيك <?php echo $value->sheek_num_bank; ?> <?=$value->sheek_taslem_sarf?>"><i
                         class="fa fa-cancel"></i> الغاء الشيك </a>
+                        
+                        
+                        <?php } ?>
         <?php }elseif($value->cancel == 'yes'){  ?> 
        <span class="badge badge-danger">تم الغاء الشيك </span>
 
@@ -1892,6 +1907,7 @@ echo $this->uri->segment(5);
                         <th style="font-size: 15px;" class="text-left">إسم الحساب الاب </th>
                         <th style="font-size: 15px;" class="text-left">رقم الحساب</th>
                         <th style="font-size: 15px;" class="text-left">إسم الحساب</th>
+                          <th style="font-size: 15px;" class="text-left">رصيد الحساب</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -1924,6 +1940,8 @@ echo $this->uri->segment(5);
                               <td class="forTd"><?= $record->acount_parent->name ?></td>
                                 <td class="forTd"><?= $record->code ?></td>
                                 <td class="forTd"><?= $record->name ?></td>
+                                 <td style="    color: red;
+    font-weight: bold;" class="forTd"><?= $record->rased ?></td>
                             </tr>
                             <?php 
                             }

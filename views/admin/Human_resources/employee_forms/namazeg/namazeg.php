@@ -1606,7 +1606,7 @@ value="<?php if (!empty($emp_data->mosma_wazefy_id)) {
 
                     <label class="label label-green  ">الموضوع </label>
 
-                    <input type="text" value="<?php echo $mawdo3; ?>" name="mawdo3" id="mawdo3"
+                    <input type="text" value="<?php echo $mawdo3; ?>" name="mawdo3" id="mawdo3" data-validation="required"
 
                            class="form-control input-style">
 

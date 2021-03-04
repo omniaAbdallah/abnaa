@@ -460,7 +460,8 @@ if (isset($result) && !empty($result)) {
 					   {
 						   $disabled_input="";
 					   }else{
-						$disabled_input="disabled";
+						//$disabled_input="disabled";
+                        $disabled_input="";
 					   }
 					   ?>
                             <div class="form-group col-md-2 padding-4  col-sm-4 col-xs-12">

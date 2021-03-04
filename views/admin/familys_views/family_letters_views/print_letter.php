@@ -840,7 +840,19 @@ echo $formattedDate = date('Y/m/d', $timestamp);
 
 
     <script >
-        var divElements = document . getElementById("printdiv") . innerHTML;
+       var divElements = document.getElementById("printdiv").innerHTML;
+    var oldPage = document.body.innerHTML;
+    document.body.innerHTML =
+        "<html><head><title></title></head><body><div id='printdiv'>" +
+        divElements + "</div></body>";
+    window.print();
+    window.onafterprint = function () {
+        window.close();
+        console.log("Printing completed...");
+        window.close();
+
+    }
+      /*  var divElements = document . getElementById("printdiv") . innerHTML;
         var oldPage = document . body . innerHTML;
         document . body . innerHTML =
             "<html><head><title></title></head><body><div id='printdiv'>" +
@@ -848,7 +860,8 @@ echo $formattedDate = date('Y/m/d', $timestamp);
         window .print();
         setTimeout(function () {
             window.location.href ="<?php echo base_url();?>family_controllers/Family_letter/<?php echo $func;?>/<?php echo $this->uri->segment(4);?>/<?php echo $letter_type;?> ";
-        }, 1000);
+        }, 1000);*/
+        
     </script >
 
 

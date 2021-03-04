@@ -13,6 +13,10 @@ class Settings_model extends CI_Model
             $data['from_id_fk']= $this->input->post('from_id_fk');
             $data['type'] = 3;
         }
+        else  if($type == 'tab_talb'){
+         
+            $data['type'] = 4;
+        }
         $data['name']= $this->input->post('name');
   
         $this->db->insert("tech_device_card_settings",$data);
@@ -37,6 +41,16 @@ class Settings_model extends CI_Model
                 $data[$key->id] = $key->name;
             }
             return $data;
+        }
+        return false;
+    }
+    // select_talb
+    public function select_talb(){
+        $this->db->where('from_id_fk',0);
+        $this->db->where('type',4);
+        $query =  $this->db->get("tech_device_card_settings");
+        if ($query->num_rows() > 0) {
+            return $query->result();
         }
         return false;
     }

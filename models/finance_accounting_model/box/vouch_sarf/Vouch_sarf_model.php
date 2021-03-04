@@ -8,7 +8,7 @@ class Vouch_sarf_model extends CI_Model {
 		return $this->db->where($where)->order_by('parent','ASC')->get('dalel')->result();
 	}*/
     
-        public function getAllAccounts($where)
+ /*       public function getAllAccounts($where)
 {
     $q = $this->db->where($where)->order_by('parent', 'ASC')->get('dalel')->result();
     if (!empty($q)) {
@@ -20,6 +20,26 @@ class Vouch_sarf_model extends CI_Model {
 
     }
 
+    return $q;
+}*/
+
+public function getAllAccounts($where)
+{
+
+    $q = $this->db->select('`dalel`.*,
+           ,(SELECT COALESCE(SUM(case when `dalel`.`hesab_tabe3a` = 1 then `finance_quods_details`.`maden`-`finance_quods_details`.`dayen` 
+    when `dalel`.`hesab_tabe3a` = 2 then `finance_quods_details`.`dayen`-`finance_quods_details`.`markz_id`  else 0 end),0) 
+    from `finance_quods_details` WHERE `finance_quods_details`.`rkm_hesab`=`dalel`.`code` and finance_quods_details.date >=' . strtotime('first day of january this year') .
+        ' and finance_quods_details.date <=' . strtotime(date('Y-m-d')) . ' ) as rased ')->from('dalel')
+        ->where($where)->order_by('dalel.parent', 'ASC')->get()->result();
+    /*        $q = $this->db->where($where)->order_by('parent', 'ASC')->get('dalel')->result();*/
+    if (!empty($q)) {
+        foreach ($q as $key => $item) {
+            if ($item->hesab_no3 == 2) {
+                $q[$key]->acount_parent = $this->get_parent($item->code);
+            }
+        }
+    }
     return $q;
 }
 public function get_parent($code)
@@ -79,12 +99,28 @@ $i = 0;
 foreach ($sql->result() as $row){
 $data[$i] = $row;
 $data[$i]->delails = $this->getdetailsById($row->id);
-        $data[$i]->sheek_data = $this->getfinance_sanad_sarf_sheek_data($row->rqm_sanad)[0];
+$data[$i]->sheek_data = $this->getfinance_sanad_sarf_sheek_data($row->rqm_sanad)[0];
+$data[$i]->sheek_taslem_sarf = $this->get_sheek_status($row->rqm_sanad,$row->sheek_num_bank,'sheek_status');
                 $i++;}
 return $data;
 }
 return false;
 }
+
+  
+        public function get_sheek_status($id,$sheek_num,$data_need)
+    {
+        $this->db->where('rqm_sanad_id_fk', $id);
+        $this->db->where('sheek_num', $sheek_num);
+        $query = $this->db->get('finance_sanad_sarf_sheek');
+        if ($query->num_rows() > 0) {
+            return $query->row()->$data_need;
+        } else {
+            return 0;
+        }
+    }
+
+
 	public function getdetailsById($id)
 	{
 		return $this->db->where("rqm_sanad_fk",$id)->get('finance_sanad_sarf_details')->result();

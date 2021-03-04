@@ -911,7 +911,7 @@ $data['tree'] = $this->buildTree($records);
           
               $data['records'] = $this->Ezn_sarf_model->get_all_ozonat_gari();
     $data['ozonat_suspended'] = $this->Ezn_sarf_model->get_all_ozonat_suspended(4);
-    $data['ozonat_refused'] = $this->Ezn_sarf_model->get_all_ozonat_canceled(2,'yes');
+    $data['ozonat_refused'] = $this->Ezn_sarf_model->get_all_ozonat_canceled_new(2,'yes');
           
             $data['title'] = 'إضافة إذن صرف ';
             $data['subview'] = 'admin/finance_accounting/box/ezn_sarf/addEzn';
