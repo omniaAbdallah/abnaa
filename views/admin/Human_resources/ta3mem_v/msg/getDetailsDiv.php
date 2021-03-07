@@ -55,22 +55,19 @@
                 echo 'غير محدد' ;
             }
             ?>
-            </td>
-   
-    </tr>
-   
-   <tr>
         <td style="width: 105px;">
             <strong>   محتوي الرساله</strong>
         </td>
-
-        <td colspan="8"><?php if (!empty($get_all->subject)) {
+        <td style="width: 10px;"><strong>:</strong></td>
+        <td><?php if (!empty($get_all->subject)) {
                 echo  $get_all->subject;
             } else{
                 echo 'غير محدد' ;
             }
             ?></td> 
-   </tr>
+    </tr>
+   
+   
     </tbody>
 </table>
 </div>
