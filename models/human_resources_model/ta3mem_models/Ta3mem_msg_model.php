@@ -1,5 +1,6 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
+
 class Ta3mem_msg_model extends CI_Model
 {
     public function chek_Null($post_value)
@@ -11,6 +12,7 @@ class Ta3mem_msg_model extends CI_Model
             return $post_value;
         }
     }
+
     public function select_all()
     {
         $this->db->select('*');
@@ -29,6 +31,7 @@ class Ta3mem_msg_model extends CI_Model
             return false;
         }
     }
+
     public function count_all_emp($id)
     {
         $this->db->select('*');
@@ -38,6 +41,7 @@ class Ta3mem_msg_model extends CI_Model
         $query = $this->db->get();
         return $query->num_rows();
     }
+
     public function insert($id, $img)
     {
         //  $data['edara_n'] = $this->input->post('edara_n');
@@ -46,7 +50,7 @@ class Ta3mem_msg_model extends CI_Model
         $y = $this->input->post('edara_fk_name');
         //  $data['edara_id_fk'] = $x[$i];
         //  $data['edara_n']  = 'ادارة';
-          $data['msg_title'] = $this->input->post('msg_title');
+        $data['msg_title'] = $this->input->post('msg_title');
         $data['msg_date'] = $this->input->post('msg_date');
         $data['msg_f2a'] = $this->input->post('msg_f2a');
         $data['start_date'] = $this->input->post('start_date');
@@ -75,6 +79,7 @@ class Ta3mem_msg_model extends CI_Model
             }
         }
     }
+
     public function getUserName($user_id)
     {
         $sql = $this->db->where("user_id", $user_id)->get('users');
@@ -99,10 +104,12 @@ class Ta3mem_msg_model extends CI_Model
         }
         return false;
     }
+
     public function getUserNameByRoll($id, $table, $field)
     {
         return $this->db->where('id', $id)->get($table)->row_array()[$field];
     }
+
     public function get_id($table, $where, $id)
     {
         $h = $this->db->get_where($table, array($where => $id));
@@ -119,6 +126,7 @@ class Ta3mem_msg_model extends CI_Model
             }
         }
     }
+
     public function select_last_id()
     {
         $this->db->select('*');
@@ -132,16 +140,18 @@ class Ta3mem_msg_model extends CI_Model
             }
             return $data;
         } else {
-            return 1; 
+            return 1;
         }
     }
+
     public function get_emp_code($table, $where, $id)
     {
         $h = $this->db->get_where($table, array($where => $id));
         $arr = $h->row()->emp_code;
-     return $arr;
+        return $arr;
     }
-    public function insert_emp($img) 
+
+    public function insert_emp($img)
     {
         //  $data['edara_n'] = $this->input->post('edara_n');
         //  $data['edara_id_fk'] = $this->input->post('edara_id_fk');
@@ -155,7 +165,7 @@ class Ta3mem_msg_model extends CI_Model
         $data['start_date'] = $this->input->post('start_date');
         $data['start_time'] = $this->input->post('start_time');
         $data['moda'] = $this->input->post('moda');
-             $data['msg_title'] = $this->input->post('msg_title');
+        $data['msg_title'] = $this->input->post('msg_title');
         $data['subject'] = $this->input->post('subject');
         $data['date'] = strtotime(date('Y-m-d'));
         $data['date_ar'] = date('Y-m-d');
@@ -164,27 +174,60 @@ class Ta3mem_msg_model extends CI_Model
         $this->db->insert("hr_ta3mem_msg", $data);
         if ($x != null) {
             for ($i = 0; $i < sizeof($x); $i++) {
-              //  $this->get_id("employees", "id", $x[$i]);
-              $dataa['ta3mem_msg_id_fk'] = $this->select_last_id();
+                //  $this->get_id("employees", "id", $x[$i]);
+                $dataa['ta3mem_msg_id_fk'] = $this->select_last_id();
                 $dataa['emp_id'] = $x[$i];
-             //   $dataa['type'] = 't3mem';
-                $dataa['emp_code'] =$this->get_emp_code("employees", "id", $x[$i]);
+                //   $dataa['type'] = 't3mem';
+                $dataa['emp_code'] = $this->get_emp_code("employees", "id", $x[$i]);
                 $dataa['emp_name'] = $y[$i];
                 $this->db->insert('hr_ta3mem_msg_details', $dataa);
             }
         }
         // print_r($vv);
     }
+
+    public function insert_all_emp($img)
+    {
+
+        $data['img'] = $img;
+        $data['msg_date'] = $this->input->post('msg_date');
+        $data['msg_f2a'] = $this->input->post('msg_f2a');
+        $data['start_date'] = $this->input->post('start_date');
+        $data['start_time'] = $this->input->post('start_time');
+        $data['moda'] = $this->input->post('moda');
+        $data['msg_title'] = $this->input->post('msg_title');
+        $data['subject'] = $this->input->post('subject');
+        $data['date'] = strtotime(date('Y-m-d'));
+        $data['date_ar'] = date('Y-m-d');
+        $data['publisher'] = $_SESSION['emp_code'];
+        $data['publisher_name'] = $this->getUserName($_SESSION['emp_code']);
+        $this->db->insert("hr_ta3mem_msg", $data);
+        $insert_id=$this->db->insert_id();
+        $all_emp=$this->db->where('employee_type', 1)->get('employees')->result();
+
+        if (!empty($all_emp)) {
+           foreach ($all_emp as $emp){
+                $dataa['ta3mem_msg_id_fk'] = $insert_id;
+                $dataa['emp_id'] = $emp->id;
+                $dataa['emp_code'] = $emp->emp_code;
+                $dataa['emp_name'] = $emp->employee;
+                $this->db->insert('hr_ta3mem_msg_details', $dataa);
+            }
+        }
+    }
+
     public function Delete($id)
     {
         $this->db->where("id", $id);
         $this->db->delete("hr_ta3mem_msg");
     }
+
     public function Delete_details($id)
     {
         $this->db->where("ta3mem_id_fk", $id);
         $this->db->delete("hr_ta3mem_msg_details");
     }
+
 //yara
     public function get_by($table, $where_arr = false, $select = false)
     {
@@ -206,6 +249,7 @@ class Ta3mem_msg_model extends CI_Model
             return false;
         }
     }
+
     ////////////////////////////////////yaraaaa/////
     public function select_all_emp($id = false)
     {
@@ -229,6 +273,7 @@ class Ta3mem_msg_model extends CI_Model
             return 0;
         }
     }
+
     public function select_depart($id = false)
     {
         $this->db->select('*');
@@ -251,6 +296,7 @@ class Ta3mem_msg_model extends CI_Model
             return 0;
         }
     }
+
     public function get_edara_name_or_qsm($id)
     {
         $this->db->where('id', $id);
@@ -261,6 +307,7 @@ class Ta3mem_msg_model extends CI_Model
             return false;
         }
     }
+
     public function get_job_title($id)
     {
         $this->db->where('defined_id', $id);
@@ -271,6 +318,7 @@ class Ta3mem_msg_model extends CI_Model
             return false;
         }
     }
+
     public function get_all_edarat()
     {
         $this->db->select('*');
@@ -287,6 +335,7 @@ class Ta3mem_msg_model extends CI_Model
         }
         return false;
     }
+
     //yara23-9-2020
     public function get_action_da3wa()
     {
@@ -295,35 +344,36 @@ class Ta3mem_msg_model extends CI_Model
         $this->db->where('emp_id', $_SESSION['emp_code']);
         $this->db->where('seen', 0);
         $query = $this->db->get();
-   
-            if ($query->num_rows()>0){
-                $i = 0;
-                $data=$query->result();
-                foreach ($query->result() as $row) {
-            $arr = $query;
-            $data[$i]->basic_data = $this->basic_data($row->ta3mem_msg_id_fk);
-            $data[$i]->attach_data = $this->attach_data($row->ta3mem_msg_id_fk);
-            $i++;
+
+        if ($query->num_rows() > 0) {
+            $i = 0;
+            $data = $query->result();
+            foreach ($query->result() as $row) {
+                $arr = $query;
+                $data[$i]->basic_data = $this->basic_data($row->ta3mem_msg_id_fk);
+                $data[$i]->attach_data = $this->attach_data($row->ta3mem_msg_id_fk);
+                $i++;
+            }
+            return $data;
         }
-        return $data;
-    }
         return false;
-    
-        
-        
+
+
     }
+
     // attach_data
     public function attach_data($id)
     {
         return $this->db->where('ta3mem_msg_id_fk', $id)
-           ->get('hr_ta3mem_msg_attaches')->result();
+            ->get('hr_ta3mem_msg_attaches')->result();
     }
+
     public function basic_data($id)
     {
         return $this->db->where('id', $id)
             ->where('send_all_t3mem', 1)->get('hr_ta3mem_msg')->row();
     }
-   
+
 /////////////////////////////////////////////////////////////
     public function select_by_id($id)
     {
@@ -340,6 +390,7 @@ class Ta3mem_msg_model extends CI_Model
             return false;
         }
     }
+
     public function get_t3mem_all_emp($id)
     {
         $this->db->select('*');
@@ -348,6 +399,7 @@ class Ta3mem_msg_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+
     ///////////////////////
     public function get_attach($id)
     {
@@ -356,6 +408,7 @@ class Ta3mem_msg_model extends CI_Model
             return $query->result();
         }
     }
+
     public function insert_attach($all_img)
     {
         if (!empty($all_img)) {
@@ -374,6 +427,7 @@ class Ta3mem_msg_model extends CI_Model
             }
         }
     }
+
     public function delete_upload($id)
     {
         $img = $this->get_by('hr_ta3mem_msg_attaches', array('id' => $id), 1);
@@ -381,28 +435,31 @@ class Ta3mem_msg_model extends CI_Model
             unlink(FCPATH . "uploads/human_resources/ta3mem/" . $img->file);
         }
     }
+
     public function delete_attach_all($id)
     {
         $this->delete_upload($id);
         $this->db->where('ta3mem_msg_id_fk', $id);
         $this->db->delete('hr_ta3mem_msg_attaches');
     }
+
     public function delete_attach($id)
     {
         $this->delete_upload($id);
         $this->db->where('id', $id);
         $this->db->delete('hr_ta3mem_msg_attaches');
     }
+
     // send_all_t3mem
     public function send_all_t3mem($id)
     {
         $data['send_all_t3mem'] = 1;
         $this->db->where('id', $id)->update('hr_ta3mem_msg', $data);
-        $dataa['seen']=0;
-$this->db->where('ta3mem_msg_id_fk',$id)->update('hr_ta3mem_msg_details',$dataa);
+        $dataa['seen'] = 0;
+        $this->db->where('ta3mem_msg_id_fk', $id)->update('hr_ta3mem_msg_details', $dataa);
     }
- //old_fun
- //   31-12-2020
+    //old_fun
+    //   31-12-2020
     public function get_all_emp($id)
     {
         $this->db->select('*');
@@ -412,6 +469,7 @@ $this->db->where('ta3mem_msg_id_fk',$id)->update('hr_ta3mem_msg_details',$dataa)
         $query = $this->db->get();
         return $query->result();
     }
+
     public function get_all_emps($id)
     {
         $this->db->where_not_in('id', $id);
@@ -426,29 +484,33 @@ $this->db->where('ta3mem_msg_id_fk',$id)->update('hr_ta3mem_msg_details',$dataa)
     public function get_unseen_msg_new()
     {
         $this->db->where('hr_ta3mem_msg_details.emp_id', $_SESSION['emp_code']);
-        $this->db->where('hr_ta3mem_msg_details.seen',null);
-        $query= $this->db->get('hr_ta3mem_msg_details')->result();
-        $data=array();
-        $x=0;
-        foreach ($query as $row)
-        {
-            $data[$x]=$row;
-            $data[$x]->msg_data=$this->get_msg_data($row->ta3mem_msg_id_fk);
-            $data[$x]->msg_img=$this->get_msg_img($row->ta3mem_msg_id_fk);
+        $this->db->where('hr_ta3mem_msg_details.seen', null);
+        $query = $this->db->get('hr_ta3mem_msg_details')->result();
+        $data = array();
+        $x = 0;
+        foreach ($query as $row) {
+            $data[$x] = $row;
+            $data[$x]->msg_data = $this->get_msg_data($row->ta3mem_msg_id_fk);
+            $data[$x]->msg_img = $this->get_msg_img($row->ta3mem_msg_id_fk);
             $x++;
         }
         return $data;
-    } 
-    public function get_msg_data($ta3mem_msg_id_fk){
-        $h = $this->db->get_where("hr_ta3mem_msg",array("id"=>$ta3mem_msg_id_fk));
-        $data= $h->row_array();
+    }
+
+    public function get_msg_data($ta3mem_msg_id_fk)
+    {
+        $h = $this->db->get_where("hr_ta3mem_msg", array("id" => $ta3mem_msg_id_fk));
+        $data = $h->row_array();
         return $data["subject"];
     }
-       public function get_msg_img($ta3mem_msg_id_fk){
-        $h = $this->db->get_where("hr_ta3mem_msg",array("id"=>$ta3mem_msg_id_fk));
-        $data= $h->row_array();
+
+    public function get_msg_img($ta3mem_msg_id_fk)
+    {
+        $h = $this->db->get_where("hr_ta3mem_msg", array("id" => $ta3mem_msg_id_fk));
+        $data = $h->row_array();
         return $data["img"];
-    } 
+    }
+
     function get_unseen_msg()
     {
         $t3mem = $this->db->select('hr_ta3mem_msg.*,hr_ta3mem_msg_details.*,COUNT(hr_ta3mem_msg.id) as count ')
@@ -456,15 +518,16 @@ $this->db->where('ta3mem_msg_id_fk',$id)->update('hr_ta3mem_msg_details',$dataa)
             ->join('hr_ta3mem_msg', 'hr_ta3mem_msg_details.ta3mem_msg_id_fk=hr_ta3mem_msg.id')
             ->where('hr_ta3mem_msg.send_all_t3mem', 1)
             ->where('hr_ta3mem_msg_details.emp_id', $_SESSION['emp_code'])
-            ->where('hr_ta3mem_msg_details.seen',0)
+            ->where('hr_ta3mem_msg_details.seen', 0)
             ->get()->row();
         if (!empty($t3mem)) {
-          /// $data = array('t3mem' => $t3mem);   
-               $query=$t3mem;
-                $query->attaches= $this->get_attaches_msg($t3mem->ta3mem_msg_id_fk);
+            /// $data = array('t3mem' => $t3mem);
+            $query = $t3mem;
+            $query->attaches = $this->get_attaches_msg($t3mem->ta3mem_msg_id_fk);
             return $query;
         }
     }
+
     // get_attaches
     public function get_attaches_msg($id)
     {
@@ -472,18 +535,17 @@ $this->db->where('ta3mem_msg_id_fk',$id)->update('hr_ta3mem_msg_details',$dataa)
         $q = $this->db->get('hr_ta3mem_msg_attaches')->result();
         if (!empty($q)) {
             return $q;
-        }
-        else{
+        } else {
             return false;
         }
     }
-  
+
     // seen_msg
     public function reply_dawa()
     {
         $id = $this->input->post('id');
         if ($this->input->post('action') == 'refuse') {
-           // $data['action'] = 2;
+            // $data['action'] = 2;
             $data['seen'] = 2;
             $data['seen_time'] = date('h:i:s a');
             $data['seen_date'] = date('Y-m-d');
@@ -491,7 +553,7 @@ $this->db->where('ta3mem_msg_id_fk',$id)->update('hr_ta3mem_msg_details',$dataa)
                 ->where('id', $id)
                 ->update('hr_ta3mem_msg_details', $data);
         } else if ($this->input->post('action') == 'accept') {
-        //    $data['action'] = 1;
+            //    $data['action'] = 1;
             $data['seen'] = 1;
             $data['seen_time'] = date('h:i:s a');
             $data['seen_date'] = date('Y-m-d');
@@ -500,21 +562,58 @@ $this->db->where('ta3mem_msg_id_fk',$id)->update('hr_ta3mem_msg_details',$dataa)
                 ->update('hr_ta3mem_msg_details', $data);
         }
     }
+
     public function select_all_unseen_ta3mem()
     {
         $query = $this->db->select('hr_ta3mem_msg.*,hr_ta3mem_msg_details.*')
-        ->from("hr_ta3mem_msg_details")
-        ->join('hr_ta3mem_msg', 'hr_ta3mem_msg_details.ta3mem_msg_id_fk=hr_ta3mem_msg.id')
-        ->where('hr_ta3mem_msg.send_all_t3mem', 1)
-        ->where('emp_id', $_SESSION['emp_code'])
-        ->where('seen',0)
-        ->get()->result();
+            ->from("hr_ta3mem_msg_details")
+            ->join('hr_ta3mem_msg', 'hr_ta3mem_msg_details.ta3mem_msg_id_fk=hr_ta3mem_msg.id')
+            ->where('hr_ta3mem_msg.send_all_t3mem', 1)
+            ->where('emp_id', $_SESSION['emp_code'])
+            ->where('seen', 0)
+            ->get()->result();
         if (!empty($query)) {
-            
+
             return $query;
         } else {
             return false;
         }
     }
-  
+
+    public function select_all_ta3mem()
+    {
+        $query = $this->db->select('hr_ta3mem_msg.*,hr_ta3mem_msg_details.seen,hr_ta3mem_msg_details.seen_date,hr_ta3mem_msg_details.seen_time')
+            ->from("hr_ta3mem_msg")
+            ->join('hr_ta3mem_msg_details', 'hr_ta3mem_msg_details.ta3mem_msg_id_fk=hr_ta3mem_msg.id')
+            ->where('hr_ta3mem_msg.send_all_t3mem', 1)
+            ->where('emp_id', $_SESSION['emp_code'])
+            ->get()->result();
+        if (!empty($query)) {
+
+            return $query;
+        } else {
+            return false;
+        }
+    }
+
+    public function get_one_msg_data($id)
+    {
+        $this->db->select('*');
+        $this->db->from("hr_ta3mem_msg_details");
+        $this->db->where('emp_id', $_SESSION['emp_code']);
+        $this->db->where('ta3mem_msg_id_fk', $id);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            $query = $query->row();
+            $query->basic_data = $this->basic_data($query->ta3mem_msg_id_fk);
+            $query->attach_data = $this->attach_data($query->ta3mem_msg_id_fk);
+
+            return $query;
+        }
+        return false;
+
+
+    }
+
+
 }

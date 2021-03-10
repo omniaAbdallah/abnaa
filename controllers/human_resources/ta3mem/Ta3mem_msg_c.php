@@ -1,4 +1,5 @@
 <?php
+
 class
 Ta3mem_msg_c extends MY_Controller
 {
@@ -15,6 +16,7 @@ Ta3mem_msg_c extends MY_Controller
         $this->load->helper(array('url', 'text', 'permission', 'form'));
         $this->load->model("human_resources_model/ta3mem_models/Ta3mem_msg_model");
     }
+
 //--------------------------------------------------
     private function test($data = array())
     {
@@ -23,12 +25,14 @@ Ta3mem_msg_c extends MY_Controller
         echo "</pre>";
         die;
     }
+
 //-------------------------------------------------
     private function url()
     {
         unset($_SESSION['url']);
         $this->session->set_flashdata('url', 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
     }
+
 //-----------------------------------------
     public function message($type, $text, $method = false)
     {
@@ -45,16 +49,18 @@ Ta3mem_msg_c extends MY_Controller
             return $CI->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissable"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong> !</strong> ' . $text . '.</div>');
         }
     }
+
     public function index()
     {     // human_resources/ta3mem/Ta3mem_msg_c  
         $data['records'] = $this->Ta3mem_msg_model->select_all();
         //$this->test($data['records']);
         $data['title'] = '    إدارة الرسائل';
         //$data['emp_data'] = $this->Ta3mem_msg_model->select_depart();
-      //  $data['emp_data'] = $this->Ta3mem_msg_model->select_all_emp();
+        $data['emp_data'] = $this->Ta3mem_msg_model->select_all_emp();
         $data['subview'] = 'admin/Human_resources/ta3mem_v/msg/msg_emp';
         $this->load->view('admin_index', $data);
     }
+
     public function load_tahwel()
     {
         $type = $this->input->post('type');
@@ -66,6 +72,7 @@ Ta3mem_msg_c extends MY_Controller
             $this->load->view('admin/Human_resources/ta3mem_v/msg/load_tahwel_employee', $data);
         }
     }
+
     public function getConnection_emp()
     {
         $all_Emps = $this->Ta3mem_msg_model->get_all_edarat();
@@ -89,6 +96,7 @@ Ta3mem_msg_c extends MY_Controller
         }
         echo json_encode($arr_emp);
     }
+
     private function thumb($data, $folder = '')
     {
         $config['image_library'] = 'gd2';
@@ -107,6 +115,7 @@ Ta3mem_msg_c extends MY_Controller
         $this->image_lib->initialize($config);
         $this->image_lib->resize();
     }
+
     private function upload_image_2($file_name, $folder = '')
     {
         if (!empty($folder)) {
@@ -126,6 +135,7 @@ Ta3mem_msg_c extends MY_Controller
             return $datafile['file_name'];
         }
     }
+
     public function read_file($file_name)
     {
         $this->load->helper('file');
@@ -139,6 +149,7 @@ Ta3mem_msg_c extends MY_Controller
         header('Content-Length: ' . filesize($file_path));
         readfile($file_path);
     }
+
     public function insert()
     {
         if ($this->input->post('save') === 'save') {
@@ -146,16 +157,22 @@ Ta3mem_msg_c extends MY_Controller
             $img_t3mem = 'img';
             //    $img_file = $this->upload_image_2($img, 'human_resources/ta3mem');
             $img = $this->upload_image_2($img_t3mem, 'human_resources/ta3mem');
-            //  $this->test($_POST);
-            if ($this->input->post('type') == 1) {
-                $this->Ta3mem_msg_model->insert($id = 0, $img);
-            } else if ($this->input->post('type') == 2) {
-                $this->Ta3mem_msg_model->insert_emp($img);
+//            $this->test($_POST);
+            if ($this->input->post('msg_f2a') == 1) {
+                if ($this->input->post('type') == 1) {
+                    $this->Ta3mem_msg_model->insert($id = 0, $img);
+                } else if ($this->input->post('type') == 2) {
+                    $this->Ta3mem_msg_model->insert_emp($img);
+                }
+            } else {
+                $this->Ta3mem_msg_model->insert_all_emp($img);
+
             }
+            $this->message('success', 'تمت الاضافة ');
+            redirect('human_resources/ta3mem/Ta3mem_msg_c ', 'refresh');
         }
-        $this->message('success', 'تمت الاضافة ');
-        redirect('human_resources/ta3mem/Ta3mem_msg_c ', 'refresh');
     }
+
     public function update($id)
     {
         $data['result'] = $this->Ta3mem_msg_model->select_by_id($id);
@@ -175,6 +192,7 @@ Ta3mem_msg_c extends MY_Controller
         $data['subview'] = 'admin/Human_resources/ta3mem_v/msg/msg_emp';
         $this->load->view('admin_index', $data);
     }
+
     public function Delete_namozeg($rkm)
     {
         $this->Ta3mem_msg_model->Delete($rkm);
@@ -183,6 +201,7 @@ Ta3mem_msg_c extends MY_Controller
         redirect('human_resources/ta3mem/Ta3mem_msg_c ', 'refresh');
         $this->message('success', 'تمت الحذف ');
     }
+
     public function get_all_data()
     {
         $id = $this->input->post('id');
@@ -192,29 +211,30 @@ Ta3mem_msg_c extends MY_Controller
         $data['one_data'] = $this->Ta3mem_msg_model->get_attach($id);
         $this->load->view('admin/Human_resources/ta3mem_v/msg/getDetailsDiv', $data);
     }
+
     //yara23-9-2020
     public function reply_dawa()
     {
         $this->Ta3mem_msg_model->reply_dawa();
     }
+
     public function check_d3wa()//human_resources/ta3mem/Ta3mem_msg_c/check_d3wa
     {
         $this->load->model("human_resources_model/ta3mem_models/Ta3mem_adv_model");
         $this->load->model("human_resources_model/ta3mem_models/Ta3mem_model");
-    
+
         $data['da3wat_msg'] = $this->Ta3mem_msg_model->get_action_da3wa();
         $data['da3wat_adv'] = $this->Ta3mem_adv_model->get_action_da3wa();
         $data['da3wat_t3mem'] = $this->Ta3mem_model->get_action_da3wa();
-       //   $this->test($data['da3wat_msg']);
-       if(!empty($data['da3wat_msg'])||!empty(  $data['da3wat_adv'])||!empty($data['da3wat_t3mem']))
-       {
-        $this->load->view('admin/Human_resources/ta3mem_v/msg/da3wa_load', $data);
-       }
-       else{
-           
-       }
-       
+        //   $this->test($data['da3wat_msg']);
+        if (!empty($data['da3wat_msg']) || !empty($data['da3wat_adv']) || !empty($data['da3wat_t3mem'])) {
+            $this->load->view('admin/Human_resources/ta3mem_v/msg/da3wa_load', $data);
+        } else {
+
+        }
+
     }
+
     //////////////////////////مرفقات///////////////////////////////////////
     public function add_attaches($id)//human_resources/ta3mem/Ta3mem_msg_c/add_attaches
     {
@@ -224,12 +244,14 @@ Ta3mem_msg_c extends MY_Controller
         $data['subview'] = 'admin/Human_resources/ta3mem_v/msg/add_attaches';
         $this->load->view('admin_index', $data);
     }
+
     public function add_morfaq()
     {
         $rkm = $this->input->post('row');
         $images = $this->upload_muli_file("files");
         $this->Ta3mem_msg_model->insert_attach($images);
     }
+
     public function get_attaches()
     {
         $rkm = $this->input->post('rkm');
@@ -237,11 +259,13 @@ Ta3mem_msg_c extends MY_Controller
         $data['one_data'] = $this->Ta3mem_msg_model->get_attach($rkm);
         $this->load->view('admin/Human_resources/ta3mem_v/msg/get_table_attaches', $data);
     }
+
     public function Delete_attach()
     {
         $id = $this->input->post('id');
         $this->Ta3mem_msg_model->delete_attach($id);
     }
+
     private function upload_muli_file($input_name)
     {
         //  $this->test($_FILES[$input_name]['name']);
@@ -256,6 +280,7 @@ Ta3mem_msg_c extends MY_Controller
         }
         return $all_img;
     }
+
     private function upload_all_file($file_name)
     {
         $config['upload_path'] = 'uploads/human_resources/ta3mem';
@@ -271,6 +296,7 @@ Ta3mem_msg_c extends MY_Controller
             return $datafile['file_name'];
         }
     }
+
     public function send_all_t3mem()
     {
         $id = $this->input->post('id');

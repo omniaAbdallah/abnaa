@@ -199,9 +199,19 @@ class Ta3mem_c_request extends CI_Controller
     }
     public function get_t3mem_emp()
     {
-        $data['records'] = $this->Ta3mem_model->select_all_unseen_ta3mem();
+        $data['records'] = $this->Ta3mem_model->select_all_ta3mem();
         //$this->test( $data['records']);
       //  $data['records'] = $this->Ta3mem_model->get_unseen_ta3mem();
         $this->load->view('admin/Human_resources/ta3mem_v/ta3mem/t3mem_load', $data);
+    }
+
+    public function get_t3mem()
+    {
+        $msg_id = $this->input->post('id');
+        $data['t3mem_data'] = $this->Ta3mem_model->get_one_t3mem_data($msg_id);
+
+        $this->load->view('admin/Human_resources/ta3mem_v/ta3mem/load_t3mem_data', $data);
+
+        //  $this->test($data['da3wat_msg']);
     }
 } // END CLASS

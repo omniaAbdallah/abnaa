@@ -177,12 +177,24 @@ class Ta3mem_adv_c_request extends CI_Controller
         // }
         //  $this->test($data['da3wat_msg']);
     }
+
+
     public function get_adv_emp()
     {
-        $data['records'] = $this->Ta3mem_adv_model->select_all_unseen_ta3mem();
+        $data['records'] = $this->Ta3mem_adv_model->select_all_ta3mem();
         //$this->test( $data['records']);
-      //  $data['records'] = $this->Ta3mem_model->get_unseen_ta3mem();
+        //  $data['records'] = $this->Ta3mem_model->get_unseen_ta3mem();
         $this->load->view('admin/Human_resources/ta3mem_v/adv/t3mem_load', $data);
+    }
+
+    public function get_adv()
+    {
+        $msg_id = $this->input->post('id');
+        $data['adv_data'] = $this->Ta3mem_adv_model->get_one_adv_data($msg_id);
+
+        $this->load->view('admin/Human_resources/ta3mem_v/adv/load_adv_data', $data);
+
+        //  $this->test($data['da3wat_msg']);
     }
      
 } // END CLASS

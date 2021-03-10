@@ -264,11 +264,10 @@
                                 <ul class="dropdown-menu">
                                     <li><a data-toggle="modal" data-target="#myModal_details"
                                            onclick="get_all_data( <?= $value->id; ?>)">
-                                            <i class="fa fa-search"> </i>تفاصيل </a>
+                                             </i>تفاصيل </a>
                                     </li>
                                     <li>
-                                        <a href="<?php echo base_url(); ?>/human_resources/ta3mem/Ta3mem_c/add_attaches/<?php echo $value->id; ?>"><i
-                                                    class="fa fa-commenting-o" aria-hidden="true"></i>إضافة
+                                        <a href="<?php echo base_url(); ?>/human_resources/ta3mem/Ta3mem_c/add_attaches/<?php echo $value->id; ?>">إضافة
                                             مرفقات</a></li>
                                     <li><a onclick='swal({
                                                 title: "هل انت متأكد من التعديل ؟",
@@ -283,7 +282,7 @@
                                                 function(){
                                                 window.location="<?= base_url() . 'human_resources/ta3mem/Ta3mem_c/update/' . $value->id ?>";
                                                 });'>
-                                            <i class="fa fa-pencil"></i>تعديل</a>
+                                            تعديل</a>
                                     </li>
                                     <li>
                                         <a onclick=' swal({
@@ -300,7 +299,7 @@
                                                 swal("تم الحذف!", "", "success");
                                                 setTimeout(function(){window.location="<?= base_url() . 'human_resources/ta3mem/Ta3mem_c/Delete_t3mem/' . $value->id ?>";}, 500);
                                                 });'>
-                                            <i class="fa fa-trash"> </i> حذف </a></li>
+                                             حذف </a></li>
                                 </ul>
                             </div>
                         </td>
