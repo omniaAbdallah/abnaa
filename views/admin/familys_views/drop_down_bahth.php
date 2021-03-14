@@ -149,7 +149,18 @@
     .panel-heading a {
         color: #fff;
     }
+
+    div.disabled
+    {
+        pointer-events: none;
+
+        /* for "disabled" effect */
+        opacity: 0.5;
+        background: #CCC;
+    }
 </style>
+
+
 <?php
 $this->load->model('familys_models/osr_crm/Osr_crm_m');
 
@@ -161,6 +172,7 @@ $check_data = $this->Osr_crm_m->check_hdoor_bahth($mother_num);
 $progress_width = 22;
 $progress_num = 0;
 $progress_class = 'danger';
+$script='';
 if (empty($check_data)) {
 
     $check_data['taslem_mosdand'] = 'no';
@@ -173,18 +185,31 @@ if (empty($check_data)) {
 if ($check_data['start_bahth'] == 'yes') {
     $progress_width += 3;
     $progress_num += 25;
+    $script="$('#osr_connect_div').removeClass('disabled');";
 }
 if ($check_data['hdoor_osr_bahth'] == 'yes') {
     $progress_width += 25;
     $progress_num += 25;
+    $script="$('#osr_connect_div').addClass('disabled');";
+
 }
 if ($check_data['taslem_mosdand'] == 'yes') {
     $progress_width += 25;
     $progress_num += 25;
+    $script="$('#osr_connect_div').addClass('disabled');";
+
 }
-if ($check_data['taslem_mosdand'] == 'yes') {
+if ($check_data['end_review'] == 'yes') {
     $progress_width += 15;
     $progress_num += 15;
+    $script="$('#osr_connect_div').addClass('disabled');";
+
+}
+if ($check_data['bahth_to'] == 'yes') {
+    $progress_width += 10;
+    $progress_num += 10;
+    $script="$('#osr_connect_div').addClass('disabled');";
+
 }
 if ($progress_num >= 50) {
     $progress_class = 'success';
@@ -426,6 +451,8 @@ if ($progress_num >= 50) {
         setTimeout(function(){  $('.review_to').attr('disabled', 'disabled');
             $('.end_review').attr('disabled', 'disabled'); }, 500);
         <?php } ?>
+
+        <?=$script?>
     });
 
 </script>
@@ -527,6 +554,7 @@ if ($progress_num >= 50) {
                                 $('.progress-bar').addClass("progress-bar-striped");
                                 $('.progress-bar').removeClass("progress-bar-danger");
                                 $('.progress-bar').addClass("progress-bar-success");
+                                $('#osr_connect_div').addClass('disabled');
 
                             } else {
                                 console.log('من فضلك قم  ببدء إجراءات التحديث اولاً :: ' + resp);
@@ -578,16 +606,24 @@ if ($progress_num >= 50) {
                             });
                         },
                         success: function (resp) {
-                            swal({
-                                title: 'تم بدء إجراءات التحديث   بنجاح',
-                                type: 'success',
-                                confirmButtonText: 'تم'
-                            });
-                            $('.start_bahth').removeAttr('disabled');
-                            $('.progress-bar').css('width', '25%');
-                            $('#progress_num').html('25');
-                            $('.progress-bar').addClass("progress-bar-striped");
-
+                            if (resp == 1) {
+                                swal({
+                                    title: 'تم بدء إجراءات التحديث   بنجاح',
+                                    type: 'success',
+                                    confirmButtonText: 'تم'
+                                });
+                                $('.start_bahth').removeAttr('disabled');
+                                $('.progress-bar').css('width', '25%');
+                                $('#progress_num').html('25');
+                                $('.progress-bar').addClass("progress-bar-striped");
+                                $('#osr_connect_div').removeClass('disabled');
+                            }else {
+                                swal({
+                                    title: 'تم بدء إجراءات التحديث   من قبل ',
+                                    type: 'warning',
+                                    confirmButtonText: 'تم'
+                                });
+                            }
 
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
@@ -629,16 +665,25 @@ if ($progress_num >= 50) {
                             });
                         },
                         success: function (resp) {
-                            swal({
-                                title: 'تم إنهاء إستلام وتسلم المعاملات بنجاح',
-                                type: 'success',
-                                confirmButtonText: 'تم'
-                            });
-                            $('.taslem_mosdand').removeAttr('disabled');
-                            $('.progress-bar').css('width', '75%');
-                            $('#progress_num').html('75');
-                            $('.progress-bar').removeClass("progress-bar-danger");
-                            $('.progress-bar').addClass("progress-bar-success");
+                            if (resp == 1) {
+
+                                swal({
+                                    title: 'تم إنهاء إستلام وتسلم المعاملات بنجاح',
+                                    type: 'success',
+                                    confirmButtonText: 'تم'
+                                });
+                                $('.taslem_mosdand').removeAttr('disabled');
+                                $('.progress-bar').css('width', '75%');
+                                $('#progress_num').html('75');
+                                $('.progress-bar').removeClass("progress-bar-danger");
+                                $('.progress-bar').addClass("progress-bar-success");
+                            }else {
+                                swal({
+                                    title: 'تم إنهاء إستلام وتسلم المعاملات من قبل ',
+                                    type: 'warning',
+                                    confirmButtonText: 'تم'
+                                });
+                            }
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             console.error(xhr.responseText);
@@ -684,7 +729,7 @@ if ($progress_num >= 50) {
                                 type: 'success',
                                 confirmButtonText: 'تم'
                             });
-                            $('.taslem_mosdand').removeAttr('disabled');
+                            $('.end_review ').removeAttr('disabled');
                             $('.progress-bar').css('width', '90%');
                             $('#progress_num').html('90');
                             $('.progress-bar').removeClass("progress-bar-danger");
