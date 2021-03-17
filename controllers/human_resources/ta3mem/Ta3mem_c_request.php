@@ -70,12 +70,32 @@ class Ta3mem_c_request extends CI_Controller
     {
         $this->Ta3mem_model->reply_dawa();
     }
-    // seen_t3mem
-    public function seen_t3mem()
+    public function check_d3wa()
     {
-        $this->Ta3mem_model->seen_t3mem();
+        $da3wat = $this->Ta3mem_model->get_unseen_ta3mem();
+        $adv = $this->Ta3mem_model->get_unseen_adv();
+        $msg = $this->Ta3mem_model->get_unseen_msg();
+        //   echo 'id='. $da3wat['t3mem']->id;
+        if ($da3wat->id == '') {
+            $data['da3wat_t3mem'] = '';
+        } elseif ($da3wat->id != '') {
+            $data['da3wat_t3mem'] = $this->Ta3mem_model->get_unseen_ta3mem();
+            $this->load->view('admin/Human_resources/ta3mem_v/ta3mem/da3wa_load', $data);
+        }
+        if ($adv->id == '') {
+            $data['da3wat_adv'] = '';
+        } elseif ($adv->id != '') {
+            $data['da3wat_adv'] = $this->Ta3mem_model->get_unseen_adv();
+            $this->load->view('admin/Human_resources/ta3mem_v/ta3mem/da3wa_load', $data);
+        }
+        if ($msg->id == '') {
+            $data['da3wat_msg'] = '';
+        } elseif ($msg->id != '') {
+            $data['da3wat_msg'] = $this->Ta3mem_model->get_unseen_msg();
+            $this->load->view('admin/Human_resources/ta3mem_v/msg/da3wa_load', $data);
+        }
+        //  $this->test($data['da3wat_msg']);
     }
-   
     public function add_attaches($id)//human_resources/ta3mem/Ta3mem_c/add_attaches
     {
         $data['ta3mem_id_fk'] = $id;
@@ -152,6 +172,7 @@ class Ta3mem_c_request extends CI_Controller
         echo "</pre>";
         die;
     }
+
     private function thumb($data, $folder = '')
     {
         $config['image_library'] = 'gd2';
@@ -169,49 +190,5 @@ class Ta3mem_c_request extends CI_Controller
         $this->load->library('image_lib', $config);
         $this->image_lib->initialize($config);
         $this->image_lib->resize();
-    }
-  
-    public function check_d3wa()
-    {
-        $da3wat = $this->Ta3mem_model->get_unseen_ta3mem();
-       /// $adv = $this->Ta3mem_model->get_unseen_adv();
-      //  $msg = $this->Ta3mem_model->get_unseen_msg();
-      
-        if ($da3wat->id == '') {
-          $data['da3wat_t3mem'] = '';
-        } elseif ($da3wat->id != '') {
-            $data['da3wat_t3mem'] = $this->Ta3mem_model->get_unseen_ta3mem();
-            $this->load->view('admin/Human_resources/ta3mem_v/ta3mem/da3wa_load', $data);
-      }
-        // if ($adv->id == '') {
-        //     $data['da3wat_adv'] = '';
-        // } elseif ($adv->id != '') {
-        //     $data['da3wat_adv'] = $this->Ta3mem_model->get_unseen_adv();
-        //     $this->load->view('admin/Human_resources/ta3mem_v/ta3mem/da3wa_load', $data);
-        // }
-        // if ($msg->id == '') {
-        //     $data['da3wat_msg'] = '';
-        // } elseif ($msg->id != '') {
-        //     $data['da3wat_msg'] = $this->Ta3mem_model->get_unseen_msg();
-        //     $this->load->view('admin/Human_resources/ta3mem_v/msg/da3wa_load', $data);
-        // }
-        //  $this->test($data['da3wat_msg']);
-    }
-    public function get_t3mem_emp()
-    {
-        $data['records'] = $this->Ta3mem_model->select_all_ta3mem();
-        //$this->test( $data['records']);
-      //  $data['records'] = $this->Ta3mem_model->get_unseen_ta3mem();
-        $this->load->view('admin/Human_resources/ta3mem_v/ta3mem/t3mem_load', $data);
-    }
-
-    public function get_t3mem()
-    {
-        $msg_id = $this->input->post('id');
-        $data['t3mem_data'] = $this->Ta3mem_model->get_one_t3mem_data($msg_id);
-
-        $this->load->view('admin/Human_resources/ta3mem_v/ta3mem/load_t3mem_data', $data);
-
-        //  $this->test($data['da3wat_msg']);
     }
 } // END CLASS

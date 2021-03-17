@@ -4,15 +4,19 @@
             <h3 class="panel-title"><?= $title ?></h3>
         </div>
         <div class="panel-body">
+
             <?php
             if (isset($result) && !empty($result)) {
                 $msg_date = $result->msg_date;
+
                 $msg_f2a = $result->msg_f2a;
                 $start_date = $result->start_date;
                 $start_time = $result->start_time;
                 $subject = $result->subject;
                 $disabled = 'disabled';
                 $moda = $result->moda;
+
+
                 $emp_name = '';
                 $card_num = '';
                 $emp_id_fk = '';
@@ -26,6 +30,7 @@
                 $details = "";
                 $required = '';
  $msg_title  = $result->msg_title ;
+
                 echo form_open_multipart('human_resources/ta3mem/Ta3mem_msg_c/update/' . $result->id, array('id' => 'myform'));
             } else {
                 echo form_open_multipart('human_resources/ta3mem/Ta3mem_msg_c/insert', array('id' => 'myform'));
@@ -61,6 +66,7 @@
                     <input type="date" value="<?= $msg_date; ?>" name="msg_date" id="msg_date"
                            class="form-control ">
                 </div>
+                
                   <div class="col-sm-2  col-md-2 padding-4 ">
                     <label class="label  ">عنوان الرسالة </label>
                     <input type="text" value="<?= $msg_title; ?>" name="msg_title" id="msg_title"
@@ -73,6 +79,7 @@
                         <option value="">إختر</option>
                         <?php $arrx = array(1 => 'خاص', 2 => 'عام');
                         foreach ($arrx as $key => $value) {
+
                             $select = '';
                             if ($msg_f2a == $key) {
                                 $select = 'selected';
@@ -88,8 +95,13 @@
                     </label>
                     <input name="edara_n" id="edara_n" class="form-control seend_to" style="width:86%; float: right;"
                            readonly
+
                            data-validation="<?= $required ?>"
-                           value="">
+                           value="<?php if (!empty($emp_data->edara_n)) {
+                               echo $emp_data->edara_n;
+                           } else {
+                               echo $edara_n;
+                           } ?>">
                     <button type="button"
                         <?= $disabled ?>
                             class="btn btn-success btn-next seend_to" style="float: left;"
@@ -131,10 +143,14 @@
                     <label class="label  "> صوره الرسالة </label>
                     <input type="file" value="" name="img" id="img"
                            class="form-control ">
+
                     <?php if (isset($result) && !empty($result)) {
+
                         $img_url = base_url() . 'uploads/human_resources/ta3mem/' . $result->img;
                         ?>
                         <a target="_blank" onclick="show_img(<?= $img_url ?>)"><i class="fa fa-eye"></i></a>
+
+ 
                     <?php } ?>
                 </div>
                 <div class="col-sm-12  col-md-12 padding-4 ">
@@ -155,6 +171,8 @@
         </div>
     </div>
 </div>
+
+
 <?php if (isset($records) && $records != null) { ?>
     <div class="col-sm-12 no-padding">
         <div class="panel panel-bd lobidisable lobipanel lobipanel-sortable">
@@ -170,6 +188,7 @@
                         <th class="text-center">عنوان الرساله</th>
                         <!-- <th class="text-center">  ارسال الي</th> -->
                         <th class="text-center"> فئة الرسالة</th>
+
                         <th class="text-center"> مده عرض الرساله</th>
                         <th class="text-center"> صوره الرسالة</th>
                         <th class="text-center"> عدد المشاهدات</th>
@@ -185,6 +204,7 @@
                             <td><?= $x++ ?></td>
                             <td><?= $value->msg_date ?></td>
                           <!--  <td><?= strip_tags(substr($value->subject,0,80)).'...' ?></td>-->
+                          
                           <td><?= $value->msg_title ?></td> 
                             <td>
                                 <?php $arrx = array(1 => 'خاص', 2 => 'عام');
@@ -237,12 +257,15 @@
                                 <?= $value->count_all; ?>
                             </td>
                             <td style="width: 200px">
-                                <div style="float: right" id="send_all_t3mem<?=$value->id;?>">
+
+                                <div style="float: right" id="send_all_t3mem">
                                     <?php if ($value->send_all_t3mem == 0) {
                                         ?>
                                         <button class="btn btn-info btn-sm" onclick="send_all_t3mem( <?= $value->id; ?>)">ارسال الرسالة</button>
                                     <?php } ?>
                                 </div>
+
+
                                 <div class="btn-group btn-group-sm">
                                     <button type="button" class="btn btn-warning">إجراءات</button>
                                     <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"
@@ -253,11 +276,13 @@
                                     <ul class="dropdown-menu">
                                         <li><a data-toggle="modal" data-target="#myModal_details"
                                                onclick="get_all_data( <?= $value->id; ?>)">
-                                               تفاصيل </a>
+                                                <i class="fa fa-search"> </i>تفاصيل </a>
                                         </li>
                                         <li>
-                                            <a href="<?php echo base_url(); ?>/human_resources/ta3mem/Ta3mem_msg_c/add_attaches/<?php echo $value->id; ?>">إضافة
+                                            <a href="<?php echo base_url(); ?>/human_resources/ta3mem/Ta3mem_msg_c/add_attaches/<?php echo $value->id; ?>"><i
+                                                        class="fa fa-commenting-o" aria-hidden="true"></i>إضافة
                                                 مرفقات</a></li>
+
                                         <li><a onclick='swal({
                                                     title: "هل انت متأكد من التعديل ؟",
                                                     text: "",
@@ -271,8 +296,9 @@
                                                     function(){
                                                     window.location="<?= base_url() . 'human_resources/ta3mem/Ta3mem_msg_c/update/' . $value->id ?>";
                                                     });'>
-                                                تعديل</a>
+                                                <i class="fa fa-pencil"></i>تعديل</a>
                                         </li>
+
                                         <li>
                                             <a onclick=' swal({
                                                     title: "هل انت متأكد من الحذف ؟",
@@ -288,9 +314,10 @@
                                                     swal("تم الحذف!", "", "success");
                                                     setTimeout(function(){window.location="<?= base_url() . 'human_resources/ta3mem/Ta3mem_msg_c/Delete_namozeg/' . $value->id ?>";}, 500);
                                                     });'>
-                                                 حذف </a></li>
+                                                <i class="fa fa-trash"> </i> حذف </a></li>
                                     </ul>
                                 </div>
+
                             </td>
                         </tr>
                         <?php
@@ -367,10 +394,13 @@
         </div>
     </div>
 </div>
+
 <script src="<?php echo base_url() ?>asisst/admin_asset/ckeditor/ckeditor.js"></script>
+
 <script src="<?php echo base_url() ?>asisst/admin_asset/ckeditor/samples/js/sample.js"></script>
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
+
         CKEDITOR.replace('editor1');
         CKEDITOR.add;
         CKEDITOR.config.toolbar = [
@@ -389,6 +419,7 @@
             $('.seend_to').attr("disabled", "disabled");
         }
     }
+
     // function load_tahwel(type) {
     //     $('#tawel_result').show();
     //     $.ajax({
@@ -419,6 +450,7 @@
                 $('#tawel_result').html('<div class=\'loader-img\'><div class=\'bar1\'></div><div class=\'bar2\'></div><div class=\'bar3\'></div><div class=\'bar4\'></div><div class=\'bar5\'></div><div class=\'bar6\'></div></div>');
             },
             success: function (html) {
+              
                 if(edara_id !=0)
                 {
                     $("#type").remove();
@@ -463,12 +495,13 @@
             destroy: true,
         });
     }
-  
+
+    //yara
     function Get_emp_Name(edara_id, edara_n, type) {
         var checkBox = document.getElementById("myCheck" + edara_id);
         if (checkBox.checked == true) {
-            $('#edara_n').append("<input type='hidden' id='edara_id_fk" + edara_id + "'  name='edara_id_fk[]' value='" + edara_id + "'/><input type='hidden'  data-validation='required' id='edara_fk_name" + edara_id + "' name='edara_fk_name[]' value='" + edara_n + "'/>");
-            $('#edara_n').append("<input type='hidden' id='type'  name='type' value='" + type + "'/>");
+            $('#edara_n').append("<input type='hidden' class='seend_to' id='edara_id_fk" + edara_id + "'  name='edara_id_fk[]' value='" + edara_id + "'/><input type='hidden'  class='seend_to'  data-validation='required' id='edara_fk_name" + edara_id + "' name='edara_fk_name[]' value='" + edara_n + "'/>");
+            $('#edara_n').append("<input type='hidden' class='seend_to'  id='type'  name='type' value='" + type + "'/>");
             var edaraname = [];
             $("input[name='edara_fk_name[]']").each(function () {
                 edaraname.push(this.value);
@@ -482,6 +515,7 @@
         }
     }
 </script>
+
 <script>
     function get_all_data(id) {
         $.ajax({
@@ -497,8 +531,10 @@
         });
     }
 </script>
+
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
+
         CKEDITOR.replace('editor1');
         CKEDITOR.add;
         CKEDITOR.config.toolbar = [
@@ -531,9 +567,18 @@
             type: 'post',
             url: "<?php echo base_url();?>human_resources/ta3mem/Ta3mem_msg_c_request/send_all_t3mem",
             data: {id: id},
-           
+            beforeSend: function () {
+                swal({
+                    title: "جاري الارسال ... ",
+                    text: "",
+                    imageUrl: '<?php echo base_url() . 'asisst/admin_asset/img/loader.png';?>',
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+
+                });
+            },
             success: function (msg) {
-                $('#send_all_t3mem'+id).html('<span style="color:green;">تم ارسال الرسالة</span>');
+                $('#send_all_t3mem').html('<span style="color:green;">تم ارسال الرسالة</span>');
             }
         });
     }

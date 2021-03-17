@@ -113,13 +113,13 @@
                         echo 'disabled';
                     } */ ?>>
                         <i class="fa fa-plus"></i></button>
-                    <!-- <?php if (!empty($emp_data->employee)) { ?>
+                    <?php if (!empty($emp_data->employee)) { ?>
                         <input type="hidden" id="edara_id_fk<?= $emp_data->edara_id ?>" name='edara_id_fk[]'
                                value='<?= $emp_data->edara_id ?>'/>
                         <input type="hidden" id='edara_fk_name<?= $emp_data->edara_id ?>' name='edara_fk_name[]'
                                value='<?= $emp_data->edara_n ?>'/>
                         <input type='hidden' id='type' name='type' value='2'/>
-                    <?php } ?> -->
+                    <?php } ?>
                 </div>
                 <div class="col-sm-2  col-md-2 padding-4 ">
                     <label class="label  "> صوره الاعلان </label>
@@ -303,7 +303,7 @@
                                 <?= $value->count_all; ?>
                             </td>
                             <td style="width: 200px">
-                                <div id="send_all_t3mem<?= $value->id; ?>" style="float:right;">
+                                <div id="send_all_t3mem" style="float:right;">
                                     <?php if ($value->send_all_t3mem == 0) {
                                         ?>
                                         <button class="btn btn-info btn-sm"
@@ -322,10 +322,11 @@
                                     <ul class="dropdown-menu">
                                         <li><a data-toggle="modal" data-target="#myModal_details"
                                                onclick="get_all_data( <?= $value->id; ?>)">
-                                                تفاصيل </a>
+                                                <i class="fa fa-search"> </i>تفاصيل </a>
                                         </li>
                                         <li>
-                                            <a href="<?php echo base_url(); ?>/human_resources/ta3mem/Ta3mem_adv_c/add_attaches/<?php echo $value->id; ?>">إضافة
+                                            <a href="<?php echo base_url(); ?>/human_resources/ta3mem/Ta3mem_c/add_attaches/<?php echo $value->id; ?>"><i
+                                                        class="fa fa-commenting-o" aria-hidden="true"></i>إضافة
                                                 مرفقات</a></li>
                                         <li><a onclick='swal({
                                                     title: "هل انت متأكد من التعديل ؟",
@@ -340,7 +341,7 @@
                                                     function(){
                                                     window.location="<?= base_url() . 'human_resources/ta3mem/Ta3mem_adv_c/update/' . $value->id ?>";
                                                     });'>
-                                               تعديل</a>
+                                                <i class="fa fa-pencil"></i>تعديل</a>
                                         </li>
                                         <li>
                                             <a onclick=' swal({
@@ -357,7 +358,7 @@
                                                     swal("تم الحذف!", "", "success");
                                                     setTimeout(function(){window.location="<?= base_url() . 'human_resources/ta3mem/Ta3mem_adv_c/Delete_namozeg/' . $value->id ?>";}, 500);
                                                     });'>
-                                                 حذف </a></li>
+                                                <i class="fa fa-trash"> </i> حذف </a></li>
                                     </ul>
                                 </div>
                             </td>
@@ -487,6 +488,7 @@
             destroy: true,
         });
     }
+
     //yara
     function Get_emp_Name(edara_id, edara_n, type) {
         var checkBox = document.getElementById("myCheck" + edara_id);
@@ -506,6 +508,7 @@
         }
     }
 </script>
+
 <script>
     function get_all_data(id) {
         $.ajax({
@@ -521,8 +524,10 @@
         });
     }
 </script>
+
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
+
         CKEDITOR.replace('editor1');
         CKEDITOR.add;
         CKEDITOR.config.toolbar = [
@@ -555,27 +560,20 @@
         $.ajax({
             type: 'post',
             url: "<?php echo base_url();?>human_resources/ta3mem/Ta3mem_adv_c_request/send_all_t3mem",
-            data: {id: id}
-           ,
+            data: {id: id},
+            beforeSend: function () {
+                swal({
+                    title: "جاري الارسال ... ",
+                    text: "",
+                    imageUrl: '<?php echo base_url() . 'asisst/admin_asset/img/loader.png';?>',
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+
+                });
+            },
             success: function (msg) {
-                $('#send_all_t3mem'+id).html('<span style="color:green;">تم ارسال الاعلان</span>');
+                $('#send_all_t3mem').html('<span style="color:green;">تم ارسال الاعلان</span>');
             }
         });
     }
-</script>
-<script src="<?php echo base_url() ?>asisst/admin_asset/ckeditor/ckeditor.js"></script>
-<script src="<?php echo base_url() ?>asisst/admin_asset/ckeditor/samples/js/sample.js"></script>
-<script>
-    initSample();
-    CKEDITOR.replaceClass = 'ckeditor';
-</script>
-<script type="text/javascript">
-    CKEDITOR.replace('editor1');
-    CKEDITOR.add;
-    CKEDITOR.config.toolbar = [
-        ['Styles', 'Format', 'Font', 'FontSize'],
-        '/',
-        ['NumberedList', 'BulletedList', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-        ['Image', 'Table', '-', 'Link', 'Flash', 'Smiley', 'TextColor', 'BGColor', 'Source']
-    ];
 </script>

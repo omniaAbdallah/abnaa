@@ -5,22 +5,22 @@
             </h3>
         </div>
         <div class="panel-body">
-            <table id="js_table_customer"
-
-                   class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline">
+        <table id="js_table_customer" 
+   
+   class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline">
                 <thead>
                 <tr class="greentd">
                     <th>م</th>
                     <th class="text-center"> رقم الطلب</th>
                     <th class="text-center"> تاريخ الطلب</th>
                     <th class="text-center">رقم الملف</th>
-                    <th class="text-center"> مقدم الطلب</th>
-                    <th class="text-center"> رقم الهوية</th>
-
-                    <th class="text-center"> محدد المقابلة</th>
-                    <th class="text-center"> تاريخ المقابلة</th>
-                    <th class="text-center"> وقت المقابلة</th>
-
+                    <th class="text-center">  مقدم الطلب</th>
+                    <th class="text-center">   رقم الهوية</th>
+                
+                    <th class="text-center">    محدد المقابلة</th>
+                    <th class="text-center">     تاريخ المقابلة</th>
+                    <th class="text-center">     وقت المقابلة</th>
+                   
                     <th class="text-center">الإجراء</th>
                 </tr>
                 </thead>
@@ -55,41 +55,43 @@
         var oTable_usergroup = $('#js_table_customer').DataTable({
             dom: 'Bfrtip',
             "ajax": '<?php echo base_url(); ?>family_controllers/osr_ektfaa/Ektfaa_talab/data',
-
-
-            aoColumns: [
-                {"bSortable": true},
-                {"bSortable": true},
-                {"bSortable": true},
-
-                {"bSortable": true},
-                {"bSortable": true},
-                {"bSortable": true},
-                {"bSortable": true},
-                {"bSortable": true},
-                {"bSortable": true},
-                {"bSortable": false}
+            
+            
+            
+            aoColumns:[
+                { "bSortable": true },
+                { "bSortable": true },
+                { "bSortable": true },
+               
+                { "bSortable": true },
+                 { "bSortable": true },
+                   { "bSortable": true },
+                     { "bSortable": true },
+                         { "bSortable": true },
+                            { "bSortable": true },
+                { "bSortable": false }
             ],
+            
+                buttons: [
+        'pageLength',
+        'copy',
+        'excelHtml5',
+        {
+            extend: "pdfHtml5",
+            orientation: 'landscape'
+        },
 
-            buttons: [
-                'pageLength',
-                'copy',
-                'excelHtml5',
-                {
-                    extend: "pdfHtml5",
-                    orientation: 'landscape'
-                },
-
-                {
-                    extend: 'print',
-                    exportOptions: {columns: ':visible'},
-                    orientation: 'landscape'
-                },
-                'colvis'
-            ],
-            colReorder: true
-
-
+        {
+            extend: 'print',
+            exportOptions: { columns: ':visible'},
+            orientation: 'landscape'
+        },
+        'colvis'
+        ],
+        colReorder: true 
+            
+            
+            
         });
     });
 </script>

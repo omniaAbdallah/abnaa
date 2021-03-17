@@ -18,26 +18,32 @@ class Ta3mem_c extends MY_Controller
     public function index()
     {     // human_resources/ta3mem/Ta3mem_c
         $data['records'] = $this->Ta3mem_model->select_all();
+        //$this->test($data['records']);
         $data['title'] = 'إضافة تعميم';
-     //   $data['emp_data'] = $this->Ta3mem_model->select_all_emp();
+        //$data['emp_data'] = $this->Ta3mem_model->select_depart();
+        $data['emp_data'] = $this->Ta3mem_model->select_all_emp();
         $data['subview'] = 'admin/Human_resources/ta3mem_v/ta3mem/ta3mem_emp';
         $this->load->view('admin_index', $data);
     }
     public function update($id)
     {     // human_resources/ta3mem/Ta3mem_c
-
+        //$data['records'] = $this->Ta3mem_model->select_all();
         $data['result'] = $this->Ta3mem_model->select_by_id($id);
-
+        //  $this->test($data['result']);
         if ($this->input->post('save') === 'save') {
-
+            // $img = 'file';
             $img_t3mem = 'img';
+            // $img_file = $this->upload_image_2($img, 'human_resources/ta3mem');
             $img = $this->upload_image_2($img_t3mem, 'human_resources/ta3mem');
-
+            //   $this->test($img);
+            // print_r($_POST);
             $this->Ta3mem_model->insert($id, $img);
             $this->message('success', 'تمت الاضافة ');
             redirect('human_resources/ta3mem/Ta3mem_c', 'refresh');
         }
         $data['title'] = 'تعديل تعميم';
+        //$data['emp_data'] = $this->Ta3mem_model->select_depart();
+        $data['emp_data'] = $this->Ta3mem_model->select_all_emp();
         $data['subview'] = 'admin/Human_resources/ta3mem_v/ta3mem/ta3mem_emp';
         $this->load->view('admin_index', $data);
     }
@@ -142,11 +148,10 @@ class Ta3mem_c extends MY_Controller
             return $CI->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissable"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong> !</strong> ' . $text . '.</div>');
         }
     }
-    public function Delete_t3mem($rkm)
+    public function Delete_namozeg($rkm)
     {
         $this->Ta3mem_model->Delete($rkm);
         $this->Ta3mem_model->Delete_details($rkm);
-        $this->Ta3mem_model->delete_attach_all($rkm);
         redirect('human_resources/ta3mem/Ta3mem_c', 'refresh');
         $this->message('success', 'تمت الحذف ');
     }

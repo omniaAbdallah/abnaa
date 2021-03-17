@@ -1,5 +1,4 @@
 <?php
-
 class Ta3mem_msg_c_request extends CI_Controller
 {
     public function __construct()
@@ -10,7 +9,6 @@ class Ta3mem_msg_c_request extends CI_Controller
         }
         $this->load->model("human_resources_model/ta3mem_models/Ta3mem_msg_model");
     }
-
 //--------------------------------------------------
     private function test($data = array())
     {
@@ -30,10 +28,10 @@ class Ta3mem_msg_c_request extends CI_Controller
     //         $this->load->view('admin/Human_resources/ta3mem_v/msg/load_tahwel_employee', $data);
     //     }
     // }
-
+  
     public function getConnection_emp()
     {
-        $all_Emps = $this->Ta3mem_model->get_all_edarat();
+        $all_Emps = $this->Ta3mem_msg_model->get_all_edarat();
         //    $this->test($all_Emps);
         $arr_emp = array();
         $arr_emp['data'] = array();
@@ -54,7 +52,6 @@ class Ta3mem_msg_c_request extends CI_Controller
         }
         echo json_encode($arr_emp);
     }
-
     private function thumb($data, $folder = '')
     {
         $config['image_library'] = 'gd2';
@@ -73,7 +70,6 @@ class Ta3mem_msg_c_request extends CI_Controller
         $this->image_lib->initialize($config);
         $this->image_lib->resize();
     }
-
     private function upload_image_2($file_name, $folder = '')
     {
         if (!empty($folder)) {
@@ -93,7 +89,6 @@ class Ta3mem_msg_c_request extends CI_Controller
             return $datafile['file_name'];
         }
     }
-
     public function read_file($file_name)
     {
         $this->load->helper('file');
@@ -107,7 +102,6 @@ class Ta3mem_msg_c_request extends CI_Controller
         header('Content-Length: ' . filesize($file_path));
         readfile($file_path);
     }
-
     public function get_all_data()
     {
         $id = $this->input->post('id');
@@ -117,13 +111,17 @@ class Ta3mem_msg_c_request extends CI_Controller
         $data['one_data'] = $this->Ta3mem_msg_model->get_attach($id);
         $this->load->view('admin/Human_resources/ta3mem_v/msg/getDetailsDiv', $data);
     }
-
     //yara23-9-2020
     public function reply_dawa()
     {
         $this->Ta3mem_msg_model->reply_dawa();
     }
-
+    public function check_d3wa()
+    {
+        $data['da3wat'] = $this->Ta3mem_msg_model->get_action_da3wa();
+        //  $this->test($data['da3wat']);
+        $this->load->view('admin/Human_resources/ta3mem_v/msg/da3wa_load', $data);
+    }
     //////////////////////////مرفقات///////////////////////////////////////
     public function add_attaches($id)//human_resources/ta3mem/Ta3mem_msg_c/add_attaches
     {
@@ -134,14 +132,12 @@ class Ta3mem_msg_c_request extends CI_Controller
         $data['subview'] = 'admin/Human_resources/ta3mem_v/msg/add_attaches';
         $this->load->view('admin_index', $data);
     }
-
     public function add_morfaq()
     {
         $rkm = $this->input->post('row');
         $images = $this->upload_muli_file("files");
         $this->Ta3mem_msg_model->insert_attach($images);
     }
-
     public function get_attaches()
     {
         $rkm = $this->input->post('rkm');
@@ -149,13 +145,11 @@ class Ta3mem_msg_c_request extends CI_Controller
         $data['one_data'] = $this->Ta3mem_msg_model->get_attach($rkm);
         $this->load->view('admin/Human_resources/ta3mem_v/msg/get_table_attaches', $data);
     }
-
     public function Delete_attach()
     {
         $id = $this->input->post('id');
         $this->Ta3mem_msg_model->delete_attach($id);
     }
-
     private function upload_muli_file($input_name)
     {
         //  $this->test($_FILES[$input_name]['name']);
@@ -170,7 +164,6 @@ class Ta3mem_msg_c_request extends CI_Controller
         }
         return $all_img;
     }
-
     private function upload_all_file($file_name)
     {
         $config['upload_path'] = 'uploads/human_resources/ta3mem';
@@ -186,7 +179,6 @@ class Ta3mem_msg_c_request extends CI_Controller
             return $datafile['file_name'];
         }
     }
-
     public function send_all_t3mem()
     {
         $id = $this->input->post('id');
@@ -201,51 +193,14 @@ class Ta3mem_msg_c_request extends CI_Controller
             $data['all'] = $this->Ta3mem_msg_model->get_all_edarat();
             $this->load->view('admin/Human_resources/ta3mem_v/msg/load_tahwel', $data);
         } else if ($type == 2) {
-            if ($_SESSION['role_id_fk'] == 3) {
+            if($_SESSION['role_id_fk']==3)
+            {
                 $data['all'] = $this->Ta3mem_msg_model->get_all_emps($_SESSION['emp_code']);
-            } else {
-                $data['all'] = $this->Ta3mem_msg_model->get_all_emps(0);
+            }
+            else{
+            $data['all'] = $this->Ta3mem_msg_model->get_all_emps(0);
             }
             $this->load->view('admin/Human_resources/ta3mem_v/msg/load_tahwel_employee', $data);
         }
-    }
-    // seen_msg
-
-    // seen_t3mem
-    public function seen_msg()
-    {
-        $this->Ta3mem_msg_model->seen_msg();
-    }
-
-    public function check_d3wa()
-    {
-        // $da3wat = $this->Ta3mem_model->get_unseen_ta3mem();
-        /// $adv = $this->Ta3mem_model->get_unseen_adv();
-        $msg = $this->Ta3mem_msg_model->get_unseen_msg();
-        if ($msg->id == '') {
-            $data['da3wat_msg'] = '';
-        } elseif ($msg->id != '') {
-            $data['da3wat_msg'] = $this->Ta3mem_msg_model->get_unseen_msg();
-            $this->load->view('admin/Human_resources/ta3mem_v/msg/da3wa_load', $data);
-        }
-        //  $this->test($data['da3wat_msg']);
-    }
-
-    public function get_msg_emp()
-    {
-        $data['records'] = $this->Ta3mem_msg_model->select_all_ta3mem();
-        //$this->test( $data['records']);
-        //  $data['records'] = $this->Ta3mem_model->get_unseen_ta3mem();
-        $this->load->view('admin/Human_resources/ta3mem_v/msg/t3mem_load', $data);
-    }
-
-    public function get_msg()
-    {
-        $msg_id = $this->input->post('id');
-        $data['msg_data'] = $this->Ta3mem_msg_model->get_one_msg_data($msg_id);
-
-        $this->load->view('admin/Human_resources/ta3mem_v/msg/load_msg_data', $data);
-
-        //  $this->test($data['da3wat_msg']);
     }
 } // END CLASS

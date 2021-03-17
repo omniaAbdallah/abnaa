@@ -150,13 +150,20 @@
         color: #fff;
     }
 
-    div.disabled
-    {
+    div.disabled {
         pointer-events: none;
 
         /* for "disabled" effect */
         opacity: 0.5;
         background: #CCC;
+    }
+
+    .btn-disabled {
+        pointer-events: none;
+
+        /* for "disabled" effect */
+        opacity: 0.5;
+        background: #000;
     }
 </style>
 
@@ -172,7 +179,7 @@ $check_data = $this->Osr_crm_m->check_hdoor_bahth($mother_num);
 $progress_width = 22;
 $progress_num = 0;
 $progress_class = 'danger';
-$script='';
+$script = '';
 if (empty($check_data)) {
 
     $check_data['taslem_mosdand'] = 'no';
@@ -185,30 +192,30 @@ if (empty($check_data)) {
 if ($check_data['start_bahth'] == 'yes') {
     $progress_width += 3;
     $progress_num += 25;
-    $script="$('#osr_connect_div').removeClass('disabled');";
+    $script = "$('#osr_connect_div').removeClass('disabled');";
 }
 if ($check_data['hdoor_osr_bahth'] == 'yes') {
     $progress_width += 25;
     $progress_num += 25;
-    $script="$('#osr_connect_div').addClass('disabled');";
+    $script = "$('#osr_connect_div').addClass('disabled');";
 
 }
 if ($check_data['taslem_mosdand'] == 'yes') {
     $progress_width += 25;
     $progress_num += 25;
-    $script="$('#osr_connect_div').addClass('disabled');";
+    $script = "$('#osr_connect_div').addClass('disabled');";
 
 }
 if ($check_data['end_review'] == 'yes') {
     $progress_width += 15;
     $progress_num += 15;
-    $script="$('#osr_connect_div').addClass('disabled');";
+    $script = "$('#osr_connect_div').addClass('disabled');";
 
 }
 if ($check_data['bahth_to'] == 'yes') {
     $progress_width += 10;
     $progress_num += 10;
-    $script="$('#osr_connect_div').addClass('disabled');";
+    $script = "$('#osr_connect_div').addClass('disabled');";
 
 }
 if ($progress_num >= 50) {
@@ -235,24 +242,24 @@ if ($progress_num >= 50) {
           <td colspan="5"></td>
           </tr>-->
         <tr>
-            <td style="width: 10%;"><a class="btn btn-sm btn-success" style="margin: 2px;"
+            <td style="width: 10%;"><a class="btn btn-sm btn-success start <?php if ($progress_num >= 25) { echo 'btn-disabled';} ?> " style="margin: 2px;"
                                        onclick="start_hdoor(<?php echo $mother_num; ?>,<?php echo $file_num; ?>)">
                     بدء إجراءات التحديث </a></td>
             <td style="width: 10%;"><a target="_blank"
-                                       class="btn btn-sm btn-success start_bahth <?= $check_data['start_bahth'] ?>"
+                                       class="btn btn-sm btn-success start_bahth <?php if ($progress_num >= 50) { echo 'btn-disabled';} ?> <?= $check_data['start_bahth'] ?>"
                                        style="margin: 2px;"
                                        href="<?php echo base_url(); ?>family_controllers/osr_crm/Osr_crm_c/add_crm_osr/<?php echo $mother_num; ?>">
                     التواصل مع الاسرة </a></td>
             <td style="width: 10%;"><a style="margin: 2px;"
-                                       class="btn btn-sm btn-success start_bahth <?= $check_data['start_bahth'] ?>"
+                                       class="btn btn-sm btn-success start_bahth <?php if ($progress_num >= 50) { echo 'btn-disabled';} ?> <?= $check_data['start_bahth'] ?>"
                                        onclick="make_hdoor(<?php echo $mother_num; ?>,<?php echo $file_num; ?>)"
 
                 >حضور الأسرة </a></td>
             <td style="width: 10%;">
                 <div class="btn-group" style="    margin-top: 2px;">
-                    <button type="button" class="btn btn-success">تسليم المعاملات</button>
+                    <button type="button" class="btn btn-success hdoor_osr_bahth <?php if ($progress_num >= 75) { echo 'btn-disabled';} ?>">تسليم المعاملات</button>
                     <button type="button"
-                            class="btn btn-success dropdown-toggle hdoor_osr_bahth <?= $check_data['hdoor_osr_bahth'] ?>"
+                            class="btn btn-success dropdown-toggle hdoor_osr_bahth <?php if ($progress_num >= 75) { echo 'btn-disabled';} ?> <?= $check_data['hdoor_osr_bahth'] ?>"
                             data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                         <span class="caret"></span>
@@ -301,9 +308,9 @@ if ($progress_num >= 50) {
 
             <td style="width: 10%;">
                 <div class="btn-group" style="    margin-top: 2px;">
-                    <button type="button" class="btn btn-success">تعديل بيانات الملف</button>
+                    <button type="button" class="btn btn-success taslem_mosdand <?php if ($progress_num >= 90) { echo 'btn-disabled';} ?>">تعديل بيانات الملف</button>
                     <button type="button"
-                            class="btn btn-success dropdown-toggle taslem_mosdand <?= $check_data['taslem_mosdand'] ?>"
+                            class="btn btn-success dropdown-toggle taslem_mosdand <?php if ($progress_num >= 90) { echo 'btn-disabled';} ?> <?= $check_data['taslem_mosdand'] ?>"
                             data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                         <span class="caret"></span>
@@ -357,9 +364,9 @@ if ($progress_num >= 50) {
 
             <td style="width: 10%;">
                 <div class="btn-group" style="    margin-top: 2px;">
-                    <button type="button" class="btn btn-success">مراجعة البيانات</button>
+                    <button type="button" class="btn btn-success review_to <?php if ($progress_num >= 90) { echo 'btn-disabled';} ?>">مراجعة البيانات</button>
                     <button type="button"
-                            class="btn btn-success dropdown-toggle review_to <?= $check_data['review_to'] ?>"
+                            class="btn btn-success dropdown-toggle review_to <?php if ($progress_num >= 90) { echo 'btn-disabled';} ?> <?= $check_data['review_to'] ?>"
                             data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                         <span class="caret"></span>
@@ -413,7 +420,7 @@ if ($progress_num >= 50) {
 
             <td style="width: 10%;">
                 <a style="margin: 2px;" data-toggle="modal" data-target="#modal-process-procedure"
-                   class="btn btn-sm btn-primary end_review <?= $check_data['end_review'] ?>"
+                   class="btn btn-sm btn-primary end_review <?php if ($progress_num >= 100) { echo 'btn-disabled';} ?> <?= $check_data['end_review'] ?>"
                    onclick="GetTransferPage(<?php echo $mother_num; ?>,2)"> تحويل الي الباحث
                 </a></td>
 
@@ -448,8 +455,10 @@ if ($progress_num >= 50) {
         $('.yes').removeAttr('disabled');
 
         <?php if ($basic_data_family['current_to_emp_user_id'] != $_SESSION['user_id']){ ?>
-        setTimeout(function(){  $('.review_to').attr('disabled', 'disabled');
-            $('.end_review').attr('disabled', 'disabled'); }, 500);
+        setTimeout(function () {
+            $('.review_to').attr('disabled', 'disabled');
+            $('.end_review').attr('disabled', 'disabled');
+        }, 500);
         <?php } ?>
 
         <?=$script?>
@@ -555,6 +564,7 @@ if ($progress_num >= 50) {
                                 $('.progress-bar').removeClass("progress-bar-danger");
                                 $('.progress-bar').addClass("progress-bar-success");
                                 $('#osr_connect_div').addClass('disabled');
+                                $('.start_bahth').addClass("btn-disabled");
 
                             } else {
                                 console.log('من فضلك قم  ببدء إجراءات التحديث اولاً :: ' + resp);
@@ -617,7 +627,9 @@ if ($progress_num >= 50) {
                                 $('#progress_num').html('25');
                                 $('.progress-bar').addClass("progress-bar-striped");
                                 $('#osr_connect_div').removeClass('disabled');
-                            }else {
+                                $('.start').addClass("btn-disabled");
+
+                            } else {
                                 swal({
                                     title: 'تم بدء إجراءات التحديث   من قبل ',
                                     type: 'warning',
@@ -677,7 +689,9 @@ if ($progress_num >= 50) {
                                 $('#progress_num').html('75');
                                 $('.progress-bar').removeClass("progress-bar-danger");
                                 $('.progress-bar').addClass("progress-bar-success");
-                            }else {
+                                $('.hdoor_osr_bahth').addClass("btn-disabled");
+
+                            } else {
                                 swal({
                                     title: 'تم إنهاء إستلام وتسلم المعاملات من قبل ',
                                     type: 'warning',
@@ -729,11 +743,13 @@ if ($progress_num >= 50) {
                                 type: 'success',
                                 confirmButtonText: 'تم'
                             });
-                            $('.end_review ').removeAttr('disabled');
+                            $('.end_review').removeAttr('disabled');
                             $('.progress-bar').css('width', '90%');
                             $('#progress_num').html('90');
                             $('.progress-bar').removeClass("progress-bar-danger");
                             $('.progress-bar').addClass("progress-bar-success");
+                            $('.taslem_mosdand').addClass("btn-disabled");
+
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             console.error(xhr.responseText);

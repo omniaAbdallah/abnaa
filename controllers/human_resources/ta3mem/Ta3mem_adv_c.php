@@ -21,7 +21,7 @@ class Ta3mem_adv_c extends MY_Controller
         //$this->test($data['records']);
         $data['title'] = '    إدارة الاعلان';
         //$data['emp_data'] = $this->Ta3mem_adv_model->select_depart();
-      //  $data['emp_data'] = $this->Ta3mem_adv_model->select_all_emp();
+        $data['emp_data'] = $this->Ta3mem_adv_model->select_all_emp();
         $data['subview'] = 'admin/Human_resources/ta3mem_v/adv/adv_emp';
         $this->load->view('admin_index', $data);
     }
@@ -77,6 +77,7 @@ class Ta3mem_adv_c extends MY_Controller
     public function update($id)
     {   
         $data['result'] = $this->Ta3mem_adv_model->select_by_id($id);
+
       if ($this->input->post('save') === 'save') {
         // $img = 'file';
          $img_t3mem = 'img';
@@ -84,13 +85,15 @@ class Ta3mem_adv_c extends MY_Controller
          $img = $this->upload_image_2($img_t3mem, 'human_resources/ta3mem');
 //       $this->test($_POST);
       // print_r($_POST);
+      
             $this->Ta3mem_adv_model->insert($id,$img);
             $this->message('success', 'تمت الاضافة ');
             redirect('human_resources/ta3mem/Ta3mem_adv_c ', 'refresh');
+       
     }
         $data['title'] = 'تعديل تعميم';
         //$data['emp_data'] = $this->Ta3mem_model->select_depart();
-        //$data['emp_data'] = $this->Ta3mem_adv_model->select_all_emp();
+        $data['emp_data'] = $this->Ta3mem_adv_model->select_all_emp();
         $data['subview'] = 'admin/Human_resources/ta3mem_v/adv/adv_emp';
         $this->load->view('admin_index', $data);
     }
@@ -149,7 +152,6 @@ class Ta3mem_adv_c extends MY_Controller
     {
         $this->Ta3mem_adv_model->Delete($rkm);
         $this->Ta3mem_adv_model->Delete_details($rkm);
-        $this->Ta3mem_adv_model->delete_attach_all($rkm);
         redirect('human_resources/ta3mem/Ta3mem_adv_c ', 'refresh');
         $this->message('success', 'تمت الحذف ');
     }
@@ -159,7 +161,7 @@ class Ta3mem_adv_c extends MY_Controller
         $id = $this->input->post('id');
         $data['records'] = $this->Ta3mem_adv_model->get_all_emp($id);
         $data['path']="uploads/human_resources/ta3mem";
-        $data['one_data'] = $this->Ta3mem_adv_model->get_attach($id);
+        $data['one_data'] = $this->Ta3mem_model->get_attach($id);
         $data['get_all'] = $this->Ta3mem_adv_model->select_by_id($id);
         $this->load->view('admin/Human_resources/ta3mem_v/adv/getDetailsDiv', $data);
     }
@@ -203,61 +205,5 @@ class Ta3mem_adv_c extends MY_Controller
         $this->load->library('image_lib', $config);
         $this->image_lib->initialize($config);
         $this->image_lib->resize();
-    }
-    //////////////////////////مرفقات///////////////////////////////////////
-    public function add_attaches($id)//human_resources/ta3mem/Ta3mem_c/add_attaches
-    {
-        $data['ta3mem_id_fk'] = $id;
-        $data['path'] = "uploads/human_resources/ta3mem";
-        $data['title'] = 'مرفقات   ';
-        $data['subview'] = 'admin/Human_resources/ta3mem_v/adv/add_attaches';
-        $this->load->view('admin_index', $data);
-    }
-    public function add_morfaq()
-    {
-        $rkm = $this->input->post('row');
-        $images = $this->upload_muli_file("files");
-        $this->Ta3mem_adv_model->insert_attach($images);
-    }
-    public function get_attaches()
-    {
-        $rkm = $this->input->post('rkm');
-        $data['rkm'] = $this->input->post('rkm');
-        $data['one_data'] = $this->Ta3mem_adv_model->get_attach($rkm);
-        $this->load->view('admin/Human_resources/ta3mem_v/adv/get_table_attaches', $data);
-    }
-    public function Delete_attach()
-    {
-        $id = $this->input->post('id');
-        $this->Ta3mem_adv_model->delete_attach($id);
-    }
-    private function upload_muli_file($input_name)
-    {
-        //  $this->test($_FILES[$input_name]['name']);
-        $filesCount = count($_FILES[$input_name]['name']);
-        for ($i = 0; $i < $filesCount; $i++) {
-            $_FILES['userFile']['name'] = $_FILES[$input_name]['name'][$i];
-            $_FILES['userFile']['type'] = $_FILES[$input_name]['type'][$i];
-            $_FILES['userFile']['tmp_name'] = $_FILES[$input_name]['tmp_name'][$i];
-            $_FILES['userFile']['error'] = $_FILES[$input_name]['error'][$i];
-            $_FILES['userFile']['size'] = $_FILES[$input_name]['size'][$i];
-            $all_img[] = $this->upload_all_file("userFile");
-        }
-        return $all_img;
-    }
-    private function upload_all_file($file_name)
-    {
-        $config['upload_path'] = 'uploads/human_resources/ta3mem';
-        $config['allowed_types'] = 'gif|Gif|ico|ICO|jpg|JPG|jpeg|JPEG|BNG|png|PNG|bmp|BMP|WMV|wmv|MP3|mp3|FLV|flv|SWF|swf|pdf|PDF|xls|xlsx|mp4|doc|docx|txt|rar|tar.gz|zip';
-        $config['max_size'] = '100000000';
-        $config['encrypt_name'] = true;
-        $this->load->library('upload', $config);
-        if (!$this->upload->do_upload($file_name)) {
-            return false;
-        } else {
-            $datafile = $this->upload->data();
-            //  $this->thumb($datafile);
-            return $datafile['file_name'];
-        }
     }
 } // END CLASS

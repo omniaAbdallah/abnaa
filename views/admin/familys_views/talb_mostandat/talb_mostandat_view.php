@@ -140,6 +140,12 @@
         font-size: 12px;
         line-height: 1.5
     }
+    
+    label.label {
+    color: #f00;
+    font-weight: bold;
+    text-decoration: underline;
+}
 </style>
 <div class="col-xs-12 ">
     <div class="panel panel-bd lobidisable lobipanel lobipanel-sortable ">
@@ -161,6 +167,12 @@
  {
  $this->load->view('admin/familys_views/talb_mostandat/details_load_page', $data);
  }
+ 
+ if($this->uri->segment(5) == 1){
+    $mostand_name = 'المستندات المطلوبة للتحديث';
+ }else{
+    $mostand_name = 'المستندات المطلوبة للتقديم'; 
+ }
        ?>
             <div class="col-md-12">
                 <form action="<?php echo base_url(); ?>family_controllers/Family/talb_mostandat/<?php echo $mother_num . '/' . $from_page; ?>"
@@ -169,7 +181,7 @@
                     <input type="hidden" name="mother_national_num" id="mother_national_num"
                            value="<?= $basic_family['mother_national_num'] ?>">
                     <input type="hidden" name="osra_id_fk" value="<?= $basic_family['id'] ?>">
-                    <div class="form-group col-md-1 padding-4">
+                    <!--<div class="form-group col-md-1 padding-4">
                         <label class="label"> رقم المستند </label>
                         <input type="text" name="" data-validation="required" readonly="readonly"
                                class="form-control  " value="<?php if (!empty($record)) {
@@ -177,28 +189,31 @@
                         } else {
                             echo $last_id;
                         } ?>"/>
-                    </div>
+                    </div>-->
+                    <input type="hidden" name="" value="<?php if (!empty($record)) {
+                            echo $record->talb_mostand_id;
+                        } else {
+                            echo $last_id;
+                        } ?>" />
                     <div class="form-group col-md-2 padding-4">
-                        <label class="label"> تاريخ المستند </label>
-                        <input type="date" name="talb_date" data-validation="required" class="form-control  "
+                        <label class="label"> تاريخ  </label>
+                        <input type="date" name="" data-validation="required" class="form-control  " disabled="disabled"
+                               value="<?= date('Y-m-d') ?>"/>
+                               <input type="hidden" name="talb_date" data-validation="required" class="form-control  " 
                                value="<?= date('Y-m-d') ?>"/>
                     </div>
-                    <div class="form-group col-md-5 padding-4">
+                    <div class="form-group col-md-3 padding-4">
                         <label class="label"> عنوان المستند </label>
-                        <input type="text" name="talb_title" data-validation="required" class="form-control  "
-                               value=""/>
+                        <input style="color: blue;" type="text" name="talb_title" data-validation="required" class="form-control  "
+                               value="<?=$mostand_name?>"/>
                     </div>
                     <div class="form-group col-md-2 padding-4">
                         <label class="label"> اخر معاد لتسليم </label>
                         <input type="date" name="last_date_taslem" data-validation="required" class="form-control  "
                                value="<?= date('Y-m-d') ?>"/>
                     </div>
-                    <div class="form-group col-md-2 padding-4">
-                        <label class="label"> جوال التواصل </label>
-                        <input type="text" name="osra_contact_mob" data-validation="number" class="form-control  "
-                               value="<?= $basic_family['contact_mob'] ?>"/>
-                    </div>
-                    <div class="col-sm-3  col-md-5 padding-4 ">
+                  
+                    <div class="col-sm-3  col-md-3 padding-4 ">
                         <label class="label"> اسم المندوب </label>
                         <input type="text" name="osra_mandob" id="mokadem_name" list="cityname"
                                data-validation="required" class="form-control " value="">
@@ -215,6 +230,11 @@
                                 } ?>
                         </datalist>
                     </div>
+                      <div class="form-group col-md-2 padding-4">
+                        <label class="label"> جوال التواصل </label>
+                        <input type="text" name="osra_contact_mob" data-validation="number" class="form-control  "
+                               value="<?= $basic_family['contact_mob'] ?>"/>
+                    </div>
                     <div class="clearfix"></div>
                     <div class="form-group col-xs-12 text-center">
                         <!-- yara -->
@@ -223,7 +243,7 @@
                                    cellspacing="0"
                                    width="100%">
                                 <thead>
-                                <tr>
+                                <tr style="background: #00d6be;">
                                     <td>
                                         <div class="check-style">
                                             <input class="check_all_not" id="check_all_not<?php echo $mother_num; ?>"

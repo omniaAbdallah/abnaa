@@ -48,11 +48,6 @@
                         <li role="presentation"><a href="#project-data" aria-controls="project-data"
                                                    role="tab">بيانات المشروع</a></li>
 
-                        <li role="presentation"><a href="#user-data" aria-controls="user-data"
-                                                   role="tab">الحسابات الخاصة بالمستخدم</a></li>
-                        <li role="presentation"><a href="#attach-data" aria-controls="attach-data"
-                                                   role="tab"> رفع المستندات</a></li>
-
                     </ul>
                     <!-- Tab panes -->
                     <?php //echo form_open_multipart('family_controllers/osr_ektfaa/Ektfaa_talab', array('id' => 'my_form')); ?>
@@ -390,10 +385,6 @@
                                 </div>
                                 <?php echo form_close() ?>
                             </fieldset>
-
-                            <!-- user_data -->
-
-                            <!-- user_data -->
                             <!-- <div class="col-xs-12 text-center">
                                  <button type="submit" class="btn btn-labeled btn-success" name="save" value="save"
                                          id="myBtn">
@@ -401,57 +392,6 @@
                                  </button>
                              </div>-->
                         </div>
-                        <!-- user_data -->
-                        <div role="tabpanel" class="tab-pane fade " id="user-data">
-                            <fieldset>
-                                <legend> الحسابات الخاصة بالمستخدم</legend>
-                                <?php echo form_open_multipart('family_controllers/osr_ektfaa/Ektfaa_talab', array('id' => 'form_4')); ?>
-                                <input type="hidden" name="page" value="4">
-                                <div class="form-group col-sm-3  col-md-2 padding-4 ">
-                                    <label class="label"> فيس بوك</label>
-                                    <input type="text" class="form-control" name="facebook"
-                                    />
-                                </div>
-                                <div class="form-group col-sm-3  col-md-2 padding-4 ">
-                                    <label class="label"> تويتر </label>
-                                    <input type="text" class="form-control" name="twitter"
-                                    />
-                                </div>
-                                <div class="form-group col-sm-3  col-md-2 padding-4 ">
-                                    <label class="label"> سناب </label>
-                                    <input type="text" class="form-control" name="snapchat"
-                                    />
-                                </div>
-                                <div class="form-group col-sm-3  col-md-2 padding-4 ">
-                                    <label class="label"> موقع </label>
-                                    <input type="text" class="form-control" name="webpage"
-                                    />
-                                </div>
-                                <div class="form-group col-sm-3  col-md-2 padding-4 ">
-                                    <label class="label"> انستجرام </label>
-                                    <input type="text" class="form-control" name="instgram"
-                                    />
-                                </div>
-
-                                <div class="col-xs-12 text-center" style="margin-top: 29px;">
-                                    <div class="panel-footer">
-                                        <div class="text-center">
-                                            <a class="btnPrevious btn btn-labeled btn-warning"
-                                               style="font-size: 16px;"><span class="btn-label"><i
-                                                            class="fa fa-chevron-right"></i></span>السابق </a>
-                                            <button type="submit" class="btn btn-labeled btn-success" name="save"
-                                                    value="save"
-                                                    style="background-color: #3c990b;border-color: #12891b;padding-top: 0;padding-bottom: 0;border-radius:2px; ">
-                                            <span class="btn-label"><i
-                                                        class="glyphicon glyphicon-floppy-disk"></i></span>حفظ
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php echo form_close() ?>
-                            </fieldset>
-                        </div>
-                        <!-- user_data -->
                     </div>
                 </div>
             </div>
