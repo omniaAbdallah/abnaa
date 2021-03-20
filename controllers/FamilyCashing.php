@@ -1,5 +1,7 @@
 <?php
-class FamilyCashing extends MY_Controller{
+
+class FamilyCashing extends MY_Controller
+{
 
     public function __construct()
     {
@@ -20,29 +22,33 @@ class FamilyCashing extends MY_Controller{
         $this->files_basic_in = $this->Counting->get_files_basic_in();
         /*************************************************************/
     }
+
     //--------------------------------------------------
-    private function test($data = array()){
+    private function test($data = array())
+    {
         echo "<pre>";
         print_r($data);
         echo "</pre>";
         die;
     }
+
     //--------------------------------------------------
-         private  function upload_all_files($file_name ,$folder = "sarf_attaches"){
-    $config['upload_path'] = 'uploads/files/'.$folder;
-    $config['allowed_types'] = 'gif|Gif|ico|ICO|jpg|JPG|jpeg|JPEG|BNG|png|PNG|bmp|BMP|WMV|wmv|MP3|mp3|FLV|flv|SWF|swf|pdf|PDF|xls|xlsx|mp4|doc|docx|txt|rar|tar.gz|zip';
-    $config['max_size']    = '80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000';
-    $config['encrypt_name']=true;
-    $this->load->library('upload',$config);
-    if(! $this->upload->do_upload($file_name)){
-        return  false;
-    }else{
-        $datafile = $this->upload->data();
-        return  $datafile['file_name'];
+    private function upload_all_files($file_name, $folder = "sarf_attaches")
+    {
+        $config['upload_path'] = 'uploads/files/' . $folder;
+        $config['allowed_types'] = 'gif|Gif|ico|ICO|jpg|JPG|jpeg|JPEG|BNG|png|PNG|bmp|BMP|WMV|wmv|MP3|mp3|FLV|flv|SWF|swf|pdf|PDF|xls|xlsx|mp4|doc|docx|txt|rar|tar.gz|zip';
+        $config['max_size'] = '80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000';
+        $config['encrypt_name'] = true;
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload($file_name)) {
+            return false;
+        } else {
+            $datafile = $this->upload->data();
+            return $datafile['file_name'];
+        }
     }
-}   
-    
-    
+
+
     private function upload_image($file_name)
     {
         $config['upload_path'] = 'uploads/images';
@@ -54,10 +60,11 @@ class FamilyCashing extends MY_Controller{
             return false;
         } else {
             $datafile = $this->upload->data();
-           // $this->thumb($datafile);
+            // $this->thumb($datafile);
             return $datafile['file_name'];
         }
     }
+
     //-----------------------------------------------
     private function upload_file($file_name)
     {
@@ -74,8 +81,10 @@ class FamilyCashing extends MY_Controller{
             return $datafile['file_name'];
         }
     }
+
     //-------------------------------------------------
-    private function upload_muli_image($input_name){
+    private function upload_muli_image($input_name)
+    {
         $filesCount = count($_FILES[$input_name]['name']);
         for ($i = 0; $i < $filesCount; $i++) {
             $_FILES['userFile']['name'] = $_FILES[$input_name]['name'][$i];
@@ -87,53 +96,57 @@ class FamilyCashing extends MY_Controller{
         }
         return $all_img;
     }
+
     //-------------------------------------------------
     private function url()
     {
         unset($_SESSION['url']);
         $this->session->set_flashdata('url', 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
     }
+
     //-------------------------------------------------
     private function current_hjri_year()
     {
         $time = mktime(0, 0, 0, Date('m'), Date('j'), Date('Y'));
-        $TDays=round($time/(60*60*24));
-        $HYear=round($TDays/354.37419);
-        $Remain=$TDays-($HYear*354.37419);
-        $HMonths=round($Remain/29.531182);
-        $HDays=$Remain-($HMonths*29.531182);
-        $HYear=$HYear+1389;
-        $HMonths=$HMonths+10;$HDays=$HDays+23;
-        if ($HDays>29.531188 and round($HDays)!=30){
-            $HMonths=$HMonths+1;$HDays=Round($HDays-29.531182);
-        }else{
-            $HDays=Round($HDays);
+        $TDays = round($time / (60 * 60 * 24));
+        $HYear = round($TDays / 354.37419);
+        $Remain = $TDays - ($HYear * 354.37419);
+        $HMonths = round($Remain / 29.531182);
+        $HDays = $Remain - ($HMonths * 29.531182);
+        $HYear = $HYear + 1389;
+        $HMonths = $HMonths + 10;
+        $HDays = $HDays + 23;
+        if ($HDays > 29.531188 and round($HDays) != 30) {
+            $HMonths = $HMonths + 1;
+            $HDays = Round($HDays - 29.531182);
+        } else {
+            $HDays = Round($HDays);
         }
-        if ($HMonths>12) {
-            $HMonths=$HMonths-12;
-            $HYear = $HYear+1;
+        if ($HMonths > 12) {
+            $HMonths = $HMonths - 12;
+            $HYear = $HYear + 1;
         }
-        $NowDay=$HDays;
-        $NowMonth=$HMonths;
-        $NowYear=$HYear;
+        $NowDay = $HDays;
+        $NowMonth = $HMonths;
+        $NowYear = $HYear;
         $MDay_Num = date("w");
-        if ($MDay_Num=="0"){
+        if ($MDay_Num == "0") {
             $MDay_Name = "الأحد";
-        }elseif ($MDay_Num=="1"){
+        } elseif ($MDay_Num == "1") {
             $MDay_Name = "الإثنين";
-        }elseif ($MDay_Num=="2"){
+        } elseif ($MDay_Num == "2") {
             $MDay_Name = "الثلاثاء";
-        }elseif ($MDay_Num=="3"){
+        } elseif ($MDay_Num == "3") {
             $MDay_Name = "الأربعاء";
-        }elseif ($MDay_Num=="4"){
+        } elseif ($MDay_Num == "4") {
             $MDay_Name = "الخميس";
-        }elseif ($MDay_Num=="5"){
+        } elseif ($MDay_Num == "5") {
             $MDay_Name = "الجمعة";
-        }elseif ($MDay_Num=="6"){
+        } elseif ($MDay_Num == "6") {
             $MDay_Name = "السبت";
         }
         $NowDayName = $MDay_Name;
-        $NowDate = $MDay_Name."، ".$HDays."/".$HMonths."/".$HYear." هـ";
+        $NowDate = $MDay_Name . "، " . $HDays . "/" . $HMonths . "/" . $HYear . " هـ";
 
 
         /*
@@ -154,6 +167,7 @@ class FamilyCashing extends MY_Controller{
 
 
     }
+
     //-------------------------------------------------
     private function message($type, $text)
     {
@@ -174,6 +188,7 @@ class FamilyCashing extends MY_Controller{
                                                 </div>');
         }
     }
+
     /**
      *  ================================================================================================================
      *
@@ -181,467 +196,468 @@ class FamilyCashing extends MY_Controller{
      *
      *  ================================================================================================================
      */
-    public function index(){  // FamilyCashing
+    public function index()
+    {  // FamilyCashing
         $this->load->model('Model_family_cashing');
-         $this->load->model('familys_models/Member_session');
+        $this->load->model('familys_models/Member_session');
         //  $this->test($_POST);
-       if($this->input->post('ADD') == "ADD"){
-       // if($_POST){
-            $file=$this->upload_image("bank_attachment");
-             $this->Model_family_cashing->insert($file);
-             $this->Model_family_cashing->insert_details($this->input->post('sarf_num'));
-             $this->message('success','تمت إضافة إذن الصرف');
+        if ($this->input->post('ADD') == "ADD") {
+            // if($_POST){
+            $file = $this->upload_image("bank_attachment");
+            $this->Model_family_cashing->insert($file);
+            $this->Model_family_cashing->insert_details($this->input->post('sarf_num'));
+            $this->message('success', 'تمت إضافة إذن الصرف');
             redirect('FamilyCashing', 'refresh');
-        }else {
-            
-              
-       
-      /*  if($_SESSION["role_id_fk"] == 1 ){
-            $Conditions_arr=array();
-        }elseif($_SESSION["role_id_fk"] == 2 ){
-            $Conditions_arr=array("member_type"=>1,"member_id"=>$_SESSION["emp_code"]);
-        }elseif($_SESSION["role_id_fk"] == 3 ){
-            $Conditions_arr=array("member_type"=>3,"member_id"=>$_SESSION["emp_code"]);
-        }elseif($_SESSION["role_id_fk"] == 4 ){
-            $Conditions_arr=array("member_type"=>2,"member_id"=>$_SESSION["emp_code"]);
-        }*/
-        
-        
-            if($_SESSION["role_id_fk"] == 1 ){
-            $Conditions_arr=array('show_session'=>0);
-        }elseif($_SESSION["role_id_fk"] == 2 ){
-            $Conditions_arr=array('show_session'=>0 ,"member_type"=>1,"member_id"=>$_SESSION["emp_code"]);
-        }elseif($_SESSION["role_id_fk"] == 3 ){
-            $Conditions_arr=array('show_session'=>0 ,"member_type"=>3,"member_id"=>$_SESSION["emp_code"]);
-        }elseif($_SESSION["role_id_fk"] == 4 ){
-            $Conditions_arr=array('show_session'=>0 ,"member_type"=>2,"member_id"=>$_SESSION["emp_code"]);
-        }
-        $data['minutesNumbers']=$this->Member_session->get_session($Conditions_arr);
-     
-            
-            
-            
-            
-            $data['all_data']=$this->Model_family_cashing->select_all();
-            $data['all_banks']=$this->Model_family_cashing->select_all_banks();
-            $data['last_sarf']=$this->Model_family_cashing->select_last_value_fild();
+        } else {
+
+
+            /*  if($_SESSION["role_id_fk"] == 1 ){
+                  $Conditions_arr=array();
+              }elseif($_SESSION["role_id_fk"] == 2 ){
+                  $Conditions_arr=array("member_type"=>1,"member_id"=>$_SESSION["emp_code"]);
+              }elseif($_SESSION["role_id_fk"] == 3 ){
+                  $Conditions_arr=array("member_type"=>3,"member_id"=>$_SESSION["emp_code"]);
+              }elseif($_SESSION["role_id_fk"] == 4 ){
+                  $Conditions_arr=array("member_type"=>2,"member_id"=>$_SESSION["emp_code"]);
+              }*/
+
+
+            if ($_SESSION["role_id_fk"] == 1) {
+                $Conditions_arr = array('show_session' => 0);
+            } elseif ($_SESSION["role_id_fk"] == 2) {
+                $Conditions_arr = array('show_session' => 0, "member_type" => 1, "member_id" => $_SESSION["emp_code"]);
+            } elseif ($_SESSION["role_id_fk"] == 3) {
+                $Conditions_arr = array('show_session' => 0, "member_type" => 3, "member_id" => $_SESSION["emp_code"]);
+            } elseif ($_SESSION["role_id_fk"] == 4) {
+                $Conditions_arr = array('show_session' => 0, "member_type" => 2, "member_id" => $_SESSION["emp_code"]);
+            }
+            $data['minutesNumbers'] = $this->Member_session->get_session($Conditions_arr);
+
+
+            $data['all_data'] = $this->Model_family_cashing->select_all();
+            $data['all_banks'] = $this->Model_family_cashing->select_all_banks();
+            $data['last_sarf'] = $this->Model_family_cashing->select_last_value_fild();
             $data['bnod_help'] = $this->Model_family_cashing->select_all_bnod();
-            
-            
-            
-            
-            
+
+
             $data['title'] = 'إعداد صرف المساعدات المالية   ';
             $data['metakeyword'] = 'إعداد صرف المساعدات المالية    ';
             $data['metadiscription'] = 'إعداد صرف المساعدات المالية    ';
             $data['subview'] = 'admin/family_cash/add_family_cashing';
             $this->load->view('admin_index', $data);
-        }    
+        }
     }
+
     //=======================================================
-    public function AccordingTo(){
+    public function AccordingTo()
+    {
         $this->load->model('Difined_model');
-       if($this->input->post('according_to')){
-           $according_to=$this->input->post('according_to');
-           $data_load=$_POST;
-           if($according_to == 1){
-                $data_load["family_types"]=$this->Difined_model->select_search_key("family_category","id !=","0");
-            }elseif($according_to == 2){
-               $data_load["education_types"]=$this->Difined_model->select_search_key("family_setting","type","40");
+        if ($this->input->post('according_to')) {
+            $according_to = $this->input->post('according_to');
+            $data_load = $_POST;
+            if ($according_to == 1) {
+                $data_load["family_types"] = $this->Difined_model->select_search_key("family_category", "id !=", "0");
+            } elseif ($according_to == 2) {
+                $data_load["education_types"] = $this->Difined_model->select_search_key("family_setting", "type", "40");
             }
-           $this->load->view('admin/family_cash/get_according_to', $data_load);
-       }elseif($this->input->post('sarf_type')){
-            $data_load["type_sarf"]=$this->input->post('sarf_type');
-            $data_load["member_type"]=$this->input->post('member_type');
+            $this->load->view('admin/family_cash/get_according_to', $data_load);
+        } elseif ($this->input->post('sarf_type')) {
+            $data_load["type_sarf"] = $this->input->post('sarf_type');
+            $data_load["member_type"] = $this->input->post('member_type');
             $this->load->view('admin/family_cash/load_sarf_type', $data_load);
         }
     }
+
     //=======================================================
-    public function LoadPage(){   // FamilyCashing/LoadPage 
-    
-    /*
-    all_data ($this->input->post('sarf_num_fk_attach')){
-    */
-    
+    public function LoadPage()
+    {   // FamilyCashing/LoadPage
+
+        /*
+        all_data ($this->input->post('sarf_num_fk_attach')){
+        */
+
         $this->load->model('Model_family_cashing');
         $this->load->model("familys_models/Register");
-        $condition_year= $this->current_hjri_year() - 18 ;
-        if($this->input->post('sarf_type') == 1  && $this->input->post('member_type')
-                  && $this->input->post('mother_id') ){  //  1
+        $condition_year = $this->current_hjri_year() - 18;
+        if ($this->input->post('sarf_type') == 1 && $this->input->post('member_type')
+            && $this->input->post('mother_id')) {  //  1
             //-------------------------------------
-            $member_type=$this->input->post('member_type');
-            $method_type=$this->input->post('method_type');
-            $data_load=$_POST;
+            $member_type = $this->input->post('member_type');
+            $method_type = $this->input->post('method_type');
+            $data_load = $_POST;
 
-            if($member_type == 1){    //     sarf_type = 1       member_type == 1    
-                $Conditions_arr = array("basic.final_suspend" => 4,"basic.file_status" => 1, "basic.file_num" => $this->input->post('mother_id'));
-                $basic_data =$data_load['data_table'] = $this->Register->select_where_cashing($Conditions_arr, $condition_year);
-                 if($method_type == 4) {
-                     $this->load->view('admin/family_cash/load_family', $data_load);
-                 }elseif ($method_type == 2){
-                   
-                     $data_load["all_armal"]= $this->Model_family_cashing->get_data_armal_sum_armal_full_active_mother($basic_data[0]->mother_national_num);
-                     $data_load["all_yatem"]= $this->Model_family_cashing->get_data_yatem_full_active($basic_data[0]->mother_national_num);
-                     $data_load["all_bale3"]= $this->Model_family_cashing->get_data_bale3_full_active($basic_data[0]->mother_national_num);
-                     $data_load["all_mother_family"]= $this->Model_family_cashing->get_mother_selelct($basic_data[0]->mother_national_num);
-                     $data_load["all_member_family"]= $this->Model_family_cashing->get_member_select($basic_data[0]->mother_national_num);
-                      $this->load->view('admin/family_cash/load_bank_family', $data_load);
-                 }
-            }elseif($member_type == 3){
-                $Conditions_arr=array("basic.final_suspend"=>4,"basic.file_status" => 1);
-               $data_load['data_table']=$this->Register->select_where_cashing($Conditions_arr,$condition_year);
-               // $this->test($_POST);
-                  $this->load->view('admin/family_cash/load_family', $data_load);
-            }elseif ($member_type == 2){
-                $Conditions_arr=array("basic.final_suspend"=>4,"basic.file_status" => 1,"basic.file_num"=>$this->input->post('mother_id'));
-
-              $data_load['data_table']=$this->Register->select_where_cashing($Conditions_arr,$condition_year);
-
-               $this->load->view('admin/family_cash/load_some_family', $data_load);
-            }
-
-
-        }
-        elseif ($this->input->post('sarf_type')== 2   && $this->input->post('member_type') &&
-                     $this->input->post('mother_id')){ //  2
-             //-------------------------------------
-            $member_type=$this->input->post('member_type');
-            $method_type=$this->input->post('method_type');
-            $data_load=$_POST;
-            if($member_type == 1){  //     sarf_type = 2       member_type == 1
-
-                $Conditions_arr=array("basic.final_suspend"=>4,"basic.file_status" => 1,"basic.file_num"=>$this->input->post('mother_id'));
-                $basic_data =$data_load['data_table']=$this->Register->select_where_cashing($Conditions_arr,$condition_year);
-                if($method_type == 4) {
+            if ($member_type == 1) {    //     sarf_type = 1       member_type == 1
+                $Conditions_arr = array("basic.final_suspend" => 4, "basic.file_status" => 1, "basic.file_num" => $this->input->post('mother_id'));
+                $basic_data = $data_load['data_table'] = $this->Register->select_where_cashing($Conditions_arr, $condition_year);
+                if ($method_type == 4) {
                     $this->load->view('admin/family_cash/load_family', $data_load);
-                }else if($method_type == 2) {
-                    $data_load["all_armal"]= $this->Model_family_cashing->get_data_armal_sum_armal_full_active_mother($basic_data[0]->mother_national_num);
-                    $data_load["all_yatem"]= $this->Model_family_cashing->get_data_yatem_full_active($basic_data[0]->mother_national_num);
-                    $data_load["all_bale3"]= $this->Model_family_cashing->get_data_bale3_full_active($basic_data[0]->mother_national_num);
-                    $data_load["all_mother_family"]= $this->Model_family_cashing->get_mother_selelct($basic_data[0]->mother_national_num);
-                    $data_load["all_member_family"]= $this->Model_family_cashing->get_member_select($basic_data[0]->mother_national_num);
+                } elseif ($method_type == 2) {
+
+                    $data_load["all_armal"] = $this->Model_family_cashing->get_data_armal_sum_armal_full_active_mother($basic_data[0]->mother_national_num);
+                    $data_load["all_yatem"] = $this->Model_family_cashing->get_data_yatem_full_active($basic_data[0]->mother_national_num);
+                    $data_load["all_bale3"] = $this->Model_family_cashing->get_data_bale3_full_active($basic_data[0]->mother_national_num);
+                    $data_load["all_mother_family"] = $this->Model_family_cashing->get_mother_selelct($basic_data[0]->mother_national_num);
+                    $data_load["all_member_family"] = $this->Model_family_cashing->get_member_select($basic_data[0]->mother_national_num);
                     $this->load->view('admin/family_cash/load_bank_family', $data_load);
                 }
-            }elseif($member_type == 3){
-                $Conditions_arr=array("basic.final_suspend"=>4,"basic.file_status" => 1);
-                $data_load['data_table']=$this->Register->select_where_cashing($Conditions_arr,$condition_year);
+            } elseif ($member_type == 3) {
+                $Conditions_arr = array("basic.final_suspend" => 4, "basic.file_status" => 1);
+                $data_load['data_table'] = $this->Register->select_where_cashing($Conditions_arr, $condition_year);
+                // $this->test($_POST);
                 $this->load->view('admin/family_cash/load_family', $data_load);
-            }elseif ($member_type == 2){
-                $Conditions_arr=array("basic.final_suspend"=>4,"basic.file_status" => 1,"basic.file_num"=>$this->input->post('mother_id'));
-                $data_load['data_table']=$this->Register->select_where_cashing($Conditions_arr,$condition_year);
+            } elseif ($member_type == 2) {
+                $Conditions_arr = array("basic.final_suspend" => 4, "basic.file_status" => 1, "basic.file_num" => $this->input->post('mother_id'));
+
+                $data_load['data_table'] = $this->Register->select_where_cashing($Conditions_arr, $condition_year);
+
                 $this->load->view('admin/family_cash/load_some_family', $data_load);
             }
 
 
-        }
-        elseif ($this->input->post('sarf_type')== 3   && $this->input->post('member_type') &&
-                  $this->input->post('mother_id')  ){ //  3
+        } elseif ($this->input->post('sarf_type') == 2 && $this->input->post('member_type') &&
+            $this->input->post('mother_id')) { //  2
             //-------------------------------------
-            $member_type=$this->input->post('member_type');
-            $data_load=$_POST;
+            $member_type = $this->input->post('member_type');
+            $method_type = $this->input->post('method_type');
+            $data_load = $_POST;
+            if ($member_type == 1) {  //     sarf_type = 2       member_type == 1
 
-            $method_type=$this->input->post('method_type');
-            if($member_type == 1){  //     sarf_type = 3       member_type == 1
-                $Conditions_arr=array("basic.final_suspend"=>4,"basic.file_status" => 1,"basic.file_num"=>$this->input->post('mother_id'));
-                $basic_data =$data_load['data_table']=$this->Register->select_where_cashing($Conditions_arr,$condition_year);
-                if($method_type == 4) {
+                $Conditions_arr = array("basic.final_suspend" => 4, "basic.file_status" => 1, "basic.file_num" => $this->input->post('mother_id'));
+                $basic_data = $data_load['data_table'] = $this->Register->select_where_cashing($Conditions_arr, $condition_year);
+                if ($method_type == 4) {
                     $this->load->view('admin/family_cash/load_family', $data_load);
-                }else if($method_type == 2) {
-                    $data_load["all_armal"]= $this->Model_family_cashing->get_data_armal_sum_armal_full_active_mother($basic_data[0]->mother_national_num);
-                    $data_load["all_yatem"]= $this->Model_family_cashing->get_data_yatem_full_active($basic_data[0]->mother_national_num);
-                    $data_load["all_bale3"]= $this->Model_family_cashing->get_data_bale3_full_active($basic_data[0]->mother_national_num);
-                    $data_load["all_mother_family"]= $this->Model_family_cashing->get_mother_selelct($basic_data[0]->mother_national_num);
-                    $data_load["all_member_family"]= $this->Model_family_cashing->get_member_select($basic_data[0]->mother_national_num);
+                } else if ($method_type == 2) {
+                    $data_load["all_armal"] = $this->Model_family_cashing->get_data_armal_sum_armal_full_active_mother($basic_data[0]->mother_national_num);
+                    $data_load["all_yatem"] = $this->Model_family_cashing->get_data_yatem_full_active($basic_data[0]->mother_national_num);
+                    $data_load["all_bale3"] = $this->Model_family_cashing->get_data_bale3_full_active($basic_data[0]->mother_national_num);
+                    $data_load["all_mother_family"] = $this->Model_family_cashing->get_mother_selelct($basic_data[0]->mother_national_num);
+                    $data_load["all_member_family"] = $this->Model_family_cashing->get_member_select($basic_data[0]->mother_national_num);
                     $this->load->view('admin/family_cash/load_bank_family', $data_load);
                 }
-            }elseif($member_type == 3){
-                $Conditions_arr=array("basic.final_suspend"=>4,"basic.file_status" => 1);
-                $data_load['data_table']=$this->Register->select_where_cashing($Conditions_arr,$condition_year);
+            } elseif ($member_type == 3) {
+                $Conditions_arr = array("basic.final_suspend" => 4, "basic.file_status" => 1);
+                $data_load['data_table'] = $this->Register->select_where_cashing($Conditions_arr, $condition_year);
                 $this->load->view('admin/family_cash/load_family', $data_load);
-            }elseif ($member_type == 2){
-                $Conditions_arr=array("basic.final_suspend"=>4,"basic.file_status" => 1,"basic.file_num"=>$this->input->post('mother_id'));
-                $data_load['data_table']=$this->Register->select_where_cashing($Conditions_arr,$condition_year);
+            } elseif ($member_type == 2) {
+                $Conditions_arr = array("basic.final_suspend" => 4, "basic.file_status" => 1, "basic.file_num" => $this->input->post('mother_id'));
+                $data_load['data_table'] = $this->Register->select_where_cashing($Conditions_arr, $condition_year);
+                $this->load->view('admin/family_cash/load_some_family', $data_load);
+            }
+
+
+        } elseif ($this->input->post('sarf_type') == 3 && $this->input->post('member_type') &&
+            $this->input->post('mother_id')) { //  3
+            //-------------------------------------
+            $member_type = $this->input->post('member_type');
+            $data_load = $_POST;
+
+            $method_type = $this->input->post('method_type');
+            if ($member_type == 1) {  //     sarf_type = 3       member_type == 1
+                $Conditions_arr = array("basic.final_suspend" => 4, "basic.file_status" => 1, "basic.file_num" => $this->input->post('mother_id'));
+                $basic_data = $data_load['data_table'] = $this->Register->select_where_cashing($Conditions_arr, $condition_year);
+                if ($method_type == 4) {
+                    $this->load->view('admin/family_cash/load_family', $data_load);
+                } else if ($method_type == 2) {
+                    $data_load["all_armal"] = $this->Model_family_cashing->get_data_armal_sum_armal_full_active_mother($basic_data[0]->mother_national_num);
+                    $data_load["all_yatem"] = $this->Model_family_cashing->get_data_yatem_full_active($basic_data[0]->mother_national_num);
+                    $data_load["all_bale3"] = $this->Model_family_cashing->get_data_bale3_full_active($basic_data[0]->mother_national_num);
+                    $data_load["all_mother_family"] = $this->Model_family_cashing->get_mother_selelct($basic_data[0]->mother_national_num);
+                    $data_load["all_member_family"] = $this->Model_family_cashing->get_member_select($basic_data[0]->mother_national_num);
+                    $this->load->view('admin/family_cash/load_bank_family', $data_load);
+                }
+            } elseif ($member_type == 3) {
+                $Conditions_arr = array("basic.final_suspend" => 4, "basic.file_status" => 1);
+                $data_load['data_table'] = $this->Register->select_where_cashing($Conditions_arr, $condition_year);
+                $this->load->view('admin/family_cash/load_family', $data_load);
+            } elseif ($member_type == 2) {
+                $Conditions_arr = array("basic.final_suspend" => 4, "basic.file_status" => 1, "basic.file_num" => $this->input->post('mother_id'));
+                $data_load['data_table'] = $this->Register->select_where_cashing($Conditions_arr, $condition_year);
                 //$this->test($data_load['data_table']);
                 $this->load->view('admin/family_cash/load_some_family', $data_load);
             }
-         //--------------------------------------------------------------------------------------
+            //--------------------------------------------------------------------------------------
 
 
-        }
-        elseif ($this->input->post('sarf_type')== 4   && $this->input->post('member_type') ){ //  2
+        } elseif ($this->input->post('sarf_type') == 4 && $this->input->post('member_type')) { //  2
             //-------------------------------------
-            $member_type=$this->input->post('member_type');
-            $method_type=$this->input->post('method_type');
-            $Conditions_arr = array("basic.final_suspend" => 4 ,"basic.file_status" => 1);
+            $member_type = $this->input->post('member_type');
+            $method_type = $this->input->post('method_type');
+            $Conditions_arr = array("basic.final_suspend" => 4, "basic.file_status" => 1);
             //===============================================
-              if($this->input->post('method_type_according_to') == 2){
-               $education_id=   $this->input->post('education_according_to');
-               $mother_condition=array("m_education_status_id_fk"=>$education_id);
-               $member_condition=array("member_study_case"=>$education_id);
-              }elseif ($this->input->post('method_type_according_to') == 3){
-                  $age_from_key=$this->input->post('from_age_according_to');
-                  $age_to_key=$this->input->post('to_age_according_to');
-                  $year_from_condition=$this->current_hjri_year() - $age_from_key ;
-                  $year_to_condition=$this->current_hjri_year() - $age_to_key ;
-                   $mother_condition=array("m_birth_date_hijri_year <="=>$year_from_condition,
-                                           "m_birth_date_hijri_year >="=>$year_to_condition);
-                   $member_condition=array("member_birth_date_hijri_year  <="=>$year_from_condition,
-                                            "member_birth_date_hijri_year  >="=>$year_to_condition);
-              }elseif ($this->input->post('method_type_according_to') == 1){
-                      $mother_condition  =array();
-                      $member_condition  =array();
-                  $Conditions_arr["basic.family_cat"] =  $this->input->post('family_type_according_to');
-              }
+            if ($this->input->post('method_type_according_to') == 2) {
+                $education_id = $this->input->post('education_according_to');
+                $mother_condition = array("m_education_status_id_fk" => $education_id);
+                $member_condition = array("member_study_case" => $education_id);
+            } elseif ($this->input->post('method_type_according_to') == 3) {
+                $age_from_key = $this->input->post('from_age_according_to');
+                $age_to_key = $this->input->post('to_age_according_to');
+                $year_from_condition = $this->current_hjri_year() - $age_from_key;
+                $year_to_condition = $this->current_hjri_year() - $age_to_key;
+                $mother_condition = array("m_birth_date_hijri_year <=" => $year_from_condition,
+                    "m_birth_date_hijri_year >=" => $year_to_condition);
+                $member_condition = array("member_birth_date_hijri_year  <=" => $year_from_condition,
+                    "member_birth_date_hijri_year  >=" => $year_to_condition);
+            } elseif ($this->input->post('method_type_according_to') == 1) {
+                $mother_condition = array();
+                $member_condition = array();
+                $Conditions_arr["basic.family_cat"] = $this->input->post('family_type_according_to');
+            }
             //===============================================
-            $data_load=$_POST;
-           
-            if($member_type == 1){  //     sarf_type = 4       member_type == 1
-                if($method_type == 2) {
+            $data_load = $_POST;
+
+            if ($member_type == 1) {  //     sarf_type = 4       member_type == 1
+                if ($method_type == 2) {
                     $Conditions_arr["basic.file_num"] = $this->input->post('mother_id');
-                    $basic_data =$data_load['data_table'] = $this->Register->select_where_cashing($Conditions_arr, $condition_year);
-                    if(!empty($basic_data)){
-                    $data_load["all_armal"]= $this->Model_family_cashing->get_data_armal_sum_armal_full_active_mother($basic_data[0]->mother_national_num ,$mother_condition);
-                    $data_load["all_yatem"]= $this->Model_family_cashing->get_data_yatem_full_active($basic_data[0]->mother_national_num , $member_condition);
-                    $data_load["all_bale3"]= $this->Model_family_cashing->get_data_bale3_full_active($basic_data[0]->mother_national_num , $member_condition);
-                    $data_load["all_mother_family"]= $this->Model_family_cashing->get_mother_selelct($basic_data[0]->mother_national_num);
-                    $data_load["all_member_family"]= $this->Model_family_cashing->get_member_select($basic_data[0]->mother_national_num);
+                    $basic_data = $data_load['data_table'] = $this->Register->select_where_cashing($Conditions_arr, $condition_year);
+                    if (!empty($basic_data)) {
+                        $data_load["all_armal"] = $this->Model_family_cashing->get_data_armal_sum_armal_full_active_mother($basic_data[0]->mother_national_num, $mother_condition);
+                        $data_load["all_yatem"] = $this->Model_family_cashing->get_data_yatem_full_active($basic_data[0]->mother_national_num, $member_condition);
+                        $data_load["all_bale3"] = $this->Model_family_cashing->get_data_bale3_full_active($basic_data[0]->mother_national_num, $member_condition);
+                        $data_load["all_mother_family"] = $this->Model_family_cashing->get_mother_selelct($basic_data[0]->mother_national_num);
+                        $data_load["all_member_family"] = $this->Model_family_cashing->get_member_select($basic_data[0]->mother_national_num);
                     }
                     $this->load->view('admin/family_cash/load_bank_family', $data_load);
-                }elseif($method_type == 4) {
+                } elseif ($method_type == 4) {
                     //$Conditions_arr = array("basic.final_suspend" => 4, "basic.file_num" => $this->input->post('mother_id'));
                     $Conditions_arr["basic.file_num"] = $this->input->post('mother_id');
-                    $data_load['data_table'] = $this->Model_family_cashing->get_family_caching_member($Conditions_arr,$mother_condition, $member_condition);
+                    $data_load['data_table'] = $this->Model_family_cashing->get_family_caching_member($Conditions_arr, $mother_condition, $member_condition);
                     $this->load->view('admin/family_cash/get_family_according_to', $data_load);
                 }
-            }elseif($member_type == 3){
-               //  $Conditions_arr = array("basic.final_suspend" => 4);
-                $data_load['data_table'] = $this->Model_family_cashing->get_family_caching_member($Conditions_arr,$mother_condition, $member_condition);
+            } elseif ($member_type == 3) {
+                //  $Conditions_arr = array("basic.final_suspend" => 4);
+                $data_load['data_table'] = $this->Model_family_cashing->get_family_caching_member($Conditions_arr, $mother_condition, $member_condition);
 
                 $this->load->view('admin/family_cash/get_family_according_to', $data_load);
-            }elseif ($member_type == 2){
-              //  $Conditions_arr=array("basic.final_suspend"=>4,"basic.file_num"=>$this->input->post('mother_id'));
+            } elseif ($member_type == 2) {
+                //  $Conditions_arr=array("basic.final_suspend"=>4,"basic.file_num"=>$this->input->post('mother_id'));
                 $Conditions_arr["basic.file_num"] = $this->input->post('mother_id');
-                $data_load['data_table']=$this->Model_family_cashing->get_family_caching_member($Conditions_arr,$mother_condition, $member_condition);
+                $data_load['data_table'] = $this->Model_family_cashing->get_family_caching_member($Conditions_arr, $mother_condition, $member_condition);
                 $this->load->view('admin/family_cash/get_family_according_to', $data_load);
             }
             //--------------------------------------------------------------------------------------
-        }
-        elseif ($this->input->post('sarf_num_fk')){
-            $sarf_num=$this->input->post('sarf_num_fk');
-             $data_load['all_banks']=$this->Model_family_cashing->select_all_banks();
-             $data_load["sarf_data"]=$this->Model_family_cashing->getByArray($sarf_num);
+        } elseif ($this->input->post('sarf_num_fk')) {
+            $sarf_num = $this->input->post('sarf_num_fk');
+            $data_load['all_banks'] = $this->Model_family_cashing->select_all_banks();
+            $data_load["sarf_data"] = $this->Model_family_cashing->getByArray($sarf_num);
             // $data_load["sarf_details"]=$this->Model_family_cashing->select_sarf_detals($sarf_num);
-             
-             
-               $data_load["sarf_details"]=$this->Model_family_cashing->select_all_sarf_detalis($sarf_num);
-             $this->load->view('admin/family_cash/load_details', $data_load);
-        }
-        /*elseif ($this->input->post('sarf_num_fk_attach')){
+
+
+            $data_load["sarf_details"] = $this->Model_family_cashing->select_all_sarf_detalis($sarf_num);
+            $this->load->view('admin/family_cash/load_details', $data_load);
+        } /*elseif ($this->input->post('sarf_num_fk_attach')){
             $data_load["sarf_num_fk_attach"]=$sarf_num=$this->input->post('sarf_num_fk_attach');
             $data_load["sarf_attachments"]=$this->Model_family_cashing->select_sarf_attach($sarf_num);
             $this->load->view('admin/family_cash/load_attachment', $data_load);
         }*/
-         elseif
-        ($this->input->post('sarf_num_fk_attach')){
-        $data_load["sarf_num_fk_attach"] = $sarf_num = $this->input->post('sarf_num_fk_attach');
-        $data_load["presence_number"] = $this->input->post('presence_number');//18-6-om
-        $data_load["sarf_attachments"] = $this->Model_family_cashing->select_sarf_attach($sarf_num);
-        $data_load["gals_attachments"] = $this->Model_family_cashing->gals_attachments($data_load["presence_number"]);//18-6-om
-        $this->load->view('admin/family_cash/load_attachment', $data_load);
-    }
-        elseif ($this->input->post('type_sarf') && $this->input->post('update_national_num')){
-            $data_load=$_POST;
-            $Conditions_arr=array("basic.suspend"=>4,"basic.file_status" => 1,"basic.file_num"=>$this->input->post('update_national_num'));
-            $data_load['data_table']=$this->Register->select_where_cashing($Conditions_arr,$condition_year);
+        elseif
+        ($this->input->post('sarf_num_fk_attach')) {
+            $data_load["sarf_num_fk_attach"] = $sarf_num = $this->input->post('sarf_num_fk_attach');
+            $data_load["presence_number"] = $this->input->post('presence_number');//18-6-om
+            $data_load["sarf_attachments"] = $this->Model_family_cashing->select_sarf_attach($sarf_num);
+            $data_load["gals_attachments"] = $this->Model_family_cashing->gals_attachments($data_load["presence_number"]);//18-6-om
+            $this->load->view('admin/family_cash/load_attachment', $data_load);
+        } elseif ($this->input->post('type_sarf') && $this->input->post('update_national_num')) {
+            $data_load = $_POST;
+            $Conditions_arr = array("basic.suspend" => 4, "basic.file_status" => 1, "basic.file_num" => $this->input->post('update_national_num'));
+            $data_load['data_table'] = $this->Register->select_where_cashing($Conditions_arr, $condition_year);
             $this->load->view('admin/family_cash/load_update_table', $data_load);
-        }
-        elseif( $this->input->post('file_num_check') ){
+        } elseif ($this->input->post('file_num_check')) {
             $family_data = $this->input->post('file_num_check');
             echo $this->Model_family_cashing->check_family($family_data);
-        }
-        elseif ($this->input->post("sarf_num_fk_tabadol")){
-            $sarf_num=$this->input->post('sarf_num_fk_tabadol');
-            $data_load['all_banks']=$this->Model_family_cashing->select_all_banks();
-            $data_load["sarf_data"]=$this->Model_family_cashing->getByArray($sarf_num);
-           // $data_load["sarf_details"]=$this->Model_family_cashing->select_sarf_detals($sarf_num);
-            $data_load["sarf_details"]=$this->Model_family_cashing->select_all_sarf_detalis($sarf_num);
-             
-           
-        //  $data_load["sarf_attachments"]=$this->Model_family_cashing->select_sarf_attach($sarf_num);
-         $data_load['attach_sarf_order'] = $this->Model_family_cashing->get_sarf_attach($sarf_num);
-         
-        $data_load["gals_attachments"] = $this->Model_family_cashing->gals_attachments($this->input->post('presence_number'));//18-6-om
-        $data_load["sarf_attachments"] = $this->Model_family_cashing->select_sarf_attach($sarf_num);
-         
-         
-         
+        } elseif ($this->input->post("sarf_num_fk_tabadol")) {
+            $sarf_num = $this->input->post('sarf_num_fk_tabadol');
+            $data_load['all_banks'] = $this->Model_family_cashing->select_all_banks();
+            $data_load["sarf_data"] = $this->Model_family_cashing->getByArray($sarf_num);
+            // $data_load["sarf_details"]=$this->Model_family_cashing->select_sarf_detals($sarf_num);
+            $data_load["sarf_details"] = $this->Model_family_cashing->select_all_sarf_detalis($sarf_num);
+
+
+            //  $data_load["sarf_attachments"]=$this->Model_family_cashing->select_sarf_attach($sarf_num);
+            $data_load['attach_sarf_order'] = $this->Model_family_cashing->get_sarf_attach($sarf_num);
+
+            $data_load["gals_attachments"] = $this->Model_family_cashing->gals_attachments($this->input->post('presence_number'));//18-6-om
+            $data_load["sarf_attachments"] = $this->Model_family_cashing->select_sarf_attach($sarf_num);
+
+
             $this->load->view('admin/family_cash/load_details_exchange', $data_load);
         }
 
     }
-  /*  public function ahmed(){
-          $this->load->model('Model_family_cashing');
-        $this->test($this->Model_family_cashing->select_sarf_detals(2));
-    }*/
-    //=======================================================
-    public  function SarfAttachments($sarf_num){
-        if($this->input->post("Add_Attach") == "Add_Attach"){
+    /*  public function ahmed(){
             $this->load->model('Model_family_cashing');
-            $images=$this->upload_muli_image("attachment");
-            $this->Model_family_cashing->insert_sarf_attach($sarf_num,$images);
-            $this->message('success','تمت إضافة المرفقات');
+          $this->test($this->Model_family_cashing->select_sarf_detals(2));
+      }*/
+    //=======================================================
+    public function SarfAttachments($sarf_num)
+    {
+        if ($this->input->post("Add_Attach") == "Add_Attach") {
+            $this->load->model('Model_family_cashing');
+            $images = $this->upload_muli_image("attachment");
+            $this->Model_family_cashing->insert_sarf_attach($sarf_num, $images);
+            $this->message('success', 'تمت إضافة المرفقات');
             redirect('FamilyCashing', 'refresh');
         }
     }
+
     //=======================================================
-    public  function  DeleteAttachments(){  //  FamilyCashing/DeleteAttachments/
+    public function DeleteAttachments()
+    {  //  FamilyCashing/DeleteAttachments/
         $id = $this->input->post("id_delete_attach");
         $this->load->model('Model_family_cashing');
         $this->Model_family_cashing->delete_sarf_attach($id);
     }
+
     //=======================================================
-    public function downloads($file){ //  FamilyCashing/downloads/
+    public function downloads($file)
+    { //  FamilyCashing/downloads/
         $this->load->helper('download');
         $name = $file;
-        $data = file_get_contents('./uploads/images/'.$file);
+        $data = file_get_contents('./uploads/images/' . $file);
         force_download($name, $data);
     }
+
     //=======================================================
-    public function printSarf($sarf_num){
+    public function printSarf($sarf_num)
+    {
         $this->load->model('Model_family_cashing');
         $data['records'] = $this->Model_family_cashing->printSarf($sarf_num);
-        $this->load->view('admin/family_cash/print',$data);
+        $this->load->view('admin/family_cash/print', $data);
     }
-    public function PrintSarfType($sarf_num,$method_type){
-         $this->load->model('Model_family_cashing');
-         $this->load->model('all_Finance_resource_models/sponsors/Sponsors_model_load');
-             $data_load['all_banks']=$this->Model_family_cashing->select_all_banks();
-             $data_load["sarf_data"]=$this->Model_family_cashing->getByArray($sarf_num);
-          //   $data_load["sarf_details"]=$this->Model_family_cashing->select_sarf_detals($sarf_num);
-              $data_load["sarf_details"]=$this->Model_family_cashing->select_all_sarf_detalis($sarf_num);
-             
-          //    $data_load['recordssss']=$this->Model_family_cashing->get_by_id($sarf_num); 
-          $data_load['sarf_details2']=$this->Model_family_cashing->select_all_sarf_detalis($sarf_num);
-               $data_load['Publisher_name']=$this->Model_family_cashing->Get_Publisher_name($sarf_num);      
-             /**********************************************************************/ 
-            
-            
-             $data_load["modeer_3am"]=$this->Model_family_cashing->get_emp_assigns(101); 
-             $data_load["modeer_mali"]=$this->Model_family_cashing->get_emp_assigns(501);
-             $data_load["mohaseb"]=$this->Model_family_cashing->get_emp_assigns(502);
-             $data_load["modeer_family"]=$this->Model_family_cashing->get_emp_assigns(801);
-        
-        
-        
-        
-        $data_load["total_all_aytam"]= $this->Sponsors_model_load->all_aytam('f_members.categoriey_member=2   AND f_members.persons_status =1');
-        $data_load["all_aytam_nos"]= $this->Sponsors_model_load->all_aytam_mkfol_nos();
-        $data_load["all_aytam_shamla"]= $this->Sponsors_model_load->all_aytam_mkfol_shamla();
-        
-        $data_load["all_mostafed"]= $this->Sponsors_model_load->all_aytam('f_members.categoriey_member=3   AND f_members.persons_status =1');
-        $data_load["all_mostafed_mkfol"]= $this->Sponsors_model_load->all_aytam('f_members.categoriey_member=3   AND f_members.persons_status =1 And
+
+    public function PrintSarfType($sarf_num, $method_type)
+    {
+        $this->load->model('Model_family_cashing');
+        $this->load->model('all_Finance_resource_models/sponsors/Sponsors_model_load');
+        $data_load['all_banks'] = $this->Model_family_cashing->select_all_banks();
+        $data_load["sarf_data"] = $this->Model_family_cashing->getByArray($sarf_num);
+        //   $data_load["sarf_details"]=$this->Model_family_cashing->select_sarf_detals($sarf_num);
+        $data_load["sarf_details"] = $this->Model_family_cashing->select_all_sarf_detalis($sarf_num);
+
+        //    $data_load['recordssss']=$this->Model_family_cashing->get_by_id($sarf_num);
+        $data_load['sarf_details2'] = $this->Model_family_cashing->select_all_sarf_detalis($sarf_num);
+        $data_load['Publisher_name'] = $this->Model_family_cashing->Get_Publisher_name($sarf_num);
+        /**********************************************************************/
+
+
+        $data_load["modeer_3am"] = $this->Model_family_cashing->get_emp_assigns(101);
+        $data_load["modeer_mali"] = $this->Model_family_cashing->get_emp_assigns(501);
+        $data_load["mohaseb"] = $this->Model_family_cashing->get_emp_assigns(502);
+        $data_load["modeer_family"] = $this->Model_family_cashing->get_emp_assigns(801);
+
+
+        $data_load["total_all_aytam"] = $this->Sponsors_model_load->all_aytam('f_members.categoriey_member=2   AND f_members.persons_status =1');
+        $data_load["all_aytam_nos"] = $this->Sponsors_model_load->all_aytam_mkfol_nos();
+        $data_load["all_aytam_shamla"] = $this->Sponsors_model_load->all_aytam_mkfol_shamla();
+
+        $data_load["all_mostafed"] = $this->Sponsors_model_load->all_aytam('f_members.categoriey_member=3   AND f_members.persons_status =1');
+        $data_load["all_mostafed_mkfol"] = $this->Sponsors_model_load->all_aytam('f_members.categoriey_member=3   AND f_members.persons_status =1 And
         f_members.first_kafala_type =3 AND f_members.first_halet_kafala =1 ');
 
-        $data_load["all_armal"]= $this->Sponsors_model_load->all_armal('mother.categoriey_m =1 And mother.halt_elmostafid_m =1 And mother.person_type =62');
-        $data_load["all_armal_mkfol"]= $this->Sponsors_model_load->all_armal('mother.categoriey_m =1 And mother.halt_elmostafid_m =1 And mother.person_type =62 And 
+        $data_load["all_armal"] = $this->Sponsors_model_load->all_armal('mother.categoriey_m =1 And mother.halt_elmostafid_m =1 And mother.person_type =62');
+        $data_load["all_armal_mkfol"] = $this->Sponsors_model_load->all_armal('mother.categoriey_m =1 And mother.halt_elmostafid_m =1 And mother.person_type =62 And 
         mother.first_kafala_type =4 AND mother.first_halet_kafala =1 ');
-          
-          
-        $this->load->model('md/all_magls_edara_members/All_magls_edara_members_model');  
-        $data_load['raes_magls_edara'] = $this->All_magls_edara_members_model->get_all_data_new_manseb(4,1);
-        $data_load['amin_sandok'] = $this->All_magls_edara_members_model->get_all_data_new_manseb(4,3);
-           
-       
-      $data_load['method_type'] =  $method_type;           
-             /******************************************************************/             
-             if($method_type == 4){
-                
-                
-                
-                $this->load->view('admin/family_cash/print_sarf_4', $data_load);
-             }else{
-                $this->load->view('admin/family_cash/print_sarf_2', $data_load);
-             }   
+
+
+        $this->load->model('md/all_magls_edara_members/All_magls_edara_members_model');
+        $data_load['raes_magls_edara'] = $this->All_magls_edara_members_model->get_all_data_new_manseb(4, 1);
+        $data_load['amin_sandok'] = $this->All_magls_edara_members_model->get_all_data_new_manseb(4, 3);
+
+
+        $data_load['method_type'] = $method_type;
+        /******************************************************************/
+        if ($method_type == 4) {
+
+
+            $this->load->view('admin/family_cash/print_sarf_4', $data_load);
+        } else {
+            $this->load->view('admin/family_cash/print_sarf_2', $data_load);
+        }
     }
+
     //=======================================================
-    public function DeleteFamilyCashing($sarf_num){
+    public function DeleteFamilyCashing($sarf_num)
+    {
         $this->load->model('Model_family_cashing');
         $this->Model_family_cashing->delete_sarf($sarf_num);
-        $this->message('success','تم حذف اذن الصرف ');
+        $this->message('success', 'تم حذف اذن الصرف ');
         redirect('FamilyCashing', 'refresh');
     }
+
     //=======================================================
-    public function UpdateFamilyCashing($sarf_num){  //  FamilyCashing/UpdateFamilyCashing/
+    public function UpdateFamilyCashing($sarf_num)
+    {  //  FamilyCashing/UpdateFamilyCashing/
         $this->load->model('Model_family_cashing');
-        if($this->input->post('UPDATE') == "UPDATE"){
-            if(sizeof($this->input->post('all_num')) > 0){
+        if ($this->input->post('UPDATE') == "UPDATE") {
+            if (sizeof($this->input->post('all_num')) > 0) {
                 $this->Model_family_cashing->insert_details($sarf_num);
             }
-            $total_value=$this->Model_family_cashing->get_sarf_total_value($sarf_num);
-            $this->Model_family_cashing->update($sarf_num ,$total_value);
-            $this->message('success','تم تعديل اذن الصرف ');
+            $total_value = $this->Model_family_cashing->get_sarf_total_value($sarf_num);
+            $this->Model_family_cashing->update($sarf_num, $total_value);
+            $this->message('success', 'تم تعديل اذن الصرف ');
             redirect('FamilyCashing', 'refresh');
         }
-        $data['all_banks']=$this->Model_family_cashing->select_all_banks();
-        $sarf_data=$data["sarf_data"]=$this->Model_family_cashing->getByArray($sarf_num);
-        $data["sarf_details"]=$this->Model_family_cashing->select_sarf_detals($sarf_num);
-            if($sarf_data["type_sarf"]){
-                $data["person_values"]=$this->Model_family_cashing->get_person_values($sarf_num);
-            }
-        $data['bnod_help'] = $this->Model_family_cashing->select_all_bnod();    
+        $data['all_banks'] = $this->Model_family_cashing->select_all_banks();
+        $sarf_data = $data["sarf_data"] = $this->Model_family_cashing->getByArray($sarf_num);
+        $data["sarf_details"] = $this->Model_family_cashing->select_sarf_detals($sarf_num);
+        if ($sarf_data["type_sarf"]) {
+            $data["person_values"] = $this->Model_family_cashing->get_person_values($sarf_num);
+        }
+        $data['bnod_help'] = $this->Model_family_cashing->select_all_bnod();
         $data['title'] = 'تعديل إعداد صرف المساعدات المالية    ';
         $data['metakeyword'] = 'تعديل إعداد صرف المساعدات المالية      ';
         $data['metadiscription'] = 'تعديل إعداد صرف المساعدات المالية      ';
         $data['subview'] = 'admin/family_cash/add_family_cashing';
         $this->load->view('admin_index', $data);
     }
+
     //=======================================================
-    public function DeleteCashingDetials(){
+    public function DeleteCashingDetials()
+    {
         $this->load->model('Model_family_cashing');
-        $id_details=$this->input->post('id_details');
+        $id_details = $this->input->post('id_details');
         $this->Model_family_cashing->delete_sarf_detals_id($id_details);
     }
-     //=======================================================
-   /* public function UpdatePresence($id){
-        $this->load->model('Model_family_cashing');
-        if($this->input->post('ADD') == "ADD"){
-         $this->Model_family_cashing->update_presence($id);
-            $this->message('success','تم حفظ رقم المحضر  ');
-            redirect('FamilyCashing', 'refresh');
-        }
-    }*/
-    
-         public function UpdatePresence($id){
+    //=======================================================
+    /* public function UpdatePresence($id){
+         $this->load->model('Model_family_cashing');
+         if($this->input->post('ADD') == "ADD"){
+          $this->Model_family_cashing->update_presence($id);
+             $this->message('success','تم حفظ رقم المحضر  ');
+             redirect('FamilyCashing', 'refresh');
+         }
+     }*/
+
+    public function UpdatePresence($id)
+    {
 
         $this->load->model('Model_family_cashing');
-        if($this->input->post('ADD') == "ADD"){
+        if ($this->input->post('ADD') == "ADD") {
 
-         $this->Model_family_cashing->update_presence($id);
-         if (isset($_POST['session_num2'])){
-             $session_id ="show_session".$_POST['session_num2'];
-                 if ($_POST[$session_id]==1){
-                     $this->Model_family_cashing->update_session($_POST['session_num2']);
+            $this->Model_family_cashing->update_presence($id);
+            if (isset($_POST['session_num2'])) {
+                $session_id = "show_session" . $_POST['session_num2'];
+                if ($_POST[$session_id] == 1) {
+                    $this->Model_family_cashing->update_session($_POST['session_num2']);
 
-                 }
-
-
-
-       }
+                }
 
 
+            }
 
 
-            $this->message('success','تم حفظ رقم المحضر  ');
+            $this->message('success', 'تم حفظ رقم المحضر  ');
             redirect('FamilyCashing', 'refresh');
         }
 
     }
-    
-    public function saad(){
+
+    public function saad()
+    {
         $this->load->model("familys_models/Register");
-        $data_load['data_table']=$this->Register->select_where_cashing(array(),"");
+        $data_load['data_table'] = $this->Register->select_where_cashing(array(), "");
         $this->test($data_load);
     }
+
     /**
      *  ================================================================================================================
      *
@@ -649,19 +665,18 @@ class FamilyCashing extends MY_Controller{
      *
      *  ================================================================================================================
      */
-     
-     
 
-public function add_new_sarf($sarf_num)
-{
-    $this->load->model('Model_family_cashing');
-  //  $data['row']= $this->Model_family_cashing->get_byan_by_id($sarf_num);
-     $data['row']= $this->Model_family_cashing->get_byan_by_id_2($sarf_num);
-    $data['details']= $this->Model_family_cashing->get_byan_sarf_details($sarf_num);
-    redirect('family_controllers/FamilyCashing', 'refresh');
-}
- 
- /**********************/
+
+    public function add_new_sarf($sarf_num)
+    {
+        $this->load->model('Model_family_cashing');
+        //  $data['row']= $this->Model_family_cashing->get_byan_by_id($sarf_num);
+        $data['row'] = $this->Model_family_cashing->get_byan_by_id_2($sarf_num);
+        $data['details'] = $this->Model_family_cashing->get_byan_sarf_details($sarf_num);
+        redirect('family_controllers/FamilyCashing', 'refresh');
+    }
+
+    /**********************/
     public function read_file($file_name, $ext)
     {
         $this->load->helper('file');
@@ -681,46 +696,48 @@ public function add_new_sarf($sarf_num)
         header('Content-Length: ' . filesize($file_path));
         readfile($file_path);
     }
- /*
-  public function read_file($file_name)
-    {
-        $this->load->helper('file');
-        // $file_name=$this->uri->segment(3);
-        $file_path = 'uploads/files/sarf_attaches/'.$file_name;
-        header('Content-Type: application/pdf');
-        header('Content-Discription:inline; filename="'.$file_name.'"');
-        header('Content-Transfer-Encoding: binary');
-        header('Accept-Ranges:bytes');
-        header('Content-Length: ' . filesize($file_path));
-        readfile($file_path);
-    }*/
-    public function download_sarf($file){ //  FamilyCashing/downloads/
+
+    /*
+     public function read_file($file_name)
+       {
+           $this->load->helper('file');
+           // $file_name=$this->uri->segment(3);
+           $file_path = 'uploads/files/sarf_attaches/'.$file_name;
+           header('Content-Type: application/pdf');
+           header('Content-Discription:inline; filename="'.$file_name.'"');
+           header('Content-Transfer-Encoding: binary');
+           header('Accept-Ranges:bytes');
+           header('Content-Length: ' . filesize($file_path));
+           readfile($file_path);
+       }*/
+    public function download_sarf($file)
+    { //  FamilyCashing/downloads/
         $this->load->helper('download');
         $name = $file;
-        $data = file_get_contents('./uploads/files/sarf_attaches/'.$file);
+        $data = file_get_contents('./uploads/files/sarf_attaches/' . $file);
         force_download($name, $data);
-    }    
-    
-    
-    
-    
-      public function read_all_file($file_name)
+    }
+
+
+    public function read_all_file($file_name)
     {
         $this->load->helper('file');
         // $file_name=$this->uri->segment(3);
-        $file_path = 'uploads/files/'.$file_name;
+        $file_path = 'uploads/files/' . $file_name;
         header('Content-Type: application/pdf');
-        header('Content-Discription:inline; filename="'.$file_name.'"');
+        header('Content-Discription:inline; filename="' . $file_name . '"');
         header('Content-Transfer-Encoding: binary');
         header('Accept-Ranges:bytes');
         header('Content-Length: ' . filesize($file_path));
         readfile($file_path);
     }
-    public function downloads_all($file){ //  md/all_glasat/All_glasat/downloads
+
+    public function downloads_all($file)
+    { //  md/all_glasat/All_glasat/downloads
         $this->load->helper('download');
         $name = $file;
-        $data = file_get_contents('./uploads/files'.$file);
+        $data = file_get_contents('./uploads/files' . $file);
         force_download($name, $data);
     }
-     
+
 }// END CLASS

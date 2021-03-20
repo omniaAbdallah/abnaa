@@ -78,8 +78,6 @@
                                 <td>
                                     <a class="btn btn-info btn-sm" data-toggle="modal" data-target="#details_Modal"
                                         onclick="load_page_emps(<?= $row->id ?>);">الموظفين </a>
-                                    <a class="btn  btn-danger" id="publish<?= $row->id ?>" onclick="close_tata(<?= $row->id ?>);">
-                                        اغلاق التطوع </a>
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-primary">إجراءات</button>
                                         <button type="button" class="btn btn-primary dropdown-toggle"
@@ -179,26 +177,9 @@
         $.ajax({
             type: 'post',
             url: "<?php echo base_url();?>human_resources/tataw3/Emptatw3/load_details_emps",
-            data: {row_id: row_id},
+            data: {row_id: row_id,finish:1},
             success: function (d) {
                 $('#result_page').html(d);
-            }
-        });
-    }
-</script>
-<script>
-    function close_tata(row_id) {
-        $.ajax({
-            type: 'post',
-            url: "<?php echo base_url();?>human_resources/tataw3/Emptatw3/close",
-            data: {id: row_id},
-            success: function (d) {
-                swal({
-                    title: 'تم!',
-                    type: 'success',
-                    confirmButtonText: 'تم'
-                });
-                location.reload();
             }
         });
     }

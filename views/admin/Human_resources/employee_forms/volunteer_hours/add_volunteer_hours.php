@@ -231,6 +231,8 @@ if (isset($result) && !empty($result)) {
     $edara_n = $result->edara_name;
     $qsm_id_fk = $result->qsm_id_fk;
     $qsm_n = $result->qsm_name;
+    $direct_manager_id_fk = $result->direct_manager_id_fk;
+
     // $marad_name = $item->marad_name;
 } else {
     $emp_id_fk = '';
@@ -265,6 +267,8 @@ if (isset($result) && !empty($result)) {
     $qsm_id_fk = '';
     $qsm_n = '';
     $job_title = '';
+    $direct_manager_id_fk = '';
+
 }
 if (isset($forsa_data) && (!empty($forsa_data))) {
     $type_forsa = 1;
@@ -350,6 +354,12 @@ $emp_id = $_SESSION['emp_code']; ?>
                                    echo $emp_data->department;
                                } else {
                                    echo $qsm_id_fk;
+                               } ?>  ">
+                        <input type="hidden" id="direct_manager_id_fk" name="direct_manager_id_fk"
+                               value="<?php if (!empty($emp_data->manger)) {
+                                   echo $emp_data->manger;
+                               } else {
+                                   echo $direct_manager_id_fk;
                                } ?>  ">
                         <div class="form-group col-md-3 col-sm-6 col-xs-6 padding-4">
                             <label class="label"> احتساب من </label>
@@ -794,11 +804,11 @@ if (isset($_POST['from_profile']) && (!empty($_POST['from_profile']))) { ?>
         }?>
         if (roles == 3) {
             get_emp_data(emp_id);
-            $("#emp_id_fk").attr('disabled', true);
+            $("#emp_id_fk").attr('readonly', true);
         } else {
-            $("#emp_id_fk").attr('disabled', false);
+            $("#emp_id_fk").attr('readonly', false);
         }
-        if (emp_id_fk != '') {
+        if (emp_id_fk) {
             get_emp_data(emp_id_fk);
         }
 
@@ -971,6 +981,10 @@ if (isset($_POST['from_profile']) && (!empty($_POST['from_profile']))) { ?>
         var adress = obj.dataset.adress;
         var emp_phone = obj.dataset.phone;
         var card_num = obj.dataset.card_num;
+        var manger = obj.dataset.manger;
+
+        document.getElementById('direct_manager_id_fk').value = manger;
+
         document.getElementById('emp_name').value = name;
         document.getElementById('emp_id_fk').value = obj.value;
         document.getElementById('emp_code').value = emp_code;
