@@ -15,7 +15,7 @@ if (isset($items) && !empty($items)) {
                 <tr class="greentd">
                     <th>م</th>
                     <th>رقم الطلب</th>
-                             <th>تاريخ الطلب</th>
+                    <th>تاريخ الطلب</th>
                     <th>مقدم الطلب</th>
                     <th>نوع الاجازه</th>
                     <th>بدايه الاجازه</th>
@@ -54,43 +54,48 @@ if (isset($items) && !empty($items)) {
                             $halet_eltalab = 'جاري ';
                             $halet_eltalab_class = 'warning';
                         } elseif ($row->suspend == 1) {
-                           // $halet_eltalab = ' تم قبول الطلب من ' . $row->current_from_user_name;
-                             $halet_eltalab = 'تم القبول';
+                            // $halet_eltalab = ' تم قبول الطلب من ' . $row->current_from_user_name;
+                            $halet_eltalab = 'تم القبول';
                             $halet_eltalab_class = 'success';
                         } elseif ($row->suspend == 2) {
-                          //  $halet_eltalab = ' تم رفض الطلب من ' . $row->current_from_user_name;
-                             $halet_eltalab = ' تم الرفض ' ;
+                            //  $halet_eltalab = ' تم رفض الطلب من ' . $row->current_from_user_name;
+                            $halet_eltalab = ' تم الرفض ';
                             $halet_eltalab_class = 'danger';
                         } elseif ($row->suspend == 4) {
-                               $halet_eltalab = ' تم الإعتماد  '; 
-                           // $halet_eltalab = ' تم اعتماد الطلب بالموافقة من  ' . $row->current_from_user_name;
+                            $halet_eltalab = ' تم الإعتماد  ';
+                            // $halet_eltalab = ' تم اعتماد الطلب بالموافقة من  ' . $row->current_from_user_name;
                             $halet_eltalab_class = 'success';
                         } elseif ($row->suspend == 5) {
-                         //   $halet_eltalab = ' تم اعتماد الطلب بالرفض  من ' . $row->current_from_user_name;
-                                   $halet_eltalab = ' تم الرفض ' ;
+                            //   $halet_eltalab = ' تم اعتماد الطلب بالرفض  من ' . $row->current_from_user_name;
+                            $halet_eltalab = ' تم الرفض ';
                             $halet_eltalab_class = 'danger';
                         } else {
                             $halet_eltalab = ' غير محدد ';
                             $halet_eltalab_class = 'danger';
                         }
-  /*                      $row->agaza_from_date_m = explode('/', $row->agaza_from_date_m)[2] . '/' . explode('/', $row->agaza_from_date_m)[0] . '/' . explode('/', $row->agaza_from_date_m)[1];
-                        $row->agaza_to_date_m = explode('/', $row->agaza_to_date_m)[2] . '/' . explode('/', $row->agaza_to_date_m)[0] . '/' . explode('/', $row->agaza_to_date_m)[1];
-*/
+                        /*                      $row->agaza_from_date_m = explode('/', $row->agaza_from_date_m)[2] . '/' . explode('/', $row->agaza_from_date_m)[0] . '/' . explode('/', $row->agaza_from_date_m)[1];
+                                              $row->agaza_to_date_m = explode('/', $row->agaza_to_date_m)[2] . '/' . explode('/', $row->agaza_to_date_m)[0] . '/' . explode('/', $row->agaza_to_date_m)[1];
+                      */
                         ?>
                         <tr>
                             <td><?php echo $x; ?></td>
                             <td><?php echo $row->agaza_rkm; ?></td>
-                             <td><?php echo $row->agaza_date_ar; ?></td>
+                            <td><?php echo $row->agaza_date_ar; ?></td>
                             <td><?php echo $row->employee; ?></td>
-                            <td><?php echo $row->name->name; ?></td>
+                            <td><?php echo $row->name->name;
+                            if (!empty($row->f2a_agaza)) {
+                                    $vacations_f2a = array('1' => 'طارئة', "2" => "عادية");
+                                    echo '-' . $vacations_f2a[$row->f2a_agaza];
+                                } ?></td>
                             <td><?php echo $row->agaza_from_date_m; ?></td>
                             <td><?php echo $row->agaza_to_date_m; ?></td>
                             <td><?php echo $row->num_days; ?></td>
                             <td>
-<!--                                <a type="button" class="btn btn-primary btn-xs" data-toggle="modal"-->
-<!--                                   style="padding: 1px 6px;"-->
-<!--                                   data-target="#myModal--><?php //echo $row->id; ?><!--"><i class="fa fa-list"></i>-->
-<!--                                </a>-->
+                                <!--                                <a type="button" class="btn btn-primary btn-xs" data-toggle="modal"-->
+                                <!--                                   style="padding: 1px 6px;"-->
+                                <!--                                   data-target="#myModal-->
+                                <?php //echo $row->id; ?><!--"><i class="fa fa-list"></i>-->
+                                <!--                                </a>-->
                                 <a type="button" class="btn btn-info btn-xs" style="padding: 1px 6px;"
                                    data-toggle="modal" title="التفاصيل"
                                    onclick="get_details_agaza(<?= $row->id ?>,'<?php echo $row->employee; ?>');"
@@ -100,15 +105,15 @@ if (isset($items) && !empty($items)) {
                                    onclick="print_(<?= $row->agaza_rkm ?>)"><i class="fa fa-print "></i>
                                 </a>
                                 <?php if ($_SESSION['role_id_fk'] == 1) {
-                                   // if ($row->last_vacation == 1) {
-                                       // if ($row->agaza_to_date >= strtotime(date('Y-m-d'))) { 
-                                            ?>
-                                            <a title="تعديل الطلب - قطع الأجازة"
-                                               href="<?php echo base_url(); ?>human_resources/employee_forms/all_agazat/all_orders/Vacation/edit_vacation/<?php echo $row->id . '/1'; ?>"><i
-                                                        class="fa fa-pencil-square-o" aria-hidden="true"></i> </a>
-                                        <?php 
-                                     //   }
-                                   // }
+                                    // if ($row->last_vacation == 1) {
+                                    // if ($row->agaza_to_date >= strtotime(date('Y-m-d'))) {
+                                    ?>
+                                    <a title="تعديل الطلب - قطع الأجازة"
+                                       href="<?php echo base_url(); ?>human_resources/employee_forms/all_agazat/all_orders/Vacation/edit_vacation/<?php echo $row->id . '/1'; ?>"><i
+                                                class="fa fa-pencil-square-o" aria-hidden="true"></i> </a>
+                                    <?php
+                                    //   }
+                                    // }
                                 }
                                 ?>
                             </td>

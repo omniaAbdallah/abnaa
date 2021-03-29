@@ -564,8 +564,6 @@
                                 ?>
                                 <a target="_blank"
                                    href="<?= base_url() . "FamilyCashing/PrintSarfType/" . $record->sarf_num . "/" . $record->method_type ?>">
-
-
                                     <i class="fa fa-print" aria-hidden="true"></i></a>
                             </td>
 

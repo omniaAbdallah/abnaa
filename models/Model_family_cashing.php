@@ -123,10 +123,12 @@ class Model_family_cashing extends CI_Model
     }
 
     //==========================================
-    public function insert($file)
+    public function insert($file = false)
     {
 
-        $data['sarf_num'] = $this->input->post('sarf_num');
+//        $data['sarf_num'] = $this->input->post('sarf_num');
+        $data['sarf_num'] = $this->select_last_value_fild() + 1;
+
         $data['bnod_help_fk'] = $this->input->post('bnod_help_id_fk');
         $data['mon_melady'] = $this->input->post('mon_melady');
         $data['sarf_date'] = strtotime($this->input->post('sarf_date'));
@@ -156,12 +158,158 @@ class Model_family_cashing extends CI_Model
         $data['to_age_according_to'] = $this->chek_Null($this->input->post('to_age_according_to'));
         $data['person_id_fk'] = $this->chek_Null($this->input->post('person_id_fk'));
         $data['other_person'] = $this->chek_Null($this->input->post('other_person'));
-        $data['bank_attachment'] = $file;
-
+        if (!empty($file)) {
+            $data['bank_attachment'] = $file;
+        }
 
         $data['publisher'] = $_SESSION["user_id"];
         $this->db->insert($this->main_table, $data);
+//        return $this->db->insert_id();
+        return $data['sarf_num'];
+    }
 
+    public function insert_from_exel($total_value, $insert)
+    {
+
+//        $data['sarf_num'] = $this->input->post('sarf_num');
+        if ($insert == 1) {
+            $data['sarf_num'] = $this->select_last_value_fild() + 1;
+        } else {
+            $data['sarf_num'] = $this->input->post('sarf_num');
+        }
+        $data['bnod_help_fk'] = $this->input->post('bnod_help_id_fk');
+        $data['mon_melady'] = $this->input->post('mon_melady');
+        $data['sarf_date'] = strtotime($this->input->post('sarf_date'));
+        $data['sarf_date_ar'] = $this->input->post('sarf_date');
+        $data['about'] = $this->chek_Null($this->input->post('about'));
+        $data['method_type'] = $this->input->post('method_type');
+        $data['total_value'] = $total_value;
+        /*$data['type_sarf'] = $this->input->post('sarf_type');
+                $data['method_type'] = $this->input->post('method_type');
+                               $data['type_family'] = $this->input->post(t->post('total_value');
+
+
+                               if ($this->input->post('sarf_type') == 3) {
+                                   $data['value_armal'] = $this->input->post('value_armal');
+                                   $data['value_yatem'] = $this->input->post('value_yatem');
+                                   $data['value_mostafed'] = $this->input->post('value_mostafed');
+
+                               }*/
+
+        /* if( $this->input->post('method_type') != 3){
+             $data['bank_id_fk'] = $this->input->post('bank_id_fk');
+             $data['bank_account_num'] = $this->input->post('bank_account_num');
+         }*/
+        /*  $data['according_to'] = $this->chek_Null($this->input->post('method_type_according_to'));
+          $data['education_according_to'] = $this->chek_Null($this->input->post('education_according_to'));
+          $data['education_according_to'] = $this->chek_Null($this->input->post('education_according_to'));
+          $data['from_age_according_to'] = $this->chek_Null($this->input->post('from_age_according_to'));
+          $data['to_age_according_to'] = $this->chek_Null($this->input->post('to_age_according_to'));
+          $data['person_id_fk'] = $this->chek_Null($this->input->post('person_id_fk'));
+          $data['other_person'] = $this->chek_Null($this->input->post('other_person'));
+        */
+        if ($insert == 1) {
+
+            $data['publisher'] = $_SESSION["user_id"];
+            $this->db->insert($this->main_table, $data);
+        }else{
+            $data['complete']='no';
+            $this->db->where('sarf_num', $data['sarf_num'])->update($this->main_table,$data) ;
+        }
+//        return $this->db->insert_id();
+        return $data['sarf_num'];
+    }
+
+    function insert_details_from_exel($data, $sarf_num)
+    {
+        $this->db->where('sarf_num_fk', $sarf_num)->delete('finance_sarf_order_details');
+        $this->db->insert_batch('finance_sarf_order_details', $data);
+    }
+
+    function complete_sarf($sarf_num_fk)
+    {
+        $sarf_data = $this->db->where('sarf_num_fk', $sarf_num_fk)->get('finance_sarf_order_details')->result_array();
+        if (!empty($sarf_data)) {
+            foreach ($sarf_data as $value) {
+                $data['mother_national_num_fk'] = $value['mother_national_num_fk'];
+                $bank_data = $this->get_Bank_details($data['mother_national_num_fk']);
+                $data['bank_responsible_national_num'] = $bank_data->person_card;
+                $data['bank_account_num'] = $bank_data->bank_account_num;
+                $data['bank_responsible_name'] = $bank_data->person_name;
+                $data['bank_code'] = $bank_data->bank_code;
+                $data['young_num'] = $bank_data->down_child;
+                $data['adult_num'] = $bank_data->up_child;
+                $data['mother_num'] = $bank_data->mother_num_in;
+
+                $data['all_num'] = $data['young_num'] + $data['mother_num'] + $data['adult_num'];
+                $data_where['file_num'] = $value['file_num'];
+                $data_where['sarf_num_fk'] = $sarf_num_fk;
+
+                $this->db->where($data_where)->update("finance_sarf_order_details", $data);
+            }
+
+            $this->db->where('sarf_num', $sarf_num_fk)->update($this->main_table, array('complete' => 'yes'));
+
+        }
+    }
+
+    function make_query()
+    {
+        $order_column = array(null, "sarf_num", "bnod_help_fk", 'sarf_date_ar', 'method_type', null, 'mon_melady', 'total_value', null, null, null);
+        $type_arr = array("الدولة" => 'country', "المحافظة" => "city", "المدينة" => "region");
+        $method_type = array("شيك" => "2", "تحويل" => "4", 'شحن كروت' => '6');
+        $months = array("يناير" => "1", "فبراير" => "2", "مارس" => "3", "أبريل" => "4", "مايو" => "5",
+            "يونيو" => "6", "يوليو" => "7", "أغسطس" => "8", "سبتمبر" => "9", "أكتوبر" => "10",
+            "11" => "نوفمبر", "12" => "ديسمبر");
+        $this->db->select($this->main_table . '.*,bnod_help.title');
+        $this->db->from($this->main_table)->
+        join('bnod_help', 'bnod_help.id=' . $this->main_table . '.bnod_help_fk');
+
+        if (isset($_POST["search"]["value"])) {
+
+            $this->db->like($this->main_table . ".sarf_num", $_POST["search"]["value"]);
+            $this->db->or_like($this->main_table . ".total_value", $_POST["search"]["value"]);
+            $this->db->or_like($this->main_table . ".sarf_date_ar", $_POST["search"]["value"]);
+            $this->db->or_like("bnod_help.title", $_POST["search"]["value"]);
+
+            if (key_exists($_POST["search"]["value"], $method_type)) {
+                $method_type_text = $method_type[$_POST["search"]["value"]];
+                $this->db->or_like($this->main_table . ".method_type", $method_type_text);
+            }
+            if (key_exists($_POST["search"]["value"], $months)) {
+                $mon_melady_text = $months[$_POST["search"]["value"]];
+                $this->db->or_like($this->main_table . ".mon_melady", $mon_melady_text);
+            }
+        }
+        if (isset($_POST["order"])) {
+            $this->db->order_by($order_column[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } else {
+            $this->db->order_by($this->main_table . '.sarf_num', 'DESC');
+        }
+    }
+
+    function make_datatables()
+    {
+        $this->make_query();
+        if ($_POST["length"] != -1) {
+            $this->db->limit($_POST['length'], $_POST['start']);
+        }
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function get_filtered_data()
+    {
+        $this->make_query();
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    function get_all_data()
+    {
+        $this->db->select("*");
+        $this->db->from($this->main_table);
+        return $this->db->count_all_results();
     }
 
     //==========================================
@@ -646,6 +794,12 @@ class Model_family_cashing extends CI_Model
     {
         $h = $this->db->get_where("mother", array('id' => $id));
         return $h->row_array();
+    }
+
+    public function get_mother_national_num($file_num)
+    {
+        $h = $this->db->get_where("basic", array('file_num' => $file_num));
+        return $h->row_array()['mother_national_num'];
     }
 
     public function getfamily_member_data($id)
@@ -1536,5 +1690,3 @@ class Model_family_cashing extends CI_Model
     }
 
 }//END CLASS
-
-

@@ -195,13 +195,39 @@ public function select_allEmployee($employee_type=0)
             $end_contract_date_m = strtotime($row->end_contract_date_m);
             $data[$x]->Remain_time = $this->humanTiming($end_contract_date_m);
             $data[$x]->It_was_finshed_since = $this->humanTiming($end_contract_date_m,1);
-
+            $data[$x]->get_having_value = $this->get_sum_value_fin($row->emp_code, $this->getBadalat_id(1));
+            $data[$x]->get_discut_value = $this->get_sum_value_fin($row->emp_code, $this->getBadalat_id(2));
+            $data[$x]->tamin_value = $this->get_tamin_value_fin($row->emp_code, $this->getBadalat_id(1));
 
             $x++;
         }
         return $data;
     }
-    
+    public function get_sum_value_fin($emp_code, $ids)
+    {
+        $this->db->where_in('badl_discount_id_fk', $ids);
+        $this->db->where('emp_code', $emp_code);
+        $this->db->select_sum('value');
+        $result = $this->db->get('hr_finance_employes');
+        if ($result->num_rows() > 0) {
+            return $result->row()->value;
+        } else {
+            return 0;
+        }
+    }
+    public function get_tamin_value_fin($emp_code, $ids)
+    {
+        $this->db->where_in('badl_discount_id_fk', $ids);
+        $this->db->where('emp_code', $emp_code);
+        $this->db->where('insurance_affect', 1);
+        $this->db->select_sum('value');
+        $result = $this->db->get('hr_finance_employes');
+        if ($result->num_rows() > 0) {
+            return $result->row()->value;
+        } else {
+            return 0;
+        }
+    }
     public function get_one_employee($id){
         $this->db->select('employees.* , 
                            admin_t.name as admin_name ,

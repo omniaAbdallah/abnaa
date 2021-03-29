@@ -241,7 +241,8 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
             '  لجنة الاسر',
             'لجنة الاسر',
             'اشعار تحويل طلب الاسرة',
-            "اسناد الى موظف"];
+            "اسناد الى موظف",
+            'اشعار تحويل طلب الاسرة'];
         var list_message_2 = ['', '', '', '', 'لديك ملاحظة جديدة ',
             '', ' ',
             ' تاشيرات والتوجيهات  جديد لك',
@@ -254,7 +255,7 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
             '', '', 'دعوة لحضور جلسة لجنة الاسر',
             'انتهت جلسة لجنة الاسر الرجاء الاعتماد',
             '',
-            'ملفات تحتاج الى اعادة بحث'];
+            'ملفات تحتاج الى اعادة بحث',''];
         var list_action = ['maham_mowazf/person_profile/Personal_profile/estalmat',
             'maham_mowazf/person_profile/Personal_profile/estalmat',
             'maham_mowazf/person_profile/Personal_profile/estalmat',
@@ -286,7 +287,8 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
             'family_controllers/LagnaSetting/all_glasat_invation',
             'family_controllers/LagnaSetting/all_glasat_decision',
             'family_controllers/PersonProfile/person_profile',
-            'family_controllers/files_need_update/File_research/all_re_files_accep'
+            'family_controllers/files_need_update/File_research/all_re_files_accep',
+            'family_controllers/PersonProfile/person_profile'
         ];
         var list_action_update = ['update_agaza_notification()',
             'update_ezn_notification()',
@@ -319,7 +321,8 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
             'update_seen_glasat_invation()',
             'update_seen_glasat_decision()',
             'update_seen_basic_transform()',
-            'update_seen_esnad_emp()',];
+            'update_seen_esnad_emp()',
+            'update_seen_transform()'];
         function set_count() {
             var count_notify = 0;
             $.each($('.ui-li-count'), function (i, v) {
@@ -408,6 +411,14 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
                 }
             });
         });
+        function update_seen_transform() {
+            $.ajax({
+                type: 'get',
+                url: '<?php echo base_url() ?>family_controllers/Family_transformation/update_seen_transform',
+                dataType: 'html',
+                cache: false,
+            });
+        }
         function update_seen_orders() {
             $.ajax({
                 type: 'get',
@@ -876,7 +887,7 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
     $(function () {
         // setup validate
         $.validate({
-            modules: 'logic',
+            modules: 'logic,file,date,security',
             /*// for live search required*/
             validateHiddenInputs: true
             , lang: 'ar'

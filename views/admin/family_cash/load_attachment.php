@@ -25,13 +25,13 @@
                         <?php
                     } else if (in_array($ext, $file)) {
                         ?>
-                        <a target="_blank"
+                        <a class="btn btn-info btn-sm" target="_blank"
                            href="<?= base_url() . "family_controllers/LagnaSetting/my_read_file/" . $gals_attachments ?>">
                             <i class="fa fa-eye" title=" قراءة"></i> </a>
                         <?php
                     }
                     ?>
-                    <a target="_blank"
+                    <a class="btn btn-danger btn-sm" target="_blank"
                        href="<?= base_url() . "family_controllers/LagnaSetting/my_download/" . $gals_attachments ?>">
                         <i class="fa fa-download" title="تحميل"></i> </a>
 
@@ -61,13 +61,13 @@
                             <?php
                         }
                         ?>
-                        <a href="<?= base_url() . "FamilyCashing/download_sarf/" . $row->attachment ?>">
+                        <a class="btn btn-info btn-sm" href="<?= base_url() . "FamilyCashing/download_sarf/" . $row->attachment ?>">
                             <i class="fa fa-cloud-download fa-2x" title="تحميل" aria-hidden="true"></i>
                         </a>
                     </td>
                     <td>
 
-                        <a onclick="delete_attach(this,'<?= $row->id ?>');">
+                        <a class="btn btn-danger btn-sm" onclick="delete_attach(this,'<?= $row->id ?>');">
                             <i class="fa fa-trash" aria-hidden="true"></i></a>
                         <i class="fa fa-plus-square" aria-hidden="true" onclick="get_row_attach();"></i>
                     </td>
@@ -79,9 +79,9 @@
                 <td><input type="text" name="attachment_title[]" class="form-control" data-validation="required"></td>
                 <td><input onchange="dis()" type="file" name="attachment[]" class="form-control"
                            data-validation="required"></td>
-                <td><a href="" onclick="$(this).parents(\'tr\').remove();"> <i class="fa fa-trash"
+                <td><a class="btn btn-danger btn-sm" href="" onclick="$(this).parents(\'tr\').remove();"> <i class="fa fa-trash"
                                                                                aria-hidden="true"></i></a>
-                    <i class="fa fa-plus-square" aria-hidden="true" onclick="get_row_attach();"></i>
+                    <a class="btn btn-success btn-sm"><i class="fa fa-plus-square" aria-hidden="true" onclick="get_row_attach();"></i></a>
                 </td>
             </tr>
             <?php

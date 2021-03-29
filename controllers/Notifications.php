@@ -82,7 +82,8 @@ class Notifications extends CI_Controller
             'selected_lagna_members',
             'selected_lagna_members',
             'basic',
-            'basic');
+            'basic',
+            'transformation_process');
         $notifiy_filde_array = array(
             array('seen' => 0, 'current_to_user_id' => $_SESSION['user_id']),
             array('seen' => 0, 'current_to_id' => $_SESSION['user_id']),
@@ -116,7 +117,7 @@ class Notifications extends CI_Controller
             array('member_decision_seen' => 'no', 'member_id' => $_SESSION['emp_code'], 'member_decision' => 0, 'finished' => 1),
             array('current_to_seen' => 0, 'current_to_user_id' => $_SESSION['user_id']),
             array('current_to_emp_seen' => 0, 'current_to_emp_user_id' => $_SESSION['user_id']),
-
+            array('seen' => 0, 'to_id' => $_SESSION['user_id'],"transformation_type!="=> 8),
         );
         $return_arr = array();
         $count = sizeof($table_arr);
