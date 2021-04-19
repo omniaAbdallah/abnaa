@@ -10,12 +10,22 @@
         right: 150px !important;
         /*  top:87px !important;*/
     }
+
+    .main-footer {
+        background: #293949;
+        border-top: 1px solid #dee2e6;
+        color: #fbfbfb;
+        padding: 10px;
+    }
+
     [data-notify="container"].alert-pastel-info {
         border-right-color: rgb(255, 179, 40);
     }
+
     [data-notify="container"].alert-pastel-danger {
         border-right-color: rgb(255, 103, 76);
     }
+
     [data-notify="container"][class*="alert-pastel-"] > [data-notify="title"] {
         color: rgb(80, 80, 57);
         display: block;
@@ -49,16 +59,6 @@
 <a title="الوصول السريع" type="button" class="btn btn-rocket" data-toggle="modal" data-target="#rocket-panel">
     <i class="fa fa-rocket" aria-hidden="true"></i>
 </a>
-<!--
-<a type="button" class="btn btn-email" onclick="get_emails()" data-toggle="modal" data-target="#myModal_email">
-    <i class="fa fa-bell-o" aria-hidden="true"></i>
-</a>-->
-<!--
-<a title="إرسال رسالة عبر النظام" type="button" class="btn btn-email" onclick="get_emails('email_details')" 
-data-toggle="modal" data-target="#myModal_email">
-   <i class="fa fa-commenting-o" aria-hidden="true"></i>
-</a>
--->
 <div class="modal fade" id="rocket-panel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog  " role="document" style="width:75%">
         <div class="modal-content" style="display: inline-block;min-width: 270px;min-height:480px;">
@@ -110,12 +110,16 @@ data-toggle="modal" data-target="#myModal_email">
                         }
                         echo ' </li>';
                     }
+
                     ?>
                     <div class="sliding-submenu">
                         <div class="menu-wrapper ">
-                            <?php if (isset($this->my_side_bar) && !empty($this->my_side_bar)) {
+                            <?php $CI =& get_instance();
+                            $CI->load->model('system_management/Model_user_permission');
+                            $my_side_bar = $CI->Model_user_permission->get_my_page_permession($_SESSION["user_id"]); ?>
+                            <?php if (isset($my_side_bar) && !empty($my_side_bar)) {
                                 ?>
-                                <?php createTreeView2($this->my_side_bar); ?>
+                                <?php createTreeView2($my_side_bar); ?>
                             <?php } else { ?>
                                 <ul class="nav">
                                     <li class="active">
@@ -159,33 +163,39 @@ data-toggle="modal" data-target="#myModal_email">
         </div>
     </div>
 </div>
-<!--
-<div class="modal fade" id="myModal_email" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document" style="width: 95%; ">
+<a title="الوصول السريع" onclick="get_menu();"
+   style="    margin-left: 54px;" type="button" class="btn btn-rocket" data-toggle="modal" data-target="#rocket-panel2">
+    <i class="fa fa fa-bars" aria-hidden="true"></i>
+</a>
+<div class="modal" tabindex="-1" role="dialog" id="rocket-panel2">
+    <div class="modal-dialog" role="document" style="width:80%">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close"
-                        data-dismiss="modal">&times;
+                <h5 class="modal-title">القائمة</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">
-                <i class="fa fa-envelope-o" aria-hidden="true"></i>
-                 ارسال رسالة جديدة عبر النظام
-                    <span id="pop_rkm"></span>
-                </h4>
             </div>
-            <div class="modal-body">
-                <div id="email_details"></div>
+            <div class="modal-body" style="height:800px;">
             </div>
-            <div class="modal-footer" style=" display: inline-block;width: 100%;">
-                <button type="button" class="btn btn-danger"
-                        data-dismiss="modal">إغلاق
-                </button>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">إغلاق</button>
             </div>
         </div>
     </div>
 </div>
--->
-<!----------------------------------------------------->
+<script>
+    function get_menu() {
+        $.ajax({
+            type: 'post',
+            url: "<?php echo base_url();?>Dash/get_menu",
+            success: function (d) {
+                $('#rocket_x').html(d);
+                //alert(d);
+            }
+        });
+    }
+</script>
 <script type="text/javascript" src="<?php echo base_url() ?>asisst/admin_asset/js/jquery-1.10.1.min.js"></script>
 <script src="<?php echo base_url() ?>asisst/admin_asset/js/jquery-ui.js" type="text/javascript"></script>
 <script src="<?php echo base_url() ?>asisst/admin_asset/js/bootstrap-arabic.min.js"></script>
@@ -205,11 +215,13 @@ data-toggle="modal" data-target="#myModal_email">
 <script src="<?php echo base_url(); ?>asisst/admin_asset/js/mdtimepicker.js"></script>
 <!--- nnot -------------------------->
 <script src="<?php echo base_url() ?>asisst/admin_asset/plugins/bootstrap-notify-master/bootstrap-notify.js"></script>
+<script src="<?php echo base_url() ?>asisst/admin_asset/plugins/chart.js/Chart.min.js"></script>
 <?php
 if ($_SESSION['role_id_fk'] == 3) { ?>
     <script>
         var min = 1;
         var url = '#';
+        var list_count_id = ['agazat_new', 'ozonat_new', 'solaf_new', 'tot-prod_notes', 'tot-prod_sader', 'tot-prod_wared', 'tot-prod_email', 'tot-prod_sader_comments', 'tot-prod_wared_comments', '0', 'pr_contact', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'];
         var list_message = ['اشعار طلب اجازة',
             'اشعار* طلب اذن',
             'اشعار طلب سلفة',
@@ -242,7 +254,8 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
             'لجنة الاسر',
             'اشعار تحويل طلب الاسرة',
             "اسناد الى موظف",
-            'اشعار تحويل طلب الاسرة'];
+            'اشعار تحويل طلب الاسرة',
+            'مهمة جديدة'];
         var list_message_2 = ['', '', '', '', 'لديك ملاحظة جديدة ',
             '', ' ',
             ' تاشيرات والتوجيهات  جديد لك',
@@ -250,12 +263,13 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
             'الرجاء الذهاب إلى الدردشة',
             'هناك رسالة تواصل جديدة الأن بالرعاية الإجتماعية ',
             'الرجاء الذهاب إلى الدردشة مع الاسر ',
-            '', '', '', '', '', '', '',
-            'تم الموافقة على طلبك ', '', '', '', '', '', '',
+            '', '', '', '', '', '', '', 'تم الموافقة على طلبك ', '', '', '', '', '', '',
             '', '', 'دعوة لحضور جلسة لجنة الاسر',
             'انتهت جلسة لجنة الاسر الرجاء الاعتماد',
             '',
-            'ملفات تحتاج الى اعادة بحث',''];
+            'ملفات تحتاج الى اعا,دة بحث',
+            '', ''];
+        var list_action_id = ['a_agazat_new', 'a_ozonat_new', 'a_solaf_new', 'a_notes_new', 'a_sader_new', 'a_wared_new', 'a_email_new', 'a_sader_comments_new', 'a_wared_comments_new', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'];
         var list_action = ['maham_mowazf/person_profile/Personal_profile/estalmat',
             'maham_mowazf/person_profile/Personal_profile/estalmat',
             'maham_mowazf/person_profile/Personal_profile/estalmat',
@@ -288,7 +302,8 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
             'family_controllers/LagnaSetting/all_glasat_decision',
             'family_controllers/PersonProfile/person_profile',
             'family_controllers/files_need_update/File_research/all_re_files_accep',
-            'family_controllers/PersonProfile/person_profile'
+            'family_controllers/PersonProfile/person_profile',
+            'human_resources/mohma/Mohma_c/all_new_mohma'
         ];
         var list_action_update = ['update_agaza_notification()',
             'update_ezn_notification()',
@@ -310,7 +325,7 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
             'update_seen_hesabat_banks_orders()',
             'update_seen_order()',
             'update_seen_emp()',
-            'update_seen_orders()',
+            '0',
             'update_seen_tatw3()',
             '0',
             '0',
@@ -322,7 +337,9 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
             'update_seen_glasat_decision()',
             'update_seen_basic_transform()',
             'update_seen_esnad_emp()',
-            'update_seen_transform()'];
+            'update_seen_transform()',
+            'update_seen_mohma()'];
+
         function set_count() {
             var count_notify = 0;
             $.each($('.ui-li-count'), function (i, v) {
@@ -332,6 +349,7 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
             });
             $('#count_notify').text((count_notify))
         }
+
         function get_all_notification() {
             console.warn("check_new_notifications ::");
             $.ajax({
@@ -380,15 +398,18 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
                 }
             });
         }
-        
+
         function get_sound() {
             var audio = new Audio('https://notificationsounds.com/soundfiles/2d6cc4b2d139a53512fb8cbb3086ae2e/file-sounds-942-what-friends-are-for.mp3');
             audio.play();
         }
+
         $(document).ready(function () {
             console.warn("check notifications :: ready");
             get_all_notification();
-            setInterval(get_all_notification, (1000 * 60 * min));
+            /*  setInterval(get_all_notification, (1000 * 60 * min));
+              get_all_notification_email();
+              setInterval(get_all_notification_email, (1000 * 60 * min));*/
             var file_name = '';
             var res = [];
             $.ajaxSetup({
@@ -411,22 +432,50 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
                 }
             });
         });
-        function update_seen_transform() {
+
+        function get_all_notification_email() {
+            console.warn("get_all_notification_email ::");
             $.ajax({
-                type: 'get',
-                url: '<?php echo base_url() ?>family_controllers/Family_transformation/update_seen_transform',
-                dataType: 'html',
-                cache: false,
+                type: 'post',
+                url: "<?php echo base_url();?>Notifications/get_all_notification_email",
+                success: function (d) {
+                    if (d !== 'null') {
+                        var data = JSON.parse(d);
+                        var notification = data.replay_email;
+                        if (parseInt(notification.length) > 0) {
+                            for (var i = 0; i < notification.length; i++) {
+                                $.notify({
+                                    title: 'اشعار رسالة بريد: ',
+                                    message: 'لديك رد علي رساله جديد من ' + notification[i].emp_data,
+                                    url: "<?php echo base_url() . 'all_secretary/email/Emails/inbox/'?>" + notification[i].email_id_fk,
+                                    target: "_self"
+                                }, {
+                                    type: 'pastel-info',
+                                    delay: 1000 * 40 * min,
+                                    template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+                                        '<button type="button" aria-hidden="true" class="close" data-notify="dismiss" style="float:left">×</button>' +
+                                        '<span data-notify="title">{1}</span>' +
+                                        '<span data-notify="message">{2}</span>' +
+                                        '<a href="{3}" onclick=""  target="{4}" data-notify="url"></a>' +
+                                        '</div>',
+                                    offset: {
+                                        x: 50,
+                                        y: 75
+                                    },
+                                    animate: {
+                                        enter: 'animated rollIn',
+                                        exit: 'animated rollOut'
+                                    }, onShow: get_sound()
+                                });
+                            }
+                        }
+                        set_count();
+                    } else {
+                    }
+                }
             });
         }
-        function update_seen_orders() {
-            $.ajax({
-                type: 'get',
-                url: '<?php echo base_url() ?>human_resources/employee_forms/Volunteer_hours_ajax/update_seen_orders',
-                dataType: 'html',
-                cache: false,
-            });
-        }
+
         function update_seen_basic_transform() {
             $.ajax({
                 type: 'get',
@@ -435,6 +484,16 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
                 cache: false,
             });
         }
+
+        function update_seen_transform() {
+            $.ajax({
+                type: 'get',
+                url: '<?php echo base_url() ?>family_controllers/Family_transformation/update_seen_transform',
+                dataType: 'html',
+                cache: false,
+            });
+        }
+
         function update_seen_esnad_emp() {
             $.ajax({
                 type: 'get',
@@ -459,6 +518,7 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
                 cache: false,
             });
         }
+
         function update_seen_crm_zyraat() {
             $.ajax({
                 type: 'get',
@@ -467,6 +527,17 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
                 cache: false,
             });
         }
+
+        // update_seen_mohma
+        function update_seen_mohma() {
+            $.ajax({
+                type: 'get',
+                url: '<?php echo base_url() ?>human_resources/mohma/Mohma_c/update_seen_mohma',
+                dataType: 'html',
+                cache: false,
+            });
+        }
+
         function update_seen_eznsarf() {
             $.ajax({
                 type: 'get',
@@ -475,6 +546,7 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
                 cache: false,
             });
         }
+
         function update_seen_tatw3() {
             $.ajax({
                 type: 'get',
@@ -684,9 +756,9 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
         $(document).ready(function () {
             <?php  $url_con = $this->uri->segment(1);
             if ($url_con == 'maham_mowazf'){  ?>
-            check_notification();
-            check_notification_estlam();
-            check_notification_end();
+            /* check_notification();
+             check_notification_estlam();
+             check_notification_end();*/
             <?php } ?>
         });
     </script>
@@ -735,6 +807,24 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
     </script>
 <?php }
 ?>
+<script>
+    /*
+        function get_my_emails(div_id,method) {
+            $.ajax({
+                type: 'post',
+                url: "<?php echo base_url();?>all_secretary/email/Emails/"+method,
+            beforeSend: function () {
+                $('#'+div_id).html('<div class=\'loader-img\'><div class=\'bar1\'></div><div class=\'bar2\'></div><div class=\'bar3\'></div><div class=\'bar4\'></div><div class=\'bar5\'></div><div class=\'bar6\'></div></div>');
+            },
+            success: function (d) {
+                $('#'+div_id).html(d);
+                // $('.selectpicker').selectpicker("refresh");
+                // reset_file_input('file');
+            }
+        });
+    }
+*/
+</script>
 <!-- neww -->
 <script>
     $('.popoverOption').popover();
@@ -887,7 +977,7 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
     $(function () {
         // setup validate
         $.validate({
-            modules: 'logic,file,date,security',
+            modules: 'logic',
             /*// for live search required*/
             validateHiddenInputs: true
             , lang: 'ar'
@@ -911,6 +1001,21 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
     })
 </script>
 <script>
+    /*function get_emails(div_id, page_load) {
+         $.ajax({
+             type: 'post',
+             url: "<?php echo base_url();?>all_secretary/email/Requestes/load_email_rocket",
+            beforeSend: function () {
+                $('#' + div_id).html('<div class=\'loader-img\'><div class=\'bar1\'></div><div class=\'bar2\'></div><div class=\'bar3\'></div><div class=\'bar4\'></div><div class=\'bar5\'></div><div class=\'bar6\'></div></div>');
+            },
+            success: function (d) {
+                $('#' + div_id).html(d);
+                $('#input_from_rokect').val(page_load);
+                // $('.selectpicker').selectpicker("refresh");
+                // reset_file_input('file');
+            }
+        });
+    }*/
     function get_emails(div_id, page_load) {
         $.ajax({
             type: 'post',
@@ -1120,7 +1225,7 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
                 var removeLink = "<img src='" + URL.createObjectURL(file) + "' style='width:100%;'/><span class=\"removeFile closebtn\" style='cursor: pointer' data-fileid=\"" + fileId + "\"><h6>x</h6></span>";
                 output.push('<li class="ui-state-default" data-order=0 data-id="' + file.lastModified + '">' + removeLink + '</li> ');
             }
-            ;
+
             $(this).children(".fileList")
                 .append(output.join(""));
             //reset the input to null - nice little chrome bug!
@@ -1176,7 +1281,7 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
                     console.log(data);
                     files1Uploader.clear();
                     $("#email_to").val('').selectpicker('refresh');
-                    ;
+
                     $('#title').val('');
                     CKEDITOR.instances[instance].setData('');
                     $('#images').val('');
@@ -1331,11 +1436,6 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
         }
     }
 </script>
-<script>
-    $(document).ready(function () {
-        checkAll();
-    });
-</script>
 <script src="<?php echo base_url() ?>asisst/admin_asset/js/hijri_converter.js"></script>
 <script language="javascript" type="text/javascript"> function moveOnMax(field, nextFieldID) {
         if (field.value.length >= field.maxLength) {
@@ -1344,7 +1444,6 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
     } </script>
 <!------------------------------------------------>
 <!-- 
-<script src="<?php echo base_url() ?>asisst/admin_asset/js/chartJs/Chart.min.js" type="text/javascript"></script>
 -->
 <!-- Counter js -->
 <script src="<?php echo base_url() ?>asisst/admin_asset/js/counterup/waypoints.js" type="text/javascript"></script>
@@ -1360,100 +1459,6 @@ if ($_SESSION['role_id_fk'] == 3) { ?>
         time: 3000
     });
 </script>
-<script type="text/javascript">
-    // single bar chart imports
-    var ctx = document.getElementById("singelBarChart");
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"],
-            datasets: [
-                {
-                    label: "إيرادات هذا الأسبوع",
-                    data: [40, 55, 75, 81, 56, 55, 40],
-                    borderColor: "rgba(0, 150, 136, 0.8)",
-                    width: "1",
-                    borderWidth: "0",
-                    backgroundColor: "rgba(0, 150, 136, 0.8)"
-                }
-            ]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-    // single bar chart exportss
-    var ctx = document.getElementById("singelBarChart_export");
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"],
-            datasets: [
-                {
-                    label: "إيرادات هذا الأسبوع",
-                    data: [40, 55, 75, 81, 56, 55, 40],
-                    borderColor: "rgba(51, 51, 51, 0.55)",
-                    width: "1",
-                    borderWidth: "0",
-                    backgroundColor: "rgba(51, 51, 51, 0.55)"
-                }
-            ]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-</script>
-<script type="text/javascript">
-    //bar chart
-    var ctx = document.getElementById("barChart");
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
-            datasets: [
-                {
-                    label: "إيرادات الجمعية",
-                    data: [650, 590, 800, 2130, 1213, 1503, 40, 2000, 1500, 265, 500, 150],
-                    borderColor: "rgba(0, 150, 136, 0.8)",
-                    width: "1",
-                    borderWidth: "0",
-                    backgroundColor: "rgba(0, 150, 136, 0.8)"
-                },
-                {
-                    label: "مصروفات الأيتام",
-                    data: [1280, 480, 4000, 1090, 520, 1227, 900, 4120, 2300, 5832, 1900, 860],
-                    borderColor: "rgba(51, 51, 51, 0.55)",
-                    width: "1",
-                    borderWidth: "0",
-                    backgroundColor: "rgba(51, 51, 51, 0.55)"
-                }
-            ]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-</script>
-<!------------------------------------------------>
 <script type="text/javascript">
     $("input[name=hesab_no3]").click(function () {
         if ($(this).val() == 1) {
@@ -2173,52 +2178,6 @@ function toggleDataSeries(e){
 */
 ?>
 <script>
-    function get_all_notification_email() {
-        console.warn("get_all_notification_email ::");
-        $.ajax({
-            type: 'post',
-            url: "<?php echo base_url();?>Notifications/get_all_notification_email",
-            success: function (d) {
-                if (d !== 'null') {
-                    var data = JSON.parse(d);
-                    var notification = data.replay_email;
-                    if (parseInt(notification.length) > 0) {
-                        for (var i = 0; i < notification.length; i++) {
-                            $.notify({
-                                title: 'اشعار رسالة بريد: ',
-                                message: 'لديك رد علي رساله جديد من ' + notification[i].emp_data,
-                                url: "<?php echo base_url() . 'all_secretary/email/Emails/inbox/'?>" + notification[i].email_id_fk,
-                                target: "_self"
-                            }, {
-                                type: 'pastel-info',
-                                delay: 1000 * 40 * min,
-                                template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
-                                    '<button type="button" aria-hidden="true" class="close" data-notify="dismiss" style="float:left">×</button>' +
-                                    '<span data-notify="title">{1}</span>' +
-                                    '<span data-notify="message">{2}</span>' +
-                                    '<a href="{3}" onclick=""  target="{4}" data-notify="url"></a>' +
-                                    '</div>',
-                                offset: {
-                                    x: 50,
-                                    y: 75
-                                },
-                                animate: {
-                                    enter: 'animated rollIn',
-                                    exit: 'animated rollOut'
-                                }, onShow: get_sound()
-                            });
-                        }
-                    }
-                    set_count();
-                } else {
-                }
-            }
-        });
-    }
-    $(document).ready(function () {
-        get_all_notification_email();
-        setInterval(get_all_notification_email, (1000 * 60 * min));
-    });
 </script>
 </body>
 </html>

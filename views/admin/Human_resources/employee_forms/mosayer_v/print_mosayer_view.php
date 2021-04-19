@@ -1044,33 +1044,34 @@ title="<?= $emp->mosma_wazefy_n ?>">
 
             </div>
 
-           <div class="col-xs-4">
+              <div class="col-xs-4">
 
 
-            <span  style="text-align: center;"> كشف رواتب ومكافئات شهر فبراير
+            <span style="text-align: center;"> كشف رواتب ومكافئات شهر
             
-            <?php 
-            $months = array("01" => "يناير", "02" => "فبراير", "03" => "مارس", "04" => "أبريل", "05" => "مايو",
-                    "06" => "يونيو", "07" => "يوليو", "08" => "أغسطس", "09" => "سبتمبر", "10" => "أكتوبر",
-                    "11" => "نوفمبر", "12" => "ديسمبر");
-                    
-                  if (isset($months[$main_mosayer->mosayer_month])) {
-                                    echo $months[$main_mosayer->mosayer_month];
-                                } 
+            <?php
+            $months = array("01" => "يناير", "02" => "فبراير", "3" => "مارس", "04" => "أبريل", "05" => "مايو",
+                "06" => "يونيو", "07" => "يوليو", "08" => "أغسطس", "09" => "سبتمبر", "10" => "أكتوبر",
+                "11" => "نوفمبر", "12" => "ديسمبر");
 
-            
+            if (isset($months[$main_mosayer->mosayer_month])) {
+                echo $months[$main_mosayer->mosayer_month];
+            }
+
+
             ?> لعام 
-          <?=$main_mosayer->mosayer_year?>
+          <?= $main_mosayer->mosayer_year
+          ?>
             
             </span>
 
-           </div>
+              </div>
 
-           <div class="col-xs-4">
+              <div class="col-xs-4">
 
-            <span style="text-align: center;">طريقة الصرف : </span>
+                  <span style="text-align: center;">طريقة الصرف : </span>
 
-            <?php 
+                  <?php
 
              $pay_method_id_fk = $this->input->post('pay_method_id_fk');
 

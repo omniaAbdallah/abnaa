@@ -1,5 +1,4 @@
 <?php
-
 class Model_family_cashing extends CI_Model
 {
     public function __construct()
@@ -34,7 +33,6 @@ class Model_family_cashing extends CI_Model
         }
         return 0;
     }
-
     //==========================================
     public function select_where($Conditions_arr, $condition_year)
     {
@@ -164,7 +162,6 @@ class Model_family_cashing extends CI_Model
         $this->db->insert($this->main_table, $data);
 
     }
-
     //==========================================
     public function update($sarf_num, $total_value)
     {
@@ -248,7 +245,6 @@ class Model_family_cashing extends CI_Model
         }
         return false;
     }
-
     //==========================================
     public function select_all_banks()
     {
@@ -588,7 +584,6 @@ class Model_family_cashing extends CI_Model
         }
         return false;
     }
-
     //==========================================
     public function get_sarf_total_value($sarf_num_fk)
     {
@@ -604,7 +599,6 @@ class Model_family_cashing extends CI_Model
         }
         return $total;
     }
-
     //==========================================
     public function check_family($file_num)
     {
@@ -618,7 +612,6 @@ class Model_family_cashing extends CI_Model
         }
         return "not_found";
     }
-
     //==========================================
     public function select_all_bnod()
     {
@@ -883,7 +876,6 @@ class Model_family_cashing extends CI_Model
         }
         return false;
     }
-
     //----------------------------
     public function get_yatem_full_active($mother_national_num_fk, $condition_arr = array())
     {
@@ -949,7 +941,6 @@ class Model_family_cashing extends CI_Model
         }
         return false;
     }
-
     //----------------------------
     public function get_bale3_full_active($mother_national_num_fk, $condition_arr = array())
     {
@@ -966,7 +957,6 @@ class Model_family_cashing extends CI_Model
         }
         return 0;
     }
-
     //========================================================
     public function select_sarf_attach($sarf_num_fk)
     {
@@ -1275,6 +1265,37 @@ return $main_val+($member*$increase_value);
         }
     }*/
 
+    /*    public function get_mother_file($file_num)
+    {
+        $valu = $this->input->post('valu');
+
+        $this->db->where('file_num', $file_num);
+        $query = $this->db->get('basic');
+        if ($query->num_rows() > 0) {
+
+            $main_val = $this->get_rent_main_value($query->row()->family_cat);
+            $increase_value = $this->get_rent_increase_value($query->row()->family_cat);
+            $member = $this->get_members($query->row()->mother_national_num);
+            $main_val = $main_val + ($member * $increase_value);
+            $house_rent = $this->house_rent_amount($query->row()->mother_national_num);
+            $return_arr = array();
+
+            if ($valu == 1) {
+                if ($main_val > $house_rent) {
+                    $return_arr['value'] = $house_rent;
+                } else {
+                    $return_arr['value'] = $main_val;
+                }
+            } elseif ($valu == 2) {
+                $return_arr['value'] = $house_rent;
+            }
+            $return_arr['house_rent'] = $house_rent;
+            $return_arr['main_val'] = $main_val;
+            return json_encode($return_arr);
+        } else {
+            return 0;
+        }
+    }*/
     public function get_mother_file($file_num)
     {
         $valu = $this->input->post('valu');
@@ -1290,7 +1311,7 @@ return $main_val+($member*$increase_value);
             $increase_value = $this->get_rent_increase_value($query->row()->family_cat);
             $member = $this->get_members($query->row()->mother_national_num);
             $mother = $this->get_mother($query->row()->mother_national_num);
-            if ($mother<=0){
+            if ($mother <= 0) {
                 $member--;
             }
             $main_val = $main_val + ($member * $increase_value);
@@ -1312,6 +1333,13 @@ return $main_val+($member*$increase_value);
         } else {
             return 0;
         }
+    }
+
+    public function get_mother($mother_national_num)
+    {
+        $this->db->where('mother_national_num_fk', $mother_national_num)->where('halt_elmostafid_m', 1);
+        $query = $this->db->get('mother');
+        return $query->num_rows();
     }
 
     public function house_rent_amount($mother_national_num)
@@ -1346,7 +1374,6 @@ return $main_val+($member*$increase_value);
             return 0;
         }
     }
-
     /*
 public function get_members($mother_national_num)
 {
@@ -1359,13 +1386,6 @@ public function get_members($mother_national_num)
     {
         $this->db->where('mother_national_num_fk', $mother_national_num)->where('persons_status', 1);
         $query = $this->db->get('f_members');
-        return $query->num_rows();
-    }
-
-    public function get_mother($mother_national_num)
-    {
-        $this->db->where('mother_national_num_fk', $mother_national_num)->where('halt_elmostafid_m', 1);
-        $query = $this->db->get('mother');
         return $query->num_rows();
     }
 
@@ -1443,7 +1463,7 @@ public function get_members($mother_national_num)
         $query = $this->db->get();
         if ($query->num_rows() != 0) {
 
-            return $query->row()->defined_title;;
+            return $query->row()->defined_title;
         } else {
             return false;
         }
@@ -1524,3 +1544,5 @@ public function get_members($mother_national_num)
     }
 
 }//END CLASS
+
+

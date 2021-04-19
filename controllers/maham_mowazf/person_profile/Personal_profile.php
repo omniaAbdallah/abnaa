@@ -216,9 +216,9 @@ class Personal_profile extends MY_Controller
 
         $data['person_data'] = $this->Person_profile_model->get_person_data();
 
-        
 
-        
+
+
 
             $data['coming_records'] = $this->Hr_all_transformation_setting_model->select_from_hr_all_agzat_orders(
 
@@ -230,9 +230,9 @@ class Personal_profile extends MY_Controller
 
         $data["personal_data"]=$this->Hr_all_transformation_setting_model->get_user_data2(array('user_id'=>$_SESSION['user_id']));
 
-      
 
-      
+
+
 
         $data['user_orders'] = $this->Hr_all_transformation_setting_model->select_from_hr_all_agzat_orders(
 
@@ -240,15 +240,15 @@ class Personal_profile extends MY_Controller
 
         );
 
-        
 
 
 
-        
 
-        
 
-        
+
+
+
+
 
 		$this->load->model('human_resources_model/employee_forms/all_ozonat/Transformation_model');
 
@@ -258,7 +258,7 @@ class Personal_profile extends MY_Controller
 
         $data['records']=$this->Transformation_model->my_orders('hr_all_ozonat_orders',$arr);
 
-        
+
 
         $data['ozonat_records'] = $this->Transformation_model->my_orders('hr_all_ozonat_orders', array('current_from_id' => $_SESSION['user_id']));
 
@@ -290,13 +290,6 @@ class Personal_profile extends MY_Controller
 
  $data['sadad_fatora'] = $this->Person_profile_model->get_sadad_fatora();
 
-        
-
-        
-
-        
-
-
 
         /******************  solaf  *******************/
 
@@ -310,23 +303,15 @@ class Personal_profile extends MY_Controller
 
         );
 
- 
 
-         $data['user_solaf_orders'] = $this->Hr_solaf_transformation_setting_model->select_from_hr_all_solaf_orders(
+        $data['user_solaf_orders'] = $this->Hr_solaf_transformation_setting_model->select_from_hr_all_solaf_orders(
 
              array('emp_id_fk'=>$_SESSION['emp_code'])
 
          );
 
- /******************  solaf  *******************/        
+        /******************  solaf  *******************/
 
-        
-
-        
-
-        
-
-        
 
 //        $this->test($data['person_data']);
 
@@ -392,9 +377,6 @@ class Personal_profile extends MY_Controller
 
     }
 
-    
-
-
 
     public function upload_img()
 
@@ -408,9 +390,9 @@ class Personal_profile extends MY_Controller
 
     }
 
-    
 
-/****** sadad fatora *********************************************************************************/    
+
+    /****** sadad fatora *********************************************************************************/
 
     //    19-8-om
 
@@ -474,13 +456,11 @@ class Personal_profile extends MY_Controller
 
     }
 
-    
 
-/*****************************************************************************************/    
+    /*****************************************************************************************/
 
- 
 
- public function pprofile() { //maham_mowazf/person_profile/Personal_profile/pprofile
+    public function pprofile() { //maham_mowazf/person_profile/Personal_profile/pprofile
 
 
 
@@ -488,7 +468,7 @@ class Personal_profile extends MY_Controller
 
     $data['subview'] = 'admin/maham_mowazf_view/basic_data/pprofile_view';
 
-    $this->load->view('admin_index',$data); 
+        $this->load->view('admin_index', $data);
 
   // $this->load->view('admin/design/pprofile_view');
 
@@ -496,9 +476,6 @@ class Personal_profile extends MY_Controller
 
 }
 
-
-
-    
 
     public function phome() { //maham_mowazf/person_profile/Personal_profile/phome
 
@@ -508,7 +485,7 @@ class Personal_profile extends MY_Controller
 
     $data['subview'] = 'admin/maham_mowazf_view/basic_data/homepage';
 
-    $this->load->view('admin_index',$data); 
+        $this->load->view('admin_index', $data);
 
   // $this->load->view('admin/design/pprofile_view');
 
@@ -516,9 +493,8 @@ class Personal_profile extends MY_Controller
 
 }
 
-    
 
-   public function talabat() { //maham_mowazf/person_profile/Personal_profile/talabat
+    public function talabat() { //maham_mowazf/person_profile/Personal_profile/talabat
 
 
 
@@ -526,23 +502,15 @@ class Personal_profile extends MY_Controller
 
     $data['subview'] = 'admin/maham_mowazf_view/basic_data/talabat';
 
-    $this->load->view('admin_index',$data); 
+        $this->load->view('admin_index', $data);
 
   // $this->load->view('admin/design/pprofile_view');
 
 
-
-}   
-
-    
+    }
 
 
-
-    
-
-
-
-public function estalmat()
+    public function estalmat()
 
 { //maham_mowazf/person_profile/Personal_profile/estalmat
 
@@ -643,25 +611,7 @@ public function estalmat()
    // $data['mandate_coming'] = $this->Transformation_model->my_orders('hr_mandate_orders', array('current_to_user_id' => $_SESSION['user_id']));
 
 
-
-
-
-
-
-
-
-     /******************  solaf_tagel  *******************/
-
-    $this->load->model('human_resources_model/employee_forms/solaf/Transformation_tagel_model');
-
-    $data['coming_records_tagel'] = $this->Transformation_tagel_model->select_from_hr_solaf_tagel(array('current_to_user_id' => $_SESSION['user_id']));
-
-    $data['user_orders_tagel'] = $this->Transformation_tagel_model->select_from_hr_solaf_tagel(array('emp_id_fk' => $_SESSION['emp_code']));
-
-
-
-    /******************  solaf_tagel  *******************/
-
+    cc
 
 
 
@@ -682,9 +632,9 @@ public function estalmat()
 
     /******************  mosayer  *******************/
 
-    
 
-    
+
+
 
     /******************  accounts_records  *******************/
 
@@ -754,7 +704,7 @@ $this->load->model('human_resources_model/employee_forms/mandate_orders/Transfor
 
     $data['subview'] = 'admin/maham_mowazf_view/basic_data/moaz';
 
-    $this->load->view('admin_index',$data); 
+         $this->load->view('admin_index', $data);
 
   // $this->load->view('admin/design/pprofile_view');
 
@@ -762,8 +712,5 @@ $this->load->model('human_resources_model/employee_forms/mandate_orders/Transfor
 
 }
 
- 
-
-    
 
 }

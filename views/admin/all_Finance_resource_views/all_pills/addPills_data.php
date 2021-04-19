@@ -454,7 +454,6 @@
         border-radius: 5px;
         border: none;
     }
-
     .modal-confirm .modal-header {
         background: #47c9a2;
         border-bottom: none;
@@ -464,18 +463,15 @@
         border-radius: 5px 5px 0 0;
         padding: 35px;
     }
-
     .modal-confirm h4 {
         text-align: center;
         font-size: 36px;
         margin: 10px 0;
     }
-
     .modal-confirm .form-control, .modal-confirm .btn {
         min-height: 40px;
         border-radius: 3px;
     }
-
     .modal-confirm .close {
         position: absolute;
         top: 15px;
@@ -484,11 +480,9 @@
         text-shadow: none;
         opacity: 0.5;
     }
-
     .modal-confirm .close:hover {
         opacity: 0.8;
     }
-
     .modal-confirm .icon-box {
         color: #fff;
         width: 95px;
@@ -527,7 +521,6 @@
         background: #eda645;
         outline: none;
     }
-
     /*.modal-confirm .btn span {
         margin: 1px 3px 0;
         float: left;
@@ -4032,7 +4025,7 @@
     <script>
         function update_kafala_option(row_id) {
             // var motb3a_option_fk= $("input[name='motb3a_option_fk']:checked").val();
-            var motb3a_option_fk = new Array();
+            var motb3a_option_fk = [];
             $("input[name='motb3a_option_fk[]']:checked").each(function () {
                 motb3a_option_fk.push(this.value);
             });

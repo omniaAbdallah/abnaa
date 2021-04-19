@@ -197,14 +197,53 @@ class Users_constriction extends CI_Model
         $this->db->where('user_id',$id);
         $update= $this->db->update('users',$data);
         if($update==1){
-           return true;
+            return true;
         }
         return false;
     }
 
-    public function delete($id){
-        $this->db->where('user_id',$id);
+    public function delete($id)
+    {
+        $this->db->where('user_id', $id);
         $this->db->delete('users');
     }
-    
+
+
+    public function display_emp($id)
+    {
+        $this->db->where('id', $id);
+        $query = $this->db->get('employees');
+        return $query->row_array();
+    }
+
+
+    public function update_emp($id, $file, $file_sign)
+    {
+        $data['employee'] = $this->input->post('emp_name');
+        $data['card_num'] = $this->input->post('card_num');
+        $data['phone'] = $this->input->post('phone');
+        $data['another_phone'] = $this->input->post('another_phone');
+        $data['email'] = $this->input->post('email');
+        if (!empty($file)) {
+            $data['personal_photo'] = $file;
+
+        }
+        if (!empty($file_sign)) {
+            $data['users_signatures'] = $file_sign;
+
+        }
+        $this->db->where('id', $id)->update('employees', $data);
+
+    }
+
+    public function update_user($id)
+    {
+        $data['user_username'] = $this->input->post('user_username');
+        $password = $this->input->post('user_pass', true);
+        if ($password != '') {
+            $data['user_pass'] = sha1(md5($password));
+        }
+        $this->db->where('user_id', $_SESSION['user_id'])->update('users', $data);
+    }
+
 }

@@ -2,6 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 class Volunteer_hours_ajax extends CI_Controller
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -10,22 +11,30 @@ class Volunteer_hours_ajax extends CI_Controller
         }
         $this->load->model('human_resources_model/employee_forms/Volunteer_hours_model');
     }
+
+
     public function load_responsible()
     {
         $edara_id = $this->input->post('row_id');
         $data['responsibles'] = $this->Volunteer_hours_model->get_all_emp_edara($edara_id);
         $this->load->view('admin/Human_resources/employee_forms/volunteer_hours/load_responsible', $data);
     }
+
+
     public function get_emp_data()
     {
         $data["personal_data"] = $this->Volunteer_hours_model->get_one_employee($this->input->post('valu'));
         print_r(json_encode($data["personal_data"][0]));
+
+
     }
     public function get_load_page()
     {
         $data_load["personal_data"] = $this->Volunteer_hours_model->get_one_employee($this->input->post('valu'));
         $this->load->view('admin/Human_resources/sidebar_person_data_vacation', $data_load);
     }
+
+
     public function GetMostafed_type()
     {
         $data_load['last_id'] = $this->Volunteer_hours_model->get_last();
@@ -33,15 +42,23 @@ class Volunteer_hours_ajax extends CI_Controller
         $data_load['ghat'] = $this->Volunteer_hours_model->select_search_key2("hr_forms_settings", "type", "9", "");
         $this->load->view('admin/Human_resources/employee_forms/volunteer_hours/Getmostafed_type', $data_load);
     }
+
+
     public function add_option()
     {
+
         $this->Volunteer_hours_model->insert_record($this->input->post('valu'));
     }
+
+
     public function add_volunteer_table()
     {
         $data_load['admin'] = $this->Volunteer_hours_model->select_by();
         $this->load->view('admin/Human_resources/employee_forms/volunteer_hours/GetVolunteer_table', $data_load);
+
     }
+
+
     public function GetNum_hours()
     {
         $from_time = strtotime($_POST['from_time']);
@@ -56,15 +73,19 @@ class Volunteer_hours_ajax extends CI_Controller
             $data['minutes'] = abs($minutes);
             echo json_encode($data);
         }
+
     }
+
     public function getConnection_emp()
     {
         $all_Emps = $this->Volunteer_hours_model->get_all_emp();
         //   $this->test($all_Emps);
         $arr_emp = array();
         $arr_emp['data'] = array();
+
         if (!empty($all_Emps)) {
             foreach ($all_Emps as $row_emp) {
+
                 $arr_emp['data'][] = array(
                     '<input type="radio" name="choosed" value="' . $row_emp->id . '"
                    ondblclick="Get_emp_Name(this)" 
@@ -76,72 +97,97 @@ class Volunteer_hours_ajax extends CI_Controller
                     data-job_title="' . $row_emp->mosma_wazefy_n . '" 
                     data-qsm_n="' . $row_emp->qsm_n . '" 
                     data-qsm_id="' . $row_emp->department . '" 
-                    data-manger="' . $row_emp->manger . '" 
+                    
                     data-card_num="' . $row_emp->card_num . '" />',
+
                     $row_emp->emp_code,
                     $row_emp->employee,
                     $row_emp->edara_n,
                     $row_emp->qsm_n,
+
                     ''
                 );
             }
         }
         echo json_encode($arr_emp);
+
+
     }
+
+
     public function load_details()
     {
+
         $row_id = $this->input->post('row_id');
         $data['result'] = $this->Volunteer_hours_model->GetById($row_id);
         $data['emp_data'] = $this->Volunteer_hours_model->select_depart_edite($data['result']->emp_id_fk);
         $this->load->view('admin/Human_resources/employee_forms/volunteer_hours/load_details', $data);
+
     }
+
     public function Print_details()
     {
+
         $row_id = $this->input->post('row_id');
         $data['result'] = $this->Volunteer_hours_model->GetById($row_id);
         $data['emp_data'] = $this->Volunteer_hours_model->select_depart_edite($data['result']->emp_id_fk);
         $this->load->view('admin/Human_resources/employee_forms/volunteer_hours/print_details', $data);
+
     }
+
+
     public function get_ms2ol_data()
     {
         $emp_name = $this->input->post('id');
         $reason = $this->Volunteer_hours_model->get_ms2ol_data($emp_name);
         echo json_encode($reason);
     }
+
     public function add_setting()
     {
         $type = $this->input->post('type');
+
         $type_name = $this->input->post('type_name');
+
         $this->Volunteer_hours_model->add_setting($type);
         // $data['result'] = $this->Volunteer_hours_model->get_setting($type,$edara_n,$edara_id_fk);
         $data['result'] = $this->Volunteer_hours_model->get_setting($type);
         $data['type_name'] = $type_name;
         $this->load->view('admin/Human_resources/employee_forms/volunteer_hours/load_setting', $data);
     }
+
     public function load_settigs()
     {
         $type = $this->input->post('type');
         $type_name = $this->input->post('type_name');
+
+
         $data['result'] = $this->Volunteer_hours_model->get_setting($type);
+
+
         $data['type_name'] = $type_name;
         $this->load->view('admin/Human_resources/employee_forms/volunteer_hours/load_setting', $data);
     }
+
     public function delete_setting()
     {
         $id = $this->input->post('id');
         $type = $this->input->post('type');
         $type_name = $this->input->post('type_name');
+
         $this->Volunteer_hours_model->delete_setting($id);
         $data['result'] = $this->Volunteer_hours_model->get_setting($type);
         $data['type_name'] = $type_name;
         $this->load->view('admin/Human_resources/employee_forms/volunteer_hours/load_setting', $data);
     }
+
     public function get_setting_by_id()
     {
         $id = $this->input->post('row_id');
         $result = $this->Volunteer_hours_model->get_setting_by_id($id);
         echo json_encode($result);
     }
+
     //////
     function fetch_all_data()
     {
@@ -170,9 +216,11 @@ class Volunteer_hours_ajax extends CI_Controller
             $sub_array[] = $row->employee;
             $sub_array[] = $mostafed_type_arr[$row->mostafed_type_fk];
             $sub_array[] = $edara_geha;
+
+
             $sub_array[] = '
             <a data-toggle="modal" data-target="#details_Modal" class="btn btn-xs btn-info"
-                                   style="padding:1px 5px;" onclick="load_page(' . $row->id . ');">
+                                   style="padding:1px 5px;" onclick="load_page(' . $row->id . ')">
                                     <i class="fa fa-list "></i> </a>
             
                                     <a onclick="swal({
@@ -189,6 +237,7 @@ class Volunteer_hours_ajax extends CI_Controller
                                 ' . $link_update . '
                                         });"><i
                                             class="fa fa-pencil-square-o" aria-hidden="true"></i> </a>
+
                                 <a onclick="swal({
                                         title: "هل انت متأكد من الحذف ؟",
                                         text: "",
@@ -214,17 +263,8 @@ class Volunteer_hours_ajax extends CI_Controller
         );
         echo json_encode($output);
     }
-
-
-
-    function update_seen_orders()
-    {
-        $this->Volunteer_hours_model->update_seen_orders();
-
-
-    }
-
 }
+
 ?>
 	
 	

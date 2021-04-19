@@ -564,6 +564,8 @@
                                 ?>
                                 <a target="_blank"
                                    href="<?= base_url() . "FamilyCashing/PrintSarfType/" . $record->sarf_num . "/" . $record->method_type ?>">
+
+
                                     <i class="fa fa-print" aria-hidden="true"></i></a>
                             </td>
 
@@ -1209,10 +1211,10 @@
     function get_other_person(this_value) {
         if (this_value == "0" && this_value != "") {
             $("#other_person").attr('readonly', false);
-            ;
+
         } else {
             $("#other_person").attr('readonly', true);
-            ;
+
             $("#other_person").val("");
         }
     }

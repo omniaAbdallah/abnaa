@@ -26,7 +26,7 @@ class Beneficiaries_model extends CI_Model
 
     public function select_all()
     {
-        $this->db->select('file_num,mother_national_num,father_national_num');
+        $this->db->select('file_num,mother_national_num,father_national_num,family_cat_name');
         $this->db->from("basic");
         $this->db->where("final_suspend",4);
         $this->db->where("file_status",1);

@@ -1,271 +1,268 @@
+<link rel="stylesheet" href="<?php echo base_url() ?>asisst/admin_asset/css/bootstrap-arabic-theme.min.css"/>
+<link rel="stylesheet" href="<?php echo base_url() ?>asisst/admin_asset/css/bootstrap-arabic.min.css"/>
+<link rel="stylesheet" href="<?php echo base_url() ?>asisst/admin_asset/css/font-awesome.min.css">
+<link rel="stylesheet" href="<?php echo base_url() ?>asisst/admin_asset/css/stylecrm.css">
+<link rel="stylesheet" href="<?php echo base_url() ?>asisst/admin_asset/css/style.css">
 
 
+<style type="text/css">
+    @import url(<?php echo base_url() ?> asisst/admin_asset/fonts/ht/HacenTunisia.css);
+    @import url(<?php echo base_url() ?> asisst/admin_asset/fonts/hl/HacenLinerScreen.css);
+    @import url(<?php echo base_url() ?> asisst/admin_asset/fonts/ge/ge.css);
 
+    body {
+        font-family: 'hl';
 
-    <link rel="stylesheet" href="<?php echo base_url() ?>asisst/admin_asset/css/bootstrap-arabic-theme.min.css"/>
-    <link rel="stylesheet" href="<?php echo base_url() ?>asisst/admin_asset/css/bootstrap-arabic.min.css"/>
-    <link rel="stylesheet" href="<?php echo base_url() ?>asisst/admin_asset/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>asisst/admin_asset/css/stylecrm.css">
-    <link rel="stylesheet" href="<?php echo base_url() ?>asisst/admin_asset/css/style.css">
+    }
 
+    .main-body {
+        background-image: url(<?php echo base_url() ?>asisst/admin_asset/img/pills/sanad.png);
+        background-position: 100% 100%;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        -webkit-print-color-adjust: exact !important;
+        height: 295mm;
 
-    <style type="text/css">
-        @import url(<?php echo base_url() ?> asisst/admin_asset/fonts/ht/HacenTunisia.css);
-        @import url(<?php echo base_url() ?> asisst/admin_asset/fonts/hl/HacenLinerScreen.css);
-        @import url(<?php echo base_url() ?> asisst/admin_asset/fonts/ge/ge.css);
+    }
 
-        body {
-            font-family: 'hl';
+    .print_forma {
+        padding: 100px 0 50px 0;
+        /*border:1px solid #73b300;*/
 
-        }
+    }
 
-        .main-body {
-            background-image: url(<?php echo base_url() ?>asisst/admin_asset/img/pills/sanad.png);
-            background-position: 100% 100%;
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-            -webkit-print-color-adjust: exact !important;
-            height: 295mm;
+    .piece-box {
+        /*margin-bottom: 12px;*/
+        display: inline-block;
+        width: 100%;
+    }
 
-        }
+    .piece-heading {
+        background-color: #9bbb59;
+        display: inline-block;
+        float: right;
+        width: 100%;
+    }
 
-        .print_forma {
-            padding: 100px 0 50px 0;
-            /*border:1px solid #73b300;*/
+    .piece-body {
 
-        }
+        width: 100%;
+        float: right;
+    }
 
-        .piece-box {
-            /*margin-bottom: 12px;*/
-            display: inline-block;
-            width: 100%;
-        }
+    .bordered-bottom {
+        border-bottom: 4px solid #9bbb59;
+    }
 
-        .piece-heading {
-            background-color: #9bbb59;
-            display: inline-block;
-            float: right;
-            width: 100%;
-        }
+    .piece-footer {
+        display: inline-block;
+        float: right;
+        width: 100%;
+        border-top: 1px solid #73b300;
+    }
 
-        .piece-body {
+    .piece-heading h5 {
+        margin: 4px 0;
+    }
 
-            width: 100%;
-            float: right;
-        }
+    .piece-box table {
+        margin-bottom: 2px;
+        font-size: 17px;
+    }
 
-        .bordered-bottom {
-            border-bottom: 4px solid #9bbb59;
-        }
+    .piece-box table th,
+    .piece-box table td {
 
-        .piece-footer {
-            display: inline-block;
-            float: right;
-            width: 100%;
-            border-top: 1px solid #73b300;
-        }
+        /*padding: 2px 8px !important;*/
+    }
 
-        .piece-heading h5 {
-            margin: 4px 0;
-        }
+    .piece-box .table > thead > tr > th, .piece-box .table > tbody > tr > th,
+    .piece-box .table > tfoot > tr > th, .piece-box .table > thead > tr > td,
+    .piece-box .table > tbody > tr > td, .piece-box .table > tfoot > tr > td {
+        text-align: center;
+    }
 
-        .piece-box table {
-            margin-bottom: 2px;
-            font-size: 17px;
-        }
+    h6 {
+        font-size: 16px;
+        margin-bottom: 3px;
+        margin-top: 3px;
+    }
 
-        .piece-box table th,
-        .piece-box table td {
+    .print_forma table th {
+        text-align: right;
+    }
 
-            /*padding: 2px 8px !important;*/
-        }
+    .print_forma table tr th {
+        vertical-align: middle;
+    }
 
-        .piece-box .table > thead > tr > th, .piece-box .table > tbody > tr > th,
-        .piece-box .table > tfoot > tr > th, .piece-box .table > thead > tr > td,
-        .piece-box .table > tbody > tr > td, .piece-box .table > tfoot > tr > td {
-            text-align: center;
-        }
+    .no-padding {
+        padding: 0;
+    }
 
-        h6 {
-            font-size: 16px;
-            margin-bottom: 3px;
-            margin-top: 3px;
-        }
+    .main-title {
+        display: table;
+        text-align: center;
+        position: relative;
+        height: 120px;
+        width: 100%;
+    }
 
-        .print_forma table th {
-            text-align: right;
-        }
+    .main-title h4 {
+        display: table-cell;
+        vertical-align: bottom;
+        text-align: center;
+        width: 100%;
+    }
 
-        .print_forma table tr th {
-            vertical-align: middle;
-        }
+    .print_forma hr {
+        border-top: 1px solid #73b300;
+        margin-top: 7px;
+        margin-bottom: 7px;
+    }
 
-        .no-padding {
-            padding: 0;
-        }
+    .no-border {
+        border: 0 !important;
+    }
 
-        .main-title {
-            display: table;
-            text-align: center;
-            position: relative;
-            height: 120px;
-            width: 100%;
-        }
+    .gray_background {
+        background-color: #eee;
 
-        .main-title h4 {
-            display: table-cell;
-            vertical-align: bottom;
-            text-align: center;
-            width: 100%;
-        }
+    }
 
-        .print_forma hr {
-            border-top: 1px solid #73b300;
-            margin-top: 7px;
-            margin-bottom: 7px;
-        }
-
-        .no-border {
-            border: 0 !important;
-        }
-
-        .gray_background {
-            background-color: #eee;
-
-        }
-
-        @media print {
-            .table-bordered.double > thead > tr > th, .table-bordered.double > tbody > tr > th,
-            .table-bordered.double > tfoot > tr > th, .table-bordered.double > thead > tr > td,
-            .table-bordered.double > tbody > tr > td, .table-bordered.double > tfoot > tr > td {
-                border: 2px solid #000 !important;
-            }
-
-
-            .table-bordered.white-border th, .table-bordered.white-border td {
-                border: 1px solid #fff !important
-
-            }
+    @media print {
+        .table-bordered.double > thead > tr > th, .table-bordered.double > tbody > tr > th,
+        .table-bordered.double > tfoot > tr > th, .table-bordered.double > thead > tr > td,
+        .table-bordered.double > tbody > tr > td, .table-bordered.double > tfoot > tr > td {
+            border: 2px solid #000 !important;
         }
 
 
-        @page {
-            size: 210mm 297mm  ;
-            margin: 0;
+        .table-bordered.white-border th, .table-bordered.white-border td {
+            border: 1px solid #fff !important
 
         }
+    }
 
-        .open_green {
-            background-color: #e6eed5;
-        }
 
-        .closed_green {
-            background-color: #cdddac;
-        }
+    @page {
+        size: 210mm 297mm  ;
+        margin: 0;
 
-        .table-bordered.double {
-            border: 5px double #000;
-        }
+    }
 
-        .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th,
-        .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td,
-        .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
-            border: 2px solid #000;
-        }
+    .open_green {
+        background-color: #e6eed5;
+    }
 
-        .under-line {
-            border-top: 1px solid #abc572;
-            padding-left: 0;
-            padding-right: 0;
-        }
+    .closed_green {
+        background-color: #cdddac;
+    }
 
-        span.valu {
-            padding-right: 10px;
-            font-weight: 600;
-            font-family: sans-serif;
-        }
+    .table-bordered.double {
+        border: 5px double #000;
+    }
 
-        .under-line .col-xs-3,
-        .under-line .col-xs-4,
-        .under-line .col-xs-6,
-        .under-line .col-xs-8 {
-            border-left: 1px solid #abc572;
-        }
+    .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th,
+    .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td,
+    .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+        border: 2px solid #000;
+    }
 
-        .bond-header {
-            height: 100px;
-            margin-bottom: 30px;
-        }
+    .under-line {
+        border-top: 1px solid #abc572;
+        padding-left: 0;
+        padding-right: 0;
+    }
 
-        .bond-header .right-img img,
-        .bond-header .left-img img {
-            width: 100%;
-            height: 100px;
-        }
+    span.valu {
+        padding-right: 10px;
+        font-weight: 600;
+        font-family: sans-serif;
+    }
 
-        .main-bond-title {
-            display: table;
-            height: 100px;
-            text-align: center;
-            width: 100%;
-        }
+    .under-line .col-xs-3,
+    .under-line .col-xs-4,
+    .under-line .col-xs-6,
+    .under-line .col-xs-8 {
+        border-left: 1px solid #abc572;
+    }
 
-        .main-bond-title h3 {
-            display: table-cell;
-            vertical-align: bottom;
-            color: #d89529;
-        }
+    .bond-header {
+        height: 100px;
+        margin-bottom: 30px;
+    }
 
-        .main-bond-title h3 span {
-            border-bottom: 2px solid #006a3a;
-        }
+    .bond-header .right-img img,
+    .bond-header .left-img img {
+        width: 100%;
+        height: 100px;
+    }
 
-        .green-border span {
-            border: 6px double #000;
-            padding: 8px 25px;
-            border-radius: 10px;
-            box-shadow: 2px 2px 5px 2px #000;
-        }
+    .main-bond-title {
+        display: table;
+        height: 100px;
+        text-align: center;
+        width: 100%;
+    }
 
-        .table-bordered > tbody > tr.rosasy-bg td {
-            background-color: #eee !important;
-            border: 1px solid #eee !important;
-        }
+    .main-bond-title h3 {
+        display: table-cell;
+        vertical-align: bottom;
+        color: #d89529;
+    }
 
-        .hl {
-            font-family: 'hl';
-        }
+    .main-bond-title h3 span {
+        border-bottom: 2px solid #006a3a;
+    }
 
-        .footer-info {
-            position: absolute;
-            width: 100%;
-            bottom: 70px;
-        }
+    .green-border span {
+        border: 6px double #000;
+        padding: 8px 25px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px 2px #000;
+    }
 
-        .table-bordered > tbody > tr > td.white-bg {
-            background-color: #fff !important;
-            border: 1px solid #eee !important
-        }
+    .table-bordered > tbody > tr.rosasy-bg td {
+        background-color: #eee !important;
+        border: 1px solid #eee !important;
+    }
 
-        .kroky {
-            border: 2px solid #555;
-            height: 420px
-        }
-        .number-square {
-            
-            float: right;
-            /* width: 30px; */
-            height: 30px;
-            padding: 0px 4px;
-            line-height: 28px;
-            border-radius: 3px;
-            background: #fff;
-            border: 2px solid #666;
-            color: #666;
-            text-align: center;
-            font-size: 18px;
-        }
-    </style>
+    .hl {
+        font-family: 'hl';
+    }
+
+    .footer-info {
+        position: absolute;
+        width: 100%;
+        bottom: 70px;
+    }
+
+    .table-bordered > tbody > tr > td.white-bg {
+        background-color: #fff !important;
+        border: 1px solid #eee !important
+    }
+
+    .kroky {
+        border: 2px solid #555;
+        height: 420px
+    }
+
+    .number-square {
+
+        float: right;
+        /* width: 30px; */
+        height: 30px;
+        padding: 0px 4px;
+        line-height: 28px;
+        border-radius: 3px;
+        background: #fff;
+        border: 2px solid #666;
+        color: #666;
+        text-align: center;
+        font-size: 18px;
+    }
+</style>
 
 
 </head>
@@ -300,8 +297,8 @@
 
                             <td style="width: 120px">تاريخ الطلب</td>
                             <td class="white-bg" style="width: 180px">
-                              <?php if (isset($result) && (!empty($result))) {
-                                    echo date('Y-m-d',$result['date']) ;
+                                <?php if (isset($result) && (!empty($result))) {
+                                    echo date('Y-m-d', $result['date']);
                                 } ?>
 
                             </td>
@@ -321,18 +318,28 @@
                             </td>
                             <td style="width: 120px">رقم الهوية</td>
                             <td class="white-bg" style="width: 235px">
-                                <span class="number-square">1</span>
-                                <span class="number-square">2</span>
-                                <span class="number-square">0</span>
-                                <span class="number-square">3</span>
-                                <span class="number-square">4</span>
-                                <span class="number-square">5</span>
-                                <span class="number-square">6</span>
-                                <span class="number-square">7</span>
-                                <span class="number-square">8</span>
-                                <span class="number-square">9</span>
+                                <!--  <span class="number-square">1</span>
+                                  <span class="number-square">2</span>
+                                  <span class="number-square">0</span>
+                                  <span class="number-square">3</span>
+                                  <span class="number-square">4</span>
+                                  <span class="number-square">5</span>
+                                  <span class="number-square">6</span>
+                                  <span class="number-square">7</span>
+                                  <span class="number-square">8</span>
+                                  <span class="number-square">9</span>-->
                                 <?php if (isset($result) && (!empty($result))) {
-                                    echo $result['mother_national_num'];
+                                    $strlen = strlen($result['mother_national_num']);
+                                    /*                                    for( $i = 0; $i < $strlen; $i++ ) {*/
+                                    for ($i = $strlen - 1; $i >= 0; $i--) {
+                                        ?>
+                                        <span class="number-square"><?= $result['mother_national_num'][$i] ?></span>
+
+                                        <?php
+
+
+                                    }
+
                                 } ?>
                             </td>
 
@@ -517,9 +524,9 @@
         //Get the HTML of whole page
         var oldPage = document.body.innerHTML;
         //Reset the page's HTML with div's HTML only
-        document.body.innerHTML =
-            "<html><head><title></title></head><body>" +
-            divElements + "</body>";
+        /*       document.body.innerHTML =
+                   "<html><head><title></title></head><body>" +
+                   divElements + "</body>";*/
         //Print Page
         window.print();
         // window.close();
@@ -529,23 +536,24 @@
             window.close();
         }
     }
-  /*  function printDiv(divID) {
 
-        var divElements = document.getElementById(divID).innerHTML;
+    /*  function printDiv(divID) {
 
-        var oldPage = document.body.innerHTML;
+          var divElements = document.getElementById(divID).innerHTML;
 
-
-        document.body.innerHTML =
-            "<html><head><title></title></head><body>" +
-            divElements + "</body>";
+          var oldPage = document.body.innerHTML;
 
 
-        window.print();
-        window.close();
+          document.body.innerHTML =
+              "<html><head><title></title></head><body>" +
+              divElements + "</body>";
 
 
-    }*/
+          window.print();
+          window.close();
+
+
+      }*/
 </script>
 
 </body>

@@ -1,16 +1,7 @@
+
 <?php
 if (isset($records) && !empty($records)) {
     ?>
-    <style>
-        td .btn-group .fa {
-            background-color: unset;
-            color: #000;
-            padding: unset;
-            font-size: unset;
-            line-height: unset;
-            border-radius: unset;
-        }
-    </style>
     <div class="col-sm-12 no-padding ">
 
         <div class="panel panel-bd lobidisable lobipanel lobipanel-sortable ">
@@ -78,7 +69,8 @@ if (isset($records) && !empty($records)) {
                                 <div id="publish_res<?= $row->id ?>">
                                 </div>
                                 <?php if ($row->publish_tataw3 != 1) {
-                                    ?>    <a class="btn btn-labeled btn-warning "
+                                    ?>    <a
+                                            class="btn btn-labeled btn-warning "
                                             id="publish<?= $row->id ?>"
                                             style="padding:1px 5px;" onclick="publish(<?= $row->id ?>);">
                                         <i class=" " aria-hidden="true"></i>نشر التطوع </a>
@@ -92,7 +84,7 @@ if (isset($records) && !empty($records)) {
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li><a data-toggle="modal" data-target="#details_Modal"
-                                                onclick="load_page(<?= $row->id ?>);">
+                                               style="padding:1px 5px;" onclick="load_page(<?= $row->id ?>);">
                                                 <i class="fa fa-list " aria-hidden="true"></i>تفاصيل </a></li>
 
 

@@ -457,7 +457,8 @@ print_r($record);
 					<h6  style="font-weight: bold; font-size: 19px !important;" class="text-center">
                     <?php 
                     if(isset($modeer_tanmia) and $modeer_tanmia != null){
-                        echo $modeer_tanmia;
+                        // echo $modeer_tanmia;
+                        echo 'حمد محمد عبدالله الفعيم	';
                     }
                     ?>
                     

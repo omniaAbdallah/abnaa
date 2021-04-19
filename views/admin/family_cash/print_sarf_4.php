@@ -620,17 +620,17 @@ tfoot.report-footer {
                            
        <?php 
     
-     //  if($method_type == 1){ 
-       ?>                    
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th class="text-center">الفئة</th>
-            <th class="text-center">الإجمالي</th>
-            <th class="text-center">مكفول</th>
-            <th class="text-center">غير مكفول</th>
-        </tr>
-        </thead>
+       if ($method_type == 1) {
+           ?>
+           <table class="table table-bordered">
+               <thead>
+               <tr>
+                   <th class="text-center">الفئة</th>
+                   <th class="text-center">الإجمالي</th>
+                   <th class="text-center">مكفول</th>
+                   <th class="text-center">غير مكفول</th>
+               </tr>
+               </thead>
             <tbody>
                 <tr>
                     <td class="text-center">الأيتام </td>
@@ -652,8 +652,8 @@ tfoot.report-footer {
                 </tr>
             </tbody>
     </table>
-     <?php 
-  //   }
+     <?php
+       }
       ?>                      
                            
                           </div> 

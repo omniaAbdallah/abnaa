@@ -213,6 +213,7 @@ class Gam3ia_omomia_members_model extends CI_Model
     }
 
 
+
     public function select_all_new()
     {
         //$this->db->select('*');
@@ -578,7 +579,7 @@ class Gam3ia_omomia_members_model extends CI_Model
 
         return $query;
     }
-
+  
 ///yara
 
 
@@ -618,6 +619,7 @@ class Gam3ia_omomia_members_model extends CI_Model
     }
 
 
+
     public function change_status_account($valu, $id)
     {
         $status = 1 - $valu;
@@ -652,7 +654,7 @@ class Gam3ia_omomia_members_model extends CI_Model
                 if ($_SESSION['role_id_fk'] == 1) {
 
                     $data['publisher'] = $_SESSION['user_id'];
-                    $data['publisher_name'] = $_SESSION['user_name'];;
+                    $data['publisher_name'] = $_SESSION['user_name'];
                 } else if ($_SESSION['role_id_fk'] == 2) {
                     $data['publisher'] = $this->get_id("magls_members_table", 'id', $_SESSION['emp_code'], "id");
                     $data['publisher_name'] = $this->get_id("magls_members_table", 'id', $_SESSION['emp_code'], "member_name");
@@ -713,6 +715,12 @@ class Gam3ia_omomia_members_model extends CI_Model
         $query = $this->db->get($table)->row();
         return $query;
     }
+
+
+  
+
+
+
 
 
 }

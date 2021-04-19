@@ -1,5 +1,4 @@
 <?php
-
 class FamilyCashing extends MY_Controller
 {
 
@@ -10,9 +9,17 @@ class FamilyCashing extends MY_Controller
         if ($this->session->userdata('is_logged_in') == 0) {
             redirect('login');
         }
-        $this->load->library('excel');
-        $this->load->model('Model_family_cashing');
+        $this->load->helper(array('url', 'text', 'permission', 'form'));
 
+        $this->load->model('system_management/Groups');
+        $this->main_groups = $this->Groups->main_fetch_group();
+        $this->groups = $this->Groups->get_group($_SESSION["group_number"]);
+        $this->groups_title = $this->Groups->get_group_title($_SESSION["group_number"]);
+        /**********************************************************/
+        $this->load->model('familys_models/for_dash/Counting');
+        $this->count_basic_in = $this->Counting->get_basic_in_num();
+        $this->files_basic_in = $this->Counting->get_files_basic_in();
+        /*************************************************************/
     }
 
     //--------------------------------------------------
@@ -56,7 +63,6 @@ class FamilyCashing extends MY_Controller
             return $datafile['file_name'];
         }
     }
-
     //-----------------------------------------------
     private function upload_file($file_name)
     {
@@ -73,7 +79,6 @@ class FamilyCashing extends MY_Controller
             return $datafile['file_name'];
         }
     }
-
     //-------------------------------------------------
     private function upload_muli_image($input_name)
     {
@@ -88,14 +93,12 @@ class FamilyCashing extends MY_Controller
         }
         return $all_img;
     }
-
     //-------------------------------------------------
     private function url()
     {
         unset($_SESSION['url']);
         $this->session->set_flashdata('url', 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
     }
-
     //-------------------------------------------------
     private function current_hjri_year()
     {
@@ -159,7 +162,6 @@ class FamilyCashing extends MY_Controller
 
 
     }
-
     //-------------------------------------------------
     private function message($type, $text)
     {
@@ -180,7 +182,6 @@ class FamilyCashing extends MY_Controller
                                                 </div>');
         }
     }
-
     /**
      *  ================================================================================================================
      *
@@ -188,195 +189,6 @@ class FamilyCashing extends MY_Controller
      *
      *  ================================================================================================================
      */
-
-    function import_file($sarf_num = false)
-    {
-        $this->load->model('Model_family_cashing');
-
-//        $this->test($_POST);
-//        echo '<pre>';
-//        print_r($_POST);
-
-        // if($_POST){
-
-        if (isset($_FILES["file_exel"]["name"])) {
-            $path = $_FILES["file_exel"]["tmp_name"];
-            $object = PHPExcel_IOFactory::load($path);
-            $total_value = 0;
-            if (empty($sarf_num)) {
-                $sarf_num = $this->Model_family_cashing->select_last_value_fild() + 1;
-                $insert = 1;
-            } else {
-                $insert = 2;
-            }
-            /*  $dataArray = $object->getActiveSheet()->toArray();
-              $this->test($dataArray);*/
-
-            foreach ($object->getWorksheetIterator() as $worksheet) {
-                $highestRow = $worksheet->getHighestRow();
-                $highestColumn = $worksheet->getHighestColumn();
-                for ($row = 2; $row <= $highestRow; $row++) {
-//                        echo '<pre>';
-//                        print_r($row);
-                    $file_num = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
-                    $mother_national_num_fk = $this->Model_family_cashing->get_mother_national_num($file_num);
-                    $bank_responsible_name = $worksheet->getCellByColumnAndRow(3, $row)->getValue();
-                    $bank_responsible_national_num = $worksheet->getCellByColumnAndRow(4, $row)->getValue();
-                    $all_num = $worksheet->getCellByColumnAndRow(7, $row)->getValue();
-                    $bank_account_num = $worksheet->getCellByColumnAndRow(10, $row)->getValue();
-                    $value = $worksheet->getCellByColumnAndRow(12, $row)->getValue();
-                    if (!empty($file_num)) {
-                        $total_value += ($value);
-                        $data[] = array(
-                            'sarf_num_fk' => $sarf_num,
-                            'file_num' => $file_num,
-                            'mother_national_num_fk' => $mother_national_num_fk,
-                            'bank_responsible_national_num' => $bank_responsible_national_num,
-                            'bank_responsible_name' => $bank_responsible_name,
-                            'bank_account_num' => $bank_account_num,
-                            'all_num' => $all_num,
-                            'value' => $value
-                        );
-                    }
-                }
-            }
-//                $this->test($data);
-//            $this->excel_import_model->insert($data);
-            $this->Model_family_cashing->insert_from_exel($total_value, $insert);
-
-            $this->Model_family_cashing->insert_details_from_exel($data, $sarf_num);
-            $this->message('success', 'تمت إضافة إذن الصرف');
-            redirect('FamilyCashing/import_exel', 'refresh');
-
-            echo 'Data Imported successfully';
-        }
-
-    }
-
-    function import_exel()
-    {
-        $this->load->model('Model_family_cashing');
-        $this->load->model('familys_models/Member_session');
-        if ($_SESSION["role_id_fk"] == 1) {
-            $Conditions_arr = array('show_session' => 0);
-        } elseif ($_SESSION["role_id_fk"] == 2) {
-            $Conditions_arr = array('show_session' => 0, "member_type" => 1, "member_id" => $_SESSION["emp_code"]);
-        } elseif ($_SESSION["role_id_fk"] == 3) {
-            $Conditions_arr = array('show_session' => 0, "member_type" => 3, "member_id" => $_SESSION["emp_code"]);
-        } elseif ($_SESSION["role_id_fk"] == 4) {
-            $Conditions_arr = array('show_session' => 0, "member_type" => 2, "member_id" => $_SESSION["emp_code"]);
-        }
-        $data['minutesNumbers'] = $this->Member_session->get_session($Conditions_arr);
-        $data['all_data'] = $this->Model_family_cashing->select_all();
-        $data['last_sarf'] = $this->Model_family_cashing->select_last_value_fild();
-        $data['bnod_help'] = $this->Model_family_cashing->select_all_bnod();
-
-
-        $data['title'] = 'إعداد صرف المساعدات المالية   ';
-        $data['metakeyword'] = 'إعداد صرف المساعدات المالية    ';
-        $data['metadiscription'] = 'إعداد صرف المساعدات المالية    ';
-        $data['subview'] = 'admin/family_cash/add_family_cashing_exel';
-        $this->load->view('admin_index', $data);
-    }
-
-    function complete_sarf()
-    {
-
-        $sarf_num_fk = $this->input->post('sarf_num_fk');
-        $fetch_data = $this->Model_family_cashing->complete_sarf($sarf_num_fk);
-
-    }
-
-    function fetch_all_data()
-    {
-        $this->load->model('Model_family_cashing');
-        $fetch_data = $this->Model_family_cashing->make_datatables();
-        $data = array();
-        $type_arr = array('country' => "الدولة", "city" => "المحافظة", "region" => "المدينة");
-        $method_type = array("2" => "شيك", "4" => "تحويل", '6' => 'شحن كروت');
-        $months = array("1" => "يناير", "2" => "فبراير", "3" => "مارس", "4" => "أبريل", "5" => "مايو",
-            "6" => "يونيو", "7" => "يوليو", "8" => "أغسطس", "9" => "سبتمبر", "10" => "أكتوبر",
-            "11" => "نوفمبر", "12" => "ديسمبر");
-        $x = 1;
-        foreach ($fetch_data as $row) {
-            if (key_exists($row->method_type, $method_type)) {
-                $method_type_text = $method_type[$row->method_type];
-            }
-            if (key_exists($row->mon_melady, $months)) {
-                $mon_melady_text = $months[$row->mon_melady];
-            }
-
-            if ($row->approved == 4) {
-                $approved_name = 'تم التنفيذ';
-                $bgcolor = '#308204';
-            } elseif ($row->approved != 4) {
-                $approved_name = 'جاري التنفيذ';
-                $bgcolor = '#53d4fa';
-            } else {
-                $approved_name = '';
-                $bgcolor = '';
-
-            }
-            if ($row->complete == 'no') {
-                $complete_text = ' <a class="btn btn-sm btn-info" onclick="complete_sarf(\'' . $row->sarf_num . '\');" title="استكمال تهية المسير"> 
- استكمال تهية
- </a>';
-            } else {
-                $complete_text = '';
-            }
-            $sub_array = array();
-            $sub_array[] = $x++;
-            $sub_array[] = $row->sarf_num;
-            $sub_array[] = $row->title;
-            $sub_array[] = $row->sarf_date_ar;
-            $sub_array[] = $method_type_text;
-            $sub_array[] = $row->about;
-            $sub_array[] = $mon_melady_text;
-            $sub_array[] = $row->total_value;
-
-            $sub_array[] = '<a data-toggle="modal" data-target="#modal-sm-data"  onclick="get_details(\'' . $row->sarf_num . '\');" title="التفاصيل">
-                                    <i class="fa fa-list"></i> </a>
-                                    <!--16-8-6-om-->
-                                    <a data-toggle="modal" data-target="#modal-attach-data"
-                                       onclick="get_attach(\'' . $row->sarf_num . '\',\'' . $row->presence_number . '\');"
-                                       title="المرفقات">
-                                        <i class="fa fa-paperclip"></i> </a>';
-            $sub_array[] = '<div class="text-center" style=" /*display: flex;*/">
-                                    ' . $complete_text . '
-                                     <a class="btn btn-sm btn-black" target="_blank"
-                                   href="' . base_url() . "FamilyCashing/PrintSarfType/" . $row->sarf_num . "/" . $row->method_type . '">
-                                    <i class="fa fa-print" aria-hidden="true"></i></a>
-                                     <a class="btn btn-sm btn-info" href="' . base_url() . "FamilyCashing/UpdateFamilyCashing_exel/" . $row->sarf_num . '">
-                                        <i class="fa fa-pencil " aria-hidden="true"></i> </a>
-                                    <a class="btn btn-sm btn-danger" href="' . base_url() . "FamilyCashing/DeleteFamilyCashing/" . $row->sarf_num . '"
-                                       onclick="return confirm(\'هل انت متأكد من عملية الحذف ؟\');">
-                                        <i class="fa fa-trash" aria-hidden="true"></i></a> </div>';
-            $sub_array[] = '<span class="label"  style="display:inline-block;min-width:75px;background-color: ' . $bgcolor . '; color: white;">' . $approved_name . '</span>';
-            $data[] = $sub_array;
-        }
-        $output = array(
-            "draw" => intval($_POST["draw"]),
-            "recordsTotal" => $this->Model_family_cashing->get_all_data(),
-            "recordsFiltered" => $this->Model_family_cashing->get_filtered_data(),
-            "data" => $data
-        );
-        echo json_encode($output);
-    }
-
-    function UpdateFamilyCashing_exel($sarf_num)
-    {
-
-        $sarf_data = $data["sarf_data"] = $this->Model_family_cashing->getByArray($sarf_num);
-        $data["sarf_details"] = $this->Model_family_cashing->select_sarf_detals($sarf_num);
-
-        $data['bnod_help'] = $this->Model_family_cashing->select_all_bnod();
-        $data['title'] = 'تعديل إعداد صرف المساعدات المالية    ';
-        $data['metakeyword'] = 'تعديل إعداد صرف المساعدات المالية      ';
-        $data['metadiscription'] = 'تعديل إعداد صرف المساعدات المالية      ';
-        $data['subview'] = 'admin/family_cash/add_family_cashing_exel';
-        $this->load->view('admin_index', $data);
-    }
-
     public function index()
     {  // FamilyCashing
         $this->load->model('Model_family_cashing');
@@ -428,7 +240,6 @@ class FamilyCashing extends MY_Controller
             $this->load->view('admin_index', $data);
         }
     }
-
     //=======================================================
     public function AccordingTo()
     {
@@ -687,7 +498,6 @@ class FamilyCashing extends MY_Controller
         $this->load->model('Model_family_cashing');
         $this->Model_family_cashing->delete_sarf_attach($id);
     }
-
     //=======================================================
     public function downloads($file)
     { //  FamilyCashing/downloads/
@@ -754,7 +564,6 @@ class FamilyCashing extends MY_Controller
             $this->load->view('admin/family_cash/print_sarf_2', $data_load);
         }
     }
-
     //=======================================================
     public function DeleteFamilyCashing($sarf_num)
     {
@@ -763,7 +572,6 @@ class FamilyCashing extends MY_Controller
         $this->message('success', 'تم حذف اذن الصرف ');
         redirect('FamilyCashing', 'refresh');
     }
-
     //=======================================================
     public function UpdateFamilyCashing($sarf_num)
     {  //  FamilyCashing/UpdateFamilyCashing/
@@ -920,5 +728,5 @@ class FamilyCashing extends MY_Controller
         $data = file_get_contents('./uploads/files' . $file);
         force_download($name, $data);
     }
-
+     
 }// END CLASS

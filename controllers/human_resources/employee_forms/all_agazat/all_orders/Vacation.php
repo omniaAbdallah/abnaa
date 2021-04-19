@@ -415,27 +415,12 @@ public function get_avalibal_days()
     $vac_id = $this->input->post('vac_id');
     $end_date = $this->input->post('end_date');
     if ($vac_id == 2) {
-        $f2a_agaza = $this->input->post('f2a_agaza');
-        $result = $this->Agzat_model->get_days_vacation_year($emp_code, $vac_id,$end_date,$f2a_agaza);
+        $result = $this->Agzat_model->get_days_vacation_year($emp_code, $vac_id, $end_date);
     } elseif ($vac_id == 1) {
         $result = $this->Agzat_model->get_days_vacation_cousal_by_vid($emp_code, $vac_id);
 
     } else {
         $result = $this->Agzat_model->get_days_vacation_by_vid($emp_code, $vac_id);
-    }
-    echo json_encode($result);
-}
-public function get_avalibal_days_year()
-{
-    $emp_code = $this->input->post('emp_id');
-    $vac_id = $this->input->post('vac_id');
-    $end_date = $this->input->post('end_date');
-    $f2a_agaza = $this->input->post('f2a_agaza');
-
-    if ($vac_id == 2) {
-        $result = $this->Agzat_model->get_days_vacation_year_2($emp_code, $vac_id,$f2a_agaza,$end_date);
-    }else{
-        $result=array();
     }
     echo json_encode($result);
 }
@@ -516,6 +501,7 @@ public function get_avalibal_days_year()
 
 
     }
+
     public function check_vacation_emp()
     {
 
@@ -523,6 +509,19 @@ public function get_avalibal_days_year()
         $vacations = $this->Agzat_model->check_vacation_emp($emp_id);
         echo json_encode($vacations);
 
+    }
+
+    public function get_avalibal_days_year()
+    {
+        $emp_code = $this->input->post('emp_id');
+        $vac_id = $this->input->post('vac_id');
+        $end_date = $this->input->post('end_date');
+        $f2a_agaza = $this->input->post('f2a_agaza');
+
+        if ($vac_id == 2) {
+            $result = $this->Agzat_model->get_days_vacation_year_2($emp_code, $vac_id, $f2a_agaza, $end_date);
+        }
+        echo json_encode($result);
     }
 }
 

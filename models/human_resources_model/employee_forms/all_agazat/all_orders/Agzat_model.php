@@ -179,8 +179,8 @@
         $data['no3_agaza'] = $this->input->post('no3_agaza');
         if ($this->input->post('f2a_agaza')) {
             $data['f2a_agaza'] = $this->input->post('f2a_agaza');
-        }else{
-            $data['f2a_agaza']=0;
+        } else {
+            $data['f2a_agaza'] = 0;
         }
         $data['agaza_from_date_m'] = $this->input->post('agaza_from_date_m');
         $data['agaza_to_date_m'] = $this->input->post('agaza_to_date_m');
@@ -594,6 +594,73 @@
 
 
 //get vacaytion for vacation year
+    /*public function get_days_vacation_year($emp_id, $vac_id)
+    {
+        $q = $this->db->select('emp_code,vacation_start_ar,vacation_previous_balance,year_vacation_num,vacation_start_m')
+            ->where('emp_code', $emp_id)
+            ->get('contract_employe')->row();
+        $q->vDays = $this->get_days_pervious($q->emp_code, $vac_id, $q->vacation_start_m);
+        if (strtotime(date('Y-m-d')) > strtotime($q->vacation_start_m)) {
+            $date1 = new DateTime($q->vacation_start_m);
+            $date2 = new DateTime(date('Y-m-d'));
+            $interval = $date1->diff($date2);
+            $year_vacation=($q->year_vacation_num + $q->vacation_previous_balance);
+            $month_vacation=$year_vacation/12;
+            $q->ava_days = (($month_vacation * $interval->m ) - $q->vDays);
+        } else {
+            $q->ava_days = 0;
+        }
+        return $q;
+    }*/
+
+    /*   public function get_days_vacation_year($emp_id, $vac_id,$end_vaction=false)
+   {
+       $q = $this->db->select('emp_code,vacation_start_ar,vacation_previous_balance,year_vacation_num,vacation_start_m')
+           ->where('emp_code', $emp_id)
+           ->get('contract_employe')->row();
+       $q->vDays = $this->get_days_pervious($q->emp_code, $vac_id, $q->vacation_start_m);
+
+       if (empty($end_vaction)){
+           $end_vaction=date('Y-m-d');
+       }
+       if (strtotime($end_vaction) > strtotime($q->vacation_start_m)) {
+           $date1 = new DateTime($q->vacation_start_m);
+           $date2 = new DateTime($end_vaction);
+           $interval = $date1->diff($date2);
+           $year_vacation=($q->year_vacation_num);
+           $q->month_vacation=$year_vacation/12;
+           $q->month=$interval->m;
+           $q->ava_days = (($q->month_vacation * $interval->m ) - $q->vDays)+ $q->vacation_previous_balance;
+       } else {
+           $q->ava_days = 0;
+       }
+       return $q;
+   }*/
+
+    /*public function get_days_vacation_year($emp_id, $vac_id,$end_vaction=false)
+    {
+        $q = $this->db->select('emp_code,vacation_start_ar,vacation_previous_balance,year_vacation_num,vacation_start_m')
+            ->where('emp_code', $emp_id)
+            ->get('contract_employe')->row();
+        $q->vDays = $this->get_days_pervious($q->emp_code, $vac_id, $q->vacation_start_m);
+
+        if (empty($end_vaction)){
+            $end_vaction=date('Y-m-d');
+        }
+        if (strtotime($end_vaction) > strtotime($q->vacation_start_m)) {
+            $date1 = new DateTime($q->vacation_start_m);
+            $date2 = new DateTime($end_vaction);
+            $interval = $date1->diff($date2);
+            $year_vacation=($q->year_vacation_num);
+            $q->month_vacation=$year_vacation/12;
+            $q->year=$interval->y;
+            $q->month=$interval->m +($interval->y*12);
+            $q->ava_days = (($q->month_vacation * $q->month ) - $q->vDays)+ $q->vacation_previous_balance;
+        } else {
+            $q->ava_days = 0;
+        }
+        return $q;
+    }*/
 
     public function get_days_vacation_year($emp_id, $vac_id, $end_vaction = false)
     {
@@ -620,39 +687,40 @@
         return $q;
     }
 
-    public function get_days_vacation_year_2($emp_id, $vac_id, $f2a_agaza, $end_vaction = false)
-    {
-        $q = $this->db->select('emp_code,vacation_start_ar,vacation_previous_balance,year_vacation_num,vacation_start_m')
-            ->where('emp_code', $emp_id)
-            ->get('contract_employe')->row();
-        $q->setting = $this->db->get('hr_agazat_sysat')->row();
-        $q->vDays = $this->get_days_pervious($q->emp_code, $vac_id, $q->vacation_start_m,$f2a_agaza);
+    /* public function get_days_pervious($emp_code, $vac_id, $current_year = 0)
+     {
+         $this->db->select(' SUM(hr_all_agzat_orders.num_days) as vDays')
+             ->where('emp_code_fk', $emp_code)
+             ->where('no3_agaza', $vac_id)
+             ->where('suspend', 4);
+         if ($current_year != 0) {
+             if (strlen($current_year) > 4) {
+                 $this->db->where('agaza_from_date >=', strtotime($current_year));
+             } else {
+                 $this->db->group_start();
+                 $this->db->like('hr_all_agzat_orders.agaza_to_date_m', $current_year)
+                     ->like('hr_all_agzat_orders.agaza_from_date_m', $current_year);
+                 $this->db->group_end();
+             }
 
-        if (empty($end_vaction)) {
-            $end_vaction = date('Y-m-d');
-        }
-        if (strtotime($end_vaction) > strtotime($q->vacation_start_m)) {
-            $date1 = new DateTime($q->vacation_start_m);
-            $date2 = new DateTime($end_vaction);
-            $interval = $date1->diff($date2);
-            $year_vacation = ($q->year_vacation_num);
-            $q->month_vacation = $year_vacation / 12;
-            $q->year = $interval->y;
-            $q->month = $interval->m + ($interval->y * 12);
-            $q->ava_days = round((($q->month_vacation * $q->month) - $q->vDays) + $q->vacation_previous_balance);
-        } else {
-            $q->ava_days = 0;
-        }
-        return $q;
-    }
 
-    public function get_days_pervious($emp_code, $vac_id, $current_year = 0,$f2a_agaza=false)
+         }
+         $q = $this->db->get('hr_all_agzat_orders')->row()->vDays;
+         if (!empty($q)) {
+             return $q;
+         } else {
+             return 0;
+         }
+
+     }
+ */
+    public function get_days_pervious($emp_code, $vac_id, $current_year = 0, $f2a_agaza = false)
     {
         $this->db->select(' SUM(hr_all_agzat_orders.num_days) as vDays')
             ->where('emp_code_fk', $emp_code)
             ->where('no3_agaza', $vac_id)
             ->where('suspend', 4);
-        if (!empty($f2a_agaza)){
+        if (!empty($f2a_agaza)) {
             $this->db->where('f2a_agaza ', $f2a_agaza);
         }
         if ($current_year != 0) {
@@ -675,7 +743,6 @@
         }
 
     }
-
     /*public function get_days_vacation_year($emp_id, $vac_id)
     {
         $q = $this->db->select('emp_code,vacation_start_ar,vacation_previous_balance,year_vacation_num')
@@ -801,6 +868,32 @@
             ->where('agaza_to_date >=', strtotime(date('Y-m-d')))
             ->get('hr_all_agzat_orders');
         return $query->num_rows();
+    }
+
+    public function get_days_vacation_year_2($emp_id, $vac_id, $f2a_agaza, $end_vaction = false)
+    {
+        $q = $this->db->select('emp_code,vacation_start_ar,vacation_previous_balance,year_vacation_num,vacation_start_m')
+            ->where('emp_code', $emp_id)
+            ->get('contract_employe')->row();
+        $q->setting = $this->db->get('hr_agazat_sysat')->row();
+        $q->vDays = $this->get_days_pervious($q->emp_code, $vac_id, $q->vacation_start_m, $f2a_agaza);
+
+        if (empty($end_vaction)) {
+            $end_vaction = date('Y-m-d');
+        }
+        if (strtotime($end_vaction) > strtotime($q->vacation_start_m)) {
+            $date1 = new DateTime($q->vacation_start_m);
+            $date2 = new DateTime($end_vaction);
+            $interval = $date1->diff($date2);
+            $year_vacation = ($q->year_vacation_num);
+            $q->month_vacation = $year_vacation / 12;
+            $q->year = $interval->y;
+            $q->month = $interval->m + ($interval->y * 12);
+            $q->ava_days = round((($q->month_vacation * $q->month) - $q->vDays) + $q->vacation_previous_balance);
+        } else {
+            $q->ava_days = 0;
+        }
+        return $q;
     }
 
 }

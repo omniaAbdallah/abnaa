@@ -167,14 +167,34 @@ class LagnaSetting extends MY_Controller{
 
 
     */
-    public  function  AddCommittee(){   //   family_controllers/LagnaSetting/AddCommittee
-        $this->load->model('familys_models/Model_lagna_setting');
-        if ($this->input->post('INSERT') =="INSERT"){
-            $this->Model_lagna_setting->insert();
-            redirect('family_controllers/LagnaSetting/AddCommittee','refresh');//
+
+    function all_glasat_decision()
+    {
+        $this->load->model('familys_models/Member_session');
+        if ($_SESSION["role_id_fk"] == 1) {
+            $Conditions_arr = array();
+        } elseif ($_SESSION["role_id_fk"] == 2) {
+            $Conditions_arr = array("member_type" => 1, "member_id" => $_SESSION["emp_code"]);
+        } elseif ($_SESSION["role_id_fk"] == 3) {
+            $Conditions_arr = array("member_type" => 3, "member_id" => $_SESSION["emp_code"]);
+        } elseif ($_SESSION["role_id_fk"] == 4) {
+            $Conditions_arr = array("member_type" => 2, "member_id" => $_SESSION["emp_code"]);
         }
-        $data["last_code"]=$this->Model_lagna_setting->select_last_value_fild();
-        $data["data_tables"]=$this->Model_lagna_setting->select_all();
+        $data['records'] = $this->Member_session->all_glasat_decision($Conditions_arr);
+        $data['title'] = ' لحضور جلسة لجنة الاسر';
+        $data['subview'] = 'admin/familys_views/all_lagna_setting/all_glasat_decision';
+        $this->load->view('admin_index', $data);
+    }
+
+    public function AddCommittee()
+    {   //   family_controllers/LagnaSetting/AddCommittee
+        $this->load->model('familys_models/Model_lagna_setting');
+        if ($this->input->post('INSERT') == "INSERT") {
+            $this->Model_lagna_setting->insert();
+            redirect('family_controllers/LagnaSetting/AddCommittee', 'refresh');//
+        }
+        $data["last_code"] = $this->Model_lagna_setting->select_last_value_fild();
+        $data["data_tables"] = $this->Model_lagna_setting->select_all();
         $data['title'] = " إعدادات أسماء اللجان ";
         $data['subview'] = 'admin/familys_views/all_lagna_setting/add_committee';
         $this->load->view('admin_index', $data);
@@ -279,25 +299,9 @@ class LagnaSetting extends MY_Controller{
 
         $this->Model_lagna_setting->update_approved_lagna();
     }
-    //=========================================================
-    //=========================================================
-  /*  public function galsa_member()   {   //  family_controllers/LagnaSetting/galsa_member
-        $this->load->model('familys_models/Model_lagna_setting');
-        $data['title']="إضافة جلسة جديدة";
-        $data['all_lagna']=$this->Model_lagna_setting->get_all_lagnas();
-        $data['session_num']=$this->Model_lagna_setting->get_last_session();
-        $data['session_members']=$this->Model_lagna_setting->get_all_session();
-        $data['subview'] = 'admin/familys_views/all_lagna_setting/galsa_member';
-        $this->load->view('admin_index', $data);
-    }
-    public function add_selected_member(){
-        $this->load->model('familys_models/Model_lagna_setting');
-        $this->Model_lagna_setting->ususpend_other($this->input->post('lagna_num'));
-        $this->Model_lagna_setting->insert_selected_lagna();
-    }
-*/  
 
 public function galsa_member() {   //  family_controllers/LagnaSetting/galsa_member
+//echo strtotime(date('Y-m-d'));
         $this->load->model('familys_models/Model_lagna_setting');
         $data['title']="إضافة جلسة جديدة";
        // $data['all_lagna']=$this->Model_lagna_setting->get_all_lagnas();
@@ -306,7 +310,7 @@ public function galsa_member() {   //  family_controllers/LagnaSetting/galsa_mem
         $data['session_num_2']=$this->Model_lagna_setting->get_last_session_2();
         $data['session_members']=$this->Model_lagna_setting->get_all_session();
         $data['lagna_member']=$this->Model_lagna_setting->get_member_lagna(1);
-     //$this->test($data['lagna_member']);
+    /*//     $this->test($data);*/
         $data['subview'] = 'admin/familys_views/all_lagna_setting/galsa_member';
         $this->load->view('admin_index', $data);
     }
@@ -417,16 +421,18 @@ public function galsa_member() {   //  family_controllers/LagnaSetting/galsa_mem
     public function editLagna($session_number)
     {
         $this->load->model('familys_models/Model_lagna_setting');
-        if($this->input->post('add')) {
+        if ($this->input->post('add')) {
             $this->Model_lagna_setting->editLagna($session_number);
-            messages('success','تعديل جلسة');
-            redirect('family_controllers/LagnaSetting/galsa_member','refresh');
+            messages('success', 'تعديل جلسة');
+            redirect('family_controllers/LagnaSetting/galsa_member', 'refresh');
         }
-        $data['all_lagna']=$this->Model_lagna_setting->getByid_lagna();
-        $data['title']="تعديل جلسة جديدة";
+        $data['all_lagna'] = $this->Model_lagna_setting->getByid_lagna();
+        $data['title'] = "تعديل جلسة جديدة";
         //$data['all_lagna']=$this->Model_lagna_setting->get_all_lagnas();
-        $data['session_members']=$this->Model_lagna_setting->get_all_session(array('session_number'=>$session_number));
-        $data['lagna_member']=$this->Model_lagna_setting->get_member_lagna($data['all_lagna']['id_lagna']);
+        $data['session_members'] = $this->Model_lagna_setting->get_all_session(array('session_number' => $session_number));
+        $data['lagna_member'] = $this->Model_lagna_setting->get_member_lagna($data['all_lagna']['id_lagna']);
+        $data['session_num_2'] = $this->Model_lagna_setting->get_last_session_2();
+        $data['session_num'] = $this->Model_lagna_setting->get_last_session();
         $data['subview'] = 'admin/familys_views/all_lagna_setting/galsa_member';
         $this->load->view('admin_index', $data);
     }
@@ -1117,11 +1123,42 @@ public function print_session_decision($session_num)
             $this->load->view('admin/familys_views/detail_page/load_page', $data);
         }
     }*/
-    
-    
-    	
-	    public function  details_family_files__1(){
-        $mother_national_num=$this->input->post('mother_num');
+
+    public function details_family_files()
+    {
+        $mother_national_num = $this->input->post('mother_num');
+        $this->load->model("familys_models/Register");
+        $this->load->model('Difined_model');
+
+        $this->load->model('familys_models/Family_data_m');
+        $data['family_data'] = $this->Family_data_m->family_data($mother_national_num);
+
+        $this->load->model('Model_transformation_process');
+        $data["select_process_procedures"] = $this->Model_transformation_process->select_process_procedures();
+        $data["select_user"] = $this->Model_transformation_process->select_user();
+        $data['file_status'] = $this->Register->get_all_files_status();
+
+        /***************************************/
+        if (isset($_POST['TransformationLagnaId']) && $_POST['TransformationLagnaId'] != '') {
+            $data["transformation_lagna"] = $this->Difined_model->select_search_key('transformation_lagna', 'id', $this->input->post('TransformationLagnaId'))[0];
+            $data["last_lagna_desision"] = $this->Model_transformation_process->get_last_lagna_transformation(
+                array('mother_national_num' => $mother_national_num, 'file_num' => $data["transformation_lagna"]->file_num, 'session_num_fk' => $data["transformation_lagna"]->session_num_fk, 'procedure_id_fk' => $data["transformation_lagna"]->procedure_id_fk))[0];
+        }
+
+        if (!empty($data["last_lagna_desision"])) {
+            $data["all_procedures"] = $this->Difined_model->select_search_key('family_reasons_settings', 'type', $data["last_lagna_desision"]->transfer_type_id_fk);
+        }
+
+        if ($this->input->post('TransformationLagnaId')) {
+            $this->load->view('admin/familys_views/all_lagna_setting/AllDetailsPopup_approved', $data);
+        } else {
+            $this->load->view('admin/familys_views/detail_page/load_page', $data);
+        }
+    }
+
+    public function details_family_files___()
+    {
+        $mother_national_num = $this->input->post('mother_num');
         $this->load->model('familys_models/Father');
         $this->load->model('Nationality');
         $this->load->model("familys_models/Register");
@@ -1680,58 +1717,6 @@ public function delete_morfq()
     $this->delete_upload($id);
     $this->Model_lagna_setting->delete_morfq($id);
 }
-
-
-    function all_glasat_decision()
-    {
-        $this->load->model('familys_models/Member_session');
-        if ($_SESSION["role_id_fk"] == 1) {
-            $Conditions_arr = array();
-        } elseif ($_SESSION["role_id_fk"] == 2) {
-            $Conditions_arr = array("member_type" => 1, "member_id" => $_SESSION["emp_code"]);
-        } elseif ($_SESSION["role_id_fk"] == 3) {
-            $Conditions_arr = array("member_type" => 3, "member_id" => $_SESSION["emp_code"]);
-        } elseif ($_SESSION["role_id_fk"] == 4) {
-            $Conditions_arr = array("member_type" => 2, "member_id" => $_SESSION["emp_code"]);
-        }
-        $Conditions_arr['member_decision']=0;
-        $data['records'] = $this->Member_session->all_glasat_decision($Conditions_arr);
-        $data['title'] = ' لحضور جلسة لجنة الاسر';
-        $data['subview'] = 'admin/familys_views/all_lagna_setting/all_glasat_decision';
-        $this->load->view('admin_index', $data);
-    }
-
-    public function details_family_files()
-    {
-        $mother_national_num = $this->input->post('mother_num');
-        $this->load->model("familys_models/Register");
-        $this->load->model('Difined_model');
-
-        $this->load->model('familys_models/Family_data_m');
-        $data['family_data'] = $this->Family_data_m->family_data($mother_national_num);
-
-        $this->load->model('Model_transformation_process');
-        $data["select_process_procedures"] = $this->Model_transformation_process->select_process_procedures();
-        $data["select_user"] = $this->Model_transformation_process->select_user();
-        $data['file_status'] = $this->Register->get_all_files_status();
-
-        /***************************************/
-        if (isset($_POST['TransformationLagnaId']) && $_POST['TransformationLagnaId'] != '') {
-            $data["transformation_lagna"] = $this->Difined_model->select_search_key('transformation_lagna', 'id', $this->input->post('TransformationLagnaId'))[0];
-            $data["last_lagna_desision"] = $this->Model_transformation_process->get_last_lagna_transformation(
-                array('mother_national_num' => $mother_national_num, 'file_num' => $data["transformation_lagna"]->file_num, 'session_num_fk' => $data["transformation_lagna"]->session_num_fk, 'procedure_id_fk' => $data["transformation_lagna"]->procedure_id_fk))[0];
-        }
-
-        if (!empty($data["last_lagna_desision"])) {
-            $data["all_procedures"] = $this->Difined_model->select_search_key('family_reasons_settings', 'type', $data["last_lagna_desision"]->transfer_type_id_fk);
-        }
-
-        if ($this->input->post('TransformationLagnaId')) {
-            $this->load->view('admin/familys_views/all_lagna_setting/AllDetailsPopup_approved', $data);
-        } else {
-            $this->load->view('admin/familys_views/detail_page/load_page', $data);
-        }
-    }
 
 }// END CLASS
 ?>

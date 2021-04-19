@@ -471,6 +471,41 @@ public function add_editAccounDalel()
         $this->load->view('admin/finance_accounting/dalel/load_dalel_tree', $data);
     }
 
+
+    public function R_mali_period()
+    { //finance_accounting/dalel/Dalel/R_mali_period
+        $this->load->model('finance_accounting_model/dalel/Mali_model');
+        // $this->load->model('finance_accounting_model/Reports');
+        $data['records'] = $this->Mali_model->tree();
+        $data['title'] = 'الميزان المالي';
+        $data['subview'] = 'admin/finance_accounting/dalel/malil_v/R_mali_period';
+        $this->load->view('admin_index', $data);
+
+    }
+
+
+    public function get_mali_period_data()
+    {
+        $this->load->model('finance_accounting_model/dalel/Mali_model');
+        $date_arr = array('date >=' => strtotime($this->input->post('from')), 'date <=' => strtotime($this->input->post('to')));
+        $data['records'] = $this->Mali_model->tree_date($date_arr);
+        /*echo "<pre>";
+        print_r($data['records']);
+        echo "</pre>";
+        die;*/
+        if ($_POST['status'] == 1) {
+
+            $this->load->view('admin/finance_accounting/dalel/malil_v/get_mali_period_data_sub', $data);
+
+        } elseif ($_POST['status'] == 2) {
+
+            $this->load->view('admin/finance_accounting/dalel/malil_v/get_mali_period_data_total', $data);
+
+        }
+
+
+    }
+
 }
 
 /* End of file Dalel.php */

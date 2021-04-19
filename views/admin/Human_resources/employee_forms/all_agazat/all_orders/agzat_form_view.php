@@ -143,10 +143,7 @@
                             ?>
                             <label class="label ">فئة الاجازه</label>
                             <select name="f2a_agaza" id="f2a_agaza" onchange="chech_agaza_year() "
-                                    data-validation="required"
-                                    data-validation-depends-on="no3_agaza" break2=""
-                                    data-validation-depends-on-value="2"
-                                    class="form-control ">
+                                    data-validation="required" class="form-control ">
                                 <option value=" " selected="">اختر</option>
                                 <?php
                                 foreach ($vacations_f2a as $key => $row) {
@@ -457,7 +454,7 @@
                 } else if (f2a_agaza == 2) {
                     var mowazf_badel = $("select#no3_agaza").find("option:selected").attr('data-mowazf_badel');
                 }
-                if (f2a_agaza!=' ' && emp && vacations && (!isNaN(emp)) && (!isNaN(vacations))) {
+                if (emp && vacations && (!isNaN(emp)) && (!isNaN(vacations))) {
                     console.log('vacations :' + vacations + "\n emp : " + emp);
                     var request = $.ajax({
                         url: "<?php echo base_url() . 'human_resources/employee_forms/all_agazat/all_orders/Vacation/get_avalibal_days_year'?>",
@@ -707,13 +704,10 @@
         <script>
             function checkValidateMaxMin() {
                 var no3_agaza = $("#no3_agaza").val();
-                var f2a_agaza = $('#f2a_agaza').val();
-                console.log('fff'+f2a_agaza);
                 if (no3_agaza != 52) {
                     if (parseFloat($('#num_days').val()) <= parseFloat($('#max_days').val())) {
                         if (parseFloat($('#num_days').val()) <= parseFloat($('#allDayes').val())) {
-                         /*   if (f2a_agaza == 2) {
-                                console.log('if done');
+                            if (f2a_agaza == 2) {
                                 if (parseFloat($('#num_days').val()) <= parseFloat($('#min_days').val())) {
                                     swal({
                                         title: 'المدة المحددة  يجب أن تتخطى  الحد الادنى   ',
@@ -724,7 +718,7 @@
                                     });
                                     return false;
                                 }
-                            }*/
+                            }
                             save_me();
                         } else {
                             swal({
@@ -952,10 +946,10 @@
             }
 
             function writeIslamicDate(adjustment) {
-                var wdNames = new Array("Ahad", "Ithnin", "Thulatha", "Arbaa", "Khams", "Jumuah", "Sabt");
-                var iMonthNames = new Array("Muharram", "Safar", "Rabi'ul Awwal", "Rabi'ul Akhir",
+                var wdNames = ["Ahad", "Ithnin", "Thulatha", "Arbaa", "Khams", "Jumuah", "Sabt"];
+                var iMonthNames = ["Muharram", "Safar", "Rabi'ul Awwal", "Rabi'ul Akhir",
                     "Jumadal Ula", "Jumadal Akhira", "Rajab", "Sha'ban",
-                    "Ramadan", "Shawwal", "Dhul Qa'ada", "Dhul Hijja");
+                    "Ramadan", "Shawwal", "Dhul Qa'ada", "Dhul Hijja"];
                 var iDate = kuwaiticalendar(adjustment);
                 var outputIslamicDate = (iDate[5]) + '/' + (iDate[6]) + '/' + iDate[7];
                 return outputIslamicDate;

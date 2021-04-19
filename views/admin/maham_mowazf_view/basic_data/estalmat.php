@@ -365,11 +365,8 @@
     }
 
     .media .panel-title a:before,
-
     .media .panel-title a.collapsed:before,
-
     .media .panel-title a:after,
-
     .media .panel-title a.collapsed:after {
 
         font-family: 'FontAwesome';
@@ -405,7 +402,6 @@
     }
 
     .media .panel-title a:after,
-
     .media .panel-title a.collapsed:after {
 
         font-family: 'FontAwesome';
@@ -912,13 +908,13 @@
 
 <!--<div class="topnav">
 
-    <a href="<?/*= base_url() */?>/maham_mowazf/basic_data/Maham/hr_data"><h5 class="glyphicon glyphicon-home"></h5>الرئيسية</a>
+    <a href="<? /*= base_url() */ ?>/maham_mowazf/basic_data/Maham/hr_data"><h5 class="glyphicon glyphicon-home"></h5>الرئيسية</a>
 
-    <a href="<?/*= base_url() */?>/Dashboard/phome"><h5 class="glyphicon glyphicon-user"></h5> الملف الشخصى</a>
+    <a href="<? /*= base_url() */ ?>/Dashboard/phome"><h5 class="glyphicon glyphicon-user"></h5> الملف الشخصى</a>
 
-    <a href="<?/*= base_url() */?>/maham_mowazf/person_profile/Personal_profile/talabat"><h5 class="glyphicon glyphicon-list-alt"></h5> الطلبات</a>
+    <a href="<? /*= base_url() */ ?>/maham_mowazf/person_profile/Personal_profile/talabat"><h5 class="glyphicon glyphicon-list-alt"></h5> الطلبات</a>
 
-    <a href="<?/*= base_url() */?>/maham_mowazf/person_profile/Personal_profile/estalmat" class="active"><h5 class="glyphicon glyphicon-comment"></h5> الإستعلامات</a>
+    <a href="<? /*= base_url() */ ?>/maham_mowazf/person_profile/Personal_profile/estalmat" class="active"><h5 class="glyphicon glyphicon-comment"></h5> الإستعلامات</a>
 
     <a href="#"><h5 class="glyphicon glyphicon-time"></h5> ادارة الوقت</a>
 
@@ -1158,23 +1154,23 @@
 
                                 <div class=" col-md-3   col-xs-12 panel panel-default">
 
- <div class="panel-heading" role="tab" id="heading2">
+                                    <div class="panel-heading" role="tab" id="heading2">
 
-        <h4 class="panel-title">
+                                        <h4 class="panel-title">
 
-            <a class="collapsed" role="button" data-toggle="collapse"
+                                            <a class="collapsed" role="button" data-toggle="collapse"
 
-               data-parent="#accordion" href="#collapse2" aria-expanded="false"
+                                               data-parent="#accordion" href="#collapse2" aria-expanded="false"
 
-               aria-controls="collapse2">
+                                               aria-controls="collapse2">
 
-                <i class="fa fa-list" aria-hidden="true"></i> الأذونات
+                                                <i class="fa fa-list" aria-hidden="true"></i> الأذونات
 
-            </a>
+                                            </a>
 
-        </h4>
+                                        </h4>
 
-    </div>
+                                    </div>
 
                                     <div id="collapse2" class="panel-collapse collapse " role="tabpanel"
 
@@ -1183,48 +1179,45 @@
                                         <!---------------------------------------الطلبات----------------------------------------->
 
 
+                                        <center>
 
+                                            <div class="col-xs-12">
 
+                                                <div class="panel panel-default">
 
-        <center>
+                                                    <div class="panel-body">
 
-            <div class="col-xs-12">
+                                                        <div class="tab-pane" id="pag4" role="tabpanel">
 
-                <div class="panel panel-default">
+                                                            <div class="padding-10">
 
-                    <div class="panel-body">
+                                                                <div class="panel panel-default">
 
-                        <div class="tab-pane" id="pag4" role="tabpanel">
+                                                                    <div class="modal-header">
 
-                            <div class="padding-10">
+                                                                        <h5 class="modal-title"
 
-                                <div class="panel panel-default">
+                                                                            style="text-align: center;">
 
-                                    <div class="modal-header">
+                                                                            الأذونات
 
-                                        <h5 class="modal-title"
+                                                                        </h5>
 
-                                            style="text-align: center;">
+                                                                    </div>
 
-                                            الأذونات
+                                                                    <div class="modal-body"
 
-                                        </h5>
+                                                                         style=" height:200px;overflow: hidden;">
 
-                                    </div>
+                                                                        <!-- Side navigation Bar -->
 
-                                    <div class="modal-body"
+                                                                        <div class="sidehoverbar">
 
-                                         style=" height:200px;overflow: hidden;">
+                                                                            <a href="#" data-toggle="modal"
 
-                                        <!-- Side navigation Bar -->
+                                                                               onclick="get_ezen_tab(1,'طلباتي')"
 
-                                        <div class="sidehoverbar">
-
-                                            <a href="#" data-toggle="modal"
-
-                                               onclick="get_ezen_tab(1,'طلباتي')"
-
-                                               data-target="#ezn_Modal" class="article">
+                                                                               data-target="#ezn_Modal" class="article">
 
                                                                                 <span class="test"><?php if (!empty($ozonat_records)) {
 
@@ -1236,13 +1229,13 @@
 
                                                                                     } ?> </span>
 
-                                                <span style="font-size: 18px;"> طلباتى</span>
+                                                                                <span style="font-size: 18px;"> طلباتى</span>
 
-                                                <i class="fa fa-edit icons"></i>
+                                                                                <i class="fa fa-edit icons"></i>
 
-                                            </a> <span id="test"
+                                                                            </a> <span id="test"
 
-                                                       class=" label-danger count">
+                                                                                       class=" label-danger count">
 
                                                                                 <?php if (!empty($ozonat_records)) {
 
@@ -1256,13 +1249,13 @@
 
                                                                             </span><h5>طلباتى</h5>
 
-                                            <a href="#" data-toggle="modal"
+                                                                            <a href="#" data-toggle="modal"
 
-                                               onclick="get_ezen_tab(2,'متابعة طلباتي')"
+                                                                               onclick="get_ezen_tab(2,'متابعة طلباتي')"
 
-                                               data-target="#ezn_Modal"
+                                                                               data-target="#ezn_Modal"
 
-                                               class="Interview">
+                                                                               class="Interview">
 
                                                                                 <span class="test"><?php if (!empty($ozonat_records)) {
 
@@ -1274,15 +1267,15 @@
 
                                                                                     } ?> </span>
 
-                                                <span style="font-size: 18px;"> متابعة طلباتي</span>
+                                                                                <span style="font-size: 18px;"> متابعة طلباتي</span>
 
-                                                <i class="fa fa-file-o icons"></i>
+                                                                                <i class="fa fa-file-o icons"></i>
 
-                                            </a><span id="test"
+                                                                            </a><span id="test"
 
-                                                      class=" label-danger count"
+                                                                                      class=" label-danger count"
 
-                                                      style="margin-top: 28px;">
+                                                                                      style="margin-top: 28px;">
 
                                                                                 <?php if (!empty($ozonat_records)) {
 
@@ -1296,15 +1289,15 @@
 
                                                                             </span><h5 style="margin-top: 37px;">متابعة
 
-                                                طلباتي</h5>
+                                                                                طلباتي</h5>
 
-                                            <a href="#" data-toggle="modal"
+                                                                            <a href="#" data-toggle="modal"
 
-                                               onclick="get_ezen_tab(3,'الوارد')"
+                                                                               onclick="get_ezen_tab(3,'الوارد')"
 
-                                               data-target="#ezn_Modal"
+                                                                               data-target="#ezn_Modal"
 
-                                               class="Scripter">
+                                                                               class="Scripter">
 
                                                                                 <span class="test"><?php if (!empty($ozonat_coming)) {
 
@@ -1316,15 +1309,15 @@
 
                                                                                     } ?> </span>
 
-                                                <span style="font-size: 18px;"> الوارد</span>
+                                                                                <span style="font-size: 18px;"> الوارد</span>
 
-                                                <i class="fa fa-commenting icons"></i>
+                                                                                <i class="fa fa-commenting icons"></i>
 
-                                            </a><span id="test"
+                                                                            </a><span id="test"
 
-                                                      class=" label-danger count"
+                                                                                      class=" label-danger count"
 
-                                                      style="margin-top: 32px;">
+                                                                                      style="margin-top: 32px;">
 
                                                                                 <?php if (!empty($ozonat_coming)) {
 
@@ -1336,273 +1329,100 @@
 
                                                                                 } ?> </span><h5
 
-                                                style="margin-top: 39px;">
+                                                                                    style="margin-top: 39px;">
 
-                                                الوارد</h5>
+                                                                                الوارد</h5>
 
-                                        </div>
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </center>
+
 
                                     </div>
 
                                 </div>
 
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </center>
-
-<!--<center>
-
-<div class="col-xs-12">
-
-<div class="panel panel-default">
-
-<div class="panel-body">
-
-<div class="tab-pane" id="pag4" role="tabpanel">
-
-<div class="padding-10">
-
-<div class="panel panel-default">
-
-<div class="modal-header">
-
-<h5 class="modal-title"
-
-style="text-align: center;">
-
-الأذونات
-
-</h5>
-
-</div>
-
-<div class="modal-body"
-
-style=" height:200px;overflow: hidden;">
-
-<div class="sidehoverbar">
-
-<a href="#" data-toggle="modal"
-
-onclick="get_ezen_tab(1,'طلباتي')"
-
-data-target="#ezn_Modal" class="article">
-
-<span class="test"><?php if (!empty($ozonat_records)) {
-
-echo count($ozonat_records);
-
-} else {
-
-echo 0;
-
-} ?> </span>
-
-<span style="font-size: 18px;"> طلباتى</span>
-
-<i class="fa fa-edit icons"></i>
-
-</a> <span id="test"
-
-class=" label-danger count">
-
-<?php if (!empty($ozonat_records)) {
-
-echo count($ozonat_records);
-
-} else {
-
-echo 0;
-
-} ?>
-
-</span><h5>طلباتى</h5>
-
-<a href="#" data-toggle="modal"
-
-onclick="get_ezen_tab(1,'طلباتي')"
-
-data-target="#ezn_Modal"
-
-class="Interview">
-
-<span class="test"><?php if (!empty($ozonat_records)) {
-
-echo count($ozonat_records);
-
-} else {
-
-echo 0;
-
-} ?> </span>
-
-<span style="font-size: 18px;"> متابعة طلباتي</span>
-
-<i class="fa fa-file-o icons"></i>
-
-</a><span id="test"
-
-class=" label-danger count"
-
-style="margin-top: 28px;">
-
-<?php if (!empty($ozonat_records)) {
-
-echo count($ozonat_records);
-
-} else {
-
-echo 0;
-
-} ?>
-
-</span><h5 style="margin-top: 37px;">متابعة
-
-طلباتي</h5>
-
-<a href="#" data-toggle="modal"
-
-onclick="get_ezen_tab(1,'طلباتي')"
-
-data-target="#ezn_Modal"
-
-class="Scripter">
-
-<span class="test"><?php if (!empty($coming_records)) {
-
-echo count($coming_records);
-
-} else {
-
-echo 0;
-
-} ?> </span>
-
-<span style="font-size: 18px;"> الوارد</span>
-
-<i class="fa fa-commenting icons"></i>
-
-</a><span id="test"
-
-class=" label-danger count"
-
-style="margin-top: 32px;">
-
-<?php if (!empty($coming_records)) {
-
-echo count($coming_records);
-
-} else {
-
-echo 0;
-
-} ?> </span><h5
-
-style="margin-top: 39px;">
-
-الوارد</h5>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</center>
-
--->
-
-
-
-</div>
-
-</div>
-
                                 <!---------------------------------------------    السلف-------------------------------------------->
 
                                 <div class=" col-md-3   col-xs-12 panel panel-default">
 
-                                  <div class="panel-heading" role="tab" id="heading3">
+                                    <div class="panel-heading" role="tab" id="heading3">
 
-        <h4 class="panel-title">
+                                        <h4 class="panel-title">
 
-            <a class="collapsed" role="button" data-toggle="collapse"
+                                            <a class="collapsed" role="button" data-toggle="collapse"
 
-               data-parent="#accordion" href="#collapse3" aria-expanded="false"
+                                               data-parent="#accordion" href="#collapse3" aria-expanded="false"
 
-               aria-controls="collapsefive">
+                                               aria-controls="collapsefive">
 
-                <i class="fa fa-list" aria-hidden="true"></i> السلف
+                                                <i class="fa fa-list" aria-hidden="true"></i> السلف
 
-            </a>
+                                            </a>
 
-        </h4>
-
-    </div>
-
-    <div id="collapse3" class="panel-collapse collapse " role="tabpanel"
-
-         aria-labelledby="heading3">
-
-        <!---------------------------------------الطلبات----------------------------------------->
-
-        <center>
-
-            <div class="col-xs-12">
-
-                <div class="panel panel-default">
-
-                    <div class="panel-body">
-
-                        <div class="tab-pane" id="pag4" role="tabpanel">
-
-                            <div class="padding-10">
-
-                                <div class="panel panel-default">
-
-                                    <div class="modal-header">
-
-                                        <h5 class="modal-title"
-
-                                            style="text-align: center;">
-
-                                            السلف
-
-                                        </h5>
+                                        </h4>
 
                                     </div>
 
-                                    <div class="modal-body"
+                                    <div id="collapse3" class="panel-collapse collapse " role="tabpanel"
 
-                                         style=" height:200px;overflow: hidden;">
+                                         aria-labelledby="heading3">
 
-                                        <!-- Side navigation Bar -->
+                                        <!---------------------------------------الطلبات----------------------------------------->
 
-                                        <div class="sidehoverbar">
+                                        <center>
 
-                                            <a href="#" data-toggle="modal"
+                                            <div class="col-xs-12">
 
-                                               onclick="get_solaf_tab('mine_1','طلباتي')"
+                                                <div class="panel panel-default">
 
-                                               data-target="#ezn_Modal" class="article">
+                                                    <div class="panel-body">
+
+                                                        <div class="tab-pane" id="pag4" role="tabpanel">
+
+                                                            <div class="padding-10">
+
+                                                                <div class="panel panel-default">
+
+                                                                    <div class="modal-header">
+
+                                                                        <h5 class="modal-title"
+
+                                                                            style="text-align: center;">
+
+                                                                            السلف
+
+                                                                        </h5>
+
+                                                                    </div>
+
+                                                                    <div class="modal-body"
+
+                                                                         style=" height:200px;overflow: hidden;">
+
+                                                                        <!-- Side navigation Bar -->
+
+                                                                        <div class="sidehoverbar">
+
+                                                                            <a href="#" data-toggle="modal"
+
+                                                                               onclick="get_solaf_tab('mine_1','طلباتي')"
+
+                                                                               data-target="#ezn_Modal" class="article">
 
                                                                                 <span class="test"><?php if (!empty($user_solaf_orders)) {
 
@@ -1614,13 +1434,13 @@ style="margin-top: 39px;">
 
                                                                                     } ?> </span>
 
-                                                <span style="font-size: 18px;"> طلباتى</span>
+                                                                                <span style="font-size: 18px;"> طلباتى</span>
 
-                                                <i class="fa fa-edit icons"></i>
+                                                                                <i class="fa fa-edit icons"></i>
 
-                                            </a> <span id="test"
+                                                                            </a> <span id="test"
 
-                                                       class=" label-danger count">
+                                                                                       class=" label-danger count">
 
                                                                                 <?php if (!empty($user_solaf_orders)) {
 
@@ -1634,13 +1454,13 @@ style="margin-top: 39px;">
 
                                                                             </span><h5>طلباتى</h5>
 
-                                            <a href="#" data-toggle="modal"
+                                                                            <a href="#" data-toggle="modal"
 
-                                               onclick="get_solaf_tab('follow_1','متابعة طلباتي')"
+                                                                               onclick="get_solaf_tab('follow_1','متابعة طلباتي')"
 
-                                               data-target="#ezn_Modal"
+                                                                               data-target="#ezn_Modal"
 
-                                               class="Interview">
+                                                                               class="Interview">
 
                                                                                 <span class="test"><?php if (!empty($user_solaf_orders)) {
 
@@ -1652,15 +1472,15 @@ style="margin-top: 39px;">
 
                                                                                     } ?> </span>
 
-                                                <span style="font-size: 18px;"> متابعة طلباتي</span>
+                                                                                <span style="font-size: 18px;"> متابعة طلباتي</span>
 
-                                                <i class="fa fa-file-o icons"></i>
+                                                                                <i class="fa fa-file-o icons"></i>
 
-                                            </a><span id="test"
+                                                                            </a><span id="test"
 
-                                                      class=" label-danger count"
+                                                                                      class=" label-danger count"
 
-                                                      style="margin-top: 28px;">
+                                                                                      style="margin-top: 28px;">
 
                                                                                 <?php if (!empty($user_solaf_orders)) {
 
@@ -1674,15 +1494,15 @@ style="margin-top: 39px;">
 
                                                                             </span><h5 style="margin-top: 37px;">متابعة
 
-                                                طلباتي</h5>
+                                                                                طلباتي</h5>
 
-                                            <a href="#" data-toggle="modal"
+                                                                            <a href="#" data-toggle="modal"
 
-                                               onclick="get_solaf_tab('comming_1','الوارد')"
+                                                                               onclick="get_solaf_tab('comming_1','الوارد')"
 
-                                               data-target="#ezn_Modal"
+                                                                               data-target="#ezn_Modal"
 
-                                               class="Scripter">
+                                                                               class="Scripter">
 
                                                                                 <span class="test"><?php if (!empty($coming_solaf_records)) {
 
@@ -1694,15 +1514,15 @@ style="margin-top: 39px;">
 
                                                                                     } ?> </span>
 
-                                                <span style="font-size: 18px;"> الوارد</span>
+                                                                                <span style="font-size: 18px;"> الوارد</span>
 
-                                                <i class="fa fa-commenting icons"></i>
+                                                                                <i class="fa fa-commenting icons"></i>
 
-                                            </a><span id="test"
+                                                                            </a><span id="test"
 
-                                                      class=" label-danger count"
+                                                                                      class=" label-danger count"
 
-                                                      style="margin-top: 32px;">
+                                                                                      style="margin-top: 32px;">
 
                                                                                 <?php if (!empty($coming_solaf_records)) {
 
@@ -1714,103 +1534,100 @@ style="margin-top: 39px;">
 
                                                                                 } ?> </span><h5
 
-                                                style="margin-top: 39px;">
+                                                                                    style="margin-top: 39px;">
 
-                                                الوارد</h5>
+                                                                                الوارد</h5>
 
-                                        </div>
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </center>
 
                                     </div>
 
                                 </div>
 
-                            </div>
 
-                        </div>
+                                <!---------------------------------------------->
 
-                    </div>
+                                <div class=" col-md-3   col-xs-12 panel panel-default">
 
-                </div>
+                                    <div class="panel-heading" role="tab" id="heading3">
 
-            </div>
+                                        <h4 class="panel-title">
 
-        </center>
+                                            <a class="collapsed" role="button" data-toggle="collapse"
 
-    </div>
+                                               data-parent="#accordion" href="#collapse7" aria-expanded="false"
 
-                                </div>
+                                               aria-controls="collapsefive">
 
-                                
+                                                <i class="fa fa-list" aria-hidden="true"></i> تأجيل السلف
 
-                                
+                                            </a>
 
- <!---------------------------------------------->
-
- <div class=" col-md-3   col-xs-12 panel panel-default">
-
-    <div class="panel-heading" role="tab" id="heading3">
-
-        <h4 class="panel-title">
-
-            <a class="collapsed" role="button" data-toggle="collapse"
-
-               data-parent="#accordion" href="#collapse7" aria-expanded="false"
-
-               aria-controls="collapsefive">
-
-                <i class="fa fa-list" aria-hidden="true"></i> تأجيل السلف
-
-            </a>
-
-        </h4>
-
-    </div>
-
-    <div id="collapse7" class="panel-collapse collapse " role="tabpanel"
-
-         aria-labelledby="heading7">
-
-        <!---------------------------------------الطلبات----------------------------------------->
-
-        <center>
-
-            <div class="col-xs-12">
-
-                <div class="panel panel-default">
-
-                    <div class="panel-body">
-
-                        <div class="tab-pane" id="pag4" role="tabpanel">
-
-                            <div class="padding-10">
-
-                                <div class="panel panel-default">
-
-                                    <div class="modal-header">
-
-                                        <h5 class="modal-title"
-
-                                            style="text-align: center;">
-
-                                            تأجيل السلفة
-
-                                        </h5>
+                                        </h4>
 
                                     </div>
 
-                                    <div class="modal-body"
+                                    <div id="collapse7" class="panel-collapse collapse " role="tabpanel"
 
-                                         style=" height:200px;overflow: hidden;">
+                                         aria-labelledby="heading7">
 
-                                        <!-- Side navigation Bar -->
+                                        <!---------------------------------------الطلبات----------------------------------------->
 
-                                        <div class="sidehoverbar">
+                                        <center>
 
-                                            <a href="#" data-toggle="modal"
+                                            <div class="col-xs-12">
 
-                                               onclick="get_solaf_tagel_tab('mine_1','طلباتي')"
+                                                <div class="panel panel-default">
 
-                                               data-target="#ezn_Modal" class="article">
+                                                    <div class="panel-body">
+
+                                                        <div class="tab-pane" id="pag4" role="tabpanel">
+
+                                                            <div class="padding-10">
+
+                                                                <div class="panel panel-default">
+
+                                                                    <div class="modal-header">
+
+                                                                        <h5 class="modal-title"
+
+                                                                            style="text-align: center;">
+
+                                                                            تأجيل السلفة
+
+                                                                        </h5>
+
+                                                                    </div>
+
+                                                                    <div class="modal-body"
+
+                                                                         style=" height:200px;overflow: hidden;">
+
+                                                                        <!-- Side navigation Bar -->
+
+                                                                        <div class="sidehoverbar">
+
+                                                                            <a href="#" data-toggle="modal"
+
+                                                                               onclick="get_solaf_tagel_tab('mine_1','طلباتي')"
+
+                                                                               data-target="#ezn_Modal" class="article">
 
                                                                                 <span class="test"><?php if (!empty($user_orders_tagel)) {
 
@@ -1822,13 +1639,13 @@ style="margin-top: 39px;">
 
                                                                                     } ?> </span>
 
-                                                <span style="font-size: 18px;"> طلباتى</span>
+                                                                                <span style="font-size: 18px;"> طلباتى</span>
 
-                                                <i class="fa fa-edit icons"></i>
+                                                                                <i class="fa fa-edit icons"></i>
 
-                                            </a> <span id="test"
+                                                                            </a> <span id="test"
 
-                                                       class=" label-danger count">
+                                                                                       class=" label-danger count">
 
                                                                                 <?php if (!empty($user_orders_tagel)) {
 
@@ -1842,7 +1659,7 @@ style="margin-top: 39px;">
 
                                                                             </span><h5>طلباتى</h5>
 
-                                            <!-- <a href="#" data-toggle="modal"
+                                                                            <!-- <a href="#" data-toggle="modal"
 
                                                                                onclick="get_solaf_tab('follow_1','متابعة طلباتي')"
 
@@ -1852,13 +1669,13 @@ style="margin-top: 39px;">
 
                                                                                 <span class="test"><?php if (!empty($user_orders_tagel)) {
 
-                                                echo count($user_orders_tagel);
+                                                                                echo count($user_orders_tagel);
 
-                                            } else {
+                                                                            } else {
 
-                                                echo 0;
+                                                                                echo 0;
 
-                                            } ?> </span>
+                                                                            } ?> </span>
 
                                                                                 <span style="font-size: 18px;"> متابعة طلباتي</span>
 
@@ -1872,25 +1689,25 @@ style="margin-top: 39px;">
 
                                                                                 <?php if (!empty($user_orders_tagel)) {
 
-                                                echo count($user_orders_tagel);
+                                                                                echo count($user_orders_tagel);
 
-                                            } else {
+                                                                            } else {
 
-                                                echo 0;
+                                                                                echo 0;
 
-                                            } ?>
+                                                                            } ?>
 
                                                                             </span><h5 style="margin-top: 37px;">متابعة
 
                                                                                 طلباتي</h5>-->
 
-                                            <a href="#" data-toggle="modal"
+                                                                            <a href="#" data-toggle="modal"
 
-                                               onclick="get_solaf_tagel_tab('comming_1','الوارد')"
+                                                                               onclick="get_solaf_tagel_tab('comming_1','الوارد')"
 
-                                               data-target="#ezn_Modal"
+                                                                               data-target="#ezn_Modal"
 
-                                               class="Scripter">
+                                                                               class="Scripter">
 
                                                                                 <span class="test"><?php if (!empty($coming_records_tagel)) {
 
@@ -1902,15 +1719,15 @@ style="margin-top: 39px;">
 
                                                                                     } ?> </span>
 
-                                                <span style="font-size: 18px;"> الوارد</span>
+                                                                                <span style="font-size: 18px;"> الوارد</span>
 
-                                                <i class="fa fa-commenting icons"></i>
+                                                                                <i class="fa fa-commenting icons"></i>
 
-                                            </a><span id="test"
+                                                                            </a><span id="test"
 
-                                                      class=" label-danger count"
+                                                                                      class=" label-danger count"
 
-                                                      style="margin-top: 32px;">
+                                                                                      style="margin-top: 32px;">
 
                                                                                 <?php if (!empty($coming_records_tagel)) {
 
@@ -1922,103 +1739,102 @@ style="margin-top: 39px;">
 
                                                                                 } ?> </span><h5
 
-                                                    style="margin-top: 39px;">
+                                                                                    style="margin-top: 39px;">
 
-                                                الوارد</h5>
+                                                                                الوارد</h5>
 
-                                        </div>
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </center>
 
                                     </div>
 
                                 </div>
 
-                            </div>
 
-                        </div>
+                                <!-- ta3gel -->
 
-                    </div>
+                                <!---------------------------------------------   تعجيل السلف-------------------------------------------->
 
-                </div>
+                                <div class=" col-md-3   col-xs-12 panel panel-default">
 
-            </div>
+                                    <div class="panel-heading" role="tab" id="heading3">
 
-        </center>
+                                        <h4 class="panel-title">
 
-    </div>
+                                            <a class="collapsed" role="button" data-toggle="collapse"
 
-</div>
+                                               data-parent="#accordion" href="#collapse8" aria-expanded="false"
 
-       
+                                               aria-controls="collapsefive">
 
- <!-- ta3gel -->
+                                                <i class="fa fa-list" aria-hidden="true"></i> تعجيل السلف
 
-<!---------------------------------------------   تعجيل السلف-------------------------------------------->
+                                            </a>
 
-<div class=" col-md-3   col-xs-12 panel panel-default">
-
-    <div class="panel-heading" role="tab" id="heading3">
-
-        <h4 class="panel-title">
-
-            <a class="collapsed" role="button" data-toggle="collapse"
-
-               data-parent="#accordion" href="#collapse8" aria-expanded="false"
-
-               aria-controls="collapsefive">
-
-                <i class="fa fa-list" aria-hidden="true"></i> تعجيل السلف
-
-            </a>
-
-        </h4>
-
-    </div>
-
-    <div id="collapse8" class="panel-collapse collapse " role="tabpanel"
-
-         aria-labelledby="heading7">
-
-        <!---------------------------------------الطلبات----------------------------------------->
-
-        <center>
-
-            <div class="col-xs-12">
-
-                <div class="panel panel-default">
-
-                    <div class="panel-body">
-
-                        <div class="tab-pane" id="pag4" role="tabpanel">
-
-                            <div class="padding-10">
-
-                                <div class="panel panel-default">
-
-                                    <div class="modal-header">
-
-                                        <h5 class="modal-title"
-
-                                            style="text-align: center;">
-
-                                            تعجيل السلفة
-
-                                        </h5>
+                                        </h4>
 
                                     </div>
 
-                                    <div class="modal-body"
+                                    <div id="collapse8" class="panel-collapse collapse " role="tabpanel"
 
-                                         style=" height:200px;overflow: hidden;">
+                                         aria-labelledby="heading7">
 
-                                        <!-- Side navigation Bar -->
+                                        <!---------------------------------------الطلبات----------------------------------------->
 
-                                        <div class="sidehoverbar">
+                                        <center>
 
-                                            <a href="#" data-toggle="modal"
+                                            <div class="col-xs-12">
 
-                                               onclick="get_solaf_ta3gel_tab('mine_1','طلباتي')"
+                                                <div class="panel panel-default">
 
-                                               data-target="#ezn_Modal" class="article">
+                                                    <div class="panel-body">
+
+                                                        <div class="tab-pane" id="pag4" role="tabpanel">
+
+                                                            <div class="padding-10">
+
+                                                                <div class="panel panel-default">
+
+                                                                    <div class="modal-header">
+
+                                                                        <h5 class="modal-title"
+
+                                                                            style="text-align: center;">
+
+                                                                            تعجيل السلفة
+
+                                                                        </h5>
+
+                                                                    </div>
+
+                                                                    <div class="modal-body"
+
+                                                                         style=" height:200px;overflow: hidden;">
+
+                                                                        <!-- Side navigation Bar -->
+
+                                                                        <div class="sidehoverbar">
+
+                                                                            <a href="#" data-toggle="modal"
+
+                                                                               onclick="get_solaf_ta3gel_tab('mine_1','طلباتي')"
+
+                                                                               data-target="#ezn_Modal" class="article">
 
                                                                                 <span class="test"><?php if (!empty($user_orders_ta3gel)) {
 
@@ -2030,13 +1846,13 @@ style="margin-top: 39px;">
 
                                                                                     } ?> </span>
 
-                                                <span style="font-size: 18px;"> طلباتى</span>
+                                                                                <span style="font-size: 18px;"> طلباتى</span>
 
-                                                <i class="fa fa-edit icons"></i>
+                                                                                <i class="fa fa-edit icons"></i>
 
-                                            </a> <span id="test"
+                                                                            </a> <span id="test"
 
-                                                       class=" label-danger count">
+                                                                                       class=" label-danger count">
 
                                                                                 <?php if (!empty($user_orders_ta3gel)) {
 
@@ -2050,15 +1866,14 @@ style="margin-top: 39px;">
 
                                                                             </span><h5>طلباتى</h5>
 
-                                        
 
-                                            <a href="#" data-toggle="modal"
+                                                                            <a href="#" data-toggle="modal"
 
-                                               onclick="get_solaf_ta3gel_tab('comming_1','الوارد')"
+                                                                               onclick="get_solaf_ta3gel_tab('comming_1','الوارد')"
 
-                                               data-target="#ezn_Modal"
+                                                                               data-target="#ezn_Modal"
 
-                                               class="Scripter">
+                                                                               class="Scripter">
 
                                                                                 <span class="test"><?php if (!empty($coming_records_ta3gel)) {
 
@@ -2070,15 +1885,15 @@ style="margin-top: 39px;">
 
                                                                                     } ?> </span>
 
-                                                <span style="font-size: 18px;"> الوارد</span>
+                                                                                <span style="font-size: 18px;"> الوارد</span>
 
-                                                <i class="fa fa-commenting icons"></i>
+                                                                                <i class="fa fa-commenting icons"></i>
 
-                                            </a><span id="test"
+                                                                            </a><span id="test"
 
-                                                      class=" label-danger count"
+                                                                                      class=" label-danger count"
 
-                                                      style="margin-top: 32px;">
+                                                                                      style="margin-top: 32px;">
 
                                                                                 <?php if (!empty($coming_records_ta3gel)) {
 
@@ -2090,103 +1905,102 @@ style="margin-top: 39px;">
 
                                                                                 } ?> </span><h5
 
-                                                    style="margin-top: 39px;">
+                                                                                    style="margin-top: 39px;">
 
-                                                الوارد</h5>
+                                                                                الوارد</h5>
 
-                                        </div>
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </center>
 
                                     </div>
 
                                 </div>
 
-                            </div>
+                                <!-- ta3gel -->
 
-                        </div>
+                                <!---------------------------------------------  تغيير الحساب البنكي-------------------------------------------->
 
-                    </div>
+                                <div class=" col-md-3   col-xs-12 panel panel-default">
 
-                </div>
+                                    <div class="panel-heading" role="tab" id="heading3">
 
-            </div>
+                                        <h4 class="panel-title">
 
-        </center>
+                                            <a class="collapsed" role="button" data-toggle="collapse"
 
-    </div>
+                                               data-parent="#accordion" href="#collapse9" aria-expanded="false"
 
-</div>
+                                               aria-controls="collapsefive">
 
-<!-- ta3gel -->
+                                                <i class="fa fa-list" aria-hidden="true"></i> تغيير الحساب البنكي
 
-<!---------------------------------------------  تغيير الحساب البنكي-------------------------------------------->
+                                            </a>
 
-<div class=" col-md-3   col-xs-12 panel panel-default">
-
-    <div class="panel-heading" role="tab" id="heading3">
-
-        <h4 class="panel-title">
-
-            <a class="collapsed" role="button" data-toggle="collapse"
-
-               data-parent="#accordion" href="#collapse9" aria-expanded="false"
-
-               aria-controls="collapsefive">
-
-                <i class="fa fa-list" aria-hidden="true"></i> تغيير الحساب البنكي
-
-            </a>
-
-        </h4>
-
-    </div>
-
-    <div id="collapse9" class="panel-collapse collapse " role="tabpanel"
-
-         aria-labelledby="heading7">
-
-        <!---------------------------------------الطلبات----------------------------------------->
-
-        
-
-        <center>
-
-            <div class="col-xs-12">
-
-                <div class="panel panel-default">
-
-                    <div class="panel-body">
-
-                        <div class="tab-pane" id="pag4" role="tabpanel">
-
-                            <div class="padding-10">
-
-                                <div class="panel panel-default">
-
-                                    <div class="modal-header">
-
-                                        <h5 class="modal-title"
-
-                                            style="text-align: center;">
-
-                                            تغيير الحساب البنكي
-
-                                        </h5>
+                                        </h4>
 
                                     </div>
 
-                                    <div class="modal-body"
+                                    <div id="collapse9" class="panel-collapse collapse " role="tabpanel"
 
-                                         style=" height:200px;overflow: hidden;">
+                                         aria-labelledby="heading7">
 
-                                        <!-- Side navigation Bar -->
+                                        <!---------------------------------------الطلبات----------------------------------------->
 
-                                        <div class="sidehoverbar">
 
-                                            <a href="#" data-toggle="modal"
+                                        <center>
 
-                                               onclick="get_banks_tab('mine_1','طلباتي')"
+                                            <div class="col-xs-12">
 
-                                               data-target="#ezn_Modal" class="article">
+                                                <div class="panel panel-default">
+
+                                                    <div class="panel-body">
+
+                                                        <div class="tab-pane" id="pag4" role="tabpanel">
+
+                                                            <div class="padding-10">
+
+                                                                <div class="panel panel-default">
+
+                                                                    <div class="modal-header">
+
+                                                                        <h5 class="modal-title"
+
+                                                                            style="text-align: center;">
+
+                                                                            تغيير الحساب البنكي
+
+                                                                        </h5>
+
+                                                                    </div>
+
+                                                                    <div class="modal-body"
+
+                                                                         style=" height:200px;overflow: hidden;">
+
+                                                                        <!-- Side navigation Bar -->
+
+                                                                        <div class="sidehoverbar">
+
+                                                                            <a href="#" data-toggle="modal"
+
+                                                                               onclick="get_banks_tab('mine_1','طلباتي')"
+
+                                                                               data-target="#ezn_Modal" class="article">
 
                                                                                 <span class="test"><?php if (!empty($user_orders_banks)) {
 
@@ -2198,13 +2012,13 @@ style="margin-top: 39px;">
 
                                                                                     } ?> </span>
 
-                                                <span style="font-size: 18px;"> طلباتى</span>
+                                                                                <span style="font-size: 18px;"> طلباتى</span>
 
-                                                <i class="fa fa-edit icons"></i>
+                                                                                <i class="fa fa-edit icons"></i>
 
-                                            </a> <span id="test"
+                                                                            </a> <span id="test"
 
-                                                       class=" label-danger count">
+                                                                                       class=" label-danger count">
 
                                                                                 <?php if (!empty($user_orders_banks)) {
 
@@ -2218,15 +2032,14 @@ style="margin-top: 39px;">
 
                                                                             </span><h5>طلباتى</h5>
 
-                                        
 
-                                            <a href="#" data-toggle="modal"
+                                                                            <a href="#" data-toggle="modal"
 
-                                               onclick="get_banks_tab('comming_1','الوارد')"
+                                                                               onclick="get_banks_tab('comming_1','الوارد')"
 
-                                               data-target="#ezn_Modal"
+                                                                               data-target="#ezn_Modal"
 
-                                               class="Scripter">
+                                                                               class="Scripter">
 
                                                                                 <span class="test"><?php if (!empty($coming_records_banks)) {
 
@@ -2238,15 +2051,15 @@ style="margin-top: 39px;">
 
                                                                                     } ?> </span>
 
-                                                <span style="font-size: 18px;"> الوارد</span>
+                                                                                <span style="font-size: 18px;"> الوارد</span>
 
-                                                <i class="fa fa-commenting icons"></i>
+                                                                                <i class="fa fa-commenting icons"></i>
 
-                                            </a><span id="test"
+                                                                            </a><span id="test"
 
-                                                      class=" label-danger count"
+                                                                                      class=" label-danger count"
 
-                                                      style="margin-top: 32px;">
+                                                                                      style="margin-top: 32px;">
 
                                                                                 <?php if (!empty($coming_records_banks)) {
 
@@ -2258,47 +2071,34 @@ style="margin-top: 39px;">
 
                                                                                 } ?> </span><h5
 
-                                                    style="margin-top: 39px;">
+                                                                                    style="margin-top: 39px;">
 
-                                                الوارد</h5>
+                                                                                الوارد</h5>
 
-                                        </div>
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </center>
 
                                     </div>
 
                                 </div>
 
-                            </div>
 
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </center>
-
-    </div>
-
-</div>             
-
-       
-
-       
-
-       
-
-       
-
-                               
-
-                                
-
-                                
-
-          <div class=" col-md-3   col-xs-12 panel panel-default">
+                                <div class=" col-md-3   col-xs-12 panel panel-default">
 
                                     <div class="panel-heading" role="tab" id="heading7">
 
@@ -2432,7 +2232,8 @@ style="margin-top: 39px;">
 
                                                                                 } ?>
 
-                                                                            </span><h5 style="margin-top: 37px;">متابعة طلباتي</h5>
+                                                                            </span><h5 style="margin-top: 37px;">متابعة
+                                                                                طلباتي</h5>
 
                                                                             <a href="#" data-toggle="modal"
 
@@ -2470,7 +2271,9 @@ style="margin-top: 39px;">
 
                                                                                     echo 0;
 
-                                                                                } ?> </span><h5 style="margin-top: 39px;">الوارد</h5>
+                                                                                } ?> </span><h5
+                                                                                    style="margin-top: 39px;">
+                                                                                الوارد</h5>
 
                                                                         </div>
 
@@ -2492,19 +2295,10 @@ style="margin-top: 39px;">
 
                                     </div>
 
-                                </div>                               
+                                </div>
 
-                                
 
-                                
-
-                                
-
-                                
-
-                                
-
-    <!--------------------------------------------- تحويلات الحسابات   -------------------------------------------->
+                                <!--------------------------------------------- تحويلات الحسابات   -------------------------------------------->
 
                                 <div class=" col-md-3   col-xs-12 panel panel-default">
 
@@ -2602,7 +2396,7 @@ style="margin-top: 39px;">
 
                                                                             </span>  <h5>طلباتى</h5>
 
-                                                                          <!--  <a href="#" data-toggle="modal"
+                                                                            <!--  <a href="#" data-toggle="modal"
 
                                                                                onclick="get_accounts_tab('follow_1','متابعة طلباتي')"
 
@@ -2610,13 +2404,13 @@ style="margin-top: 39px;">
 
                                                                                 <span class="test"><?php if (!empty($user_accounts_orders)) {
 
-                                                                                        echo count($user_accounts_orders);
+                                                                                echo count($user_accounts_orders);
 
-                                                                                    } else {
+                                                                            } else {
 
-                                                                                        echo 0;
+                                                                                echo 0;
 
-                                                                                    } ?> </span>
+                                                                            } ?> </span>
 
                                                                                 <span style="font-size: 18px;"> متابعة طلباتي</span>
 
@@ -2628,13 +2422,13 @@ style="margin-top: 39px;">
 
                                                                                 <?php if (!empty($user_accounts_orders)) {
 
-                                                                                    echo count($user_accounts_orders);
+                                                                                echo count($user_accounts_orders);
 
-                                                                                } else {
+                                                                            } else {
 
-                                                                                    echo 0;
+                                                                                echo 0;
 
-                                                                                } ?>
+                                                                            } ?>
 
                                                                             </span>  <h5>متابعة طلباتي</h5>
 
@@ -2702,23 +2496,12 @@ style="margin-top: 39px;">
 
                                     </div>
 
-                                </div>                              
+                                </div>
 
-                                
-
-                                
-
-                                
-
-                                
-
-                                
-
-                                
 
                                 <!---------------------------------------------    إنتدابات-------------------------------------------->
 
-                             <!--   <div class=" col-md-3   col-xs-12 panel panel-default">
+                                <!--   <div class=" col-md-3   col-xs-12 panel panel-default">
 
                                     <div class="panel-heading" role="tab" id="heading6">
 
@@ -2742,7 +2525,7 @@ style="margin-top: 39px;">
 
                                          aria-labelledby="heading6">
 
-                                      
+
                                         <center>
 
                                             <div class="col-xs-12">
@@ -2773,13 +2556,217 @@ style="margin-top: 39px;">
 
                                                                          style=" height:200px;overflow: hidden;">
 
-                                                              
+
 
                                                                         <div class="sidehoverbar">
 
                                                                             <a href="#" data-toggle="modal"
 
                                                                                onclick="get_mandate_tab('1','طلباتي')"
+
+                                                                               data-target="#ezn_Modal" class="article">
+
+                                                                                <span class="test"><?php if (!empty($mandate_records)) {
+
+                                    echo count($mandate_records);
+
+                                } else {
+
+                                    echo 0;
+
+                                } ?> </span>
+
+                                                                                <span style="font-size: 18px;"> طلباتى</span>
+
+                                                                                <i class="fa fa-edit icons"></i>
+
+                                                                            </a> <span id="test"
+
+                                                                                       class=" label-danger count">
+
+                                                                                <?php if (!empty($mandate_records)) {
+
+                                    echo count($mandate_records);
+
+                                } else {
+
+                                    echo 0;
+
+                                } ?>
+
+                                                                            </span><h5>طلباتى</h5>
+
+                                                                            <a href="#" data-toggle="modal"
+
+                                                                               onclick="get_mandate_tab('2','متابعة طلباتي')"
+
+                                                                               data-target="#ezn_Modal"
+
+                                                                               class="Interview">
+
+                                                                                <span class="test"><?php if (!empty($mandate_records)) {
+
+                                    echo count($mandate_records);
+
+                                } else {
+
+                                    echo 0;
+
+                                } ?> </span>
+
+                                                                                <span style="font-size: 18px;"> متابعة طلباتي</span>
+
+                                                                                <i class="fa fa-file-o icons"></i>
+
+                                                                            </a><span id="test"
+
+                                                                                      class=" label-danger count"
+
+                                                                                      style="margin-top: 28px;">
+
+                                                                                <?php if (!empty($mandate_records)) {
+
+                                    echo count($mandate_records);
+
+                                } else {
+
+                                    echo 0;
+
+                                } ?>
+
+                                                                            </span><h5 style="margin-top: 37px;">متابعة
+
+                                                                                طلباتي</h5>
+
+                                                                            <a href="#" data-toggle="modal"
+
+                                                                               onclick="get_mandate_tab('3','الوارد')"
+
+                                                                               data-target="#ezn_Modal"
+
+                                                                               class="Scripter">
+
+                                                                                <span class="test"><?php if (!empty($mandate_coming)) {
+
+                                    echo count($mandate_coming);
+
+                                } else {
+
+                                    echo 0;
+
+                                } ?> </span>
+
+                                                                                <span style="font-size: 18px;"> الوارد</span>
+
+                                                                                <i class="fa fa-commenting icons"></i>
+
+                                                                            </a><span id="test"
+
+                                                                                      class=" label-danger count"
+
+                                                                                      style="margin-top: 32px;">
+
+                                                                                <?php if (!empty($mandate_coming)) {
+
+                                    echo count($mandate_coming);
+
+                                } else {
+
+                                    echo 0;
+
+                                } ?> </span><h5
+
+                                                                                    style="margin-top: 39px;">
+
+                                                                                الوارد</h5>
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </center>
+
+                                    </div>
+
+                                </div>
+-->
+
+
+                                <div class=" col-md-3   col-xs-12 panel panel-default">
+
+                                    <div class="panel-heading" role="tab" id="heading6">
+
+                                        <h4 class="panel-title">
+
+                                            <a class="collapsed" role="button" data-toggle="collapse"
+
+                                               data-parent="#accordion" href="#collapse16" aria-expanded="false"
+
+                                               aria-controls="collapse16">
+
+                                                <i class="fa fa-list" aria-hidden="true"></i> ساعات التطوع
+
+                                            </a>
+
+                                        </h4>
+
+                                    </div>
+
+                                    <div id="collapse16" class="panel-collapse collapse " role="tabpanel"
+
+                                         aria-labelledby="heading6">
+
+                                        <!---------------------------------------الطلبات----------------------------------------->
+
+                                        <center>
+
+                                            <div class="col-xs-12">
+
+                                                <div class="panel panel-default">
+
+                                                    <div class="panel-body">
+
+                                                        <div class="tab-pane" id="pag4" role="tabpanel">
+
+                                                            <div class="padding-10">
+
+                                                                <div class="panel panel-default">
+
+                                                                    <div class="modal-header">
+
+                                                                        <h5 class="modal-title"
+
+                                                                            style="text-align: center;">
+
+                                                                            ساعات التطوع
+
+                                                                        </h5>
+
+                                                                    </div>
+
+                                                                    <div class="modal-body"
+
+                                                                         style=" height:200px;overflow: hidden;">
+
+                                                                        <!-- Side navigation Bar -->
+
+                                                                        <div class="sidehoverbar">
+
+                                                                            <a href="#" data-toggle="modal"
+
+                                                                               onclick="get_volunteer_hours_tab('1','طلباتي')"
 
                                                                                data-target="#ezn_Modal" class="article">
 
@@ -2815,7 +2802,7 @@ style="margin-top: 39px;">
 
                                                                             <a href="#" data-toggle="modal"
 
-                                                                               onclick="get_mandate_tab('2','متابعة طلباتي')"
+                                                                               onclick="get_volunteer_hours_tab('2','متابعة طلباتي')"
 
                                                                                data-target="#ezn_Modal"
 
@@ -2857,7 +2844,7 @@ style="margin-top: 39px;">
 
                                                                             <a href="#" data-toggle="modal"
 
-                                                                               onclick="get_mandate_tab('3','الوارد')"
+                                                                               onclick="get_volunteer_hours_tab('3','الوارد')"
 
                                                                                data-target="#ezn_Modal"
 
@@ -2918,220 +2905,7 @@ style="margin-top: 39px;">
                                     </div>
 
                                 </div>
--->
 
-
-
-
-
-
-
-
-
-
-<div class=" col-md-3   col-xs-12 panel panel-default">
-
-    <div class="panel-heading" role="tab" id="heading6">
-
-        <h4 class="panel-title">
-
-            <a class="collapsed" role="button" data-toggle="collapse"
-
-               data-parent="#accordion" href="#collapse16" aria-expanded="false"
-
-               aria-controls="collapse16">
-
-                <i class="fa fa-list" aria-hidden="true"></i> ساعات التطوع
-
-            </a>
-
-        </h4>
-
-    </div>
-
-    <div id="collapse16" class="panel-collapse collapse " role="tabpanel"
-
-         aria-labelledby="heading6">
-
-        <!---------------------------------------الطلبات----------------------------------------->
-
-        <center>
-
-            <div class="col-xs-12">
-
-                <div class="panel panel-default">
-
-                    <div class="panel-body">
-
-                        <div class="tab-pane" id="pag4" role="tabpanel">
-
-                            <div class="padding-10">
-
-                                <div class="panel panel-default">
-
-                                    <div class="modal-header">
-
-                                        <h5 class="modal-title"
-
-                                            style="text-align: center;">
-
-                                            ساعات التطوع
-
-                                        </h5>
-
-                                    </div>
-
-                                    <div class="modal-body"
-
-                                         style=" height:200px;overflow: hidden;">
-
-                                        <!-- Side navigation Bar -->
-
-                                        <div class="sidehoverbar">
-
-                                            <a href="#" data-toggle="modal"
-
-                                               onclick="get_volunteer_hours_tab('1','طلباتي')"
-
-                                               data-target="#ezn_Modal" class="article">
-
-                                                                                <span class="test"><?php if (!empty($mandate_records)) {
-
-                                                                                        echo count($mandate_records);
-
-                                                                                    } else {
-
-                                                                                        echo 0;
-
-                                                                                    } ?> </span>
-
-                                                <span style="font-size: 18px;"> طلباتى</span>
-
-                                                <i class="fa fa-edit icons"></i>
-
-                                            </a> <span id="test"
-
-                                                       class=" label-danger count">
-
-                                                                                <?php if (!empty($mandate_records)) {
-
-                                                                                    echo count($mandate_records);
-
-                                                                                } else {
-
-                                                                                    echo 0;
-
-                                                                                } ?>
-
-                                                                            </span><h5>طلباتى</h5>
-
-                                            <a href="#" data-toggle="modal"
-
-                                               onclick="get_volunteer_hours_tab('2','متابعة طلباتي')"
-
-                                               data-target="#ezn_Modal"
-
-                                               class="Interview">
-
-                                                                                <span class="test"><?php if (!empty($mandate_records)) {
-
-                                                                                        echo count($mandate_records);
-
-                                                                                    } else {
-
-                                                                                        echo 0;
-
-                                                                                    } ?> </span>
-
-                                                <span style="font-size: 18px;"> متابعة طلباتي</span>
-
-                                                <i class="fa fa-file-o icons"></i>
-
-                                            </a><span id="test"
-
-                                                      class=" label-danger count"
-
-                                                      style="margin-top: 28px;">
-
-                                                                                <?php if (!empty($mandate_records)) {
-
-                                                                                    echo count($mandate_records);
-
-                                                                                } else {
-
-                                                                                    echo 0;
-
-                                                                                } ?>
-
-                                                                            </span><h5 style="margin-top: 37px;">متابعة
-
-                                                طلباتي</h5>
-
-                                            <a href="#" data-toggle="modal"
-
-                                               onclick="get_volunteer_hours_tab('3','الوارد')"
-
-                                               data-target="#ezn_Modal"
-
-                                               class="Scripter">
-
-                                                                                <span class="test"><?php if (!empty($mandate_coming)) {
-
-                                                                                        echo count($mandate_coming);
-
-                                                                                    } else {
-
-                                                                                        echo 0;
-
-                                                                                    } ?> </span>
-
-                                                <span style="font-size: 18px;"> الوارد</span>
-
-                                                <i class="fa fa-commenting icons"></i>
-
-                                            </a><span id="test"
-
-                                                      class=" label-danger count"
-
-                                                      style="margin-top: 32px;">
-
-                                                                                <?php if (!empty($mandate_coming)) {
-
-                                                                                    echo count($mandate_coming);
-
-                                                                                } else {
-
-                                                                                    echo 0;
-
-                                                                                } ?> </span><h5
-
-                                                    style="margin-top: 39px;">
-
-                                                الوارد</h5>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </center>
-
-    </div>
-
-</div>                                
-
-                                
 
                                 <!---------------------------------------------    السلف-------------------------------------------->
 
@@ -3672,9 +3446,7 @@ style="margin-top: 39px;">
 </script>
 
 
-
 <script>
-
 
 
     function get_solaf_tagel_tab(tab_id, text) {
@@ -3716,14 +3488,12 @@ style="margin-top: 39px;">
     }
 
 
-
 </script>
-
 
 
 <script>
 
-   /*12-8-20-om*/
+    /*12-8-20-om*/
 
     function get_salaries_tab(tab_id, text) {
 
@@ -3762,13 +3532,10 @@ style="margin-top: 39px;">
     }
 
 
-
 </script>
 
 
-
 <script>
-
 
 
     function get_accounts_tab(tab_id, text) {
@@ -3812,9 +3579,7 @@ style="margin-top: 39px;">
 </script>
 
 
-
 <script>
-
 
 
     function get_solaf_ta3gel_tab(tab_id, text) {
@@ -3856,15 +3621,10 @@ style="margin-top: 39px;">
     }
 
 
-
 </script>
 
 
-
-
-
 <script>
-
 
 
     function get_banks_tab(tab_id, text) {
@@ -3904,7 +3664,6 @@ style="margin-top: 39px;">
         });
 
     }
-
 
 
 </script>
@@ -3948,7 +3707,6 @@ style="margin-top: 39px;">
         });
 
     }
-
 
 
 </script>

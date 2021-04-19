@@ -1,6 +1,5 @@
 <?php
 
-
 class Notifications extends CI_Controller
 {
     public function __construct()
@@ -14,40 +13,7 @@ class Notifications extends CI_Controller
 
     }
 
-    /*function get_all_notification()
-    {
 
-
-           $table_arr = array('hr_all_agzat_orders', 'hr_all_ozonat_orders', 'hr_solaf', 'arch_notes_history', 'arch_sader_history', 'arch_wared_history', 'email_inbox',
-            'arch_sader_comments', 'arch_wared_twgehat', 'chat', 'pr_contact', 'family_chat', 'hr_entdab', 'hr_mosayer', 'finance_account_transformations', "hr_solaf_tagel",
-             "hr_solaf_ta3gel",'hr_emp_hesabat_banks_orders');
-
-
-        $notifiy_filde = array('seen', 'seen', 'seen', 'seen', 'seen', 'seen', 'seen', 'seen', 'seen',
-             'seen','suspend','seen','seen','seen','seen','seen','seen','seen');
-        $where_filde = array('current_to_user_id', 'current_to_id', 'current_to_user_id', 'to_user_id',
-           'to_user_id', 'to_user_id', 'email_to_id', 'to_user_id', 'to_user_id',
-            'receiver_id','suspend','receiver_id','current_to_user_id','current_to_user_id',
-            'current_to_user_id','current_to_user_id','current_to_user_id','current_to_user_id');
-        $where_filde_value = array($_SESSION['user_id'], $_SESSION['user_id'], $_SESSION['user_id'], $_SESSION['emp_code'], $_SESSION['emp_code'], $_SESSION['emp_code'], $_SESSION['emp_code'],
-            $_SESSION['emp_code'], $_SESSION['emp_code'],$_SESSION['user_id'],0,$_SESSION['user_id'],$_SESSION['user_id'],
-            $_SESSION['user_id'],$_SESSION['user_id'],$_SESSION['user_id'],$_SESSION['user_id'],$_SESSION['user_id']);
-
-        $return_arr = array();
-
-        $count = sizeof($table_arr);
-
-        for ($i = 0; $i < $count; $i++) {
-
-            $count_q = $this->db->select('COUNT(id) as count')->where($notifiy_filde[$i], 0)->where($where_filde[$i], $where_filde_value[$i])
-                ->get($table_arr[$i])->row()->count;
-            array_push($return_arr, $count_q);
-        }
-
-        $data['notification'] = $return_arr;
-        echo json_encode($data);
-
-    }*/
     function get_all_notification()
     {
 
@@ -83,7 +49,8 @@ class Notifications extends CI_Controller
             'selected_lagna_members',
             'basic',
             'basic',
-            'transformation_process');
+            'transformation_process',
+            'hr_mohma');
         $notifiy_filde_array = array(
             array('seen' => 0, 'current_to_user_id' => $_SESSION['user_id']),
             array('seen' => 0, 'current_to_id' => $_SESSION['user_id']),
@@ -115,9 +82,11 @@ class Notifications extends CI_Controller
             array('seen' => 0, 'current_to_user_id' => $_SESSION['user_id']),
             array('replay_invitation_seen' => 'no', 'member_id' => $_SESSION['emp_code'], 'replay_invitation' => 0),
             array('member_decision_seen' => 'no', 'member_id' => $_SESSION['emp_code'], 'member_decision' => 0, 'finished' => 1),
-            array('current_to_seen' => 0, 'current_to_user_id' => $_SESSION['user_id']),
+            array('current_to_seen' => 0, 'current_to_user_id' => $_SESSION['user_id'], 'current_to_seen' => 0),
             array('current_to_emp_seen' => 0, 'current_to_emp_user_id' => $_SESSION['user_id']),
-            array('seen' => 0, 'to_id' => $_SESSION['user_id'],"transformation_type!="=> 8),
+            array('seen' => 0, 'to_id' => $_SESSION['user_id']),
+            array('seen' => 0, 'emp_id_fk' => $_SESSION['emp_code'], 'send_all_mohma' => 1)
+
         );
         $return_arr = array();
         $count = sizeof($table_arr);
@@ -133,30 +102,7 @@ class Notifications extends CI_Controller
 
     }
 
-    /*function get_all_notification()
-    {
-      $table_arr = array('hr_all_agzat_orders', 'hr_all_ozonat_orders', 'hr_solaf', 'arch_notes_history', 'arch_sader_history', 'arch_wared_history', 'email_inbox',
-            'arch_sader_comments', 'arch_wared_twgehat','chat','pr_contact','family_chat','hr_mandate_orders','hr_mosayer','finance_account_transformations');
-        $notifiy_filde = array('seen', 'seen', 'seen', 'seen', 'seen', 'seen', 'seen', 'seen', 'seen', 'seen','suspend','seen','seen','seen','seen');
-        $where_filde = array('current_to_user_id', 'current_to_id', 'current_to_user_id', 'to_user_id', 'to_user_id', 'to_user_id', 'email_to_id', 'to_user_id', 'to_user_id', 'receiver_id','suspend','receiver_id','current_to_user_id','current_to_user_id','current_to_user_id');
-        $where_filde_value = array($_SESSION['user_id'], $_SESSION['user_id'], $_SESSION['user_id'], $_SESSION['emp_code'], $_SESSION['emp_code'], $_SESSION['emp_code'], $_SESSION['emp_code'],
-            $_SESSION['emp_code'], $_SESSION['emp_code'],$_SESSION['user_id'],0,$_SESSION['user_id'],$_SESSION['user_id'],$_SESSION['user_id'],$_SESSION['user_id']);
 
-        $return_arr = array();
-
-        $count = sizeof($table_arr);
-
-        for ($i = 0; $i < $count; $i++) {
-
-            $count_q = $this->db->select('COUNT(id) as count')->where($notifiy_filde[$i], 0)->where($where_filde[$i], $where_filde_value[$i])
-                ->get($table_arr[$i])->row()->count;
-            array_push($return_arr, $count_q);
-        }
-
-        $data['notification'] = $return_arr;
-        echo json_encode($data);
-
-    }*/
     function get_all_notification_web()
     {
 

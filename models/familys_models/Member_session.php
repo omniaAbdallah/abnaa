@@ -8,28 +8,6 @@ class Member_session  extends CI_Model
         parent::__construct();
 
     }
-    public function all_glasat_decision($Conditions_arr)
-    {
-        $this->db->select('*');
-        $this->db->from('selected_lagna_members');
-        $this->db->where($Conditions_arr);
-        $this->db->order_by('glsa_rkm','DESC');
-        $query = $this->db->get();
-        if ($query->num_rows() > 0) {
-            $session_active = $this->chek_found_session();
-            $data = $query->result();
-            $x = 0;
-            foreach ($query->result() as $row) {
-                // $data[$x]->data = $this->get_session_procedure($row->session_number);
-                $data[$x]->session_active = $session_active;
-                $data[$x]->do_action = $this->check_can_action($row->session_number);
-                $data[$x]->galsa_member_job = $this->getByArray_job_name($row->member_type, $row->member_id);
-                $x++;
-            }
-            return $data;
-        }
-        return false;
-    }
 
   /*  public function get_member_session()
     {
@@ -84,21 +62,47 @@ class Member_session  extends CI_Model
     public function chek_found_session(){
         $this->db->select('id');
         $this->db->from("selected_lagna_members");
-        $this->db->where("finished",0);
-        $this->db->where("suspend",1);
+        $this->db->where("finished", 0);
+        $this->db->where("suspend", 1);
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return 1;
         }
-        return 0;    
-    } 
+        return 0;
+    }
+
+    public function all_glasat_decision($Conditions_arr)
+    {
+        $this->db->select('*');
+        $this->db->from('selected_lagna_members');
+        $this->db->where($Conditions_arr);
+        $this->db->order_by('glsa_rkm', 'DESC');
+        //  $this->db->where('glsa_rkm',51);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            $session_active = $this->chek_found_session();
+            $data = $query->result();
+            $x = 0;
+            foreach ($query->result() as $row) {
+                // $data[$x]->data = $this->get_session_procedure($row->session_number);
+                $data[$x]->session_active = $session_active;
+                $data[$x]->do_action = $this->check_can_action($row->session_number);
+                $data[$x]->galsa_member_job = $this->getByArray_job_name($row->member_type, $row->member_id);
+                $x++;
+            }
+            return $data;
+        }
+        return false;
+    }
+
     //-------------------------------------------------------
-    public function check_can_action($session_number){
+    public function check_can_action($session_number)
+    {
         $this->db->select('id');
         $this->db->from("selected_lagna_members");
-        $this->db->where("finished",0);
-        $this->db->where("suspend",1);
-        $this->db->where("session_number",$session_number);
+        $this->db->where("finished", 0);
+        $this->db->where("suspend", 1);
+        $this->db->where("session_number", $session_number);
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return 1;

@@ -1,4 +1,5 @@
 <?php
+
 class  AllPills extends MY_Controller
 {
     public function __construct()
@@ -10,9 +11,11 @@ class  AllPills extends MY_Controller
         }
         $this->load->model('Difined_model');
         $this->load->model("all_Finance_resource_models/all_pills/AllPills_model");
+
         $this->load->helper(array('url', 'text', 'permission', 'form'));
         $this->load->model('familys_models/Model_access_rule');
         $this->load->model('system_management/Groups');
+
         $this->load->model('familys_models/for_dash/Counting');
         $this->count_basic_in = $this->Counting->get_basic_in_num();
         $this->files_basic_in = $this->Counting->get_files_basic_in();
@@ -21,16 +24,25 @@ class  AllPills extends MY_Controller
         $this->load->model('all_Finance_resource_models/all_pills/AllPills_model');
         $this->load->model('Difined_model');
         $this->load->model("familys_models/Connection_model");
+
     }
+
     private function test($data = array())
     {
+
         echo "<pre>";
+
         print_r($data);
+
         echo "</pre>";
+
         die;
+
     }
+
     public function convert_number($number)
     {
+
         if (($number < 0) || ($number > 999999999999)) {
             throw new Exception("العدد خارج النطاق");
         }
@@ -49,6 +61,7 @@ class  AllPills extends MY_Controller
         }
         return $return;
     }
+
     private function convert($number, $place)
     {
         // take in charge the sex of NUMBERED
@@ -82,6 +95,7 @@ class  AllPills extends MY_Controller
             '3' => array('1' => 'مليون', '2' => 'مليونان', '3' => 'ملايين'),
             '4' => array('1' => 'مليار', '2' => 'ملياران', '3' => 'مليارات')
         );
+
         $mf = array('1' => $sex, '2' => 'male', '3' => 'male', '4' => 'male');
         $number_length = strlen((string)$number);
         if ($number == 0) return '';
@@ -95,12 +109,14 @@ class  AllPills extends MY_Controller
                 $number = (int)substr($number, -1);
                 $number = (string)$number;
                 $number_length = strlen((string)$number);
+
             } else {
                 $number = (int)substr($number, -2);
                 $number = (string)$number;
                 $number_length = strlen((string)$number);
             }
         }
+
         switch ($number_length) {
             case '1':
                 {
@@ -112,6 +128,7 @@ class  AllPills extends MY_Controller
                             break;
                         case '2':
                             {
+
                                 if ($number == 1) $return = 'ألف';
                                 else if ($number == 2) $return = 'ألفان';
                                 else {
@@ -262,75 +279,147 @@ class  AllPills extends MY_Controller
         }
         return $return;
     }
+
+
     private function ara_date()
     {
+
         $nameday = date("l");
+
         $day = date("d");
+
         $namemonth = date("m");
+
+
         $year = date("Y");
+
         switch ($nameday) {
+
             case "Saturday":
+
                 $nameday = "السبت";
+
                 break;
+
             case "Sunday":
+
                 $nameday = "الأحد";
+
                 break;
+
             case "Monday":
+
                 $nameday = "الاثنين";
+
                 break;
+
             case "Tuesday":
+
                 $nameday = "الثلاثاء";
+
                 break;
+
             case "Wednesday":
+
                 $nameday = "الأربعاء";
+
                 break;
+
             case "Thursday":
+
                 $nameday = "الخميس";
+
                 break;
+
             case "Friday":
+
                 $nameday = "الجمعة";
+
                 break;
+
         }
+
         switch ($namemonth) {
+
             case 1:
+
                 $namemonth = "يناير";
+
                 break;
+
             case 2:
+
                 $namemonth = "فبراير";
+
                 break;
+
             case 3:
+
                 $namemonth = "مارس";
+
                 break;
+
             case 4:
+
                 $namemonth = "إبريل";
+
                 break;
+
             case 5:
+
                 $namemonth = "مايو";
+
                 break;
+
             case 6:
+
                 $namemonth = "يونيو";
+
                 break;
+
             case 7:
+
                 $namemonth = "يوليو";
+
                 break;
+
             case 8:
+
                 $namemonth = "اغسطس";
+
                 break;
+
             case 9:
+
                 $namemonth = "سبتمبر";
+
                 break;
+
             case 10:
+
                 $namemonth = "اكتوبر";
+
                 break;
+
             case 11:
+
                 $namemonth = "نوفمبر";
+
                 break;
+
             case 12:
+
                 $namemonth = "ديسمبر";
+
                 break;
+
         }
+
         return "$nameday $day $namemonth $year";
+
+
     }
+
     /**
      * @param $type     success
      * @param $type     wiring
@@ -338,27 +427,49 @@ class  AllPills extends MY_Controller
      */
     private function message($type, $text)
     {
+
         if ($type == 'success') {
+
             return $this->session->set_flashdata('message', '<div class="hidden-print alert alert-success alert-dismissible shadow" data-sr="wait 0s, then enter bottom and hustle 100%"><button type="button" class="close pull-left" data-dismiss="alert">×</button><h4 class="text-lg"><i class="fa fa-check icn-xs"></i> تم بنجاح ...</h4><p>' . $text . '!</p></div>');
+
         } elseif ($type == 'wiring') {
+
             return $this->session->set_flashdata('message', '<div class="alert alert-warning alert-dismissible" data-sr="wait 0.6s, then enter bottom and hustle 100%"><button type="button" class="close pull-left" data-dismiss="alert">×</button><h4 class="text-lg"><i class="fa fa-exclamation-triangle icn-xs"></i> تحذير هام ...</h4><p>' . $text . '</p></div>');
+
         } elseif ($type == 'error') {
+
             return $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible" data-sr="wait 0.3s, then enter bottom and hustle 100%"><button type="button" class="close pull-left" data-dismiss="alert">×</button><h4 class="text-lg"><i class="fa fa-exclamation-circle icn-xs"></i> خطآ ...</h4><p>' . $text . '</p></div>');
+
         }
+
     }
+
     private function thumb($data)
+
     {
+
         $config['image_library'] = 'gd2';
+
         $config['source_image'] = $data['full_path'];
+
         $config['new_image'] = 'uploads/thumbs/' . $data['file_name'];
+
         $config['create_thumb'] = TRUE;
+
         $config['maintain_ratio'] = TRUE;
+
         $config['thumb_marker'] = '';
+
         $config['width'] = 275;
+
         $config['height'] = 250;
+
         $this->load->library('image_lib', $config);
+
         $this->image_lib->resize();
+
     }
+
     private function upload_muli_image($input_name, $folder)
     {
         if (!empty($_FILES[$input_name]['name'])) {
@@ -374,12 +485,14 @@ class  AllPills extends MY_Controller
             return $all_img;
         }
     }
+
     private function upload_image($file_name, $folder)
     {
         $config['upload_path'] = 'uploads/' . $folder;
         $config['allowed_types'] = 'gif|Gif|ico|ICO|jpg|JPG|jpeg|JPEG|BNG|png|PNG|bmp|BMP|WMV|wmv|MP3|mp3|FLV|flv|SWF|swf';
         // $config['max_size']    = '1024*8';
         $config['max_size'] = '80000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000';
+
         $config['encrypt_name'] = true;
         $this->load->library('upload', $config);
         if (!$this->upload->do_upload($file_name)) {
@@ -390,21 +503,33 @@ class  AllPills extends MY_Controller
             return $datafile['file_name'];
         }
     }
+
     //////////////////////////////////
     private function upload_file($file_name)
     {
+
         $config['upload_path'] = 'uploads/files';
+
         $config['allowed_types'] = 'gif|Gif|ico|ICO|jpg|JPG|jpeg|JPEG|BNG|png|PNG|bmp|BMP|WMV|wmv|MP3|mp3|FLV|flv|SWF|swf|pdf|PDF|xls|xlsx|mp4|doc|docx|txt|rar|tar.gz|zip';
+
         $config['max_size'] = '1024*8';
         $config['overwrite'] = true;
         $this->load->library('upload', $config);
+
         if (!$this->upload->do_upload($file_name)) {
+
             return false;
+
         } else {
+
             $datafile = $this->upload->data();
+
             return $datafile['file_name'];
+
         }
+
     }
+
     ////////////////////end of excel library option
     private function url()
     {
@@ -453,6 +578,7 @@ class  AllPills extends MY_Controller
         }
         $NowDayName = $MDay_Name;
         $NowDate = "" . $HDays . "/" . $HMonths . "/" . $HYear . " ";
+
         return $NowDate;
     }
     private function current_hjri_year()
@@ -507,31 +633,51 @@ class  AllPills extends MY_Controller
         return $HYear;
     }
     ///////////////////////////////
+
+
     /*********************************************************************************************/
     /*********************************************************************************************/
     /*********************************************************************************************/
+
     public function addPills()
     {    // all_Finance_resource/all_pills/AllPills/addPills
+
 //$data['bank_account_code_shabka_arr']      
+
         $this->load->model('n/Users');
         $data['users'] = $this->Users->fetch_users_groups_2();
+
+
         $data['projects'] = $this->AllPills_model->get_projects();
+
         if ($this->input->post('save') != '') {
+
+
             $all_img = $this->upload_muli_image("file", "images/fr/all_pills");
+
             if (!empty($all_img)) {
                 $all_img = $all_img;
             } else {
                 $all_img = '';
             }
+
+
             if ($this->input->post('dawria_esal') >= 1) {
+
                 $this->AllPills_model->insert_dawria_esal($all_img);
                 $this->message('success', 'إضافة  بيانات الإيصال');
+
             } else {
+
                 $id = $this->uri->segment(5);
                 $last_id_print = $this->AllPills_model->insert($id, $all_img);
                 $this->message('success', 'إضافة  بيانات الإيصال');
             }
+
+
             $IIID = $this->input->post('pill_num');
+
+
             if ($this->input->post('save') === 'save') {
                 redirect('all_Finance_resource/all_pills/AllPills/addPills', 'refresh');
             } elseif ($this->input->post('save') === 'print_pill') {
@@ -539,12 +685,18 @@ class  AllPills extends MY_Controller
             } elseif ($this->input->post('save') === 'print_kafel') {
                 redirect('all_Finance_resource/all_pills/AllPills/Print_Pill2/' . $IIID . '?type=kafel', 'refresh');
             }
+
         } else {
             $id = $this->uri->segment(5);
             if (!empty($id)) {
+
                 $data['result'] = $this->AllPills_model->select_all_by_fr_all_pills(array('id' => $id))[0];
+
+
                 if (!empty($data['result'])) {
                     $number = number_format((float)$data['result']->value, 2, '.', '');
+
+
                     if (strpos($number, '.') !== false) {
                         $val = explode('.', $number);
                         $integer = $this->convert_number($val[0]);
@@ -555,37 +707,50 @@ class  AllPills extends MY_Controller
                             } else {
                                 $reyal = 'ريال و';
                             }
+
                             $data['ArabicNum'] = $integer . " " . "" . $reyal . "" . $float . " " . "هللة فقط لا غير";
                             $data['value'] = $number;
                         } else {
                             $data['ArabicNum'] = $integer . " " . "ريال " . " فقط لا غير";
                             $data['value'] = $val[0];
+
                         }
                     } else {
                         $title = $this->convert_number($number);
                         $data['title'] = $title . " " . "ريال فقط لا غير";
                         $data['value'] = $number;
                     }
+
+
                     $data['erad_tbro3_arr'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                         array('fe2a' => 0, 'band' => 0, 'erad_tabro3' => 0, 'esal' => $data['result']->pill_type));
+
                     $data['fe2a_type_arr'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                         array('fe2a' => 0, 'band' => 0, 'erad_tabro3' => $data['result']->erad_type));
+
                     $data['bnd_type_arr'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                         array('band' => 0, 'fe2a' => $data['result']->fe2a_type1));
+
+
                     $data['fe2a_type_arr2'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                         array('fe2a' => 0, 'band' => 0, 'erad_tabro3' => $data['result']->erad_type));
+
                     $data['bnd_type_arr2'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                         array('band' => 0, 'fe2a' => $data['result']->fe2a_type2));
+
+
                     $data['bank_accounts_arr'] = $this->AllPills_model->select_all_by_condition(
                         array('society_main_banks_account.bank_id_fk' => $data['result']->bank_id_fk), '');
+
                     $data['eda3_data'] = $this->AllPills_model->select_all_by_condition(
                         array('type' => 2, 'society_main_banks_account.bank_id_fk' => $data['result']->bank_id_fk, 'society_main_banks_account.account_id_fk' => $data['result']->bank_account_id_fk), '');
+
                     // $this->test($data['eda3_data']);
                     /*       $data['all_data'] =$this->AllPills_model->select_all_by_DeviceData(array('fr_devices_points.device_id_fk'=>$data['result']->device_num),'bank_id_fk');
                            $data['bank_account_code_shabka_arr'] =$this->AllPills_model->select_all_by_condition(
                                array('type'=>2,'society_main_banks_account.bank_id_fk'=>$data['result']->bank_id_fk,
                                    'society_main_banks_account.account_id_fk'=>$data['result']->bank_account_id_fk),'');
-           
+
            */
                     if (!empty($data['result']->device_num)) {
                         $data['all_data'] = $this->AllPills_model->select_all_by_DeviceData(array('fr_devices_points.device_id_fk' => $data['result']->device_num), 'bank_id_fk');
@@ -596,23 +761,36 @@ class  AllPills extends MY_Controller
                         $data['bank_account_code_shabka_arr'] = $this->AllPills_model->select_all_by_condition(array('type' => 2, 'society_main_banks_account.bank_id_fk' => $data['result']->bank_id_fk,
                             'society_main_banks_account.account_id_fk' => $data['result']->bank_account_id_fk), '');
                     }
+
+
                 }
+
+
                 if ($_SESSION['role_id_fk'] == 3) {
                     $data['gathering_emp_id'] = $this->AllPills_model->slect_where('fr_gathering_place', array('emp_id_fk' => $_SESSION['emp_code']))['gathering_place_id_fk'];
                     $data['raqm_deveice_emp'] = $this->AllPills_model->slect_where('fr_devices_points_emp', array('emp_id' => $_SESSION['emp_code']));
+
                     if (!empty($data['raqm_deveice_emp']['device_id_fk'])) {
+
                         $data['shabka_banks_data'] = $this->AllPills_model->select_all_by_DeviceData(
                             array('fr_devices_points.device_id_fk' => $data['raqm_deveice_emp']['device_id_fk']), 'bank_id_fk')[0];
+
                     }
+
                 }
+
             }
+
+
             $data['bank_brach'] = $this->AllPills_model->GetFromFr_settings(16);
+
             $data['username'] = $this->AllPills_model->getUserName($_SESSION['user_id']);
             $data['all_banks'] = $this->AllPills_model->select_all_by_condition(array("society_main_banks_account.type" => 2), "society_main_banks_account.bank_id_fk");
             $data['markz'] = $this->Difined_model->select_search_key('employees_settings', 'type', 17);
             $data['banks'] = $this->Difined_model->select_all('banks_settings', '', '', "id", "asc");
             $data['gathering_place'] = $this->AllPills_model->GetFromFr_settings(14);
             $data['maqr_tahsels'] = $this->AllPills_model->GetFromFr_settings(17);
+
             $data['fe2a_types'] = $this->Difined_model->select_all('fr_sponser_donors_setting', '', '', "", "");
             $data['society_main_banks_account_arr'] = $this->Difined_model->select_search_key('society_main_banks_account', 'type', 1);
             $data['all_society_main_banks_account'] = $this->Difined_model->select_search_key('society_main_banks_account', 'type', 2);
@@ -621,41 +799,58 @@ class  AllPills extends MY_Controller
             $data['last_id'] = $this->AllPills_model->select_last_id();
             $data['greetings'] = $this->AllPills_model->GetFromFr_settings(9);
             //   $data['devices_points'] = $this->Difined_model->select_all('fr_devices_points','','',"","");
+
             $data['devices_points'] = $this->AllPills_model->select_all_devices_points();
             $data['esal_type'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(array('esal' => 0));
+
+
             $data['all_pills_today'] = $this->AllPills_model->select_all_by_fr_all_pills_all();
+
             //$data['all_pills_today'] = '';
             //  $data['all_pills_inbox'] = $this->AllPills_model->select_all_by_fr_all_pills_all_deported();
+
 //  $data['all_money_today'] = $this->AllPills_model->select_total_by_pay_method();
+
+
             if ($_SESSION['role_id_fk'] == 3) {
                 $data['gathering_emp_id'] = $this->AllPills_model->slect_where('fr_gathering_place', array('emp_id_fk' => $_SESSION['emp_code']))['gathering_place_id_fk'];
                 $data['raqm_deveice_emp'] = $this->AllPills_model->slect_where('fr_devices_points_emp', array('emp_id' => $_SESSION['emp_code']));
+
                 if (!empty($data['raqm_deveice_emp']['device_id_fk'])) {
+
                     $data['shabka_banks_data'] = $this->AllPills_model->select_all_by_DeviceData(
                         array('fr_devices_points.device_id_fk' => $data['raqm_deveice_emp']['device_id_fk']), 'bank_id_fk')[0];
+
                 }
+
             }
             $data['bank_account_code_shabka_arr'] = $this->AllPills_model->select_all_by_condition(
                 array('type' => 2, 'society_main_banks_account.bank_id_fk' => 19,
                     'society_main_banks_account.account_id_fk' => 2), '');
             //   bank_account_code_shabka_arr bank_account_code
+
             if ($_SESSION['role_id_fk'] == 1 || $_SESSION['user_id'] == 69) {
                 $data['all_emps'] = $this->AllPills_model->get_emps();
+
             } elseif ($_SESSION['role_id_fk'] == 3) {
                 $data['emp'] = $this->AllPills_model->get_emp($_SESSION['emp_code']);
             }
+
             $data['all_cards'] = $this->Difined_model->select_search_key('fr_matgr_card_type', 'ttype', 1);
+
+
             $data['title'] = 'إضافة إيصال إستلام ';
             $data['subview'] = 'admin/all_Finance_resource_views/all_pills/addPills_data';
             $this->load->view('admin_index', $data);
         }
     }
+
     /* 19-10
     public function addPills(){	// all_Finance_resource/all_pills/AllPills/addPills
-          
+
      $this->load->model('n/Users');
      $data['users']=$this->Users->fetch_users_groups_2();
-     
+
     $this->load->model('all_Finance_resource_models/sponsors/Sponsors_model_load');
     $data["all_aytam"]= $this->Sponsors_model_load->all_aytam('f_members.categoriey_member=2   AND f_members.persons_status =1');
     $data["all_mostafed"]= $this->Sponsors_model_load->all_aytam('f_members.categoriey_member=3   AND f_members.persons_status =1');
@@ -664,133 +859,133 @@ class  AllPills extends MY_Controller
     $data["all_aytam_nos"]= $this->Sponsors_model_load->all_aytam_mkfol_nos();
     $data["all_aytam_shamla"]= $this->Sponsors_model_load->all_aytam_mkfol_shamla();
     $data["all_armal"]= $this->Sponsors_model_load->all_armal('mother.categoriey_m =1 And mother.halt_elmostafid_m =1 And mother.person_type =62');
-    $data["all_armal_mkfol"]= $this->Sponsors_model_load->all_armal('mother.categoriey_m =1 And mother.halt_elmostafid_m =1 And mother.person_type =62 And 
+    $data["all_armal_mkfol"]= $this->Sponsors_model_load->all_armal('mother.categoriey_m =1 And mother.halt_elmostafid_m =1 And mother.person_type =62 And
         mother.first_kafala_type =4 AND mother.first_halet_kafala =1 ');
-    
+
      $data['projects'] = $this->AllPills_model->get_projects();
-    
+
        if($this->input->post('save') !=''){
-        
-    
+
+
             $all_img= $this->upload_muli_image("file","images/fr/all_pills");
-    
+
             if(!empty($all_img)){
                 $all_img =$all_img;
             }else{
                 $all_img='';
             }
-    
+
                         if ($this->input->post('dawria_esal') >= 1) {
-    
+
                     $this->AllPills_model->insert_dawria_esal($all_img);
                     $this->message('success', 'إضافة  بيانات الإيصال');
-    
+
                 } else {
-    
+
                     $id = $this->uri->segment(5);
                     $last_id_print = $this->AllPills_model->insert($id, $all_img);
                     $this->message('success', 'إضافة  بيانات الإيصال');
                 }
-    
-    
-    
+
+
+
     $IIID =$this->input->post('pill_num');
-    
+
            if($this->input->post('save') === 'save') {
                  redirect('all_Finance_resource/all_pills/AllPills/addPills', 'refresh');
              }elseif ($this->input->post('save') === 'print_pill'){
                  redirect('all_Finance_resource/all_pills/AllPills/Print_Pill2/'.$IIID, 'refresh');
              }elseif ($this->input->post('save') ==='print_kafel'){
                  redirect('all_Finance_resource/all_pills/AllPills/Print_Pill2/'.$IIID.'?type=kafel', 'refresh');
-             }    
-             
+             }
+
         }else{
             $id = $this->uri->segment(5);
                 if(!empty($id)){
-    
+
                     $data['result'] = $this->AllPills_model->select_all_by_fr_all_pills(array('id'=>$id))[0];
-                
-                
+
+
                  if (!empty($data['result'])) {
                     $number =   number_format((float)$data['result']->value, 2, '.', '');
-    
-    
+
+
                     if (strpos($number,'.') !== false) {
                         $val =explode('.',$number);
                         $integer =$this->convert_number($val[0]);
                         $float =$this->convert_number(round($val[1]));
                         if(!empty(round($val[1]))){
-                             if($integer == ''){ $reyal = ''; }else{ $reyal = 'ريال و';   } 
-                            
+                             if($integer == ''){ $reyal = ''; }else{ $reyal = 'ريال و';   }
+
                             $data['ArabicNum'] = $integer." "."".$reyal."". $float." "."هللة فقط لا غير"  ;
                             $data['value'] = $number;
                         }else{
                             $data['ArabicNum'] = $integer." "."ريال ". " فقط لا غير"  ;
                             $data['value'] = $val[0];
-    
+
                         }
                     }else {
                         $title=$this->convert_number($number);
                         $data['title'] = $title." "."ريال فقط لا غير"  ;
                         $data['value'] = $number;
                     }
-    
-    
-    
-    
+
+
+
+
                         $data['erad_tbro3_arr'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                             array('fe2a'=>0,'band'=>0,'erad_tabro3'=>0,'esal'=>$data['result']->pill_type));
-    
+
                         $data['fe2a_type_arr'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                             array('fe2a'=>0,'band'=>0,'erad_tabro3'=>$data['result']->erad_type));
-    
+
                         $data['bnd_type_arr'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                             array('band'=>0,'fe2a'=>$data['result']->fe2a_type1));
-    
-    
-    
+
+
+
                             $data['fe2a_type_arr2'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                                 array('fe2a'=>0,'band'=>0,'erad_tabro3'=>$data['result']->erad_type));
-    
+
                             $data['bnd_type_arr2'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                                 array('band'=>0,'fe2a'=>$data['result']->fe2a_type2));
-    
-    
-    
+
+
+
                $data['bank_accounts_arr'] =$this->AllPills_model->select_all_by_condition(
                     array('society_main_banks_account.bank_id_fk'=>$data['result']->bank_id_fk),'');
-    
+
                     $data['eda3_data'] =$this->AllPills_model->select_all_by_condition(
                         array('type'=>2,'society_main_banks_account.bank_id_fk'=>$data['result']->bank_id_fk,'society_main_banks_account.account_id_fk'=>$data['result']->bank_account_id_fk),'');
-    
+
                    // $this->test($data['eda3_data']);
                     $data['all_data'] =$this->AllPills_model->select_all_by_DeviceData(array('fr_devices_points.device_id_fk'=>$data['result']->device_num),'bank_id_fk');
                     $data['bank_account_code_shabka_arr'] =$this->AllPills_model->select_all_by_condition(
                         array('type'=>2,'society_main_banks_account.bank_id_fk'=>$data['result']->bank_id_fk,
                             'society_main_banks_account.account_id_fk'=>$data['result']->bank_account_id_fk),'');
-    
-           
+
+
                 }
-                
-                
+
+
                    if($_SESSION['role_id_fk']== 3){
                    $data['gathering_emp_id'] = $this->AllPills_model->slect_where('fr_gathering_place',array('emp_id_fk'=>$_SESSION['emp_code']))['gathering_place_id_fk'];
                    $data['raqm_deveice_emp'] = $this->AllPills_model->slect_where('fr_devices_points_emp',array('emp_id'=>$_SESSION['emp_code']));
-                  
+
                    if(!empty($data['raqm_deveice_emp']['device_id_fk'])){
-    
+
                    $data['shabka_banks_data'] =$this->AllPills_model->select_all_by_DeviceData(
                     array('fr_devices_points.device_id_fk'=>$data['raqm_deveice_emp']['device_id_fk']),'bank_id_fk')[0];
-    
+
                    }
-    
+
              }
-             
+
              }
-                
-                
-             $data['bank_brach'] = $this->AllPills_model->GetFromFr_settings(16);    
-    
+
+
+             $data['bank_brach'] = $this->AllPills_model->GetFromFr_settings(16);
+
               $data['username'] = $this->AllPills_model->getUserName($_SESSION['user_id']);
               $data['all_banks'] = $this->AllPills_model->select_all_by_condition(array("society_main_banks_account.type"=>2),"society_main_banks_account.bank_id_fk");
               $data['markz'] = $this->Difined_model->select_search_key('employees_settings', 'type', 17);
@@ -804,29 +999,29 @@ class  AllPills extends MY_Controller
               $data['last_id'] = $this->AllPills_model->select_last_id();
               $data['greetings'] = $this->AllPills_model->GetFromFr_settings(9);
            //   $data['devices_points'] = $this->Difined_model->select_all('fr_devices_points','','',"","");
-             
+
               $data['devices_points'] =$this->AllPills_model->select_all_devices_points();
               $data['esal_type'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(array('esal'=>0));
-            
-            
-            
+
+
+
     $data['all_pills_today'] = $this->AllPills_model->select_all_by_fr_all_pills_all();
            //  $data['all_pills_inbox'] = $this->AllPills_model->select_all_by_fr_all_pills_all_deported();
-              
+
       $data['all_money_today'] = $this->AllPills_model->select_total_by_pay_method();
-              
-    
+
+
                        if($_SESSION['role_id_fk']== 3){
                    $data['gathering_emp_id'] = $this->AllPills_model->slect_where('fr_gathering_place',array('emp_id_fk'=>$_SESSION['emp_code']))['gathering_place_id_fk'];
                    $data['raqm_deveice_emp'] = $this->AllPills_model->slect_where('fr_devices_points_emp',array('emp_id'=>$_SESSION['emp_code']));
-                  
+
                    if(!empty($data['raqm_deveice_emp']['device_id_fk'])){
-    
+
                    $data['shabka_banks_data'] =$this->AllPills_model->select_all_by_DeviceData(
                     array('fr_devices_points.device_id_fk'=>$data['raqm_deveice_emp']['device_id_fk']),'bank_id_fk')[0];
-    
+
                    }
-    
+
              }
                 $data['bank_account_code_shabka_arr'] =$this->AllPills_model->select_all_by_condition(
                         array('type'=>2,'society_main_banks_account.bank_id_fk'=>19,
@@ -837,15 +1032,21 @@ class  AllPills extends MY_Controller
               $this->load->view('admin_index', $data);
         }
           }
-       
+
        */
+
     public function All_dep_pills()
     {
+
+
         $data['all_pills_inbox'] = $this->AllPills_model->select_all_by_fr_all_pills_all_deported();
         $data['title'] = 'جميع الإيصالات المرحلة  ';
         $data['subview'] = 'admin/all_Finance_resource_views/all_pills/all_dep_pills';
         $this->load->view('admin_index', $data);
+
     }
+
+
     public function Print_Pill($pill_num)
     {
         if (!empty($pill_num)) {
@@ -862,23 +1063,31 @@ class  AllPills extends MY_Controller
                     } else {
                         $reyal = 'ريال و';
                     }
+
                     $data['ArabicNum'] = $integer . " " . "" . $reyal . "" . $float . " " . "هللة فقط لا غير";
                     $data['value'] = $number;
                 } else {
                     $data['ArabicNum'] = $integer . " " . "ريال " . " فقط لا غير";
                     $data['value'] = $val[0];
+
                 }
             } else {
                 $title = $this->convert_number($number);
                 $data['title'] = $title . " " . "ريال فقط لا غير";
                 $data['value'] = $number;
             }
+
+
             $data['result'] = $this->AllPills_model->select_all_by_fr_all_pills(array('pill_num' => $pill_num))[0];
             $data['gathering_place'] = $this->AllPills_model->GetFromFr_settings(14);
             $data['titles'] = $this->AllPills_model->GetFromFr_settings(8);
             $data['greetings'] = $this->AllPills_model->GetFromFr_settings(9);
+
             //  $this->load->view('admin/all_Finance_resource_views/all_pills/PrintPill', $data);
+
             $type_esal = $this->AllPills_model->get_type_print($_SESSION['emp_code']);
+
+
             if (!empty($type_esal)) {
                 if ($type_esal == 1) {
 //                $this->test($_SESSION);
@@ -888,29 +1097,34 @@ class  AllPills extends MY_Controller
                 }
             } else {
                 $this->load->view('admin/all_Finance_resource_views/all_pills/PrintPill', $data);
+
             }
+
+
         }
     }
+
+
     /*public function addPills(){	// all_Finance_resource/all_pills/AllPills/addPills
-    
+
     //devices_points
        if($this->input->post('save') !=''){
-    
+
             $all_img= $this->upload_muli_image("file","images/fr/all_pills");
-    
+
             if(!empty($all_img)){
                 $all_img =$all_img;
             }else{
                 $all_img='';
             }
-    
+
             $id = $this->uri->segment(5);
-       
+
             $last_id_print = $this->AllPills_model->insert($id,$all_img);
             $this->message('success','إضافة  بيانات الإيصال');
-    
+
     $IIID =$this->input->post('pill_num');
-    
+
       if($this->input->post('save') === 'save') {
                  redirect('all_Finance_resource/all_pills/AllPills/addPills', 'refresh');
              }elseif ($this->input->post('save') === 'print_pill'){
@@ -918,17 +1132,17 @@ class  AllPills extends MY_Controller
              }elseif ($this->input->post('save') ==='print_kafel'){
                  redirect('all_Finance_resource/all_pills/AllPills/PrintPill/'.$IIID.'?type=kafel', 'refresh');
              }
-             
-             
+
+
         }else{
             $id = $this->uri->segment(5);
                 if(!empty($id)){
-    
+
                     $data['result'] = $this->AllPills_model->select_all_by_fr_all_pills(array('id'=>$id))[0];
-                
+
                     $number =   number_format((float)$data['result']->value, 2, '.', '');
-    
-    
+
+
                     if (strpos($number,'.') !== false) {
                         $val =explode('.',$number);
                         $integer =$this->convert_number($val[0]);
@@ -939,65 +1153,65 @@ class  AllPills extends MY_Controller
                         }else{
                             $data['ArabicNum'] = $integer." "."ريال ". " فقط لا غير"  ;
                             $data['value'] = $val[0];
-    
+
                         }
                     }else {
                         $title=$this->convert_number($number);
                         $data['title'] = $title." "."ريال فقط لا غير"  ;
                         $data['value'] = $number;
                     }
-    
-    
-    
-    
+
+
+
+
                         $data['erad_tbro3_arr'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                             array('fe2a'=>0,'band'=>0,'erad_tabro3'=>0,'esal'=>$data['result']->pill_type));
-    
+
                         $data['fe2a_type_arr'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                             array('fe2a'=>0,'band'=>0,'erad_tabro3'=>$data['result']->erad_type));
-    
+
                         $data['bnd_type_arr'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                             array('band'=>0,'fe2a'=>$data['result']->fe2a_type1));
-    
-    
-    
+
+
+
                             $data['fe2a_type_arr2'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                                 array('fe2a'=>0,'band'=>0,'erad_tabro3'=>$data['result']->erad_type));
-    
+
                             $data['bnd_type_arr2'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                                 array('band'=>0,'fe2a'=>$data['result']->fe2a_type2));
-    
-    
-    
+
+
+
                $data['bank_accounts_arr'] =$this->AllPills_model->select_all_by_condition(
                     array('society_main_banks_account.bank_id_fk'=>$data['result']->bank_id_fk),'');
-    
+
                     $data['eda3_data'] =$this->AllPills_model->select_all_by_condition(
                         array('type'=>2,'society_main_banks_account.bank_id_fk'=>$data['result']->bank_id_fk,'society_main_banks_account.account_id_fk'=>$data['result']->bank_account_id_fk),'');
-             
+
                     $data['all_data'] =$this->AllPills_model->select_all_by_DeviceData(array('fr_devices_points.device_id_fk'=>$data['result']->device_num),'bank_id_fk');
                     $data['bank_account_code_shabka_arr'] =$this->AllPills_model->select_all_by_condition(
                         array('type'=>2,'society_main_banks_account.bank_id_fk'=>$data['result']->bank_id_fk,
                             'society_main_banks_account.account_id_fk'=>$data['result']->bank_account_id_fk),'');
-    
-           
+
+
                 }
-                
+
                    if($_SESSION['role_id_fk']== 3){
                    $data['gathering_emp_id'] = $this->AllPills_model->slect_where('fr_gathering_place',array('emp_id_fk'=>$_SESSION['emp_code']))['gathering_place_id_fk'];
                    $data['raqm_deveice_emp'] = $this->AllPills_model->slect_where('fr_devices_points_emp',array('emp_id'=>$_SESSION['emp_code']));
                    if(!empty($data['raqm_deveice_emp']['device_id_fk'])){
-    
+
                    $data['shabka_banks_data'] =$this->AllPills_model->select_all_by_DeviceData(
                     array('fr_devices_points.device_id_fk'=>$data['raqm_deveice_emp']['device_id_fk']),'bank_id_fk')[0];
-    
+
                    }
-    
+
              }
-                
-                
-             $data['bank_brach'] = $this->AllPills_model->GetFromFr_settings(16);    
-    
+
+
+             $data['bank_brach'] = $this->AllPills_model->GetFromFr_settings(16);
+
               $data['username'] = $this->AllPills_model->getUserName($_SESSION['user_id']);
               $data['all_banks'] = $this->AllPills_model->select_all_by_condition(array("society_main_banks_account.type"=>2),"society_main_banks_account.bank_id_fk");
               $data['markz'] = $this->Difined_model->select_search_key('employees_settings', 'type', 17);
@@ -1011,39 +1225,41 @@ class  AllPills extends MY_Controller
               $data['last_id'] = $this->AllPills_model->select_last_id();
               $data['greetings'] = $this->AllPills_model->GetFromFr_settings(9);
            //   $data['devices_points'] = $this->Difined_model->select_all('fr_devices_points','','',"","");
-             
+
               $data['devices_points'] =$this->AllPills_model->select_all_devices_points();
               $data['esal_type'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(array('esal'=>0));
               $data['all_pills_today'] = $this->AllPills_model->select_all_by_fr_all_pills_all();
               $data['all_pills_inbox'] = $this->AllPills_model->select_all_by_fr_all_pills_all_deported();
-              
+
               $data['all_money_today'] = $this->AllPills_model->select_total_by_pay_method();
-              
-              
+
+
               $data['title'] = 'إضافة إيصال إستلام ';
               $data['subview'] = 'admin/all_Finance_resource_views/all_pills/addPills_data';
               $this->load->view('admin_index', $data);
         }
           }*/
+
+
     /*
     public function addPills(){	// all_Finance_resource/all_pills/AllPills/addPills
-    
-    
+
+
        if($this->input->post('save') !=''){
             $all_img= $this->upload_muli_image("file","images/fr/all_pills");
-    
+
             if(!empty($all_img)){
                 $all_img =$all_img;
             }else{
                 $all_img='';
             }
-    
+
             $id = $this->uri->segment(5);
-    
+
             $last_id_print = $this->AllPills_model->insert($id,$all_img);
             $this->message('success','إضافة  بيانات الإيصال');
     $IIID =$this->input->post('pill_num');
-    
+
       if($this->input->post('save') === 'save') {
                  redirect('all_Finance_resource/all_pills/AllPills/addPills', 'refresh');
              }elseif ($this->input->post('save') === 'print_pill'){
@@ -1051,17 +1267,17 @@ class  AllPills extends MY_Controller
              }elseif ($this->input->post('save') ==='print_kafel'){
                  redirect('all_Finance_resource/all_pills/AllPills/PrintPill/'.$IIID.'?type=kafel', 'refresh');
              }
-             
-             
+
+
         }else{
             $id = $this->uri->segment(5);
                 if(!empty($id)){
-    
+
                     $data['result'] = $this->AllPills_model->select_all_by_fr_all_pills(array('id'=>$id))[0];
-                
+
                     $number =   number_format((float)$data['result']->value, 2, '.', '');
-    
-    
+
+
                     if (strpos($number,'.') !== false) {
                         $val =explode('.',$number);
                         $integer =$this->convert_number($val[0]);
@@ -1072,77 +1288,77 @@ class  AllPills extends MY_Controller
                         }else{
                             $data['ArabicNum'] = $integer." "."ريال ". " فقط لا غير"  ;
                             $data['value'] = $val[0];
-    
+
                         }
                     }else {
                         $title=$this->convert_number($number);
                         $data['title'] = $title." "."ريال فقط لا غير"  ;
                         $data['value'] = $number;
                     }
-    
-    
-    
-    
+
+
+
+
                         $data['erad_tbro3_arr'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                             array('fe2a'=>0,'band'=>0,'erad_tabro3'=>0,'esal'=>$data['result']->pill_type));
-    
+
                         $data['fe2a_type_arr'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                             array('fe2a'=>0,'band'=>0,'erad_tabro3'=>$data['result']->erad_type));
-    
+
                         $data['bnd_type_arr'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                             array('band'=>0,'fe2a'=>$data['result']->fe2a_type1));
-    
-    
-    
+
+
+
                             $data['fe2a_type_arr2'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                                 array('fe2a'=>0,'band'=>0,'erad_tabro3'=>$data['result']->erad_type));
-    
+
                             $data['bnd_type_arr2'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                                 array('band'=>0,'fe2a'=>$data['result']->fe2a_type2));
-    
-    
-    
+
+
+
                 $data['bank_accounts_arr'] =$this->AllPills_model->select_all_by_condition(
                     array('society_main_banks_account.bank_id_fk'=>$data['result']->bank_id_fk),'');
-    
+
                  $data['bank_account_num_arr'] =$this->AllPills_model->select_all_by_condition(
                             array('type'=>2,'society_main_banks_account.bank_id_fk'=>$data['result']->bank_id_fk
                             ,'society_main_banks_account.account_id_fk'=>$data['result']->bank_account_id_fk),'');
-    
-    
-    
-    
+
+
+
+
                         $data['shabka_banks_arr'] =$this->AllPills_model->select_all_by_DeviceData(
                             array('fr_devices_points.device_id_fk'=>$data['result']->device_num),'bank_id_fk');
-    
+
                       $data['bank_account_shabka_arr'] =$this->AllPills_model->select_all_by_DeviceData(
                             array('fr_devices_points.device_id_fk'=>$data['result']->device_num,
                                 'fr_devices_points.bank_id_fk'=>$data['result']->bank_id_fk),'');
-    
-    
-    
+
+
+
                      $data['bank_account_num_shabka_arr'] =$this->AllPills_model->select_all_by_DeviceData(
                        array('fr_devices_points.account_id_fk'=>$data['result']->bank_account_num
                        ,'fr_devices_points.bank_id_fk'=>$data['result']->bank_id_fk,
                            'fr_devices_points.device_id_fk'=>$data['result']->device_num),'');
-    
+
                 }
-                
+
                    if($_SESSION['role_id_fk']== 3){
                    $data['gathering_emp_id'] = $this->AllPills_model->slect_where('fr_gathering_place',array('emp_id_fk'=>$_SESSION['emp_code']))['gathering_place_id_fk'];
                    $data['raqm_deveice_emp'] = $this->AllPills_model->slect_where('fr_devices_points_emp',array('emp_id'=>$_SESSION['emp_code']));
                    if(!empty($data['raqm_deveice_emp']['device_id_fk'])){
-    
+
                    $data['shabka_banks_data'] =$this->AllPills_model->select_all_by_DeviceData(
                     array('fr_devices_points.device_id_fk'=>$data['raqm_deveice_emp']['device_id_fk']),'bank_id_fk')[0];
-    
+
                    }
-    
+
              }
-                
-                
-             $data['bank_brach'] = $this->AllPills_model->GetFromFr_settings(16);    
-    
+
+
+             $data['bank_brach'] = $this->AllPills_model->GetFromFr_settings(16);
+
               $data['username'] = $this->AllPills_model->getUserName($_SESSION['user_id']);
               $data['all_banks'] = $this->AllPills_model->select_all_by_condition(array("society_main_banks_account.type"=>2),"society_main_banks_account.bank_id_fk");
               $data['markz'] = $this->Difined_model->select_search_key('employees_settings', 'type', 17);
@@ -1159,49 +1375,50 @@ class  AllPills extends MY_Controller
               $data['esal_type'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(array('esal'=>0));
               $data['all_pills_today'] = $this->AllPills_model->select_all_by_fr_all_pills_all();
               $data['all_pills_inbox'] = $this->AllPills_model->select_all_by_fr_all_pills_all_deported();
-              
+
               $data['all_money_today'] = $this->AllPills_model->select_total_by_pay_method();
-              
-              
+
+
               $data['title'] = 'إضافة إيصال إستلام ';
               $data['subview'] = 'admin/all_Finance_resource_views/all_pills/addPills_data';
               $this->load->view('admin_index', $data);
         }
           }
     */
+
     /*
     public function addPills(){	// all_Finance_resource/all_pills/AllPills/addPills
-    
-            
+
+
         if($this->input->post('save')==='save'){
-    
-    
-    
-    
+
+
+
+
     $this->test($_POST);
-    
+
             $all_img= $this->upload_muli_image("file","images/fr/all_pills");
-    
+
             if(!empty($all_img)){
                 $all_img =$all_img;
             }else{
                 $all_img='';
             }
-    
+
             $id = $this->uri->segment(5);
              $this->AllPills_model->insert($id,$all_img);
             $this->message('success','إضافة  بيانات الإيصال');
             redirect('all_Finance_resource/all_pills/AllPills/addPills','refresh');
-    
+
         }else{
             $id = $this->uri->segment(5);
                 if(!empty($id)){
-    
+
                     $data['result'] = $this->AllPills_model->select_all_by_fr_all_pills(array('id'=>$id))[0];
-                
+
                     $number =   number_format((float)$data['result']->value, 2, '.', '');
-    
-    
+
+
                     if (strpos($number,'.') !== false) {
                         $val =explode('.',$number);
                         $integer =$this->convert_number($val[0]);
@@ -1212,77 +1429,77 @@ class  AllPills extends MY_Controller
                         }else{
                             $data['ArabicNum'] = $integer." "."ريال ". " فقط لا غير"  ;
                             $data['value'] = $val[0];
-    
+
                         }
                     }else {
                         $title=$this->convert_number($number);
                         $data['title'] = $title." "."ريال فقط لا غير"  ;
                         $data['value'] = $number;
                     }
-    
-    
-    
-    
+
+
+
+
                         $data['erad_tbro3_arr'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                             array('fe2a'=>0,'band'=>0,'erad_tabro3'=>0,'esal'=>$data['result']->pill_type));
-    
+
                         $data['fe2a_type_arr'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                             array('fe2a'=>0,'band'=>0,'erad_tabro3'=>$data['result']->erad_type));
-    
+
                         $data['bnd_type_arr'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                             array('band'=>0,'fe2a'=>$data['result']->fe2a_type1));
-    
-    
-    
+
+
+
                             $data['fe2a_type_arr2'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                                 array('fe2a'=>0,'band'=>0,'erad_tabro3'=>$data['result']->erad_type));
-    
+
                             $data['bnd_type_arr2'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                                 array('band'=>0,'fe2a'=>$data['result']->fe2a_type2));
-    
-    
-    
+
+
+
                 $data['bank_accounts_arr'] =$this->AllPills_model->select_all_by_condition(
                     array('society_main_banks_account.bank_id_fk'=>$data['result']->bank_id_fk),'');
-    
+
                  $data['bank_account_num_arr'] =$this->AllPills_model->select_all_by_condition(
                             array('type'=>2,'society_main_banks_account.bank_id_fk'=>$data['result']->bank_id_fk
                             ,'society_main_banks_account.account_id_fk'=>$data['result']->bank_account_id_fk),'');
-    
-    
-    
-    
+
+
+
+
                         $data['shabka_banks_arr'] =$this->AllPills_model->select_all_by_DeviceData(
                             array('fr_devices_points.device_id_fk'=>$data['result']->device_num),'bank_id_fk');
-    
+
                       $data['bank_account_shabka_arr'] =$this->AllPills_model->select_all_by_DeviceData(
                             array('fr_devices_points.device_id_fk'=>$data['result']->device_num,
                                 'fr_devices_points.bank_id_fk'=>$data['result']->bank_id_fk),'');
-    
-    
-    
+
+
+
                      $data['bank_account_num_shabka_arr'] =$this->AllPills_model->select_all_by_DeviceData(
                        array('fr_devices_points.account_id_fk'=>$data['result']->bank_account_num
                        ,'fr_devices_points.bank_id_fk'=>$data['result']->bank_id_fk,
                            'fr_devices_points.device_id_fk'=>$data['result']->device_num),'');
-    
+
                 }
-                
+
                    if($_SESSION['role_id_fk']== 3){
                    $data['gathering_emp_id'] = $this->AllPills_model->slect_where('fr_gathering_place',array('emp_id_fk'=>$_SESSION['emp_code']))['gathering_place_id_fk'];
                    $data['raqm_deveice_emp'] = $this->AllPills_model->slect_where('fr_devices_points_emp',array('emp_id'=>$_SESSION['emp_code']));
                    if(!empty($data['raqm_deveice_emp']['device_id_fk'])){
-    
+
                    $data['shabka_banks_data'] =$this->AllPills_model->select_all_by_DeviceData(
                     array('fr_devices_points.device_id_fk'=>$data['raqm_deveice_emp']['device_id_fk']),'bank_id_fk')[0];
-    
+
                    }
-    
+
              }
-                
-                
-             $data['bank_brach'] = $this->AllPills_model->GetFromFr_settings(16);    
-    
+
+
+             $data['bank_brach'] = $this->AllPills_model->GetFromFr_settings(16);
+
               $data['username'] = $this->AllPills_model->getUserName($_SESSION['user_id']);
               $data['all_banks'] = $this->AllPills_model->select_all_by_condition(array("society_main_banks_account.type"=>2),"society_main_banks_account.bank_id_fk");
               $data['markz'] = $this->Difined_model->select_search_key('employees_settings', 'type', 17);
@@ -1305,8 +1522,11 @@ class  AllPills extends MY_Controller
         }
           }
     */
+
+
     public function getConnection($Fe2aType)
     {
+
         /********* خاص بالكفلاء *********************************************/
         if ($Fe2aType == 1) {
             $all_Sponsors = $this->AllPills_model->getMembersSponsors();
@@ -1314,29 +1534,42 @@ class  AllPills extends MY_Controller
             $arr_sponsors['data'] = array();
             if (!empty($all_Sponsors)) {
                 foreach ($all_Sponsors as $row_sponsor) {
+
                     $arr_sponsors['data'][] = array(
                         '<input type="radio" name="choosed"   id="member' . $row_sponsor['id'] . '" data-name="' . $row_sponsor['k_name'] . '" data-id="' . $row_sponsor['id'] . '"
                    data-mob="' . $row_sponsor['k_mob'] . '"     value="' . $row_sponsor['id'] . '"  ondblclick="GetMemberName(' . $row_sponsor['id'] . ')"
                         onclick="getMotherData($(this).val(),' . $Fe2aType . ')" />',
                         $row_sponsor['k_num'],
                         $row_sponsor['k_name'],
+
                         $row_sponsor['k_mob'],
-                        '<a type="button" class="myModal" onclick="modal_link(' . $row_sponsor['id'] . ');" data-toggle="modal" style="cursor:pointer" data-target="#modal-kafal">
+
+                        '<a type="button" class="myModal" onclick="modal_link(' . $row_sponsor['id'] . ')" data-toggle="modal" style="cursor:pointer" data-target="#modal-kafal">
                     <i class="fa fa-eye btn-sm"></i></a>',
-                        $row_sponsor['yatem'],
-                        $row_sponsor['armal'],
-                        $row_sponsor['mosatafed'],
+                        /*     $row_sponsor['yatem'],
+                           $row_sponsor['armal'],
+                           $row_sponsor['mosatafed'],*/
+                        '',
+                        '',
+                        '',
+
+
                     );
                 }
             }
             echo json_encode($arr_sponsors);
+
         } elseif ($Fe2aType == 2) {
             /********* خاص المتبرعين  *********************************************/
+
             $all_Donors = $this->AllPills_model->getMembersDonors();
             $arr_donors = array();
             $arr_donors['data'] = array();
+
             if (!empty($all_Donors)) {
                 foreach ($all_Donors as $row_donors) {
+
+
                     $arr_donors['data'][] = array(
                         '<input type="radio" name="choosed" value="' . $row_donors['id'] . '"
                          ondblclick="GetMemberName(' . $row_donors['id'] . ')"   id="member' . $row_donors['id'] . '" data-name="' . $row_donors['d_name'] . '" data-id="' . $row_donors['id'] . '"
@@ -1345,6 +1578,7 @@ class  AllPills extends MY_Controller
                         $row_donors['d_name'],
                         $row_donors['d_national_num'],
                         $row_donors['d_mob'],
+
                         ''
                     );
                 }
@@ -1352,9 +1586,11 @@ class  AllPills extends MY_Controller
             echo json_encode($arr_donors);
         } elseif ($Fe2aType == 3) {
             /********* خاص المشتركين - الجمعية العمومية  *********************************************/
+
             $all_general_assembly = $this->AllPills_model->get_all_details();
             $arr_general_assembly = array();
             $arr_general_assembly['data'] = array();
+
             if (!empty($all_general_assembly)) {
                 foreach ($all_general_assembly as $row_general_assembly) {
                     //$this->test($all_general_assembly);
@@ -1376,6 +1612,7 @@ class  AllPills extends MY_Controller
                                   
     
                                     onclick="getMemberData($(this).val(),' . $Fe2aType . ')" />',
+
                         $row_general_assembly->odwiat_data->rkm_odwia_full,
                         $row_general_assembly->name,
                         $row_general_assembly->card_num,
@@ -1385,17 +1622,22 @@ class  AllPills extends MY_Controller
                         $row_general_assembly->odwiat_data->odwia_status_title,
                         $row_general_assembly->odwiat_data->no3_odwia_title,
                         ''
+
+
                     );
                 }
             }
             echo json_encode($arr_general_assembly);
         } elseif ($Fe2aType == 6) {
             /******** خاص طلب كفالة  *********************************************/
+
             $Sponsors_orders = $this->AllPills_model->get_Sponsors_orders();
             $arr_Sponsors_orders = array();
             $arr_Sponsors_orders['data'] = array();
+
             if (!empty($Sponsors_orders)) {
                 foreach ($Sponsors_orders as $row_Sponsors_orders) {
+
                     $arr_Sponsors_orders['data'][] = array(
                         '<input type="radio" name="choosed" value="' . $row_Sponsors_orders->id . '"
         ondblclick="GetMemberName(' . $row_Sponsors_orders->id . ')"   id="member' . $row_Sponsors_orders->id . '"
@@ -1412,13 +1654,19 @@ class  AllPills extends MY_Controller
             }
             echo json_encode($arr_Sponsors_orders);
         }
+
+
         /*elseif($Fe2aType == 3 ){
        
+
         $all_general_assembly = $this->AllPills_model->getMembersGeneral_assembly(   );
         $arr_general_assembly = array();
         $arr_general_assembly['data'] = array();
+
         if(!empty($all_general_assembly)){
             foreach($all_general_assembly as $row_general_assembly ){
+
+
                 $arr_general_assembly['data'][] = array(
                     '<input type="radio" name="choosed" value="'.$row_general_assembly['id'].'"
                           ondblclick="GetMemberName('.$row_general_assembly['id'].')"   id="member'.$row_general_assembly['id'].'" data-name="'.$row_general_assembly['name'].'" data-id="'.$row_general_assembly['id'].'"
@@ -1427,15 +1675,21 @@ class  AllPills extends MY_Controller
                     $row_general_assembly['name'],
                     
                     $row_general_assembly['mob'],
+
                     ''
                 );
             }
         }
         echo json_encode($arr_general_assembly);
     }*/
+
+
     }
+
+
     public function GetArabicNum()
     {
+
         $number = number_format((float)$_POST['number'], 2, '.', '');
         if (strpos($number, '.') !== false) {
             $val = explode('.', $number);
@@ -1452,6 +1706,7 @@ class  AllPills extends MY_Controller
             } else {
                 $data['title'] = $integer . " " . "ريال " . " فقط لا غير";
                 $data['value'] = $val[0];
+
             }
         } else {
             $title = $this->convert_number($number);
@@ -1460,8 +1715,11 @@ class  AllPills extends MY_Controller
         }
         echo json_encode($data);
     }
+
+
     public function GetByArray()
     {
+
         if ($_POST['type'] === 'getAccount') {
             $data = $this->AllPills_model->select_all_by_condition(array('society_main_banks_account.bank_id_fk' => $_POST['id']), '');
         } elseif ($_POST['type'] === 'getAccountNum') {
@@ -1469,10 +1727,13 @@ class  AllPills extends MY_Controller
                 array('type' => 2, 'society_main_banks_account.bank_id_fk' => $_POST['bank_id'], 'society_main_banks_account.account_id_fk' => $_POST['id']), '');
         }
         echo json_encode($data);
+
     }
+
+
     /*
      public function GetByArray(){
-    
+
          if($_POST['type'] === 'getAccount'){
          $data =$this->AllPills_model->select_all_by_condition(array('society_main_banks_account.bank_id_fk'=>$_POST['id']),'');
          }elseif ($_POST['type'] === 'getAccountNum'){
@@ -1485,37 +1746,53 @@ class  AllPills extends MY_Controller
                      'society_main_banks_account.account_num'=>$_POST['bank_account_num']),'');
          }
        echo json_encode($data);
-    
-     } 
+
+     }
     */
     public function GetData()
     {
+
         if ($_POST['type'] === 'tabro3') {
             $data = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                 array('fe2a' => 0, 'band' => 0, 'erad_tabro3' => 0, 'esal' => $_POST['id']));
+
+
         } elseif ($_POST['type'] === 'fe2a') {
             $data = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                 array('fe2a' => 0, 'band' => 0, 'status' => 1, 'erad_tabro3' => $_POST['id']));
+
         } elseif ($_POST['type'] === 'band') {
             $data = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                 array('band' => 0, 'fe2a' => $_POST['id']));
+
         }
         echo json_encode($data);
+
     }
+
+
     /************************************************************/
+
+
     public function GetDeviceData()
     {
         if ($_POST['type'] === 'all') {
+
             $data['all_data'] = $this->AllPills_model->select_all_by_DeviceData(array('fr_devices_points.device_id_fk' => $_POST['id']), 'bank_id_fk');
+
             $data['account_code'] = $this->AllPills_model->select_all_by_condition(
                 array('type' => 2, 'society_main_banks_account.bank_id_fk' => $data['all_data'][0]->bank_id_fk,
                     'society_main_banks_account.account_id_fk' => $data['all_data'][0]->account_id_fk), '');
+
         }
         echo json_encode($data);
+
     }
+
+
     /*
         public function GetDeviceData(){
-    
+
             if($_POST['type'] === 'bank'){
             $data =$this->AllPills_model->select_all_by_DeviceData(array('fr_devices_points.device_id_fk'=>$_POST['id']),'bank_id_fk');
             }elseif ($_POST['type'] === 'Account'){
@@ -1529,11 +1806,15 @@ class  AllPills extends MY_Controller
                      'fr_devices_points.device_id_fk'=>$_POST['device_id_fk']),'');
             }
           echo json_encode($data);
-    
+
         }*/
+
+
     public function GetTable()
     {
+
         $id = $_POST['id'];
+
         $data['username'] = $this->AllPills_model->getUserName($_SESSION['user_id']);
         $data['result'] = $this->AllPills_model->select_all_by_fr_all_pills(array('id' => $id))[0];
         $number = number_format((float)$data['result']->value, 2, '.', '');
@@ -1546,32 +1827,44 @@ class  AllPills extends MY_Controller
             } else {
                 $reyal = 'ريال و';
             }
+
             $data['ArabicNum'] = $integer . " " . "" . $reyal . "" . $float . " " . "هللة فقط لا غير";
+
         } else {
             $title = $this->convert_number($number);
             $data['ArabicNum'] = $title . " " . "ريال فقط لا غير";
+
         }
         $data['gathering_place'] = $this->AllPills_model->GetFromFr_settings(14);
         $data['titles'] = $this->AllPills_model->GetFromFr_settings(8);
         $data['greetings'] = $this->AllPills_model->GetFromFr_settings(9);
         $this->load->view('admin/all_Finance_resource_views/all_pills/GetTable', $data);
+
     }
+
     public function add_attach()
     {
+
         if ($this->input->post('add')) {
             $img = $this->upload_image("file");
             $this->AllPills_model->add_attach($img);
             $this->message('success', 'تمت إضافة المرفق بنجاح');
             redirect('all_Finance_resource/all_pills/AllPills/addPills/' . $_POST['id'], 'refresh');
         }
+
     }
+
+
     public function GetData2()
     {
+
         $data['fe2a_type2_arr'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
             array('fe2a' => 0, 'band' => 0, 'erad_tabro3' => $_POST['erad_tbro3'], ''));
         echo json_encode($data);
         //'id !='=>$_POST['fe2a']
     }
+
+
     public function GetBandType2()
     {
         $data = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
@@ -1579,12 +1872,16 @@ class  AllPills extends MY_Controller
         echo json_encode($data);
         //echo json_encode($_POST);
     }
+
+
     public function DeletePill($id)
     {
         $this->AllPills_model->DeletePill($id);
         $this->message('success', ' تم حذف  الإيصال بنجاح');
         redirect('all_Finance_resource/all_pills/AllPills/addPills', 'refresh');
     }
+
+
     public function PrintPill($id)
     {
         if (!empty($id)) {
@@ -1601,21 +1898,26 @@ class  AllPills extends MY_Controller
                     } else {
                         $reyal = 'ريال و';
                     }
+
                     $data['ArabicNum'] = $integer . " " . "" . $reyal . "" . $float . " " . "هللة فقط لا غير";
                     $data['value'] = $number;
                 } else {
                     $data['ArabicNum'] = $integer . " " . "ريال " . " فقط لا غير";
                     $data['value'] = $val[0];
+
                 }
             } else {
                 $title = $this->convert_number($number);
                 $data['title'] = $title . " " . "ريال فقط لا غير";
                 $data['value'] = $number;
             }
+
+
             $data['result'] = $this->AllPills_model->select_all_by_fr_all_pills(array('id' => $id))[0];
             $data['gathering_place'] = $this->AllPills_model->GetFromFr_settings(14);
             $data['titles'] = $this->AllPills_model->GetFromFr_settings(8);
             $data['greetings'] = $this->AllPills_model->GetFromFr_settings(9);
+
             //  $this->load->view('admin/all_Finance_resource_views/all_pills/PrintPill', $data);
             $type_esal = $this->AllPills_model->get_type_print($_SESSION['emp_code']);
             if (!empty($type_esal)) {
@@ -1627,9 +1929,12 @@ class  AllPills extends MY_Controller
                 }
             } else {
                 $this->load->view('admin/all_Finance_resource_views/all_pills/PrintPill_n', $data);
+
             }
         }
     }
+
+
     /* print_ajax  public function PrintPill(){
       $id=$this->input->post('row_id');
       if(!empty($id)){
@@ -1641,29 +1946,29 @@ class  AllPills extends MY_Controller
               $integer =$this->convert_number($val[0]);
               $float =$this->convert_number(round($val[1]));
               if(!empty(round($val[1]))){
-                    if($integer == ''){ $reyal = ''; }else{ $reyal = 'ريال و';   } 
-                  
+                    if($integer == ''){ $reyal = ''; }else{ $reyal = 'ريال و';   }
+
                   $data['ArabicNum'] = $integer." "."".$reyal."". $float." "."هللة فقط لا غير"  ;
                   $data['value'] = $number;
               }else{
                   $data['ArabicNum'] = $integer." "."ريال ". " فقط لا غير"  ;
                   $data['value'] = $val[0];
-  
+
               }
           }else {
               $title=$this->convert_number($number);
               $data['title'] = $title." "."ريال فقط لا غير"  ;
               $data['value'] = $number;
           }
-  
-  
-  
-  
+
+
+
+
           $data['result'] = $this->AllPills_model->select_all_by_fr_all_pills(array('id'=>$id))[0];
                  $data['gathering_place'] =  $this->AllPills_model->GetFromFr_settings(14);
                  $data['titles'] = $this->AllPills_model->GetFromFr_settings(8);
                  $data['greetings'] = $this->AllPills_model->GetFromFr_settings(9);
-  
+
                //  $this->load->view('admin/all_Finance_resource_views/all_pills/PrintPill', $data);
                $type_esal = $this->AllPills_model->get_type_print($_SESSION['emp_code']);
   if (!empty($type_esal)) {
@@ -1675,11 +1980,12 @@ class  AllPills extends MY_Controller
       }
   } else {
       $this->load->view('admin/all_Finance_resource_views/all_pills/PrintPill_n', $data);
-  
+
   }
               }
     }
     */
+
     public function PrintPill_dep($id)
     {
         if (!empty($id)) {
@@ -1696,21 +2002,26 @@ class  AllPills extends MY_Controller
                     } else {
                         $reyal = 'ريال و';
                     }
+
                     $data['ArabicNum'] = $integer . " " . "" . $reyal . "" . $float . " " . "هللة فقط لا غير";
                     $data['value'] = $number;
                 } else {
                     $data['ArabicNum'] = $integer . " " . "ريال " . " فقط لا غير";
                     $data['value'] = $val[0];
+
                 }
             } else {
                 $title = $this->convert_number($number);
                 $data['title'] = $title . " " . "ريال فقط لا غير";
                 $data['value'] = $number;
             }
+
+
             $data['result'] = $this->AllPills_model->select_all_by_fr_all_pills(array('id' => $id))[0];
             $data['gathering_place'] = $this->AllPills_model->GetFromFr_settings(14);
             $data['titles'] = $this->AllPills_model->GetFromFr_settings(8);
             $data['greetings'] = $this->AllPills_model->GetFromFr_settings(9);
+
             //  $this->load->view('admin/all_Finance_resource_views/all_pills/PrintPill', $data);
             $type_esal = $this->AllPills_model->get_type_print($_SESSION['emp_code']);
             if (!empty($type_esal)) {
@@ -1722,9 +2033,22 @@ class  AllPills extends MY_Controller
                 }
             } else {
                 $this->load->view('admin/all_Finance_resource_views/all_pills/PrintPill', $data);
+
             }
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
     /*
       public function PrintPill($id){
         if(!empty($id)){
@@ -1741,31 +2065,36 @@ class  AllPills extends MY_Controller
                 }else{
                     $data['ArabicNum'] = $integer." "."ريال ". " فقط لا غير"  ;
                     $data['value'] = $val[0];
-    
+
                 }
             }else {
                 $title=$this->convert_number($number);
                 $data['title'] = $title." "."ريال فقط لا غير"  ;
                 $data['value'] = $number;
             }
-    
-    
-    
-    
+
+
+
+
             $data['result'] = $this->AllPills_model->select_all_by_fr_all_pills(array('id'=>$id))[0];
                    $data['gathering_place'] =  $this->AllPills_model->GetFromFr_settings(14);
                    $data['titles'] = $this->AllPills_model->GetFromFr_settings(8);
                    $data['greetings'] = $this->AllPills_model->GetFromFr_settings(9);
-    
+
                    $this->load->view('admin/all_Finance_resource_views/all_pills/PrintPill', $data);
                 }
       }*/
     /***********************************************************************************/
+
     public function GetDetails()
     {
+
         $id = $_POST['id'];
+
         $data['username'] = $this->AllPills_model->getUserName($_SESSION['user_id']);
         $data['result'] = $this->AllPills_model->select_all_by_fr_all_pills(array('id' => $id))[0];
+
+
         $number = number_format((float)$data['result']->value, 2, '.', '');
         if (strpos($number, '.') !== false) {
             $val = explode('.', $number);
@@ -1777,69 +2106,95 @@ class  AllPills extends MY_Controller
                 } else {
                     $reyal = 'ريال و';
                 }
+
                 $data['ArabicNum'] = $integer . " " . "" . $reyal . "" . $float . " " . "هللة فقط لا غير";
                 $data['value'] = $number;
             } else {
                 $data['ArabicNum'] = $integer . " " . "ريال " . " فقط لا غير";
                 $data['value'] = $val[0];
+
             }
         } else {
             $title = $this->convert_number($number);
             $data['title'] = $title . " " . "ريال فقط لا غير";
             $data['value'] = $number;
         }
+
+
         $data['all_banks'] = $this->AllPills_model->select_all_by_condition(array("society_main_banks_account.type" => 2)
             , "society_main_banks_account.bank_id_fk");
+
         $data['erad_tbro3_arr'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
             array('fe2a' => 0, 'band' => 0, 'erad_tabro3' => 0, 'esal' => $data['result']->pill_type));
+
         $data['fe2a_type_arr'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
             array('fe2a' => 0, 'band' => 0, 'erad_tabro3' => $data['result']->erad_type));
+
         $data['bnd_type_arr'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
             array('band' => 0, 'fe2a' => $data['result']->fe2a_type1));
+
+
         $data['fe2a_type_arr2'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
             array('fe2a' => 0, 'band' => 0, 'erad_tabro3' => $data['result']->erad_type));
+
         $data['bnd_type_arr2'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
             array('band' => 0, 'fe2a' => $data['result']->fe2a_type2));
+
         $data['fe2a_types'] = $this->Difined_model->select_all('fr_sponser_donors_setting', '', '', "", "");
         $data['bank_accounts_arr'] = $this->AllPills_model->select_all_by_condition(
             array('society_main_banks_account.bank_id_fk' => $data['result']->bank_id_fk), '');
+
         /*$data['bank_account_num_arr'] =$this->AllPills_model->select_all_by_condition(
                    array('type'=>2,'society_main_banks_account.bank_id_fk'=>$data['result']->bank_id_fk
                    ,'society_main_banks_account.account_id_fk'=>$data['result']->bank_account_id_fk),'');*/
+
+
         $data['eda3_data'] = $this->AllPills_model->select_all_by_condition(
             array('type' => 2, 'society_main_banks_account.bank_id_fk' => $data['result']->bank_id_fk, 'society_main_banks_account.account_id_fk' => $data['result']->bank_account_id_fk), '');
+
         /*$data['shabka_banks_arr'] =$this->AllPills_model->select_all_by_DeviceData(
             array('fr_devices_points.device_id_fk'=>$data['result']->device_num),'bank_id_fk');
-        
+
       $data['bank_account_shabka_arr'] =$this->AllPills_model->select_all_by_DeviceData(
             array('fr_devices_points.device_id_fk'=>$data['result']->device_num,
                 'fr_devices_points.bank_id_fk'=>$data['result']->bank_id_fk),'');
+
+
+
      $data['bank_account_num_shabka_arr'] =$this->AllPills_model->select_all_by_DeviceData(
        array('fr_devices_points.account_id_fk'=>$data['result']->bank_account_num
        ,'fr_devices_points.bank_id_fk'=>$data['result']->bank_id_fk,
            'fr_devices_points.device_id_fk'=>$data['result']->device_num),'');*/
+
         $data['all_data'] = $this->AllPills_model->select_all_by_DeviceData(array('fr_devices_points.device_id_fk' => $data['result']->device_num), 'bank_id_fk');
         $data['bank_account_code_shabka_arr'] = $this->AllPills_model->select_all_by_condition(
             array('type' => 2, 'society_main_banks_account.bank_id_fk' => $data['result']->bank_id_fk,
                 'society_main_banks_account.account_id_fk' => $data['result']->bank_account_id_fk), '');
+
         $data['esal_type'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(array('esal' => 0));
         $data['gathering_place'] = $this->AllPills_model->GetFromFr_settings(14);
         $data['titles'] = $this->AllPills_model->GetFromFr_settings(8);
         $data['greetings'] = $this->AllPills_model->GetFromFr_settings(9);
         $data['banks'] = $this->Difined_model->select_all('banks_settings', '', '', "id", "asc");
         $data['bank_brach'] = $this->AllPills_model->GetFromFr_settings(16);
+
         $data['devices_points'] = $this->AllPills_model->select_all_devices_points();
+
+
         $this->load->view('admin/all_Finance_resource_views/all_pills/GetDetails', $data);
+
     }
+
+
     /*
         public function GetDetails(){
-    
+
             $id= $_POST['id'];
-    
+
             $data['username'] = $this->AllPills_model->getUserName($_SESSION['user_id']);
             $data['result'] = $this->AllPills_model->select_all_by_fr_all_pills(array('id'=>$id))[0];
-    
-            
+
+
             $number = number_format((float)$data['result']->value, 2, '.', '');
             if (strpos($number,'.') !== false) {
                 $val =explode('.',$number);
@@ -1851,80 +2206,84 @@ class  AllPills extends MY_Controller
                 }else{
                     $data['ArabicNum'] = $integer." "."ريال ". " فقط لا غير"  ;
                     $data['value'] = $val[0];
-    
+
                 }
             }else {
                 $title=$this->convert_number($number);
                 $data['title'] = $title." "."ريال فقط لا غير"  ;
                 $data['value'] = $number;
             }
-    
-    
+
+
             $data['all_banks'] = $this->AllPills_model->select_all_by_condition(array("society_main_banks_account.type"=>2)
             ,"society_main_banks_account.bank_id_fk");
-    
+
             $data['erad_tbro3_arr'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                 array('fe2a'=>0,'band'=>0,'erad_tabro3'=>0,'esal'=>$data['result']->pill_type));
-    
+
             $data['fe2a_type_arr'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                 array('fe2a'=>0,'band'=>0,'erad_tabro3'=>$data['result']->erad_type));
-    
+
             $data['bnd_type_arr'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                 array('band'=>0,'fe2a'=>$data['result']->fe2a_type1));
-    
-    
-    
+
+
+
                 $data['fe2a_type_arr2'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                     array('fe2a'=>0,'band'=>0,'erad_tabro3'=>$data['result']->erad_type));
-    
+
                 $data['bnd_type_arr2'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(
                     array('band'=>0,'fe2a'=>$data['result']->fe2a_type2));
-    
+
                     $data['fe2a_types'] = $this->Difined_model->select_all('fr_sponser_donors_setting','','',"","");
                     $data['bank_accounts_arr'] =$this->AllPills_model->select_all_by_condition(
                         array('society_main_banks_account.bank_id_fk'=>$data['result']->bank_id_fk),'');
-        
+
                      $data['bank_account_num_arr'] =$this->AllPills_model->select_all_by_condition(
                                 array('type'=>2,'society_main_banks_account.bank_id_fk'=>$data['result']->bank_id_fk
                                 ,'society_main_banks_account.account_id_fk'=>$data['result']->bank_account_id_fk),'');
-        
-        
-        
-        
+
+
+
+
                             $data['shabka_banks_arr'] =$this->AllPills_model->select_all_by_DeviceData(
                                 array('fr_devices_points.device_id_fk'=>$data['result']->device_num),'bank_id_fk');
-                            
+
                           $data['bank_account_shabka_arr'] =$this->AllPills_model->select_all_by_DeviceData(
                                 array('fr_devices_points.device_id_fk'=>$data['result']->device_num,
                                     'fr_devices_points.bank_id_fk'=>$data['result']->bank_id_fk),'');
-        
-        
-        
+
+
+
                          $data['bank_account_num_shabka_arr'] =$this->AllPills_model->select_all_by_DeviceData(
                            array('fr_devices_points.account_id_fk'=>$data['result']->bank_account_num
                            ,'fr_devices_points.bank_id_fk'=>$data['result']->bank_id_fk,
                                'fr_devices_points.device_id_fk'=>$data['result']->device_num),'');
-    
+
             $data['esal_type'] = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(array('esal'=>0));
             $data['gathering_place'] =  $this->AllPills_model->GetFromFr_settings(14);
             $data['titles'] = $this->AllPills_model->GetFromFr_settings(8);
             $data['greetings'] = $this->AllPills_model->GetFromFr_settings(9);
             $data['banks'] = $this->Difined_model->select_all('banks_settings','','',"id","asc");
-     $data['bank_brach'] = $this->AllPills_model->GetFromFr_settings(16);    
-    
-    
-    
+     $data['bank_brach'] = $this->AllPills_model->GetFromFr_settings(16);
+
+
+
             $this->load->view('admin/all_Finance_resource_views/all_pills/GetDetails',$data);
-       
+
            }
            */
+
+
     public function deletePillImg($id, $link)
     {
         messages('success', 'تم حذف الصورة بنجاح');
         $this->AllPills_model->delete_attaches($id);
         redirect('all_Finance_resource/all_pills/AllPills/addPills/' . $link, 'refresh');
     }
+
     /****************************************************************************************/
+
     public function getSearchResults()
     {
         $array_search_colum = $this->input->post('array_search_id');
@@ -1932,14 +2291,20 @@ class  AllPills extends MY_Controller
         $data['records'] = $this->AllPills_model->getSearchResults($array_search_colum, $input_search_value);
 //        $this->test( count($data['records']));
         $this->load->view('admin/all_Finance_resource_views/all_pills/getSearchResults', $data);
+
     }
+
     /****************************************************************/
+
     public function get_kafel()
     { //all_Finance_resource/all_pills/AllPills/get_kafel
         $data['sponsers'] = $this->AllPills_model->get_all_sponsers();
+
+
         $data['subview'] = 'admin/all_Finance_resource_views/all_pills/reports/sponsers_pills';
         $this->load->view('admin_index', $data);
     }
+
     public function get_pill_details()
     { // all_Finance_resource/all_pills/AllPills/get_pill_details
         $id = $this->input->post('id');
@@ -1947,6 +2312,7 @@ class  AllPills extends MY_Controller
         //  print_r( $data['details']);
         $this->load->view('admin/all_Finance_resource_views/all_pills/reports/load_details', $data);
     }
+
     /*    public function get_search_pills()
     {
         $field=$this->input->post('array_search_id');
@@ -1955,31 +2321,40 @@ class  AllPills extends MY_Controller
             $valu=$this->input->post('select_search_id');
         }else{
             $valu=$this->input->post('input_search_id');
-    
+
         }
         $data['details']= $this->AllPills_model->get_all_pill_search($field,$valu);
           //print_r( $data['details']);
         $this->load->view('admin/all_Finance_resource_views/all_pills/reports/load_details',$data );
     }*/
+
+
     public function get_search_pills()
     {
         $field = $this->input->post('array_search_id');
         if ($field == 'pay_method') {
             $valu = $this->input->post('select_search_id');
+
         } elseif ($field == 'bnd_type1') {
             $valu = $this->input->post('select_search_id3');
+
         } else {
             $valu = $this->input->post('input_search_id');
         }
+
+
         $data['details'] = $this->AllPills_model->get_all_pill_search($field, $valu);
         //print_r( $data['details']);
         $this->load->view('admin/all_Finance_resource_views/all_pills/reports/load_details', $data);
     }
+
     public function get_bands()
     {
         $bands = $this->AllPills_model->select_fr_bnod_pills_setting_by_condition(array('band' => 0, 'type' => 4));
         echo json_encode($bands);
     }
+
+
     public function Print_Pill2($id)
     {
         if (!empty($id)) {
@@ -1996,23 +2371,30 @@ class  AllPills extends MY_Controller
                     } else {
                         $reyal = 'ريال و';
                     }
+
                     $data['ArabicNum'] = $integer . " " . "" . $reyal . "" . $float . " " . "هللة فقط لا غير";
                     $data['value'] = $number;
                 } else {
                     $data['ArabicNum'] = $integer . " " . "ريال " . " فقط لا غير";
                     $data['value'] = $val[0];
+
                 }
             } else {
                 $title = $this->convert_number($number);
                 $data['title'] = $title . " " . "ريال فقط لا غير";
                 $data['value'] = $number;
             }
+
+
             $data['result'] = $this->AllPills_model->select_all_by_fr_all_pills(array('id' => $id))[0];
             $data['gathering_place'] = $this->AllPills_model->GetFromFr_settings(14);
             $data['titles'] = $this->AllPills_model->GetFromFr_settings(8);
             $data['greetings'] = $this->AllPills_model->GetFromFr_settings(9);
+
             // $this->load->view('admin/all_Finance_resource_views/all_pills/PrintPill', $data);
+
             $type_esal = $this->AllPills_model->get_type_print($_SESSION['emp_code']);
+
             //  echo $type_esal;
             if (!empty($type_esal)) {
                 if ($type_esal == 1) {
@@ -2023,9 +2405,13 @@ class  AllPills extends MY_Controller
                 }
             } else {
                 $this->load->view('admin/all_Finance_resource_views/all_pills/PrintPill', $data);
+
             }
+
+
         }
     }
+
     /******************************************************************************************************************/
     /*public function pills_trahel()
     {
@@ -2033,6 +2419,7 @@ class  AllPills extends MY_Controller
         $data['customer_js'] = $this->load->view('admin/all_Finance_resource_views/all_pills/esalat_table_js', '', TRUE);
         $this->load->view('admin/all_Finance_resource_views/all_pills/esalat_table', $data);
     }*/
+
     public function pills_trahel()
     {
         /*4-6-om*/
@@ -2048,18 +2435,22 @@ class  AllPills extends MY_Controller
         ) {
             $data['all_emps'] = $this->AllPills_model->get_emps();
         } else {
+
             $data['emp'] = $this->AllPills_model->get_emp($_SESSION['emp_code']);
         }
         $data['title'] = "الايصالات  المرحله";
         $data['customer_js'] = $this->load->view('admin/all_Finance_resource_views/all_pills/esalat_table_js', '', TRUE);
         $this->load->view('admin/all_Finance_resource_views/all_pills/esalat_table', $data);
     }
+
+
     public function data()
     {
         $customer = $this->AllPills_model->select_all_by_fr_all_pills_all_deported();
         $arr = array();
         $arr['data'] = array();
         if (!empty($customer)) {
+
             $pay_method_arr = array(1 => 'نقدي', 2 => 'شيك', 3 => 'شبكة', 4 => 'إيداع نقدي', 5 => 'إيداع شيك', 6 => 'تحويل', 7 => 'أمر مستديم', 8 => 'الدفع الإلكتروني');
             $x = 0;
             foreach ($customer as $row) {
@@ -2074,6 +2465,7 @@ class  AllPills extends MY_Controller
                 } else {
                     $status_checked = "";
                     $status_display = "none";
+
                 }
                 $modal1 = '<i class="fa fa-paperclip red" aria-hidden="true"></i>';
                 if (!empty($row->file)) {
@@ -2085,6 +2477,7 @@ class  AllPills extends MY_Controller
                     $modal1 = '<a data-toggle="modal" type="button" style="cursor: pointer"
                    data-target="#modal-img" onclick="">
                         <i class="fa fa-paperclip" aria-hidden="true"></i>
+
                     </a>';
                 }
                 $modal2 = '  <a type="button" class="btn btn-info btn-xs" data-toggle="modal" style="padding: 1px 5px;" title="التفاصيل"
@@ -2106,7 +2499,9 @@ class  AllPills extends MY_Controller
                 } elseif ($_SESSION['user_id'] == 69 ||
                     $_SESSION['user_id'] == 111 ||
                     $_SESSION['user_id'] == 116
+
                 ) {
+
                     /* $modal3 = '<a target="_blank"   href="' . base_url() . 'all_Finance_resource/all_pills/AllPills/addPills/' . $row->id . '">
                                                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i> </a>';*/
                     // $modal4='<a onclick="deu();"</a>';
@@ -2139,6 +2534,7 @@ class  AllPills extends MY_Controller
                 $func_send_sms = 'onclick="get_member_send(' . $row->id . ');"';
                 $modal_send_sms = '  <a type="button" class="btn btn-info btn-xs" data-toggle="modal" style="padding: 1px 5px;" title="إرسال رسالة نصية"
                                           ' . $func_send_sms . '   data-target="#send_data"><i class="fa fa-commenting" aria-hidden="true"></i>
+
                                         </a>';
                 $person_name = '<span  style="font-size: 12px; color: #001dad  !important;"  data-toggle="tooltip" data-placement="bottom" title="' . $row->person_name . '"
                >' . character_limiter($row->person_name, 25) . '</span>';
@@ -2165,6 +2561,7 @@ class  AllPills extends MY_Controller
         $json = json_encode($arr);
         echo $json;
     }
+
     public function Print_Pill_traheel($pill_num)
     {
         if (!empty($pill_num)) {
@@ -2181,23 +2578,31 @@ class  AllPills extends MY_Controller
                     } else {
                         $reyal = 'ريال و';
                     }
+
                     $data['ArabicNum'] = $integer . " " . "" . $reyal . "" . $float . " " . "هللة فقط لا غير";
                     $data['value'] = $number;
                 } else {
                     $data['ArabicNum'] = $integer . " " . "ريال " . " فقط لا غير";
                     $data['value'] = $val[0];
+
                 }
             } else {
                 $title = $this->convert_number($number);
                 $data['title'] = $title . " " . "ريال فقط لا غير";
                 $data['value'] = $number;
             }
+
+
             $data['result'] = $this->AllPills_model->select_all_by_fr_all_pills(array('pill_num' => $pill_num))[0];
             $data['gathering_place'] = $this->AllPills_model->GetFromFr_settings(14);
             $data['titles'] = $this->AllPills_model->GetFromFr_settings(8);
             $data['greetings'] = $this->AllPills_model->GetFromFr_settings(9);
+
             //  $this->load->view('admin/all_Finance_resource_views/all_pills/PrintPill', $data);
+
             $type_esal = $this->AllPills_model->get_type_print($_SESSION['emp_code']);
+
+
             if (!empty($type_esal)) {
                 if ($type_esal == 1) {
 //                $this->test($_SESSION);
@@ -2207,55 +2612,79 @@ class  AllPills extends MY_Controller
                 }
             } else {
                 $this->load->view('admin/all_Finance_resource_views/all_pills/PrintPill_n_traheel', $data);
+
             }
+
+
         }
     }
+
     public function update_kafala_option()
     {
+
         $row_id = $this->input->post('row_id');
+
         $data_k = $this->AllPills_model->update_kafala_option($row_id);
+
         $this->AllPills_model->insert_pill_history();
         $data = $this->AllPills_model->get_kafala_option($row_id);
         echo json_encode($data);
     }
+
     public function load_kafala_option()
     {
+
         $row_id = $this->input->post('row_id');
+
         if ($this->input->post('motb3a')) {
             $data['motb3a'] = 'motb3a';
         }
         $data['kafala'] = $this->AllPills_model->get_kafala_option($row_id);
         $this->load->view('admin/all_Finance_resource_views/all_pills/motab3a_view/load_kafala_option', $data);
+
     }
-    /*public function update_kafala_option(){ 
-         
+    /*public function update_kafala_option(){
+
            $row_id = $this->input->post('row_id');
           $data= $this->AllPills_model->update_kafala_option($row_id);
-         
+
            echo json_encode($data);
        }*/
     /*public function load_kafala_option(){
+
         $row_id = $this->input->post('row_id');
         $data['kafala']=$this->AllPills_model->get_kafala_option($row_id);
         $this->load->view('admin/all_Finance_resource_views/all_pills/motab3a_view/load_kafala_option',$data);
+
     }*/
+
+
     public function display_all_pills()
     { // all_Finance_resource/all_pills/AllPills/display_all_pills
         $data['all_pills_warda'] = $this->AllPills_model->get_all_pills(1);
         $data['all_pills_sadra'] = $this->AllPills_model->get_all_pills(4);
+
         $data['title'] = '  متابعة الكفالات ';
         $data['subview'] = 'admin/all_Finance_resource_views/all_pills/motab3a_view/all_motab3a_view';
         $this->load->view('admin_index', $data);
+
+
     }
+
+
     /*public function display_all_pills()
        { // all_Finance_resource/all_pills/AllPills/display_all_pills
            $data['all_pills'] = $this->AllPills_model->get_all_pills();
            $data['customer_js'] = $this->load->view('admin/all_Finance_resource_views/all_pills/motab3a_view/app_js', '', TRUE);
            $this->load->view('admin/all_Finance_resource_views/all_pills/motab3a_view/all_pills_view', $data);
        }*/
+
     public function data_pills()
     {
+
         $customer = $this->AllPills_model->get_all_pills();
+
+
         $arr = array();
         $arr['data'] = array();
         if (!empty($customer)) {
@@ -2290,16 +2719,20 @@ class  AllPills extends MY_Controller
                 } else {
                     $kfala = '';
                 }
+
                 $arr['data'][] = array(
+
                     $x,
                     $row->pill_num,
                     $row->pill_date,
                     $row->pill_type_title,
+
                     $pay,
                     $row->value,
                     $row->person_name,
                     $row->band_title,
                     '
+
                                     
                 ' . $kfala . '
                   
@@ -2308,32 +2741,41 @@ class  AllPills extends MY_Controller
                 <span style="font-size: 12px; color: white !important; font-weight: normal;background-color: #c57400;    width: 150px;"
                                  class="badge badge-add">' . $row->publisher_name . '</span>
                 '
+
+
                 );
             }
         }
         $json = json_encode($arr);
         echo $json;
     }
+
     public function change_status()
     {
         $valu = $this->input->post('valu');
         $id = $this->input->post('id');
         $data['status'] = $this->AllPills_model->change_status($valu, $id);
+
         echo json_encode($data);
+
     }
+
+
     public function send_sms_whats()
     {
         /*
-          
+
         $full_msg=$person_laqab." / ".$person_name.".
         نثمن لكم دعمكم.. ونقدر لكم اهتمامكم..
-        شكرا لكم على دعمكم السخي بقيمة (".$value.") ريال سعودي 
+        شكرا لكم على دعمكم السخي بقيمة (".$value.") ريال سعودي
         بوركت خطواتكم.. وتقبل الله منكم..
        نسعد بتكرار زيارتكم.. ونشرف بكم..
         $moshro3_name
-        للتواصل  0553851919 
+        للتواصل  0553851919
         لمتابعتنا علي تويتر   https://twitter.com/abna_bu?lang=ar ";
         */
+
+
         $pill_id = $this->input->post('pill_id_whats');
         $type_message = $this->input->post('type_message');
         $another_message = $this->input->post('another_message');
@@ -2342,14 +2784,17 @@ class  AllPills extends MY_Controller
         $value = $row->value;
         $person_laqab = $row->person_laqab;
         $moshro3_name = $row->moshro3_name;
+
+
         /*$full_msg=$person_laqab." / ".$person_name.".
         شكر الله لكم بذلكم  بقيمة (".$value.")ريال سعودي  سعيا لمرافقة النبي صلي الله عليه وسلم وتقبل منكم.
         $moshro3_name
         نسعد بتجدد زيارتكم
-        للتواصل  0553851919 
+        للتواصل  0553851919
         لمتابعتنا علي تويتر   https://twitter.com/abna_bu?lang=ar ";
         $mobile='966'.$row->person_mob;
         $full_msg= urlencode($full_msg);*/
+
         $full_msg = $person_laqab . " / " . $person_name . ".
        نثمن لكم دعمكم.. ونقدر لكم اهتمامكم..
        شكرا لكم على دعمكم السخي بقيمة (" . $value . ") ريال سعودي 
@@ -2362,29 +2807,44 @@ class  AllPills extends MY_Controller
        ";
         $mobile = '966' . $row->person_mob;
         $full_msg = urlencode($full_msg);
+
+
         if ($type_message == 1) {
             $full_msg = $full_msg;
         } else {
             $full_msg = $another_message;
         }
+
         $data['msg'] = $full_msg;
         $data['person_mob'] = $mobile;
         echo json_encode($data);
+
         // redirect("https://api.whatsapp.com/send?phone=$mobile&text=$full_msg&source=&data=","refresh");
+
+
     }
+
     /*************************************************************************/
+
+
     public function get_balance()
     {
         $arr = $this->cutl_test('966563388066', 'SAMEER1403');
         echo json_encode($arr);
     }
+
+
     public function send_sms()
     {
+
+
         $pill_id = $this->input->post('pill_id');
         $type_message = $this->input->post('type_message');
         $another_message = $this->input->post('another_message');
+
         $data = $this->AllPills_model->get_kafala_option($pill_id);
         $full_msg = "abnaa ";
+
         if (isset($data) && !empty($data)) {
             $mobile = "966563388066";
             $password = 'SAMEER1403';
@@ -2393,22 +2853,25 @@ class  AllPills extends MY_Controller
             //$numbers=$row->mohda_eleh_jwal;
             //$numbers=$this->input->post('person_mob');
             $numbers = $data->person_mob;
+
             $person_name = $data->person_name;
             $value = $data->value;
             $person_laqab = $data->person_laqab;
             $moshro3_name = $data->moshro3_name;
+
             /*
             الأستاذ / مسعد السيد عبدالعزيز.
             نثمن لكم دعم الأيتام بقيمة (  ) ونقدر لكم اهتمامكم بهم
-           
-            بوركت خطواتكم.. وتقبل الله منكم.. 
+
+            بوركت خطواتكم.. وتقبل الله منكم..
            نسعد بتكرار زيارتكم..
-            
+
             للتواصل  0553851919
             */
             //$numbers="966597323333";
             // $numbers=‎‪+966 54 362 9615‬
             //  $msg=;
+
             $msg = $person_laqab . " / " . $person_name . ".
     نثمن لكم دعم الأيتام بقيمة (" . $value . ") ونقدر لكم إهتمامكم بهم 
        بوركت خطواتكم.. وتقبل الله منكم..
@@ -2418,6 +2881,8 @@ class  AllPills extends MY_Controller
        لمتابعتنا علي تويتر   https://twitter.com/abna_bu?lang=ar 
       
        ";
+
+
             $MsgID = rand(1, 99999);
             $timeSend = 0;
             $dateSend = 0;
@@ -2425,8 +2890,13 @@ class  AllPills extends MY_Controller
             $msgKey = 0;
             $resultType = 1;
             $this->sendSMS($mobile, $password, $numbers, $sender, $msg, $msgKey, $MsgID, $timeSend, $dateSend, $deleteKey, $resultType);
+
+
         }
+
     }
+
+
     function sendSMS($userAccount, $passAccount, $numbers, $sender, $msg, $MsgID, $timeSend = 0, $dateSend = 0, $deleteKey = 0, $viewResult = 1)
     {
         global $arraySendMsg;
@@ -2434,6 +2904,7 @@ class  AllPills extends MY_Controller
         $applicationType = "68";
         $sender = urlencode($sender);
         $domainName = $_SERVER['SERVER_NAME'];
+
         if (!empty($userAccount) && empty($passAccount)) {
             $stringToPost = "apiKey=" . $userAccount . "&numbers=" . $numbers . "&sender=" . $sender . "&msg=" . $msg . "&timeSend=" . $timeSend . "&dateSend=" . $dateSend . "&applicationType=" . $applicationType . "&domainName=" . $domainName . "&msgId=" . $MsgID . "&deleteKey=" . $deleteKey . "&lang=3";
         } else {
@@ -2453,8 +2924,10 @@ class  AllPills extends MY_Controller
             $result = printStringResult(trim($result), $arraySendMsg);
         return $result;
     }
+
     function printStringResult($apiResult, $printType = 'Alpha')
     {
+
         $arraySendMsg = array();
         $arraySendMsg[0] = "لم يتم الاتصال بالخادم";
         $arraySendMsg[1] = "تمت عملية الإرسال بنجاح";
@@ -2479,6 +2952,7 @@ class  AllPills extends MY_Controller
         $arraySendMsg[101] = "الارسال باستخدام بوابات الارسال معطل";
         $arraySendMsg[102] = "الاي بي الخاص بك غير مصرح له بإستخدم بوابات الارسال.";
         $arraySendMsg[103] = "الدولة التي تقوم بالإرسال منها غير مصرح لها بإستخدم بوابات الارسال.";
+
 //	$undefinedResult = "Ã¤ÃŠÃ­ÃŒÃ‰ Ã‡Ã¡ÃšÃ£Ã¡Ã­Ã‰ Ã›Ã­Ã‘ Ã£ÃšÃ‘ÃÃ¥Â¡ Ã‡Ã¡Ã‘ÃŒÃ‡Ã Ã‡Ã¡Ã£ÃÃ‡Ã¦Ã¡ Ã£ÃŒÃÃÃ‡";
         $undefinedResult = "نتيجة العملية غير معرفه، الرجاء المحاول مجددا";
         switch ($printType) {
@@ -2490,6 +2964,7 @@ class  AllPills extends MY_Controller
                         return $arrayMsgs[0];
                 }
                 break;
+
             case 'Balance':
                 {
                     if (array_key_exists($apiResult, $arrayMsgs))
@@ -2503,6 +2978,7 @@ class  AllPills extends MY_Controller
                     }
                 }
                 break;
+
             case 'Senders':
                 {
                     $apiResult = str_replace('[pending]', '[pending]<br>', $apiResult);
@@ -2511,14 +2987,16 @@ class  AllPills extends MY_Controller
                     return $apiResult;
                 }
                 break;
+
             case 'Normal':
-                if ($apiResult{0} != '#')
+                if ($apiResult[0] != '#')
                     return $arrayMsgs[$apiResult];
                 else
                     return $apiResult;
                 break;
         }
     }
+
     function cutl_test($userAccount, $passAccount, $sender = '')
     {
         global $arraySendMsg;
@@ -2543,19 +3021,28 @@ class  AllPills extends MY_Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, $stringToPost);
         $result = curl_exec($ch);
         $result = json_decode($result);
+
+
         $arr_before_explode = $result->Data->balance;
         $arr_after_explode = explode(":", $arr_before_explode);
         return $arr_after_explode;
+
+
         if ($viewResult)
             $result = printStringResult(trim($result), $arraySendMsg);
         return $result;
     }
+
     public function update_whats_count()
     {
+
         $id = $this->input->post('pill_id');
         $value = $this->input->post('value');
         $this->AllPills_model->update_whats_count($id, $value);
+
     }
+
+
     public function GetCardData()
     {
         if ($_POST['type'] === 'all') {

@@ -9,9 +9,6 @@
             <th class="text-center">وقت المشاهدة</th>
             <th class="text-center">تاريخ المشاهدة</th>
             <th class="text-center">رأى مدير المباشر</th>
-            <?php if (isset($finish) && (!empty($finish))) { ?>
-                <th class="text-center"> احتساب ساعات التطوع</th>
-            <?php } ?>
         </tr>
         </thead>
         <tbody>
@@ -65,9 +62,6 @@
                         echo " <span style='background-color: #efc10a;'>لم تتم المشاهدة</span>";
                     }
                     ?></td>
-                <?php if (isset($finish) && (!empty($finish))) { ?>
-                    <td><a target="_blank" class="btn btn-info btn-sm" href="<?=base_url()?>human_resources/employee_forms/Volunteer_hours/add_volunteer_hours/<?=$value->tataw3_id_fk?>/<?=$value->emp_id?>">احتساب ساعات التطوع </a> </td>
-                <?php } ?>
             </tr>
             <?php
             $x++;

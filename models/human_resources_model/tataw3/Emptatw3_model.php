@@ -1,12 +1,10 @@
 <?php
-
 class Emptatw3_model extends CI_Model
 {
     public function __construct()
     {
         parent::__construct();
     }
-
     public function chek_Null($post_value)
     {
         if ($post_value == '' || $post_value == null || (!isset($post_value))) {
@@ -16,7 +14,6 @@ class Emptatw3_model extends CI_Model
             return $post_value;
         }
     }
-
     public function get_last_rkm()
     {
         $this->db->order_by('rkm_talb', 'desc');
@@ -149,7 +146,6 @@ class Emptatw3_model extends CI_Model
         $this->db->where('id', $id);
         $this->db->delete("hr_emp_tataw3");
     }
-
     public function get_department()
     {
         $this->db->where('from_id_fk !=', 0);
@@ -178,7 +174,6 @@ class Emptatw3_model extends CI_Model
         }
         return false;
     }
-
     public function get_last()
     {
         $this->db->order_by('id_setting', 'desc');
@@ -192,7 +187,6 @@ class Emptatw3_model extends CI_Model
             return 0;
         }
     }
-
     public function insert_record($valu)
     {
         $data['title_setting'] = $valu;
@@ -200,7 +194,6 @@ class Emptatw3_model extends CI_Model
         $data['have_branch'] = 0;
         $this->db->insert('hr_forms_settings', $data);
     }
-
     public function select_all()
     {
         $this->db->select('*');
@@ -239,7 +232,6 @@ class Emptatw3_model extends CI_Model
         }
         return false;
     }
-
     public function get_edara_name_or_qsm($id)
     {
         $this->db->where('id', $id);
@@ -293,7 +285,6 @@ class Emptatw3_model extends CI_Model
         }
         return false;
     }
-
     public function get_all_magalat_edara($administration)
     {
         $this->db->select('*');
@@ -310,7 +301,6 @@ class Emptatw3_model extends CI_Model
         }
         return false;
     }
-
     public function get_direct_manager_name_by_emp_id($id)
     {
         $this->db->select('employees.id,employees.manger,manager_table.id as manger_id,manager_table.employee as manager_name');
@@ -331,14 +321,6 @@ class Emptatw3_model extends CI_Model
         $this->db->from("hr_emp_tataw3_details");
         $this->db->where("tataw3_id_fk", $id);
         $this->db->where("seen", 1);
-        $query = $this->db->get();
-        return $query->result();
-    }    public function get_all_emps_accpet($id)
-    {
-        $this->db->select('*');
-        $this->db->from("hr_emp_tataw3_details");
-        $this->db->where("tataw3_id_fk", $id);
-        $this->db->where(array("seen"=> 1,'current_to_action'=>1,));
         $query = $this->db->get();
         return $query->result();
     }
@@ -666,17 +648,6 @@ class Emptatw3_model extends CI_Model
         }
 
 
-        $query = $this->db->get()->result();
-        if (!empty($query)) {
-            return $query;
-        } else {
-            return 0;
-        }
-    } public function all_talab_finished()
-    {
-        $this->db->select('*');
-        $this->db->from("hr_emp_tataw3");
-        $this->db->where('close_publish_tataw3', 1);
         $query = $this->db->get()->result();
         if (!empty($query)) {
             return $query;

@@ -9,18 +9,9 @@
         float: right !important;
     }
 </style>
-<style>
-    td .btn-group .fa {
-        background-color: unset;
-        color: #000;
-        padding: unset;
-        font-size: unset;
-        line-height: unset;
-        border-radius: unset;
-    }
-</style>
 <?php if ($_SESSION['role_id_fk'] == 3) {
     ?>
+
 
     <?php
     if (isset($result) && !empty($result)) {
@@ -84,11 +75,77 @@
         $shroot = '';
         $outcome = '';
     } ?>
+    <?php
+    /*if (isset($result) && !empty($result)) {
+        $rkm_talb=$result->rkm_talb;
+        $date_talab=$result->date_talab;
+        $edara_id=$result->edara_id;
+        $mokdm_talab=$result->mokdm_talab;
+        $moshrf_name=$result->moshrf_name;
+        $moshrf_jwal=$result->moshrf_jwal;
+        $volunteer_description=$result->volunteer_description;
+        $volunteer_description_id_fk=$result->volunteer_description_id_fk;
+        $magal_tatw3=$result->magal_tatw3;
+        $forsa_name = $result->forsa_name;
+        $wasf = $result->wasf;
+        $makan = $result->makan;
+        $from_date=$result->from_date;
+        $to_date= $result->to_date;
+        $moda=$result->moda;
+        $from_time=$result->from_time;
+        $to_time=$result->to_time;
+      //  $num_hours=$result->num_hours;
+        $tataw3_hours =$result->tataw3_hours;
+        $gender =$result->gender;
+        $num_motakdm=$result->num_motakdm;
+        $activities=$result->activities;
+        $shroot = $result->shroot;
+        $outcome=$result->outcome;
 
+
+
+
+    }else{
+
+
+        $rkm_talb=$last_rkm;
+        $date_talab=date('Y-m-d');
+        $edara_id=$emp_data->administration;
+    $mokdm_talab=$emp_data->employee;
+    $moshrf_name='';
+    $moshrf_jwal='';
+    $volunteer_description='';
+    $volunteer_description_id_fk='';
+    $magal_tatw3='';
+
+            $forsa_name = '';
+            $wasf = '';
+            $makan = '';
+            $from_date=date("Y-m-d");
+            $to_date= date("Y-m-d");
+            $moda=1;
+            $from_time=date('H:i:s a');
+            $to_time=date('H:i:s a');
+        //    $num_hours=0;
+
+            $tataw3_hours =0;
+            $gender = '';
+            $num_motakdm='';
+            $activities='';
+            $shroot = '';
+            $outcome='';
+
+
+    } */
+    ?>
     <div class="col-sm-12 no-padding ">
+
         <div class="panel panel-bd lobidisable lobipanel lobipanel-sortable ">
+
             <div class="panel-heading">
+
                 <h3 class="panel-title"><?php echo $title; ?></h3>
+
                 <div class="panel-body">
                     <?php
                     if (isset($result) && !empty($result)){ ?>
@@ -99,17 +156,22 @@
                               method="post">
                             <?php } ?>
                             <div class="col-sm-12 no-padding ">
+
+
                                 <div class="form-group col-md-1 col-sm-6 col-xs-6 padding-4">
                                     <label class="label">رقم الطلب </label>
                                     <input type="number" class="form-control" readonly="readonly"
                                            value="<?= $rkm_talb ?>"/>
                                     <input type="hidden" name="rkm_talab" value="<?= $rkm_talb ?>"/>
                                 </div>
+
                                 <div class="form-group col-md-2 col-sm-6 col-xs-6 padding-4">
                                     <label class="label">تاريخ الطلب </label>
                                     <input type="date" name="date_talab" value="<?= $date_talab ?>"
                                            class="form-control"/>
                                 </div>
+
+
                                 <div class="col-md-3  managment-div-select form-group padding-4">
                                     <label class="label ">الإدارة</label>
                                     <select name="edara_id" id="edara_id" data-validation="required"
@@ -120,18 +182,24 @@
                                         <option value="">إختر</option>
                                         <?php
                                         if (!empty($admin)):
-                                            foreach ($admin as $record): $select = '';
+                                            foreach ($admin as $record):
+                                                $select = '';
                                                 if ($edara_id == $record->id) {
                                                     $select = 'selected';
-                                                } ?>
-                                                <option <?= $select ?>
+                                                }
+                                                ?>
+                                                <option
+                                                    <?= $select ?>
                                                         value="<? echo $record->id; ?>"><? echo $record->title; ?></option>
                                             <?php
                                             endforeach;
                                         endif;
                                         ?>
                                     </select>
+
                                 </div>
+
+
                                 <!--
   <div class="form-group col-md-3 col-sm-6 col-xs-6 padding-4">
     <label class="label">مقدم الطلب </label>
@@ -144,6 +212,7 @@
                                            class="form-control" data-validation="required" readonly/>
                                     <input type="hidden" name="mokdm_emp_id" id="mokdm_emp_id"
                                            value="<?= $mokdm_emp_id ?>"/>
+
                                 </div>
                                 <div class="form-group col-md-3 col-sm-6 col-xs-6 padding-4">
                                     <label class="label">اسم المشرف </label>
@@ -171,8 +240,10 @@
                                         ?>
                                     </select>
                                 </div>
+
                                 <!--  <div class="form-group col-md-3 col-sm-6 col-xs-6 padding-4">
                     <label class="label">اسم المشرف </label>
+
                            <select name="moshrf_name" id="responsible_load"
                                             class="form-control  "
                                         onchange="get_ms2ol_data()"
@@ -193,10 +264,13 @@
                                 endif;
                                 ?>
                                     </select>
+
   </div>
 -->
                             </div>
                             <div class="col-sm-12 no-padding ">
+
+
                                 <div class="form-group col-md-2 col-sm-6 col-xs-6 padding-4">
                                     <label class="label"> رقم جوال المشرف </label>
                                     <input type="text" name="moshrf_jwal" id="moshrf_jwal"
@@ -208,7 +282,10 @@
                                            class="form-control " data-validation="required">
                                     <span id="jwal_span" style="bottom: -20px;font-size: 14px;"
                                           class="span-validation"> </span>
+
                                 </div>
+
+
                                 <div class="form-group col-md-3 col-sm-6 col-xs-6 padding-4">
                                     <label class=" label kafel"> طبيعة العمل التطوعي </label>
                                     <input type="hidden" id="type_setting" data-id="" data-title="" data-title_fk=""
@@ -220,6 +297,7 @@
                                            style="cursor:pointer;border: white;color: black;width:88%;float: right;"
                                            data-validation="required"
                                            value="<?= $volunteer_description ?>">
+
                                     <input type="hidden" name="volunteer_description_id_fk"
                                            id="volunteer_description_id_fk" value="<?= $volunteer_description_id_fk ?>">
                                     <button type="button"
@@ -228,6 +306,7 @@
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
+
                                 <div class="form-group col-md-3 col-sm-6 col-xs-6 padding-4">
                                     <label class="label ">مجال العمل التطوعي
                                     </label>
@@ -252,14 +331,20 @@
                                         ?>
                                     </select>
                                 </div>
+
+
                                 <div class="form-group col-md-4 col-sm-6 col-xs-6 padding-4">
                                     <label class="label"> اسم الفرصة التطوعية </label>
                                     <input type="text" name="forsa_name" id="forsa_name"
                                            value="<?= $forsa_name ?>"
                                            oninput="set_abbr(this.value)"
                                            class="form-control  " data-validation="required">
+
                                 </div>
+
+
                             </div>
+
                             <div class="col-sm-12 no-padding ">
                                 <div class="form-group col-md-9 col-sm-6 col-xs-6 padding-4">
                                     <label class="label"> وصف الفرصة التطوعية </label>
@@ -267,25 +352,36 @@
                                            value="<?= $wasf ?>"
                                            data-validation="required"
                                            class="form-control  ">
+
                                 </div>
+
                                 <div class="form-group col-md-3 col-sm-6 col-xs-6 padding-4">
                                     <label class="label"> المكان </label>
                                     <input type="text" name="makan"
                                            value="<?= $makan ?>"
                                            class="form-control  ">
+
                                 </div>
+
+
                             </div>
+
                             <div class="col-sm-12 no-padding ">
+
                                 <div class="form-group col-md-2 col-sm-6 col-xs-6 padding-4">
                                     <label class="label">بداية الفرصة </label>
                                     <input type="date" name="from_date" id="from_date" value="<?= $from_date ?>"
                                            class="form-control" onchange=' get_date();'/>
                                 </div>
+
+
                                 <div class="form-group col-md-2 col-sm-6 col-xs-6 padding-4">
                                     <label class="label">نهاية الفرصة </label>
                                     <input type="date" name="to_date" id="to_date" value="<?= $to_date ?>"
                                            class="form-control" onchange=' get_date();'/>
                                 </div>
+
+
                                 <div class="form-group col-md-1 col-sm-6 col-xs-6 padding-4">
                                     <label class="label">المدة </label>
                                     <input type="number" name="moda" id="num_days" value="<?= $moda ?>"
@@ -298,6 +394,7 @@
                                            onchange="get_time();"
                                            value="<?= $from_time ?>">
                                 </div>
+
                                 <div class="col-md-1 form-group padding-4">
                                     <label class="label ">إلى الساعة </label>
                                     <input type="time" data-validation="required" name="to_time" id="to_time"
@@ -310,10 +407,13 @@
                                     <input type="number" class="form-control" value="<?= $tataw3_hours ?>"
                                            name="tataw3_hours" id="num_hours" readonly="readonly">
                                 </div>
+
                                 <div class="col-md-2 form-group padding-4">
                                     <label class="label ">الجنس </label>
+
                                     <select class="form-control" name="gender" style="">
                                         <option value="">اختر</option>
+
                                         <?php
                                         $genders = array('1' => 'نساء فقط', '2' => 'رجال فقط', '3' => 'نساء ورجال');
                                         foreach ($genders as $key => $value) {
@@ -330,30 +430,43 @@
                                         ?>
                                     </select>
                                 </div>
+
                                 <div class="col-md-1 form-group padding-4">
                                     <label class="label ">العدد المستهدف </label>
                                     <input type="text" class="form-control" value="<?= $num_motakdm ?>"
                                            name="num_motakdm" id="num_motakdm">
                                 </div>
+
+
                             </div>
+
                             <div class="col-sm-12 no-padding ">
+
+
                                 <div class="col-md-4 form-group padding-4">
                                     <label class="label ">الأنشطة - المهام </label>
                                     <textarea data-validation="required" name="activities"
                                               class="editor2" id="editor2"><?= $activities ?></textarea>
                                 </div>
+
                                 <div class="col-md-4 form-group padding-4">
                                     <label class="label ">شروط الفرصة </label>
                                     <textarea data-validation="required" name="shroot"
                                               class="editor3" id="editor3"><?= $shroot ?></textarea>
                                 </div>
+
                                 <div class="col-md-4 form-group padding-4">
                                     <label class="label ">العائد </label>
                                     <textarea data-validation="required" name="outcome"
                                               class="editor4" id="editor4"><?= $outcome ?></textarea>
                                 </div>
+
+
                             </div>
+
+
                 </div>
+
                 <div class="col-xs-12 text-center" style="margin-top: 0px">
                     <input type="hidden" name="add" value="add">
                     <button type="submit"
@@ -361,22 +474,29 @@
                             style="background-color: #3c990b;border-color: #12891b;padding-top: 0;padding-bottom: 0;border-radius:2px; ">
                         <span class="btn-label"><i class="glyphicon glyphicon-floppy-disk"></i></span>حفظ
                     </button>
+
                     <span style="color: red" id="span_id"></span><br>
+
                 </div>
                 </form>
             </div>
         </div>
+
+
     </div>
     <?php
     if (isset($records) && !empty($records)) {
         ?>
         <div class="col-sm-12 no-padding ">
+
             <div class="panel panel-bd lobidisable lobipanel lobipanel-sortable ">
                 <div class="panel-heading">
                     <h3 class="panel-title"> طلبات احتياج فرصة تطوعية</h3>
                 </div>
                 <div class="panel-body">
+
                     <!-----------------------------------------table------------------------------------->
+
                     <table id="example" class=" display table table-bordered   responsive nowrap" cellspacing="0"
                            width="100%">
                         <thead>
@@ -389,13 +509,16 @@
                             <th> اسم الفرصة التطوعية</th>
                             <th>العدد المستهدف</th>
                             <th> الاجراء</th>
+
                         </tr>
                         </thead>
                         <tbody>
                         <?php $mostafed_type_arr = array(0 => 'داخلى', 1 => 'خارجى'); ?>
+
                         <?php
                         $x = 1;
                         foreach ($records as $row) {
+
                             if (isset($_POST['from_profile']) && (!empty($_POST['from_profile']))) {
                                 $link_update = 'edit_talab(' . $row->id . ')';
                                 $link_delete = 1;
@@ -403,6 +526,8 @@
                                 $link_update = 'window.location="' . base_url() . 'human_resources/tataw3/Emptatw3/edit_talab/' . $row->id . '";';
                                 $link_delete = 0;
                             }
+
+
                             ?>
                             <tr>
                                 <td><?php echo $x; ?></td>
@@ -412,83 +537,94 @@
                                     <?php
                                     if (!empty($admin)):
                                         foreach ($admin as $record):
+
                                             if ($row->edara_id == $record->id) {
                                                 echo $record->title;
                                             }
                                         endforeach;
                                     endif;
                                     ?>
+
+
                                 </td>
                                 <td><?php echo $row->mokdm_talab; ?></td>
                                 <td><?php echo $row->forsa_name; ?></td>
                                 <td><?php echo $row->num_motakdm; ?></td>
                                 <td>
-                                    <div>
-                                        <div id="publish_res<?= $row->id ?>">
-                                        </div>
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-primary">إجراءات</button>
-                                            <button type="button" class="btn btn-primary dropdown-toggle"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <span class="caret"></span>
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li><a data-toggle="modal" data-target="#details_Modal"
-                                                       onclick="load_page(<?= $row->id ?>);">
-                                                        <i class="fa fa-list " aria-hidden="true"></i> تفاصيل </a></li>
-                                                <?php /*if ($row->publish_tataw3 == 0) { ?>
-                                                    <li><a id="publish<?= $row->id ?>"
-                                                           onclick="publish(<?= $row->id ?>);">
-                                                            <i class="fa fa-forward " aria-hidden="true"></i> نشر الفرصة
-                                                        </a></li>
-                                                <?php } */?>
-                                                <li><a onclick='swal({
-                                                            title: "هل انت متأكد من التعديل ؟",
-                                                            text: "",
-                                                            type: "warning",
-                                                            showCancelButton: true,
-                                                            confirmButtonClass: "btn-warning",
-                                                            confirmButtonText: "تعديل",
-                                                            cancelButtonText: "إلغاء",
-                                                            closeOnConfirm: true
-                                                            },
-                                                            function(){
-                                                    <?= $link_update ?>
-                                                            });'><i
-                                                                class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                                        تعديل </a>
-                                                </li>
-                                                <li><a onclick='swal({
-                                                            title: "هل انت متأكد من الحذف ؟",
-                                                            text: "",
-                                                            type: "warning",
-                                                            showCancelButton: true,
-                                                            confirmButtonClass: "btn-danger",
-                                                            confirmButtonText: "حذف",
-                                                            cancelButtonText: "إلغاء",
-                                                            closeOnConfirm: true
-                                                            },
-                                                            function(){
-                                                            swal("تم الحذف!", "", "success");
-                                                            window.location="<?php echo base_url(); ?>human_resources/tataw3/Emptatw3/delete_talab/<?php echo $row->id . '/' . $link_delete; ?>";
-                                                            });'><i class="fa fa-trash"
-                                                                    aria-hidden="true"></i> حذف </a></li>
-                                            </ul>
-                                        </div>
+                                    <div id="publish_res<?= $row->id ?>">
                                     </div>
+
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-primary">إجراءات</button>
+                                        <button type="button" class="btn btn-primary dropdown-toggle"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a data-toggle="modal" data-target="#details_Modal"
+                                                   style="padding:1px 5px;" onclick="load_page(<?= $row->id ?>);">
+                                                    <i class="fa fa-list " aria-hidden="true"></i>تفاصيل </a></li>
+
+
+                                            <li><a onclick='swal({
+                                                        title: "هل انت متأكد من التعديل ؟",
+                                                        text: "",
+                                                        type: "warning",
+                                                        showCancelButton: true,
+                                                        confirmButtonClass: "btn-warning",
+                                                        confirmButtonText: "تعديل",
+                                                        cancelButtonText: "إلغاء",
+                                                        closeOnConfirm: true
+                                                        },
+                                                        function(){
+                                                <?= $link_update ?>
+                                                        });'><i
+                                                            class="fa fa-pencil-square-o" aria-hidden="true"></i> تعديل</a>
+                                            </li>
+
+                                            <li><a onclick='swal({
+                                                        title: "هل انت متأكد من الحذف ؟",
+                                                        text: "",
+                                                        type: "warning",
+                                                        showCancelButton: true,
+                                                        confirmButtonClass: "btn-danger",
+                                                        confirmButtonText: "حذف",
+                                                        cancelButtonText: "إلغاء",
+                                                        closeOnConfirm: true
+                                                        },
+                                                        function(){
+                                                        swal("تم الحذف!", "", "success");
+                                                        window.location="<?php echo base_url(); ?>human_resources/tataw3/Emptatw3/delete_talab/<?php echo $row->id . '/' . $link_delete; ?>";
+                                                        });'><i class="fa fa-trash"
+                                                                aria-hidden="true"></i>حذف </a></li>
+
+                                        </ul>
+                                    </div>
+
+
                                 </td>
+
                             </tr>
                             <?php $x++;
                         } ?>
                         </tbody>
                     </table>
+
+
                     <!--------------------------------------------table---------------------------------->
+
+
                 </div>
             </div>
+
         </div>
+
+
     <?php } ?>
+
     <!-- details_Modal -->
+
     <div class="modal fade" id="details_Modal" tabindex="-1" role="dialog"
          aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document" style="width: 80%">
@@ -499,16 +635,23 @@
                     <h4 class="modal-title" style="text-align: center;">التفاصيل </h4>
                 </div>
                 <div class="modal-body" id="result_page">
+
                 </div>
                 <div class="modal-footer" style="display: inline-block;width: 100%">
+
+
                     <button type="button" class="btn btn-labeled btn-danger "
                             onclick="$('#details_Modal').modal('hide')">
                         <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>إغلاق
                     </button>
+
                 </div>
+
             </div>
         </div>
     </div>
+
+
     <!-- yara -->
     <!-- settingModal  -->
     <div class="modal fade" id="settingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -573,11 +716,13 @@
 <!-- settingModal  -->
 <script>
     function change_type_setting(id, title, title_fk, title_n) {
+
         $('.title_setting').text(title);
         $('#type_setting').data('id', id);
         $('#type_setting').data('title', title);
         $('#type_setting').data('title_fk', title_fk);
         $('#type_setting').data('title_n', title_n);
+
     }
 </script>
 <script>
@@ -585,6 +730,7 @@
         var type = $('#type_setting').data("id");
         var type_name = $('#type_setting').data("title");
         var row_id = $('#row_setting_id').val();
+
         if (value != 0 && value != '') {
             $.ajax({
                 type: 'post',
@@ -612,6 +758,8 @@
     function load_settigs() {
         var type = $('#type_setting').data("id");
         var type_name = $('#type_setting').data("title");
+
+
         $('#settingModal').modal('show');
         $.ajax({
             type: 'post',
@@ -628,6 +776,8 @@
                 $('#setting_output').html(html);
             }
         });
+
+
     }
 </script>
 <script>
@@ -640,6 +790,7 @@
         $('#settingModal').modal('hide');
     }
 </script>
+
 <!-- yara25-10-2020 -->
 <script>
     function get_time() {
@@ -685,6 +836,7 @@
             } else {
                 document.getElementById("save").disabled = false;
                 document.getElementById("span_id").style.display = 'none';
+
             }
         }
     }
@@ -695,6 +847,7 @@
     initSample();
     CKEDITOR.replaceClass = 'ckeditor';
 </script>
+
 <script type="text/javascript">
     CKEDITOR.replace('editor2');
     CKEDITOR.add;
@@ -705,6 +858,8 @@
         ['Image', 'Table', '-', 'Link', 'Flash', 'Smiley', 'TextColor', 'BGColor', 'Source']
     ];
 </script>
+
+
 <script type="text/javascript">
     CKEDITOR.replace('editor3');
     CKEDITOR.add;
@@ -715,6 +870,7 @@
         ['Image', 'Table', '-', 'Link', 'Flash', 'Smiley', 'TextColor', 'BGColor', 'Source']
     ];
 </script>
+
 <script type="text/javascript">
     CKEDITOR.replace('editor4');
     CKEDITOR.add;
@@ -725,6 +881,7 @@
         ['Image', 'Table', '-', 'Link', 'Flash', 'Smiley', 'TextColor', 'BGColor', 'Source']
     ];
 </script>
+
 <script>
     function get_ms2ol_data() {
         var id = $('#responsible_load').val();
@@ -748,6 +905,36 @@
             }
         });
     }
+
+    /* function get_ms2ol_data() {
+         var id=$('#responsible_load').val();
+
+
+         $.ajax({
+             url: "<?php echo base_url() ?>human_resources/tataw3/Emptatw3/get_ms2ol_data",
+            type: "Post",
+            dataType: "html",
+            data: {id: id},
+            success: function (data) {
+
+                var obj = JSON.parse(data);
+                //console.log(obj);
+               console.log(obj.mosma_wazefy_n);
+               console.log(obj.phone);
+               console.log(obj.another_phone);
+               console.log(obj.email);
+               
+
+               // $('#job').val(obj.mosma_wazefy_n);
+               // $('#tele').val(obj.moshrf_jwal);
+                $('#moshrf_jwal').val(obj.phone);
+              //  $('#email').val(obj.email);
+
+
+            }
+
+        });
+    }*/
 </script>
 <!-- get_responsible -->
 <script type="text/javascript" src="<?php echo base_url() ?>asisst/admin_asset/js/jquery-1.10.1.min.js"></script>
@@ -763,6 +950,7 @@ if (empty($result)) {
 <?php } ?>
 <script>
     function get_responsible() {
+
         var row_id = $('#edara_id').val();
         console.log(row_id);
         $.ajax({
@@ -771,13 +959,17 @@ if (empty($result)) {
             data: {row_id: row_id},
             success: function (d) {
                 $('#responsible_load').html(d);
+
             }
+
         });
+
     }
 </script>
 <!-- get_mgalat -->
 <script>
     function get_mgalat() {
+
         var row_id = $('#edara_id').val();
         console.log(row_id);
         $.ajax({
@@ -786,8 +978,11 @@ if (empty($result)) {
             data: {row_id: row_id},
             success: function (d) {
                 $('#magal_tatw3').html(d);
+
             }
+
         });
+
     }
 </script>
 <script type="text/javascript">
@@ -815,7 +1010,9 @@ if (empty($result)) {
             day = date.addDays(1).getDate();
             month = date.addDays(1).getMonth() + 1;
             year = date.addDays(1).getFullYear();
+
             console.log("date :: " + ("0" + day).slice(-2) + '-' + ("0" + month).slice(-2) + '-' + year);
+
             document.getElementById("num_days").value = diffDays + 1;
             return diffDays + 1;
         } else {
@@ -825,40 +1022,40 @@ if (empty($result)) {
                 confirmButtonText: 'تم'
             });
             document.getElementById("to_date").value = '';
+
             document.getElementById("num_days").value = '';
+
             document.getElementById("num_days").value = diffDays;
+
             return diffDays;
         }
     }
 </script>
+
 <script>
     function load_page(row_id) {
+
         $.ajax({
             type: 'post',
             url: "<?php echo base_url();?>human_resources/tataw3/Emptatw3/load_details",
             data: {row_id: row_id},
             success: function (d) {
                 $('#result_page').html(d);
+
             }
+
         });
+
     }
 </script>
+
 <script>
     function publish(row_id) {
+
         $.ajax({
             type: 'post',
             url: "<?php echo base_url();?>human_resources/tataw3/Emptatw3/publish",
             data: {id: row_id},
-            beforeSend: function () {
-                swal({
-                    title: "جاري نشر ... ",
-                    text: "",
-                    imageUrl: '<?php echo base_url() . 'asisst/admin_asset/img/loader.png';?>',
-                    showConfirmButton: false,
-                    allowOutsideClick: false
-
-                });
-            },
             success: function (d) {
                 swal({
                     title: 'تم!',
@@ -867,7 +1064,11 @@ if (empty($result)) {
                 });
                 $('#publish' + row_id).hide();
                 $('#publish_res' + row_id).html('<span style="color:green;">تم النشر للموظفين بنجاح</span>');
+
             }
+
         });
+
     }
 </script>
+
