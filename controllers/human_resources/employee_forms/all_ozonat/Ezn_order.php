@@ -6,7 +6,17 @@ class Ezn_order extends MY_Controller{
         if($this->session->userdata('is_logged_in')==0){
             redirect('login');
         }
+        /**********************************************************/
+        $this->load->model('familys_models/for_dash/Counting');
+        $this->count_basic_in  = $this->Counting->get_basic_in_num();
+        $this->files_basic_in  = $this->Counting->get_files_basic_in();
+        /*************************************************************/
         $this->load->helper(array('url','text','permission','form'));
+
+        $this->load->model('system_management/Groups');
+
+        $this->groups=$this->Groups->get_group($_SESSION["group_number"]);
+        $this->groups_title=$this->Groups->get_group_title($_SESSION["group_number"]);
         $this->load->model('human_resources_model/employee_forms/all_ozonat/Ezn_order_model');
         $this->load->model('human_resources_model/Public_employee_main_data');
         $this->load->library('google_maps');
@@ -581,9 +591,9 @@ $time_diff =  round(abs($to_time - $from_time) / 60,2). " دقيقة ";
                     //   <i class="fa fa-list "></i>
                     //   افاده شئون الموظفين
                     //   </button>',
-                    '<a data-toggle="modal" data-target="#detailsModal" title="تفاصيل" class="btn btn-sm btn-info" style="padding:1px 6px"  onclick="load_page(' . $row->id . ') load_person_data(' . $row->emp_id_fk . ') load_profile_data(' . $row->emp_id_fk . ')">
+                    '<a data-toggle="modal" data-target="#detailsModal" title="تفاصيل" class="btn btn-sm btn-info" style="padding:1px 6px"  onclick="load_page('.$row->id.'); load_person_data('.$row->emp_id_fk.'); load_profile_data('.$row->emp_id_fk.');">
                   <i class="fa fa-list "></i></a>
-                  <a  title="طباعة" onclick="print_new_ezn(' . $row->id . ')">
+                  <a  title="طباعة" onclick="print_new_ezn('.$row->id.');">
                   <i class="fa fa-print "></i></a>'
                     .$egraaa,
                     $row->current_to_user_name,

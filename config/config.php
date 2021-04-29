@@ -18,6 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = 'http://localhost/ABNAAv1/';
+/*$config['base_url'] = 'https://demo.abna.sa/';*/
 //$config['base_url'] = 'http://benaapp.demoatheer.xyz';
 //$config['base_url'] = 'http://payment.hailschool.info/';
 /*
@@ -443,7 +444,7 @@ $config['global_xss_filtering'] = FALSE;
 //6-5-om
 
 $config['csrf_protection'] = FALSE;
-$config['enable_csrf_for_uris_only'] = array('all_Finance_resource/all_pills/AllPills/addPills','Web/contact');
+$config['enable_csrf_for_uris_only'] = array('all_Finance_resource/all_pills/AllPills/addPills','Web/contact','Web/gam3ia_contact');
 
 $csrf_pages = $config['enable_csrf_for_uris_only'];
 if (isset($_SERVER["REQUEST_URI"])) {

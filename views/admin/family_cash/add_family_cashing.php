@@ -1211,10 +1211,10 @@
     function get_other_person(this_value) {
         if (this_value == "0" && this_value != "") {
             $("#other_person").attr('readonly', false);
-
+            ;
         } else {
             $("#other_person").attr('readonly', true);
-
+            ;
             $("#other_person").val("");
         }
     }

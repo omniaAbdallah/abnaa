@@ -5,7 +5,6 @@ class Osr_crm_m extends CI_Model
     {
         parent:: __construct();
     }
-
     public function chek_Null($post_value)
     {
         if ($post_value == '' || $post_value == null || (!isset($post_value))) {
@@ -15,13 +14,10 @@ class Osr_crm_m extends CI_Model
             return $post_value;
         }
     }
-
-    function get_all_operations($mother_num)
-    {
-        $data_where['mother_national_num'] = $mother_num;
-        return $this->db->where($data_where)->get('osr_bahth_hdoor')->result_array();
-    }
-
+    function get_all_operations($mother_num){
+    $data_where['mother_national_num'] = $mother_num;
+    return  $this->db->where($data_where)->get('osr_bahth_hdoor')->result_array();
+}
     public function select_all()
     {
         $this->db->select('*');

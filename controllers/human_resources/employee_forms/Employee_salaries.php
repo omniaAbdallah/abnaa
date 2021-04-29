@@ -235,7 +235,7 @@ class Employee_salaries extends MY_Controller{
         $data['mosayer_date'] =  strtotime( $data['mosayer_date_ar']);
       //  $data['mosayer_month'] = $this->Employee_salaries_model->get_month($data['mosayer_date_ar']);
       
-       $data['mosayer_month'] = 1;  
+       $data['mosayer_month'] = 4;  
       //  $data['mosayer_month'] = $this->Employee_salaries_model->current_date_mosayer('','month');
         $data['mosayer_year'] = $this->Employee_salaries_model->current_date_mosayer('','year');
         
@@ -1042,18 +1042,18 @@ function allmosayer($mosayer_rkm,$mosayer_month,$mosayer_year)
 
 public function print_card_in_mosayer()
 {
-    $this->load->model('Model_family_cashing');
-    $data['mosayer_fe2at'] = $this->input->post('mosayer_fe2at');
-    $data['pay_method_id_fk'] = $this->input->post('pay_method_id_fk');
-    $mosayer_rkm = $this->input->post('mosayer_rkm');
+    $this->load->model('Model_family_cashing'); 
+    $data['mosayer_fe2at']= $this->input->post('mosayer_fe2at');
+     $data['pay_method_id_fk']= $this->input->post('pay_method_id_fk');
+     $mosayer_rkm = $this->input->post('mosayer_rkm');
     /*   $data['all_mosayer_data']= $this->Employee_salaries_model->get_all_mosayer_details(1);
        $data['all_mosayer_egmali']= $this->Employee_salaries_model->get_all_mosayer_data(1);*/
-
-    $data["modeer_mali"] = $this->Model_family_cashing->get_emp_assigns(501);
-    $data["mohaseb"] = $this->Model_family_cashing->get_emp_assigns(502);
-    $data["modeer_hr"] = $this->Model_family_cashing->get_emp_assigns(401);
-    $data["modeer_3am"] = $this->Model_family_cashing->get_emp_assigns(101);
-    $data['main_mosayer'] = $this->Employee_salaries_model->get_main_mosayer_data($mosayer_rkm);
+           
+               $data["modeer_mali"]=$this->Model_family_cashing->get_emp_assigns(501);
+             $data["mohaseb"]=$this->Model_family_cashing->get_emp_assigns(502);
+             $data["modeer_hr"]=$this->Model_family_cashing->get_emp_assigns(401);
+             $data["modeer_3am"]=$this->Model_family_cashing->get_emp_assigns(101);
+           $data['main_mosayer'] =  $this->Employee_salaries_model->get_main_mosayer_data($mosayer_rkm);
     $data['all_mosayer_data'] = $this->Employee_salaries_model->get_all_mosayer_details_search_data($mosayer_rkm);
     $this->load->view('admin/Human_resources/employee_forms/mosayer_v/print_mosayer_view', $data);
 }

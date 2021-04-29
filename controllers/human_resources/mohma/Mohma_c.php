@@ -29,11 +29,13 @@ class Mohma_c extends MY_Controller
         $data['ghat'] = $this->Difined_model->select_search_key2("hr_forms_settings","type","38","");
         $data['title'] = 'إضافة مهمة';
         $data['emp_data'] = $this->Mohma_model->select_all_emp();
-      if (isset($_POST['from_profile']) && !empty($_POST['from_profile'])) {
-          $this->load->view('admin/Human_resources/mohma_v/mohma_emp', $data);
-      } else {
-          $data['subview'] = 'admin/Human_resources/mohma_v/mohma_emp';
-          $this->load->view('admin_index', $data);
+      if(isset($_POST['from_profile'])&&!empty($_POST['from_profile']))
+      {
+        $this->load->view('admin/Human_resources/mohma_v/mohma_emp', $data);
+      }
+      else{
+        $data['subview'] = 'admin/Human_resources/mohma_v/mohma_emp';
+        $this->load->view('admin_index', $data);
       }
     }
     public function update($id= false)
@@ -158,35 +160,30 @@ class Mohma_c extends MY_Controller
       }
         $this->message('success', 'تمت الحذف ');
     }
-
     public function get_all_data()
     {
         $id = $this->input->post('id');
-        $data['ghat'] = $this->Difined_model->select_search_key2("hr_forms_settings", "type", "38", "");
+        $data['ghat'] = $this->Difined_model->select_search_key2("hr_forms_settings","type","38","");
         $data['get_all'] = $this->Mohma_model->select_by_id($id);
         $data['one_data'] = $this->Mohma_model->get_attach($id);
-        $data['result'] = $this->Mohma_model->get_comments($id);
+        $data['result']=$this->Mohma_model->get_comments($id);
         $this->load->view('admin/Human_resources/mohma_v/getDetailsDiv', $data);
     }
-
     public function load_comments()
     {
         $id = $this->input->post('id');
-        $data['result'] = $this->Mohma_model->get_comments($id);
+        $data['result']=$this->Mohma_model->get_comments($id);
         //$this->test( $data['get_mohma']);
         $this->load->view('admin/Human_resources/mohma_v/load_comments', $data);
     }
-
     public function update_seen_mohma()//human_resources/mohma/Mohma_c/update_seen_mohma
     {
         $this->Mohma_model->update_seen_mohma();
     }
-
     public function update_seen_comments_mohma()//human_resources/mohma/Mohma_c/update_seen_comments_mohma
     {
         $this->Mohma_model->update_seen_comments_mohma();
     }
-
     private function test($data = array())
     {
         echo "<pre>";
@@ -304,7 +301,7 @@ class Mohma_c extends MY_Controller
     {
         $this->Mohma_model->insert_record($this->input->post('valu'));
     }
-
+   
     ///////////////////////////////////////coments///////////////////////////
     public function add_comment($id= false)
     {
@@ -361,7 +358,7 @@ class Mohma_c extends MY_Controller
         $this->load->view('admin/Human_resources/mohma_v/load_details', $data);
     }
     // load_comments
-
+   
     // yara
     public function add_setting(){
         $type = $this->input->post('type');
@@ -382,20 +379,17 @@ class Mohma_c extends MY_Controller
            public function delete_setting(){
             $id = $this->input->post('id') ;
             $type = $this->input->post('type');
-               $type_name = $this->input->post('type_name');
-               $this->Mohma_model->delete_setting($id);
-               $data['result'] = $this->Mohma_model->get_setting($type);
-               $data['type_name'] = $type_name;
-               $this->load->view('admin/Human_resources/mohma_v/load_setting', $data);
-           }
-
-    public function get_setting_by_id()
-    {
-        $id = $this->input->post('row_id');
-        $result = $this->Mohma_model->get_setting_by_id($id);
-        echo json_encode($result);
-    }
-
+            $type_name = $this->input->post('type_name');
+            $this->Mohma_model->delete_setting($id);
+             $data['result'] = $this->Mohma_model->get_setting($type);
+            $data['type_name'] = $type_name;
+            $this->load->view('admin/Human_resources/mohma_v/load_setting',$data);
+        }
+            public function get_setting_by_id(){
+        $id = $this->input->post('row_id') ;
+       $result = $this->Mohma_model->get_setting_by_id($id);
+       echo json_encode($result) ;
+    } 
     ///////////////////////////////////////////////////////old/////////////
     public function end_mohma($id)
     {
@@ -404,46 +398,42 @@ class Mohma_c extends MY_Controller
         $this->message('success', 'تمت انهاء ');
     }
     ///////////////////////////////////////////////new/////////////////////
-    // all_current_mohma
-    public function all_send_mohma()//human_resources/mohma/Mohma_c/all_send_mohma
-    {
-        $data['records'] = $this->Mohma_model->select_all();
-        $data['title'] = '   متابعه المهام';
-        $data['subview'] = 'admin/Human_resources/mohma_v/all_send_mohma';
-        $this->load->view('admin_index', $data);
-
-    }
-
+     // all_current_mohma
+     public function all_send_mohma()//human_resources/mohma/Mohma_c/all_send_mohma
+     {  
+         $data['records'] = $this->Mohma_model->select_all();
+         $data['title'] = '   متابعه المهام';
+         $data['subview'] = 'admin/Human_resources/mohma_v/all_send_mohma';
+         $this->load->view('admin_index', $data);
+       
+     }
     public function all_new_mohma()//human_resources/mohma/Mohma_c/all_new_mohma
-    {
+    {  
         $data['records'] = $this->Mohma_model->select_all_new_mohma();
         $data['title'] = ' مهام جديدة';
-
+       
         $data['subview'] = 'admin/Human_resources/mohma_v/new_mohma_emp';
         $this->load->view('admin_index', $data);
-
+      
     }
-
     // all_current_mohma
     public function all_current_mohma()//human_resources/mohma/Mohma_c/all_current_mohma
-    {
+    {  
         $data['records'] = $this->Mohma_model->select_all_current_mohma();
         $data['title'] = ' مهام قيد تنفيذها';
         $data['subview'] = 'admin/Human_resources/mohma_v/current_mohma_emp';
         $this->load->view('admin_index', $data);
-
+      
     }
-
-    // all_current_mohma
-    public function all_end_mohma()//human_resources/mohma/Mohma_c/all_end_mohma
-    {
-        $data['records'] = $this->Mohma_model->select_all_end_mohma();
-        $data['title'] = ' مهام تم تنفيذها';
-        $data['subview'] = 'admin/Human_resources/mohma_v/end_mohma_emp';
-        $this->load->view('admin_index', $data);
-
-    }
-
+     // all_current_mohma
+     public function all_end_mohma()//human_resources/mohma/Mohma_c/all_end_mohma
+     {  
+         $data['records'] = $this->Mohma_model->select_all_end_mohma();
+         $data['title'] = ' مهام تم تنفيذها';
+         $data['subview'] = 'admin/Human_resources/mohma_v/end_mohma_emp';
+         $this->load->view('admin_index', $data);
+       
+     }
     // estlam_mohma
     public function estlam_mohma($id)
     {

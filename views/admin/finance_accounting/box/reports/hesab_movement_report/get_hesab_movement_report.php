@@ -578,7 +578,7 @@ if ($this->input->post('status') == 1) {
 
                         '</div>';
 
-                    $(win.document.body).find('.print-h').html('حركة حساب');
+                    $(win.document.body).find('.print-h').html('حركة حساب <?=$hesab_name?>');
 
 
                     $(win.document.body).find('.page-print-header').append(headerpage);
@@ -624,7 +624,7 @@ if ($this->input->post('status') == 1) {
                         '<label> المحاسب </label><br><br>محمد عبدالله الربدي' +
                         '</div>' +
                         '<div class="col-xs-4 text-center">' +
-                        '<label> مدير الشئون المالية </label><br><br>تركي بن علي التركي	' +
+                        '<label> مدير الشئون المالية </label><br><br>فهد بن سليمان الطليحان		' +
                         '</div>' +
                         '<div class="col-xs-4 text-center">' +
 

@@ -39,6 +39,7 @@ class Human_resources extends MY_Controller
         echo "</pre>";
 
     }
+
     /* private function thumb($data){
         $config['image_library'] = 'gd2';
         $config['source_image'] =$data['full_path'];
@@ -124,6 +125,7 @@ class Human_resources extends MY_Controller
 
         $this->image_lib->resize();
     }
+
     private function upload_file($file_name, $folder = '')
     {
         if (!empty($folder)) {
@@ -149,6 +151,7 @@ class Human_resources extends MY_Controller
             return $datafile['file_name'];
         }
     }
+
     public function messages($type, $text, $method = false)
     {
         $CI =& get_instance();
@@ -382,6 +385,7 @@ class Human_resources extends MY_Controller
             $this->load->view('admin_index', $data);
         }
     }
+
     public function add_personal_data()
     {
         if ($this->input->post('add')) {
@@ -727,78 +731,7 @@ class Human_resources extends MY_Controller
     /*****************************************************************/
 
 //======================= ahmed zedan ==============================================================  
-    /* public function financeEmployee($empCode) // human_resources/Human_resources/financeEmployee/1
-     {
-         if($this->input->post('add')) {
-             $this->Finance_employee_model->financeEmployee($this->uri->segment(4));
-             messages('success','تسجيل البيانات المالية للموظف');
-         }
-         $data["personal_data"]=$this->Employee_model->get_one_employee($empCode);
-         $data['allData'] = $this->Finance_employee_model->getAllData($empCode)[0];
-         $data['employee'] = $this->Finance_employee_model->getEmpData($empCode);
-         $data['badalat'] = $this->Finance_employee_model->getBadalat(1);
-         $data['discounts'] = $this->Finance_employee_model->getBadalat(2);
-         $data['banks'] = $this->Finance_employee_model->getBanks();
-         $data['markz'] =$this->Difined_model->select_search_key('employees_settings', 'type', '9');
-         $data['title'] = 'البيانات المالية للموظف';
-         $data['subview'] = 'admin/Human_resources/finance_employee';
-         $this->load->view('admin_index', $data);
-     } */
 
-    /* public function financeEmployee($empCode){ // human_resources/Human_resources/financeEmployee/1
-     if($this->input->post('add')) {
-         $this->Finance_employee_model->financeEmployee($this->uri->segment(4));
-           $this->messages('success','تسجيل البيانات المالية للموظف');
-
-     redirect('human_resources/Human_resources/financeEmployee/'.$empCode,'refresh');
-     }
-     $data["personal_data"]=$this->Employee_model->get_one_employee($empCode);
-     $data['allData'] = $this->Finance_employee_model->getAllData($empCode)[0];
-     $data['employee'] = $this->Finance_employee_model->getEmpData($empCode);
-     $data['badalat'] = $this->Finance_employee_model->getBadalat(1);
-     $data['discounts'] = $this->Finance_employee_model->getBadalat(2);
-     $data['banks'] = $this->Finance_employee_model->getBanks();
-     $data['markz'] =$this->Difined_model->select_search_key('employees_settings', 'type', '17');
-     $data['bdalat_id'] = $this->Finance_employee_model->getBadalat_id(1);
-     $data['cuts_id'] = $this->Finance_employee_model->getBadalat_id(2);
-     $data['title'] = 'البيانات المالية للموظف';
-     $data['subview'] = 'admin/Human_resources/finance_employee';
-     $this->load->view('admin_index', $data);
-    }*/
-
-    /* public function financeEmployee($empCode){ // human_resources/Human_resources/financeEmployee/1
-          if($this->input->post('add')) {
-              $this->Finance_employee_model->financeEmployee($this->uri->segment(4));
-                $this->messages('success','تسجيل البيانات المالية للموظف');
-
-          redirect('human_resources/Human_resources/financeEmployee/'.$empCode,'refresh');
-          }
-          $data["personal_data"]=$this->Employee_model->get_one_employee($empCode);
-          $data['allData'] = $this->Finance_employee_model->getAllData($empCode)[0];
-          $data['badalat'] = $this->Finance_employee_model->getBadalat(1);
-          $data['discounts'] = $this->Finance_employee_model->getBadalat(2);
-          $data['bdalat_id'] = $this->Finance_employee_model->getBadalat_id(1);
-        //  echo '<pre>';
-         // print_r($data['allData']);
-
-          $data['employee'] = $this->Finance_employee_model->getEmpData($empCode);
-
-          $data['banks'] = $this->Finance_employee_model->getBanks();
-          $data['markz'] =$this->Difined_model->select_search_key('employees_settings', 'type', '17');
-
-          $data['cuts_id'] = $this->Finance_employee_model->getBadalat_id(2);
-          $data['title'] = 'البيانات المالية للموظف';
-          $data['subview'] = 'admin/Human_resources/badlat_setting/finance_employee';
-         // $data['subview'] = 'admin/Human_resources/finance_employee';
-          $this->load->view('admin_index', $data);
-         }*/
-
-    /*    function load_mrakz()
-  {
-      $this->load->model('finance_accounting_model/markz_tklfa/Markz_tklfa_m');
-      $data["marakez"] = $this->Markz_tklfa_m->getAll_markez(array('id!=' => 0));
-      $this->load->view('admin/Human_resources/badlat_setting/load_mrakz_tree', $data);
-  }*/
     public function financeEmployee($empCode)
     { // human_resources/Human_resources/financeEmployee/1
         if ($this->input->post('add')) {
@@ -1208,6 +1141,7 @@ class Human_resources extends MY_Controller
         $data['inc'] = $this->input->post('inc');
         $this->load->view('admin/Human_resources/emp_files/getfiles', $data);
     }
+
     public function read_file()
     {
         $this->load->helper('file');
@@ -1285,6 +1219,7 @@ class Human_resources extends MY_Controller
         $data['subview'] = 'admin/Human_resources/custody/custody_added';
         $this->load->view('admin_index', $data);
     }
+
     public function get_custody()
     {
         $this->load->model('human_resources_model/Custody_devices_model');
@@ -1870,6 +1805,7 @@ class Human_resources extends MY_Controller
         echo json_encode($reason);
 
     }
+
 //yara_mo2hl
 
     public function load_status()
@@ -2459,6 +2395,7 @@ width: 183px;">' . $mosma_wazefy_n . ' </span> ',
         $data['badalat'] = $this->Finance_employee_model->getBadalat_by_id(1, $id);
         $this->load->view('admin/Human_resources/badlat_setting/edite_esthkak', $data);
     }
+
 //new
     public function load_edite_estkta3()
     {
@@ -2467,6 +2404,7 @@ width: 183px;">' . $mosma_wazefy_n . ' </span> ',
         $data['badalat'] = $this->Finance_employee_model->getBadalat_by_id(2, $id);
         $this->load->view('admin/Human_resources/badlat_setting/edite_estkta3', $data);
     }
+
 //old
     public function edit_having_employee()
     {
@@ -2475,6 +2413,7 @@ width: 183px;">' . $mosma_wazefy_n . ' </span> ',
         $type = $this->input->post('type');
         $this->Finance_employee_model->update_discut_having_employee($emp_code, $type);
     }
+
 //new
     private function upload_image_bank($file_name, $folder = '')
     {
@@ -2523,12 +2462,65 @@ width: 183px;">' . $mosma_wazefy_n . ' </span> ',
     }
 
 
-    function al_emps() /*human_resources/Report_emp*/
+    private function current_hjri_date()
+    {
+        $time = mktime(0, 0, 0, Date('m'), Date('j'), Date('Y'));
+        $TDays = round($time / (60 * 60 * 24));
+        $HYear = round($TDays / 354.37419);
+        $Remain = $TDays - ($HYear * 354.37419);
+        $HMonths = round($Remain / 29.531182);
+        $HDays = $Remain - ($HMonths * 29.531182);
+        $HYear = $HYear + 1389;
+        $HMonths = $HMonths + 10;
+        $HDays = $HDays + 23;
+        if ($HDays > 29.531188 and round($HDays) != 30) {
+            $HMonths = $HMonths + 1;
+            $HDays = Round($HDays - 29.531182);
+        } else {
+            $HDays = Round($HDays);
+        }
+        if ($HMonths > 12) {
+            $HMonths = $HMonths - 12;
+            $HYear = $HYear + 1;
+        }
+        $NowDay = $HDays;
+        $NowMonth = $HMonths;
+        $NowYear = $HYear;
+        $MDay_Num = date("w");
+        if ($MDay_Num == "0") {
+            $MDay_Name = "الأحد";
+        } elseif ($MDay_Num == "1") {
+            $MDay_Name = "الإثنين";
+        } elseif ($MDay_Num == "2") {
+            $MDay_Name = "الثلاثاء";
+        } elseif ($MDay_Num == "3") {
+            $MDay_Name = "الأربعاء";
+        } elseif ($MDay_Num == "4") {
+            $MDay_Name = "الخميس";
+        } elseif ($MDay_Num == "5") {
+            $MDay_Name = "الجمعة";
+        } elseif ($MDay_Num == "6") {
+            $MDay_Name = "السبت";
+        }
+        $NowDayName = $MDay_Name;
+        $NowDate = "" . $HYear . "/" . $HMonths . "/" . $HDays . " ";
+
+        return $NowDate;
+    }
+
+    function al_emps() /*human_resources/al_emps*/
     {
         $this->load->model('human_resources_model/Employee_model');
-        $data['emp_data'] = $this->Employee_model->select_allEmployee(1);
+        /*       $data['emp_data'] = $this->Employee_model->select_allEmployee(1);
+   //        $this->test($data);
+           $data['title'] = "البيانات الأساسية ";
+           $data['subview'] = 'admin/Human_resources/all_emps/report_emp';
+           $this->load->view('admin_index', $data);*/
+
+        $data['emp_data'] = $this->Employee_model->select_allEmployee_new(1);
 //        $this->test($data);
-        $data['title'] = "البيانات الأساسية ";
+        $data['now_date_hijri'] = $this->current_hjri_date();
+        $data['title'] = "تقرير جميع الموظفين ";
         $data['subview'] = 'admin/Human_resources/all_emps/report_emp';
         $this->load->view('admin_index', $data);
     }

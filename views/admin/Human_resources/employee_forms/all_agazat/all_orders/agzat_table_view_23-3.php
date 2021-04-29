@@ -15,8 +15,8 @@ if (isset($items) && !empty($items)) {
                 <tr class="greentd">
                     <th>م</th>
                     <th>رقم الطلب</th>
-                    <th>تاريخ الطلب</th>
-                    <th>مقدم الطلب</th>
+                      <th>تاريخ الطلب</th>
+                     <th>مقدم الطلب</th>
                     <th>نوع الاجازه</th>
                     <th>بدايه الاجازه</th>
                     <th>نهايه الاجازه</th>
@@ -42,20 +42,20 @@ if (isset($items) && !empty($items)) {
                             $halet_eltalab = 'جاري ';
                             $halet_eltalab_class = 'warning';
                         } elseif ($row->suspend == 1) {
-                            // $halet_eltalab = ' تم قبول الطلب من ' . $row->current_from_user_name;
+                           // $halet_eltalab = ' تم قبول الطلب من ' . $row->current_from_user_name;
                             $halet_eltalab = 'تم القبول';
                             $halet_eltalab_class = 'success';
                         } elseif ($row->suspend == 2) {
-                            //  $halet_eltalab = ' تم رفض الطلب من ' . $row->current_from_user_name;
-                            $halet_eltalab = ' تم الرفض ';
+                          //  $halet_eltalab = ' تم رفض الطلب من ' . $row->current_from_user_name;
+                          $halet_eltalab = ' تم الرفض ' ;
                             $halet_eltalab_class = 'danger';
                         } elseif ($row->suspend == 4) {
-                            //    $halet_eltalab = ' تم اعتماد الطلب بالموافقة من  ' . $row->current_from_user_name;
-                            $halet_eltalab = ' تم الإعتماد  ';
+                        //    $halet_eltalab = ' تم اعتماد الطلب بالموافقة من  ' . $row->current_from_user_name;
+                           $halet_eltalab = ' تم الإعتماد  '; 
                             $halet_eltalab_class = 'success';
                         } elseif ($row->suspend == 5) {
-                            // $halet_eltalab = ' تم اعتماد الطلب بالرفض  من ' . $row->current_from_user_name;
-                            $halet_eltalab = ' تم الرفض ';
+                           // $halet_eltalab = ' تم اعتماد الطلب بالرفض  من ' . $row->current_from_user_name;
+                           $halet_eltalab = ' تم الرفض ' ;
                             $halet_eltalab_class = 'danger';
                         } else {
                             $halet_eltalab = ' غير محدد ';
@@ -66,7 +66,7 @@ if (isset($items) && !empty($items)) {
                             <td><?php echo $x; ?></td>
                             <td><?php echo $row->agaza_rkm; ?></td>
                             <td><?php echo $row->agaza_date_ar; ?></td>
-                            <td><?php echo $row->employee; ?></td>
+                             <td><?php echo $row->employee; ?></td>
                             <td><?php echo $row->name->name; ?></td>
                             <td><?php echo $row->agaza_from_date_m; //explode('/', $row->agaza_from_date_m)[2] . '/' . explode('/', $row->agaza_from_date_m)[0] . '/' . explode('/', $row->agaza_from_date_m)[1]; ?></td>
                             <td><?php echo $row->agaza_to_date_m //explode('/', $row->agaza_to_date_m)[2] . '/' . explode('/', $row->agaza_to_date_m)[0] . '/' . explode('/', $row->agaza_to_date_m)[1]; ?></td>
@@ -91,35 +91,35 @@ if (isset($items) && !empty($items)) {
                                 <?php
                                 if ($row->suspend == 0 and $_SESSION['user_id'] == 85) { ?>
                                     <a onclick='swal({
-                                            title: "هل انت متأكد من التعديل ؟",
-                                            text: "",
-                                            type: "warning",
-                                            showCancelButton: true,
-                                            confirmButtonClass: "btn-warning",
-                                            confirmButtonText: "تعديل",
-                                            cancelButtonText: "إلغاء",
-                                            closeOnConfirm: true
-                                            },
-                                            function(){
+                                        title: "هل انت متأكد من التعديل ؟",
+                                        text: "",
+                                        type: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonClass: "btn-warning",
+                                        confirmButtonText: "تعديل",
+                                        cancelButtonText: "إلغاء",
+                                        closeOnConfirm: true
+                                        },
+                                        function(){
                                     <?= $link_update ?>
-                                            });'><i
-                                                class="fa fa-pencil-square-o" aria-hidden="true"></i> </a>
+                                        });'><i
+                                            class="fa fa-pencil-square-o" aria-hidden="true"></i> </a>
                                     <a onclick='swal({
-                                            title: "هل انت متأكد من الحذف ؟",
-                                            text: "",
-                                            type: "warning",
-                                            showCancelButton: true,
-                                            confirmButtonClass: "btn-danger",
-                                            confirmButtonText: "حذف",
-                                            cancelButtonText: "إلغاء",
-                                            closeOnConfirm: true
-                                            },
-                                            function(){
-                                            swal("تم الحذف!", "", "success");
-                                            window.location="<?= base_url() . 'human_resources/employee_forms/all_agazat/all_orders/Vacation/delete_vacation/' . $row->id . '/' . $link_delete ?>";
-                                            });'><i
-                                                class="fa fa-trash"
-                                                aria-hidden="true"></i>
+                                        title: "هل انت متأكد من الحذف ؟",
+                                        text: "",
+                                        type: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonClass: "btn-danger",
+                                        confirmButtonText: "حذف",
+                                        cancelButtonText: "إلغاء",
+                                        closeOnConfirm: true
+                                        },
+                                        function(){
+                                        swal("تم الحذف!", "", "success");
+                                        window.location="<?= base_url() . 'human_resources/employee_forms/all_agazat/all_orders/Vacation/delete_vacation/' . $row->id . '/' . $link_delete ?>";
+                                        });'><i
+                                            class="fa fa-trash"
+                                            aria-hidden="true"></i>
                                     </a>
                                 <?php } else { ?>
                                     <span class="label label-danger"> عذرا لا يمكنك التعديل والحذف</span>

@@ -16,8 +16,9 @@ class Mohma_model extends CI_Model
         $this->db->select('*');
         $this->db->from("hr_mohma");
         $this->db->order_by("id", "DESC");
-        if ($_SESSION['role_id_fk'] == 3) {
-            $this->db->where("publisher", $_SESSION['user_id']);
+        if($_SESSION['role_id_fk']==3)
+        {
+            $this->db->where("publisher", $_SESSION['user_id']); 
         }
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
@@ -356,8 +357,8 @@ $this->db->where('id',$id)->update('hr_mohma',$data);
         $data['date']= strtotime(date("Y-m-d"));
         $data['date_ar'] = date('Y-m-d H:i:s');
         if($_SESSION['role_id_fk']==1){
-            $data['publisher'] = $_SESSION['user_id'];
-            $data['publisher_name'] = $_SESSION['user_name'];
+            $data['publisher']=$_SESSION['user_id'];
+            $data['publisher_name']=$_SESSION['user_name'];;
         }
         else if ($_SESSION['role_id_fk']==2){
             $data['publisher'] = $this->get_id("magls_members_table",'id',$_SESSION['emp_code'],"id");
@@ -461,20 +462,16 @@ $this->db->where('id',$id)->update('hr_mohma',$data);
         }
         return false;
     }
-
-    public function delete_setting($id)
-    {
-        $this->db->where('id_setting', $id);
+    public function delete_setting($id){
+        $this->db->where('id_setting',$id);
         $this->db->delete('hr_forms_settings');
     }
-
     // emp_data_sesstion
-    public function emp_data_sesstion($id)
-    {
-        $this->db->where('id', $id);
+    public function emp_data_sesstion($id){
+        $this->db->where('id',$id);
         $query = $this->db->get('employees');
         if ($query->num_rows() > 0) {
-            return $query->row();
+            return $query->row() ;
         }
         return false;
     }
@@ -489,8 +486,9 @@ $this->db->where('id',$id)->update('hr_mohma',$data);
         $this->db->where("seen", 1);
         $this->db->where("estlam_mohma", 0);
         $this->db->where("suspend", 0);
-        if ($_SESSION['role_id_fk'] == 3) {
-            $this->db->where("emp_id_fk", $_SESSION['emp_code']);
+        if($_SESSION['role_id_fk']==3)
+        {
+            $this->db->where("emp_id_fk", $_SESSION['emp_code']); 
         }
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
@@ -504,7 +502,6 @@ $this->db->where('id',$id)->update('hr_mohma',$data);
             return false;
         }
     }
-
     // select_all_current_mohma
     public function select_all_current_mohma()
     {
@@ -515,8 +512,9 @@ $this->db->where('id',$id)->update('hr_mohma',$data);
         $this->db->where("seen", 1);
         $this->db->where("estlam_mohma", 1);
         $this->db->where("suspend", 0);
-        if ($_SESSION['role_id_fk'] == 3) {
-            $this->db->where("emp_id_fk", $_SESSION['emp_code']);
+        if($_SESSION['role_id_fk']==3)
+        {
+            $this->db->where("emp_id_fk", $_SESSION['emp_code']); 
         }
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
@@ -530,7 +528,6 @@ $this->db->where('id',$id)->update('hr_mohma',$data);
             return false;
         }
     }
-
     // select_all_end_mohma
     public function select_all_end_mohma()
     {
@@ -541,8 +538,9 @@ $this->db->where('id',$id)->update('hr_mohma',$data);
         $this->db->where("seen", 1);
         $this->db->where("estlam_mohma", 1);
         $this->db->where("suspend", 4);
-        if ($_SESSION['role_id_fk'] == 3) {
-            $this->db->where("emp_id_fk", $_SESSION['emp_code']);
+        if($_SESSION['role_id_fk']==3)
+        {
+            $this->db->where("emp_id_fk", $_SESSION['emp_code']); 
         }
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
@@ -556,12 +554,96 @@ $this->db->where('id',$id)->update('hr_mohma',$data);
             return false;
         }
     }
-
     public function estlam_mohma($id)
     {
-        $data['estlam_mohma'] = 1;
+        $data['estlam_mohma']=1;
         $data['estlam_mohma_time'] = date('h:i:s a');
         $data['estlam_mohma_date'] = date('Y-m-d');
-        $this->db->where('id', $id)->update('hr_mohma', $data);
+        $this->db->where('id',$id)->update('hr_mohma',$data);
+    }
+    //////////////yara25-4-2021/////////////////////
+    public function count_all_new_mohma()
+    {
+        $this->db->select('*');
+        $this->db->from("hr_mohma");
+        $this->db->order_by("id", "DESC");
+        $this->db->where("send_all_mohma", 1);
+        $this->db->where("seen", 0);
+        $this->db->where("estlam_mohma", 0);
+        $this->db->where("suspend", 0);
+        if($_SESSION['role_id_fk']==3)
+        {
+            $this->db->where("emp_id_fk", $_SESSION['emp_code']); 
+        }
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->num_rows();
+        } else {
+            return 0;
+        }
+    }
+    public function count_all_current_mohma()
+    {
+        $this->db->select('*');
+        $this->db->from("hr_mohma");
+        $this->db->order_by("id", "DESC");
+        $this->db->where("send_all_mohma", 1);
+        $this->db->where("seen", 1);
+        $this->db->where("estlam_mohma", 1);
+        $this->db->where("suspend", 0);
+        if($_SESSION['role_id_fk']==3)
+        {
+            $this->db->where("emp_id_fk", $_SESSION['emp_code']); 
+        }
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->num_rows();
+        
+        } else {
+            return 0;
+        }
+    }
+    // select_all_current_mohma
+    public function count_all_mot3sra_mohma()
+    {
+        $this->db->select('*');
+        $this->db->from("hr_mohma");
+        $this->db->order_by("id", "DESC");
+        $this->db->where("send_all_mohma", 1);
+        $this->db->where("seen", 1);
+        $this->db->where("estlam_mohma", 1);
+        $this->db->where("suspend", 0);
+        if($_SESSION['role_id_fk']==3)
+        {
+            $this->db->where("emp_id_fk", $_SESSION['emp_code']); 
+        }
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->num_rows();
+        } else {
+            return 0;
+        }
+    }
+    // select_all_end_mohma
+    public function count_all_end_mohma()
+    {
+        $this->db->select('*');
+        $this->db->from("hr_mohma");
+        $this->db->order_by("id", "DESC");
+        $this->db->where("send_all_mohma", 1);
+        $this->db->where("seen", 1);
+        $this->db->where("estlam_mohma", 1);
+        $this->db->where("suspend", 4);
+        if($_SESSION['role_id_fk']==3)
+        {
+            $this->db->where("emp_id_fk", $_SESSION['emp_code']); 
+        }
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+           
+            return $query->num_rows();
+        } else {
+            return 0;
+        }
     }
 }

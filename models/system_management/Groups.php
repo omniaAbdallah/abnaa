@@ -155,33 +155,102 @@ class Groups extends CI_Model
         return $total;
     }
 //---------------------------------------------------------
-    /*    public function main_fetch_group(){
-            $this->db->where('user_id',$_SESSION['user_id']);
-            $this->db->where('page_level',0);
-            // $this->db->order_by('page_id_fk','ASC');
-            $parent = $this->db->get("permissions");
-            $categories = $parent->result();
-            $i=0;
-            foreach($categories as $p_cat){
-                $categories[$i]->count_level= $this->get_count_level($p_cat->page_id_fk);
-                $categories[$i]->sub = $this->get_date_page($p_cat->page_id_fk);
+
+    /* public function main_fetch_group(){
+
+         $this->db->where('user_id',$_SESSION['user_id']);
+         $this->db->where('page_level',0);
+         // $this->db->order_by('page_id_fk','ASC');
+         $parent = $this->db->get("permissions");
+         $categories = $parent->result();
+         $i=0;
+         foreach($categories as $p_cat){
+             $categories[$i]->count_level= $this->get_count_level($p_cat->page_id_fk);
+             $categories[$i]->sub = $this->get_date_page($p_cat->page_id_fk);
+             $i++;
+         }
+         return $categories;
+     }
+
+     public  function get_date_page($id){
+         $this->db->where('page_id',$id);
+          $this->db->order_by('page_order','ASC');
+         $query = $this->db->get("pages");
+         if ($query->num_rows() > 0) {
+             foreach ($query->result() as $row) {
+                 $data[] = $row;
+             }
+             return $data;
+         }
+         return false;
+     }*/
+    public function main_fetch_group()
+    {
+        $this->db->where('user_id', $_SESSION['user_id']);
+        $this->db->where('page_level', 0);
+        $parent = $this->db->get("permissions");
+        $categories = $parent->result();
+        $i = 0;
+        foreach ($categories as $p_cat) {
+            $categories[$i]->count_level = $this->get_count_level($p_cat->page_id_fk);
+            $categories[$i]->sub = $this->get_date_page($p_cat->page_id_fk);
+            $categories[$i]->sub_one_pages = $this->sub_one_pages($p_cat->page_id_fk);
+            $i++;
+        }
+        return $categories;
+    }
+
+//----------------------------------------------------
+    public function get_date_page($id)
+    {
+        $this->db->where('page_id', $id);
+        $this->db->order_by('page_order', 'ASC');
+        $query = $this->db->get("pages");
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return false;
+    }
+
+    public function sub_one_pages($id)
+    {
+        $this->db->where('group_id_fk', $id);
+        $this->db->where('level', 2);
+        $this->db->order_by('page_order', 'ASC');
+        $query = $this->db->get("pages");
+        if ($query->num_rows() > 0) {
+            $i = 0;
+            foreach ($query->result() as $row) {
+                $data[$i] = $row;
+                if (!empty($row->page_id)) {
+                    $data[$i]->sub_tow_pages = $this->sub_tow_pages($row->page_id);
+                }
+
                 $i++;
             }
-            return $categories;
+            return $data;
         }
-    //----------------------------------------------------
-        public  function get_date_page($id){
-            $this->db->where('page_id',$id);
-             $this->db->order_by('page_order','ASC');
-            $query = $this->db->get("pages");
-            if ($query->num_rows() > 0) {
-                foreach ($query->result() as $row) {
-                    $data[] = $row;
-                }
-                return $data;
+        return false;
+    }
+
+    public function sub_tow_pages($id)
+    {
+        $this->db->where('group_id_fk', $id);
+        $this->db->where('level', 3);
+        $this->db->order_by('page_order', 'ASC');
+        $query = $this->db->get("pages");
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $data[] = $row;
             }
-            return false;
-        }*/
+            return $data;
+        }
+        return false;
+    }
+
 //------------------------------------------------------------
     public function get_group($id)
     {
@@ -210,6 +279,7 @@ class Groups extends CI_Model
     }
 
 //-------------------------------------------------------------------------
+/*27-4-21-om*/
     public function get_group_title($id)
     {
         $h = $this->db->get_where("pages", array('page_id' => $id));
@@ -236,7 +306,7 @@ class Groups extends CI_Model
                 return $details;
             }
         } else {
-            return false;
+            return $details;
         }
     }
 //---------------------------------------------------------------------------
@@ -407,78 +477,5 @@ class Groups extends CI_Model
             $this->load->view('admin_index', $data);
         }*/
     /* end zidan */
-
-
-    /*/////////////////////yara//////////////////*/
-    /*///old_funcc////////////////////*/
-    public function main_fetch_group()
-    {
-        $this->db->where('user_id', $_SESSION['user_id']);
-        $this->db->where('page_level', 0);
-        $parent = $this->db->get("permissions");
-        $categories = $parent->result();
-        $i = 0;
-        foreach ($categories as $p_cat) {
-            $categories[$i]->count_level = $this->get_count_level($p_cat->page_id_fk);
-            $categories[$i]->sub = $this->get_date_page($p_cat->page_id_fk);
-            $categories[$i]->sub_one_pages = $this->sub_one_pages($p_cat->page_id_fk);
-            $i++;
-        }
-        return $categories;
-    }
-
-    /*//----------------------------------------------------*/
-    public function get_date_page($id)
-    {
-        $this->db->where('page_id', $id);
-        $this->db->order_by('page_order', 'ASC');
-        $query = $this->db->get("pages");
-        if ($query->num_rows() > 0) {
-            foreach ($query->result() as $row) {
-                $data[] = $row;
-            }
-            return $data;
-        }
-        return false;
-    }
-
-    /*/////////////new_funcccccc//////////////////////*/
-    public function sub_one_pages($id)
-    {
-        $this->db->where('group_id_fk', $id);
-        $this->db->where('level', 2);
-        $this->db->order_by('page_order', 'ASC');
-        $query = $this->db->get("pages");
-        if ($query->num_rows() > 0) {
-            $i = 0;
-            foreach ($query->result() as $row) {
-                $data[$i] = $row;
-                if (!empty($row->page_id)) {
-                    $data[$i]->sub_tow_pages = $this->sub_tow_pages($row->page_id);
-                }
-
-                $i++;
-            }
-            return $data;
-        }
-        return false;
-    }
-
-    public function sub_tow_pages($id)
-    {
-        $this->db->where('group_id_fk', $id);
-        $this->db->where('level', 3);
-        $this->db->order_by('page_order', 'ASC');
-        $query = $this->db->get("pages");
-        if ($query->num_rows() > 0) {
-            foreach ($query->result() as $row) {
-                $data[] = $row;
-            }
-            return $data;
-        }
-        return false;
-    }
-
-
 }// END CLASS
 ?>

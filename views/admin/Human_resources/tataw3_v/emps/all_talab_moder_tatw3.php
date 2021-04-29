@@ -6,7 +6,7 @@ if (isset($records) && !empty($records)) {
 
         <div class="panel panel-bd lobidisable lobipanel lobipanel-sortable ">
             <div class="panel-heading">
-                <h3 class="panel-title"> طلبات احتياج فرصة تطوعية</h3>
+                <h3 class="panel-title">   طلبات احتياج فرصة تطوعية</h3>
             </div>
             <div class="panel-body">
 
@@ -24,7 +24,7 @@ if (isset($records) && !empty($records)) {
                         <th> اسم الفرصة التطوعية</th>
                         <th>العدد المستهدف</th>
                         <th> الاجراء</th>
-
+                     
                     </tr>
                     </thead>
                     <tbody>
@@ -42,90 +42,96 @@ if (isset($records) && !empty($records)) {
                             $link_delete = 0;
                         }
 
-
+                        
                         ?>
                         <tr>
                             <td><?php echo $x; ?></td>
                             <td><?php echo $row->rkm_talb; ?></td>
                             <td><?php echo $row->date_talab; ?></td>
                             <td>
-                                <?php
-                                if (!empty($admin)):
-                                    foreach ($admin as $record):
-
-                                        if ($row->edara_id == $record->id) {
-                                            echo $record->title;
-                                        }
-                                    endforeach;
-                                endif;
-                                ?>
-
-
+                             <?php
+                             if (!empty($admin)):
+                                 foreach ($admin as $record):
+                                 
+                             if ($row->edara_id == $record->id) {
+                               echo $record->title;
+                             }
+                            endforeach;
+                        endif;
+                                     ?>
+                                    
+                                     
+                            
+                            
                             </td>
                             <td><?php echo $row->mokdm_talab; ?></td>
                             <td><?php echo $row->forsa_name; ?></td>
                             <td><?php echo $row->num_motakdm; ?></td>
                             <td>
-                                <div id="publish_res<?= $row->id ?>">
-                                </div>
-                                <?php if ($row->publish_tataw3 != 1) {
-                                    ?>    <a
-                                            class="btn btn-labeled btn-warning "
-                                            id="publish<?= $row->id ?>"
-                                            style="padding:1px 5px;" onclick="publish(<?= $row->id ?>);">
-                                        <i class=" " aria-hidden="true"></i>نشر التطوع </a>
-                                <?php } ?>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-primary">إجراءات</button>
-                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                        <span class="caret"></span>
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a data-toggle="modal" data-target="#details_Modal"
-                                               style="padding:1px 5px;" onclick="load_page(<?= $row->id ?>);">
-                                                <i class="fa fa-list " aria-hidden="true"></i>تفاصيل </a></li>
+                            <div id="publish_res<?= $row->id ?>">
+                            </div>
+                            <?php if($row->publish_tataw3!=1 )
+                                    {?>    <a  
+                                    class="btn btn-labeled btn-warning "
+                                    id="publish<?= $row->id ?>"
+                                   style="padding:1px 5px;" onclick="publish(<?= $row->id ?>);">
+                                    <i class=" "  aria-hidden="true"></i>نشر التطوع </a>
+                                    <?php }?>
+                            <div class="btn-group">
+<button type="button" class="btn btn-primary">إجراءات</button>
+<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+ <span class="caret"></span>
+ <span class="sr-only">Toggle Dropdown</span>
+</button>
+<ul class="dropdown-menu">
+<li>   <a data-toggle="modal" data-target="#details_Modal" 
+                                   style="padding:1px 5px;" onclick="load_page(<?= $row->id ?>);">
+                                    <i class="fa fa-list "  aria-hidden="true"></i>تفاصيل </a></li>
+
+                               
+<li>  <a onclick='swal({
+                                        title: "هل انت متأكد من التعديل ؟",
+                                        text: "",
+                                        type: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonClass: "btn-warning",
+                                        confirmButtonText: "تعديل",
+                                        cancelButtonText: "إلغاء",
+                                        closeOnConfirm: true
+                                        },
+                                        function(){
+                                <?= $link_update ?>
+                                        });'><i
+                                            class="fa fa-pencil-square-o" aria-hidden="true"></i> تعديل</a></li>
+     
+                                        <li>  <a onclick='swal({
+                                        title: "هل انت متأكد من الحذف ؟",
+                                        text: "",
+                                        type: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonClass: "btn-danger",
+                                        confirmButtonText: "حذف",
+                                        cancelButtonText: "إلغاء",
+                                        closeOnConfirm: true
+                                        },
+                                        function(){
+                                        swal("تم الحذف!", "", "success");
+                                        window.location="<?php echo base_url(); ?>human_resources/tataw3/Emptatw3/delete_talab/<?php echo $row->id . '/' . $link_delete; ?>";
+                                        });'><i class="fa fa-trash"
+                                                aria-hidden="true"></i>حذف </a></li>
+                                           
+                                                        </ul>
+                         </div> 
 
 
-                                        <li><a onclick='swal({
-                                                    title: "هل انت متأكد من التعديل ؟",
-                                                    text: "",
-                                                    type: "warning",
-                                                    showCancelButton: true,
-                                                    confirmButtonClass: "btn-warning",
-                                                    confirmButtonText: "تعديل",
-                                                    cancelButtonText: "إلغاء",
-                                                    closeOnConfirm: true
-                                                    },
-                                                    function(){
-                                            <?= $link_update ?>
-                                                    });'><i
-                                                        class="fa fa-pencil-square-o" aria-hidden="true"></i> تعديل</a>
-                                        </li>
-
-                                        <li><a onclick='swal({
-                                                    title: "هل انت متأكد من الحذف ؟",
-                                                    text: "",
-                                                    type: "warning",
-                                                    showCancelButton: true,
-                                                    confirmButtonClass: "btn-danger",
-                                                    confirmButtonText: "حذف",
-                                                    cancelButtonText: "إلغاء",
-                                                    closeOnConfirm: true
-                                                    },
-                                                    function(){
-                                                    swal("تم الحذف!", "", "success");
-                                                    window.location="<?php echo base_url(); ?>human_resources/tataw3/Emptatw3/delete_talab/<?php echo $row->id . '/' . $link_delete; ?>";
-                                                    });'><i class="fa fa-trash"
-                                                            aria-hidden="true"></i>حذف </a></li>
-
-                                    </ul>
-                                </div>
+                             
 
 
+                               
+
+                               
                             </td>
-
+                         
                         </tr>
                         <?php $x++;
                     } ?>
@@ -160,6 +166,7 @@ if (isset($records) && !empty($records)) {
             </div>
             <div class="modal-footer" style="display: inline-block;width: 100%">
 
+               
 
                 <button type="button" class="btn btn-labeled btn-danger " onclick="$('#details_Modal').modal('hide')">
                     <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>إغلاق
@@ -170,6 +177,9 @@ if (isset($records) && !empty($records)) {
         </div>
     </div>
 </div>
+
+
+
 
 
 <script>
@@ -198,13 +208,13 @@ if (isset($records) && !empty($records)) {
             data: {id: row_id},
             success: function (d) {
                 swal({
-                    title: 'تم!',
-                    type: 'success',
-                    confirmButtonText: 'تم'
-                });
-                $('#publish' + row_id).hide();
-                $('#publish_res' + row_id).html('<span style="color:green;">تم النشر للموظفين بنجاح</span>');
-
+                        title: 'تم!',
+                        type: 'success',
+                        confirmButtonText: 'تم'
+                    });
+                    $('#publish'+row_id).hide();
+                $('#publish_res'+row_id).html('<span style="color:green;">تم النشر للموظفين بنجاح</span>');
+               
             }
 
         });

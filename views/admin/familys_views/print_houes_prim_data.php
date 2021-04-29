@@ -330,10 +330,10 @@
                                   <span class="number-square">9</span>-->
                                 <?php if (isset($result) && (!empty($result))) {
                                     $strlen = strlen($result['mother_national_num']);
-                                    /*                                    for( $i = 0; $i < $strlen; $i++ ) {*/
-                                    for ($i = $strlen - 1; $i >= 0; $i--) {
-                                        ?>
-                                        <span class="number-square"><?= $result['mother_national_num'][$i] ?></span>
+/*                                    for( $i = 0; $i < $strlen; $i++ ) {*/
+                                    for( $i = $strlen-1; $i >= 0; $i-- ) {
+                                            ?>
+                                            <span class="number-square"><?= $result['mother_national_num'][$i] ?></span>
 
                                         <?php
 
@@ -519,17 +519,13 @@
 <script src="<?php echo base_url() ?>asisst/admin_asset/js/custom.js"></script>
 <script language="javascript" type="text/javascript">
     function printDiv(divID) {
-        //Get the HTML of div
+
         var divElements = document.getElementById(divID).innerHTML;
-        //Get the HTML of whole page
+ 
         var oldPage = document.body.innerHTML;
-        //Reset the page's HTML with div's HTML only
-        /*       document.body.innerHTML =
-                   "<html><head><title></title></head><body>" +
-                   divElements + "</body>";*/
-        //Print Page
+
         window.print();
-        // window.close();
+
         window.onafterprint = function () {
             window.close();
             console.log("Printing completed...");
@@ -537,23 +533,7 @@
         }
     }
 
-    /*  function printDiv(divID) {
 
-          var divElements = document.getElementById(divID).innerHTML;
-
-          var oldPage = document.body.innerHTML;
-
-
-          document.body.innerHTML =
-              "<html><head><title></title></head><body>" +
-              divElements + "</body>";
-
-
-          window.print();
-          window.close();
-
-
-      }*/
 </script>
 
 </body>

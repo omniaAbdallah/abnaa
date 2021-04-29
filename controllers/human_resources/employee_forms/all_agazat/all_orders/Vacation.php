@@ -188,7 +188,7 @@ public function getConnection_emp()
     {
         if ($this->input->post('add')) {
             $file_post = 'hospital_report';
-            $file_upload = $this->upload_file($file_post, 'human_resource/emp_hospital_report');
+            $file_upload = $this->upload_file($file_post, 'human_resources/emp_hospital_report');
             $this->Agzat_model->insert_vacation($file_upload);
             $current_to = $this->Agzat_model->get_user_id($this->input->post('emp_id_fk'));
             $name = $this->input->post('emp_name');
@@ -254,7 +254,7 @@ public function getConnection_emp()
     {
         if ($this->input->post('add')) {
             $file_post = 'hospital_report';
-            $file_upload = $this->upload_file($file_post, 'human_resource/emp_hospital_report');
+            $file_upload = $this->upload_file($file_post, 'human_resources/emp_hospital_report');
             $this->Agzat_model->update_by_id($id, $file_upload);
             if (!empty($to_page) && ($to_page == 1)) {
                 redirect('human_resources/employee_forms/all_agazat/all_orders/Vacation/request_vacation', 'refresh');
@@ -320,7 +320,7 @@ public function getConnection_emp()
     {
         $this->load->helper('file');
         // $file_name=$this->uri->segment(3);
-        $file_path = 'uploads/human_resource/emp_hospital_report/' . $file_name;
+        $file_path = 'uploads/human_resources/emp_hospital_report/' . $file_name;
 
         switch ($type_doc) {
             case 1:
@@ -379,7 +379,7 @@ public function getConnection_emp()
         if ($this->input->post('save')) {
             $agaza_rkm = $this->input->post('agaza_rkm');
             $file_post = 'hospital_report';
-            $file_upload = $this->upload_file($file_post, 'human_resource/emp_hospital_report');
+            $file_upload = $this->upload_file($file_post, 'human_resources/emp_hospital_report');
             $this->Agzat_model->add_attach($file_upload, $agaza_rkm);
             if ($this->input->post('from_profile')) {
              //  redirect('maham_mowazf/person_profile/Personal_profile', 'refresh');
@@ -415,7 +415,7 @@ public function get_avalibal_days()
     $vac_id = $this->input->post('vac_id');
     $end_date = $this->input->post('end_date');
     if ($vac_id == 2) {
-        $result = $this->Agzat_model->get_days_vacation_year($emp_code, $vac_id, $end_date);
+        $result = $this->Agzat_model->get_days_vacation_year($emp_code, $vac_id,$end_date);
     } elseif ($vac_id == 1) {
         $result = $this->Agzat_model->get_days_vacation_cousal_by_vid($emp_code, $vac_id);
 
@@ -501,7 +501,6 @@ public function get_avalibal_days()
 
 
     }
-
     public function check_vacation_emp()
     {
 
@@ -510,19 +509,36 @@ public function get_avalibal_days()
         echo json_encode($vacations);
 
     }
-
+ /*   
     public function get_avalibal_days_year()
-    {
-        $emp_code = $this->input->post('emp_id');
-        $vac_id = $this->input->post('vac_id');
-        $end_date = $this->input->post('end_date');
-        $f2a_agaza = $this->input->post('f2a_agaza');
+{
+    $emp_code = $this->input->post('emp_id');
+    $vac_id = $this->input->post('vac_id');
+    $end_date = $this->input->post('end_date');
+    $f2a_agaza = $this->input->post('f2a_agaza');
 
-        if ($vac_id == 2) {
-            $result = $this->Agzat_model->get_days_vacation_year_2($emp_code, $vac_id, $f2a_agaza, $end_date);
-        }
-        echo json_encode($result);
+    if ($vac_id == 2) {
+        $result = $this->Agzat_model->get_days_vacation_year_2($emp_code, $vac_id,$f2a_agaza,$end_date);
     }
+    echo json_encode($result);
+}*/
+
+
+public function get_avalibal_days_year()
+{
+    $emp_code = $this->input->post('emp_id');
+    $vac_id = $this->input->post('vac_id');
+    $end_date = $this->input->post('end_date');
+    $f2a_agaza = $this->input->post('f2a_agaza');
+
+    if ($vac_id == 2) {
+        $result = $this->Agzat_model->get_days_vacation_year_2($emp_code, $vac_id,$f2a_agaza,$end_date);
+    }
+    if(empty($result)){
+        $result=array();
+    }
+    echo json_encode($result);
+}
 }
 
 ?>

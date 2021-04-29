@@ -15,7 +15,7 @@ class Ta3mem_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from("hr_ta3mem");
-        $this->db->where("type", "t3mem");
+      //  $this->db->where("type", "t3mem");
         $this->db->order_by("id", "DESC");
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
@@ -30,6 +30,7 @@ class Ta3mem_model extends CI_Model
             return false;
         }
     }
+    
     public function count_all_emp($id)
     {
         $this->db->select('*');
@@ -62,11 +63,9 @@ class Ta3mem_model extends CI_Model
         $data['img'] = $img;
         if($id==0)
         {
-         
-            $data['type'] = "t3mem";
+            //$data['type'] = "t3mem";
             //
           //  $data['file'] = $img_file;
-        
             $data['date'] = strtotime(date('Y-m-d'));
             $data['date_ar'] = date('Y-m-d');
             $data['publisher'] = $_SESSION['user_id'];
@@ -122,12 +121,18 @@ class Ta3mem_model extends CI_Model
             for ($i = 0; $i < sizeof($arr); $i++) {
                 $dataa['ta3mem_id_fk'] = $this->select_last_id();
                 $dataa['emp_id'] = $arr[$i]->id;
-                $dataa['type'] = 't3mem';
+               // $dataa['type'] = 't3mem';
                 $dataa['emp_code'] = $arr[$i]->emp_code;
                 $dataa['emp_name'] = $arr[$i]->employee;
                 $this->db->insert('hr_ta3mem_details', $dataa);
             }
         }
+    }
+    public function get_emp_code($table, $where, $id)
+    {
+        $h = $this->db->get_where($table, array($where => $id));
+        $arr = $h->row()->emp_code;
+     return $arr;
     }
     // public function change_status($approved,$id)
     // {
@@ -142,7 +147,7 @@ class Ta3mem_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from("hr_ta3mem");
-        $this->db->where("type", "t3mem");
+    //    $this->db->where("type", "t3mem");
         $this->db->order_by("id", "DESC");
         $this->db->limit(1);
         $query = $this->db->get();
@@ -167,7 +172,7 @@ class Ta3mem_model extends CI_Model
         //
         $data['ta3mem_title'] = $this->input->post('ta3mem_title');
         $data['img'] = $img;
-        $data['type'] = "t3mem";
+      //  $data['type'] = "t3mem";
         //
      //   $data['file'] = $img_file;
         $data['subject'] = $this->input->post('subject');
@@ -178,7 +183,13 @@ class Ta3mem_model extends CI_Model
         $this->db->insert("hr_ta3mem", $data);
         if ($x != null) {
             for ($i = 0; $i < sizeof($x); $i++) {
-                $this->get_id("employees", "id", $x[$i]);
+              //  $this->get_id("employees", "id", $x[$i]);
+              $dataa['ta3mem_id_fk'] = $this->select_last_id();
+                $dataa['emp_id'] = $x[$i];
+             //   $dataa['type'] = 't3mem';
+                $dataa['emp_code'] =$this->get_emp_code("employees", "id", $x[$i]);
+                $dataa['emp_name'] = $y[$i];
+                $this->db->insert('hr_ta3mem_details', $dataa);
             }
         }
         // print_r($vv);
@@ -317,47 +328,9 @@ public function get_unseen_ta3mem_new(){
     }
     return false;
 }
-    function get_unseen_ta3mem()
-    {
-        $t3mem = $this->db->select('hr_ta3mem.*,hr_ta3mem_details.*,COUNT(hr_ta3mem.id) as count ')
-            ->from("hr_ta3mem_details")
-            ->join('hr_ta3mem', 'hr_ta3mem_details.ta3mem_id_fk=hr_ta3mem.id')
-           
-            ->where('hr_ta3mem.type', 't3mem')
-            ->where('hr_ta3mem.send_all_t3mem', 1)
-            ->where('emp_id', $_SESSION['emp_code'])
-            ->where('seen',null)
-            ->get()->row();
-        if (!empty($t3mem)) {
-          /// $data = array('t3mem' => $t3mem);   
-               $query=$t3mem;
-                $query->attaches= $this->get_attaches($t3mem->ta3mem_id_fk);
-               
-            return $query;
-        }
-    
-    }
+   
    // get_unseen_adv
-    function get_unseen_adv()
-    {
-        $t3mem = $this->db->select('hr_ta3mem.*,hr_ta3mem_details.*,COUNT(hr_ta3mem.id) as count ')
-            ->from("hr_ta3mem_details")
-            ->join('hr_ta3mem', 'hr_ta3mem_details.ta3mem_id_fk=hr_ta3mem.id')
-           
-            ->where('hr_ta3mem.type', 'adv')
-            ->where('hr_ta3mem.send_all_t3mem', 1)
-            ->where('emp_id', $_SESSION['emp_code'])
-            ->where('seen',null)
-            ->get()->row();
-        if (!empty($t3mem)) {
-          /// $data = array('t3mem' => $t3mem);   
-               $query=$t3mem;
-                $query->attaches= $this->get_attaches($t3mem->ta3mem_id_fk);
-               
-            return $query;
-        }
     
-    }
     // get_attaches
     public function get_attaches($id)
     {
@@ -371,118 +344,63 @@ public function get_unseen_ta3mem_new(){
         }
     }
     /////
-    
-   
-   
-   public function get_unseen_msg_new()
-    {
-
-        $this->db->where('hr_ta3mem_msg_details.emp_id', $_SESSION['emp_code']);
-        $this->db->where('hr_ta3mem_msg_details.seen',null);
-
-        $query= $this->db->get('hr_ta3mem_msg_details')->result();
-        $data=array();
-        $x=0;
-        foreach ($query as $row)
-        {
-            $data[$x]=$row;
-            $data[$x]->msg_data=$this->get_msg_data($row->ta3mem_msg_id_fk);
-            $data[$x]->msg_img=$this->get_msg_img($row->ta3mem_msg_id_fk);
-
-            $x++;
-        }
-        return $data;
-    } 
-
-
-    public function get_msg_data($ta3mem_msg_id_fk){
-        $h = $this->db->get_where("hr_ta3mem_msg",array("id"=>$ta3mem_msg_id_fk));
-        $data= $h->row_array();
-        return $data["subject"];
-    }
-    
-       public function get_msg_img($ta3mem_msg_id_fk){
-        $h = $this->db->get_where("hr_ta3mem_msg",array("id"=>$ta3mem_msg_id_fk));
-        $data= $h->row_array();
-        return $data["img"];
-    } 
-    
-    
-
-
-    function get_unseen_msg()
-    {
-        $t3mem = $this->db->select('hr_ta3mem_msg.*,hr_ta3mem_msg_details.*,COUNT(hr_ta3mem_msg.id) as count ')
-            ->from("hr_ta3mem_msg_details")
-            ->join('hr_ta3mem_msg', 'hr_ta3mem_msg_details.ta3mem_msg_id_fk=hr_ta3mem_msg.id')
-           
-            
-            ->where('hr_ta3mem_msg.send_all_t3mem', 1)
-            ->where('hr_ta3mem_msg_details.emp_id', $_SESSION['emp_code'])
-            ->where('hr_ta3mem_msg_details.seen',null)
-            ->get()->row();
-        if (!empty($t3mem)) {
-          /// $data = array('t3mem' => $t3mem);   
-               $query=$t3mem;
-                $query->attaches= $this->get_attaches_msg($t3mem->ta3mem_msg_id_fk);
-               
-            return $query;
-        }
-    
-    }
-    // get_attaches
-    public function get_attaches_msg($id)
-    {
-        $this->db->where('ta3mem_msg_id_fk', $id);
-        $q = $this->db->get('hr_ta3mem_msg_attaches')->result();
-        if (!empty($q)) {
-            return $q;
-        }
-        else{
-            return false;
-        }
-    }
+  
+    // public function get_action_da3wa()
+    // {
+    //     $this->db->select('*');
+    //     $this->db->from("hr_ta3mem_details");
+    //     $this->db->where('emp_id', $_SESSION['emp_code']);
+    //     $this->db->where('seen', NULL);
+    //     $query = $this->db->get()->row();
+    //     if (!empty($query)) {
+    //         $arr = $query;
+    //         $arr->basic_data = $this->basic_data($query->ta3mem_id_fk);
+    //         if (!empty($arr->basic_data)) {
+    //             return $arr;
+    //         }
+    //     } else {
+    //         return false;
+    //     }
+    // }
+    // public function basic_data($id)
+    // {
+    //     return $this->db->where('id', $id)->get('hr_ta3mem')->row();
+    // }
     public function get_action_da3wa()
     {
         $this->db->select('*');
         $this->db->from("hr_ta3mem_details");
         $this->db->where('emp_id', $_SESSION['emp_code']);
-        $this->db->where('seen', NULL);
-      
-        $query = $this->db->get()->row();
-        if (!empty($query)) {
+        $this->db->where('seen', 0);
+        
+        $query = $this->db->get();
+   
+            if ($query->num_rows()>0){
+                $i = 0;
+                $data=$query->result();
+                foreach ($query->result() as $row) {
             $arr = $query;
-            $arr->basic_data = $this->basic_data($query->ta3mem_id_fk);
-            if (!empty($arr->basic_data)) {
-                return $arr;
-            }
-        } else {
-            return false;
+            $data[$i]->basic_data = $this->basic_data($row->ta3mem_id_fk);
+            $data[$i]->attach_data = $this->attach_data($row->ta3mem_id_fk);
+            $i++;
         }
+        return $data;
+    }
+        return false;
+    
+        
+        
+    }
+    // attach_data
+    public function attach_data($id)
+    {
+        return $this->db->where('ta3mem_id_fk', $id)
+           ->get('hr_ta3mem_attaches')->result();
     }
     public function basic_data($id)
     {
         return $this->db->where('id', $id)
-            ->where('type', 't3mem')->get('hr_ta3mem')->row();
-    }
-    public function reply_dawa()
-    {
-        $id = $this->input->post('id');
-        if ($this->input->post('action') == 'refuse') {
-            $data['seen'] = 2;
-            $data['seen_time'] = date('h:i:s a');
-            $data['seen_date'] = date('Y-m-d');
-            $this->db->where('emp_id', $_SESSION['emp_code'])
-                ->where('id', $id)
-                ->update('hr_ta3mem_details', $data);
-        } else if ($this->input->post('action') == 'accept') {
-            $data['seen'] = 1;
-            $data['seen_time'] = date('h:i:s a');
-            $data['seen_date'] = date('Y-m-d');
-            $this->db->where('emp_id', $_SESSION['emp_code'])
-                ->where('id', $id)
-                ->update('hr_ta3mem_details', $data);
-        }
+            ->where('send_all_t3mem', 1)->get('hr_ta3mem')->row();
     }
     public function get_all_emps($id)
     {
@@ -499,14 +417,12 @@ public function get_unseen_ta3mem_new(){
         $this->db->select('*');
         $this->db->from("hr_ta3mem");
         $this->db->where("id", $id);
-        $this->db->where("type", "t3mem");
+        //$this->db->where("type", "t3mem");
         $this->db->order_by("id", "DESC");
         $query = $this->db->get()->row();
         if ($query != '') {
-          
              //   $query = $row;
                 $query->count_all = $this->get_t3mem_all_emp($query->id);
-               
             return $query;
         } else {
             return false;
@@ -532,12 +448,9 @@ public function get_unseen_ta3mem_new(){
     {
                 if (!empty($all_img)) {
                     $img_count = count($all_img);
-                
-        
                     for ($a = 0; $a < $img_count; $a++) {
                         $files['file'] = $all_img[$a];
                         $files['title'] = $this->input->post('title');
-                       
                         $files['ta3mem_id_fk'] = $this->input->post('row');
                         $files['date'] = strtotime(date("Y-m-d"));
                         $files['date_ar'] = date("Y-m-d");
@@ -547,7 +460,6 @@ public function get_unseen_ta3mem_new(){
                         }
                         $this->db->insert('hr_ta3mem_attaches', $files);
                     }
-        
                 }
     }
     public function delete_upload($id)
@@ -556,6 +468,12 @@ public function get_unseen_ta3mem_new(){
         if (file_exists("uploads/human_resources/ta3mem/" . $img->file)) {
             unlink(FCPATH . "uploads/human_resources/ta3mem/" . $img->file);
         }
+    }
+    public function delete_attach_all($id)
+    {
+        $this->delete_upload($id);
+        $this->db->where('ta3mem_id_fk', $id);
+        $this->db->delete('hr_ta3mem_attaches');
     }
     public function delete_attach($id)
     {
@@ -568,5 +486,102 @@ public function get_unseen_ta3mem_new(){
     {
 $data['send_all_t3mem']=1;
 $this->db->where('id',$id)->update('hr_ta3mem',$data);
+
+
+$dataa['seen']=0;
+$this->db->where('ta3mem_id_fk',$id)->update('hr_ta3mem_details',$dataa);
+    }
+
+    ///
+    public function reply_dawa()
+    {
+        $id = $this->input->post('id');
+        if ($this->input->post('action') == 'refuse') {
+           // $data['action'] = 2;
+            $data['seen'] = 2;
+            $data['seen_time'] = date('h:i:s a');
+            $data['seen_date'] = date('Y-m-d');
+            $this->db->where('emp_id', $_SESSION['emp_code'])
+                ->where('id', $id)
+                ->update('hr_ta3mem_details', $data);
+        } else if ($this->input->post('action') == 'accept') {
+           // $data['action'] = 1;
+            $data['seen'] = 1;
+            $data['seen_time'] = date('h:i:s a');
+            $data['seen_date'] = date('Y-m-d');
+            $this->db->where('emp_id', $_SESSION['emp_code'])
+                ->where('id', $id)
+                ->update('hr_ta3mem_details', $data);
+        }
+    }
+    function get_unseen_ta3mem()
+    {
+        $t3mem = $this->db->select('hr_ta3mem.*,hr_ta3mem_details.*,COUNT(hr_ta3mem.id) as count ')
+            ->from("hr_ta3mem_details")
+            ->join('hr_ta3mem', 'hr_ta3mem_details.ta3mem_id_fk=hr_ta3mem.id')
+          
+            ->where('hr_ta3mem.send_all_t3mem', 1)
+            ->where('emp_id', $_SESSION['emp_code'])
+            ->where('seen',0)
+            ->get()->row();
+        if (!empty($t3mem)) {
+          /// $data = array('t3mem' => $t3mem);   
+               $query=$t3mem;
+                $query->attaches= $this->get_attaches($t3mem->ta3mem_id_fk);
+            return $query;
+        }
+    }
+    public function select_all_unseen_ta3mem()
+    {
+        $query = $this->db->select('hr_ta3mem.*,hr_ta3mem_details.*')
+        ->from("hr_ta3mem_details")
+        ->join('hr_ta3mem', 'hr_ta3mem_details.ta3mem_id_fk=hr_ta3mem.id')
+        ->where('hr_ta3mem.send_all_t3mem', 1)
+        ->where('emp_id', $_SESSION['emp_code'])
+        ->where('seen',0)
+        ->get()->result();
+        if (!empty($query)) {
+            
+            return $query;
+        } else {
+            return false;
+        }
+    }
+///////////////////////////////25-4-2021////////////////
+    public function get_dash_da3wa()
+    {
+        $this->db->select('*');
+        $this->db->from("hr_ta3mem_details");
+        $this->db->where('emp_id', $_SESSION['emp_code']);
+        $this->db->order_by("id", "DESC");
+        
+        $query = $this->db->get();
+   
+            if ($query->num_rows()>0){
+                $data=$query->row();
+                $data->basic_data = $this->basic_data($data->ta3mem_id_fk);
+        return $data;
+    }
+        return false; 
+    }
+    public function get_all_dash_da3wa()
+    {
+        $this->db->select('*');
+        $this->db->from("hr_ta3mem_details");
+        $this->db->where('emp_id', $_SESSION['emp_code']); 
+        $query = $this->db->get();
+   
+            if ($query->num_rows()>0){
+                $i = 0;
+                $data=$query->result();
+                foreach ($query->result() as $row) {
+            $arr = $query;
+            $data[$i]->basic_data = $this->basic_data($row->ta3mem_id_fk);
+       
+            $i++;
+        }
+        return $data;
+    }
+        return false;  
     }
 }

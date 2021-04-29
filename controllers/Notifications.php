@@ -84,7 +84,7 @@ class Notifications extends CI_Controller
             array('member_decision_seen' => 'no', 'member_id' => $_SESSION['emp_code'], 'member_decision' => 0, 'finished' => 1),
             array('current_to_seen' => 0, 'current_to_user_id' => $_SESSION['user_id'], 'current_to_seen' => 0),
             array('current_to_emp_seen' => 0, 'current_to_emp_user_id' => $_SESSION['user_id']),
-            array('seen' => 0, 'to_id' => $_SESSION['user_id']),
+            array('seen' => 0, 'to_id' => $_SESSION['user_id'],"transformation_type!=", 8),
             array('seen' => 0, 'emp_id_fk' => $_SESSION['emp_code'], 'send_all_mohma' => 1)
 
         );

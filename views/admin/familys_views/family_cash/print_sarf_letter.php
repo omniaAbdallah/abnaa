@@ -202,7 +202,7 @@ print_r($record);
     
     <h4 style=" font-size: 16px; line-height: 25px !important;  ">
    &nbsp  &nbsp &nbsp  &nbsp &nbsp  &nbsp  <span style="font-weight: bold !important;">بناءً</span>
- على خطة البرامج المقدمة للأسر لعام 2020م  وحسب لائحة صرف المساعدات نفيدكم ببيان الأسر المستفيدة لهذا البرنامج  وفقاً لأعداد ا
+ على خطة البرامج المقدمة للأسر لعام 2021م  وحسب لائحة صرف المساعدات نفيدكم ببيان الأسر المستفيدة لهذا البرنامج  وفقاً لأعداد ا
      لأسر المعتمدة حتى تاريخه وهي  كالتالي
   </h4>  
    <?php } ?>
@@ -457,8 +457,9 @@ print_r($record);
 					<h6  style="font-weight: bold; font-size: 19px !important;" class="text-center">
                     <?php 
                     if(isset($modeer_tanmia) and $modeer_tanmia != null){
-                        // echo $modeer_tanmia;
-                        echo 'حمد محمد عبدالله الفعيم	';
+                       // echo $modeer_tanmia;
+                        echo 'حمد محمد عبدالله الفعيم	'
+                  ;
                     }
                     ?>
                     

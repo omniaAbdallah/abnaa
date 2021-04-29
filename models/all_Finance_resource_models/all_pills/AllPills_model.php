@@ -463,15 +463,14 @@ public function GetBanksDetails($bank_id){
 		if ($query->num_rows() > 0) {
 			$x=0;
 			foreach ($query->result_array() as $row){
-                $data[$x] = $row;
-                //	$data[$x]['main_kafalat_details'] =  $this->getmain_kafalat_details_data($row['id']);
-                /*			$data[$x]['yatem'] =  $this->check_kafel_main_kafalat(
-                        array('kafala_type_fk !='=>0,'kafala_type_fk !='=>3,'kafala_type_fk !='=>4,'first_kafel_id'=>$row['id']));
-                    $data[$x]['armal'] =  $this->check_kafel_main_kafalat(array('kafala_type_fk'=>4,'first_kafel_id'=>$row['id']));
-                    $data[$x]['mosatafed'] =  $this->check_kafel_main_kafalat(array('kafala_type_fk'=>3,'first_kafel_id'=>$row['id']));
-                */
-                $x++;
-            }
+				$data[$x] =  $row;
+			//	$data[$x]['main_kafalat_details'] =  $this->getmain_kafalat_details_data($row['id']);
+            /*			$data[$x]['yatem'] =  $this->check_kafel_main_kafalat(
+				    array('kafala_type_fk !='=>0,'kafala_type_fk !='=>3,'kafala_type_fk !='=>4,'first_kafel_id'=>$row['id']));
+				$data[$x]['armal'] =  $this->check_kafel_main_kafalat(array('kafala_type_fk'=>4,'first_kafel_id'=>$row['id']));
+				$data[$x]['mosatafed'] =  $this->check_kafel_main_kafalat(array('kafala_type_fk'=>3,'first_kafel_id'=>$row['id']));
+			*/
+            	$x++;}
 			return$data;
 		}else{
 			return 0;
@@ -1153,7 +1152,7 @@ if($_SESSION['role_id_fk'] ==1  ){
 				$data[$x]->bank_account_title = $this->GetAccountName($row->bank_account_id_fk);
 				$data[$x]->bank_account_num_title = $this->GetAccountNum($row->bank_account_num);
 
-                //  $data[$x]->attaches = $this->getAttachesByRkm($row->pill_num);
+              //  $data[$x]->attaches = $this->getAttachesByRkm($row->pill_num);
 
 				$x++;}
 			return$data;

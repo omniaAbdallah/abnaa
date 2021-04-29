@@ -570,7 +570,7 @@ function send_email_gmail($send_from_email, $send_from_name = '', $send_to, $sub
     $CI->email->subject($sub);
     $CI->email->message($message);
 
-    //    $CI->email->attach($img_path);
+//    $CI->email->attach($img_path);
 
     if ($CI->email->send()) {
         return true;
@@ -580,12 +580,80 @@ function send_email_gmail($send_from_email, $send_from_name = '', $send_to, $sub
 }
 
 
-//add_history
-function add_history($action_code, $mother_id)
+function format_date($date)
+{
+        $d = substr($date,3,2);
+        $m = substr($date,0,2);
+        $y = substr($date,6,10);
+       return $d .'-' .$m .'-'.$y;
+}
+
+function format_date_new($myDate)
+{
+$arr = explode('-', $myDate);
+return $newDate = $arr[2].'-'.$arr[1].'-'.$arr[0].'م ';      
+}
+
+
+ function get_arabic_month_name($month_number){
+   // $months = array (1=>'Jan',2=>'Feb',3=>'Mar',4=>'Apr',5=>'May',6=>'Jun',7=>'Jul',8=>'Aug',9=>'Sep',10=>'Oct',11=>'Nov',12=>'Dec');
+
+   $months = array(
+    1 => "يناير",
+    2 => "فبراير",
+    3 => "مارس",
+    4 => "أبريل",
+    5 => "مايو",
+    6 => "يونيو",
+    7 => "يوليو",
+    8 => "أغسطس",
+    9 => "سبتمبر",
+    10 => "أكتوبر",
+    11 => "نوفمبر",
+    12 => "ديسمبر"
+); 
+    if($month_number > 12 and $month_number <= 0){
+      return false;  
+    }else{
+    return $months[(int)$month_number];    
+    }
+ }
+
+
+
+/*
+$unixtime = 1602968400;
+echo $time = date("Y-m-d",$unixtime);
+*/
+
+function calculate_time_span($date = '2020-10-10'){
+    $seconds  = strtotime(date('Y-m-d H:i:s')) - strtotime($date);
+
+        $months = floor($seconds / (3600*24*30));
+        $day = floor($seconds / (3600*24));
+        $hours = floor($seconds / 3600);
+        $mins = floor(($seconds - ($hours*3600)) / 60);
+        $secs = floor($seconds % 60);
+
+        if($seconds < 60)
+            $time = $secs." seconds ago";
+        else if($seconds < 60*60 )
+            $time = $mins." min ago";
+        else if($seconds < 24*60*60)
+            $time = $hours." hours ago";
+        else if($seconds < 24*60*60)
+            $time = $day." day ago";
+        else
+            $time = $months." month ago";
+
+        return $time;
+}
+
+function add_history($action_code,$mother_id)
 {
     $CI =& get_instance();
 
-    $action_name = $CI->db->where('code', $action_code)->get('osr_action_process')->row()->process_name;
+    $action_name= $CI->db->where('code',$action_code)->get('osr_action_process')->row()->process_name;
     $data['action_code'] = $action_code;
     $data['action_name'] = $action_name;
     $data['mother_national_num'] = $mother_id;
@@ -599,7 +667,6 @@ function add_history($action_code, $mother_id)
     $data['publisher_name'] = getUserName($_SESSION['user_id']);
     $CI->db->insert('osr_all_history', $data);
 }
-
 function getUserName($user_id)
 {
     $CI =& get_instance();
@@ -626,13 +693,43 @@ function getUserName($user_id)
     }
     return false;
 }
-
-function getUserNameByRoll($id, $table, $field)
+/*function getUserName($user_id)
 {
     $CI =& get_instance();
 
-    return $CI->db->where('id', $id)->get($table)->row_array()[$field];
+    $sql = $CI->db->where("user_id",$user_id)->get('users');
+    if ($sql->num_rows() > 0) {
+        $data = $sql->row();
+        if($data->role_id_fk == 1 or $data->role_id_fk == 5)
+        {
+            return  $data->user_username;
+        }
+        elseif($data->role_id_fk == 2)
+        {
+            $id    = $data->user_name;
+            $table = 'magls_members_table';
+            $field = 'member_name';
+        }
+        elseif($data->role_id_fk == 3)
+        {
+            $id    = $data->emp_code;
+            $table = 'employees';
+            $field = 'employee';
+        }
+        elseif($data->role_id_fk == 4)
+        {
+            $id    = $data->user_name;
+            $table = 'general_assembley_members';
+            $field = 'name';
+        }
+        return $CI->getUserNameByRoll($id,$table,$field);
+    }
+    return false;
+}*/
+function getUserNameByRoll($id,$table,$field)
+{
+    $CI =& get_instance();
+
+    return $CI->db->where('id',$id)->get($table)->row_array()[$field];
 }
-
-
 ?>

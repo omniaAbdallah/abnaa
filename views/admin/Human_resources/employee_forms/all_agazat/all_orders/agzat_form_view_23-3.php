@@ -86,7 +86,7 @@
 
             $taqrer_form_date_m = date("Y-m-d");
 
-            // $agaza_to_date_m = date("Y-m-d", strtotime(date("Y-m-d") . ' + 1 days'));
+           // $agaza_to_date_m = date("Y-m-d", strtotime(date("Y-m-d") . ' + 1 days'));
 
             $agaza_to_date_m = date("Y-m-d");
 
@@ -265,6 +265,7 @@
                                     ><?php echo $row->name; ?></option>
 
                                 <?php } ?>
+
 
 
                             </select>
@@ -784,9 +785,11 @@
                         <div class="col-sm-2 padding-4">
 
 
+
                             <div id="sidebar_emp"></div>
 
                         </div>
+
 
 
                     <?php } ?>
@@ -797,45 +800,45 @@
 
         </div>
 
-        <div class="modal fade" id="myModalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModalInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
-            <div class="modal-dialog" role="document" style="width: 90%">
+    <div class="modal-dialog" role="document" style="width: 90%">
 
-                <div class="modal-content">
+        <div class="modal-content">
 
-                    <div class="modal-header">
+            <div class="modal-header">
 
-                        <button type="button" class="close" onclick="$('#myModalInfo').modal('hide')"
+                <button type="button" class="close" onclick="$('#myModalInfo').modal('hide')"
 
-                                aria-label="Close"><span
+                        aria-label="Close"><span
 
-                                    aria-hidden="true">&times;</span></button>
+                            aria-hidden="true">&times;</span></button>
 
-                        <h4 class="modal-title" id="myModalLabel"> الموظف البديل </h4>
+                <h4 class="modal-title" id="myModalLabel"> الموظف البديل </h4>
 
-                    </div>
+            </div>
 
-                    <div class="modal-body">
+            <div class="modal-body">
 
-                        <div id="myDiv"></div>
+                <div id="myDiv"></div>
 
-                    </div>
+            </div>
 
-                    <div class="modal-footer" style="display: inline-block;width: 100%">
+            <div class="modal-footer" style="display: inline-block;width: 100%">
 
-                        <button type="button" class="btn btn-danger"
+                <button type="button" class="btn btn-danger"
 
-                                style="float: left;" onclick="$('#myModalInfo').modal('hide')">إغلاق
+                        style="float: left;" onclick="$('#myModalInfo').modal('hide')">إغلاق
 
-                        </button>
-
-                    </div>
-
-                </div>
+                </button>
 
             </div>
 
         </div>
+
+    </div>
+
+</div>
 
         <script>
 
@@ -968,6 +971,7 @@
         </script>
 
 
+
         <script>
 
             function GetDiv_emps(div) {
@@ -1045,6 +1049,7 @@
                 });
 
             }
+
 
 
             //8-6-om
@@ -1375,7 +1380,7 @@
 
                 console.log('emp_id:' + emp_id);
 
-                if (emp_id == ' ') {
+               if (emp_id == ' ') {
 
                     swal({
 
@@ -1465,7 +1470,7 @@
 
                     });
 
-                }
+               }
 
             }
 
@@ -1478,6 +1483,7 @@
                 return ((n % m) + m) % m;
 
             }
+
 
 
             function kuwaiticalendar(adjust) {
@@ -1617,15 +1623,16 @@
             }
 
 
+
             function writeIslamicDate(adjustment) {
 
-                var wdNames = ["Ahad", "Ithnin", "Thulatha", "Arbaa", "Khams", "Jumuah", "Sabt"];
+                var wdNames = new Array("Ahad", "Ithnin", "Thulatha", "Arbaa", "Khams", "Jumuah", "Sabt");
 
-                var iMonthNames = ["Muharram", "Safar", "Rabi'ul Awwal", "Rabi'ul Akhir",
+                var iMonthNames = new Array("Muharram", "Safar", "Rabi'ul Awwal", "Rabi'ul Akhir",
 
                     "Jumadal Ula", "Jumadal Akhira", "Rajab", "Sha'ban",
 
-                    "Ramadan", "Shawwal", "Dhul Qa'ada", "Dhul Hijja"];
+                    "Ramadan", "Shawwal", "Dhul Qa'ada", "Dhul Hijja");
 
                 var iDate = kuwaiticalendar(adjustment);
 
@@ -1735,10 +1742,10 @@
 
             function get_option(valu) {
 //alert(valu);
-                if (valu == 2) {
-
-                    alert('يجب أن يكون تاريخ بداية الأجازة بعد ثلاثة أيام من تاريخ اليوم');
-                }
+if (valu == 2){
+    
+    alert('يجب أن يكون تاريخ بداية الأجازة بعد ثلاثة أيام من تاريخ اليوم');
+}
                 if (valu == 0) {
 
                     $('#mowazf_badel_div').hide();
@@ -1858,6 +1865,7 @@
         </script>
 
 
+
         <script>
 
             function get_emp_data(valu) {
@@ -1906,53 +1914,54 @@
 
                 var end_date = $('#end_date').val();
 
-                if (emp && vacations && (!isNaN(emp)) && (!isNaN(vacations))) {
+                if (emp  && vacations && (!isNaN(emp)) && (!isNaN(vacations))) {
 
                     if (vacations != 52) {
 
                         console.log('vacations :' + vacations + "\n emp : " + emp);
 
-                        var request = $.ajax({
+                            var request = $.ajax({
 
-                            url: "<?php echo base_url() . 'human_resources/employee_forms/all_agazat/all_orders/Vacation/get_avalibal_days'?>",
+                                url: "<?php echo base_url() . 'human_resources/employee_forms/all_agazat/all_orders/Vacation/get_avalibal_days'?>",
 
-                            type: "POST",
+                                type: "POST",
 
-                            // data: {emp_id: emp, vac_id: vacations},
+                                // data: {emp_id: emp, vac_id: vacations},
 
-                            data: {emp_id: emp, vac_id: vacations, end_date: end_date},
+                                data: {emp_id: emp, vac_id: vacations, end_date: end_date},
 
-                        });
+                            });
 
-                        request.done(function (msg) {
+                            request.done(function (msg) {
 
-                            if (msg === 'false') {
+                                if (msg === 'false') {
 
-                            } else {
+                                } else {
 
-                                var obj = JSON.parse(msg);
+                                    var obj = JSON.parse(msg);
 
-                                $('#allDayes').val(obj.ava_days);
+                                    $('#allDayes').val(obj.ava_days);
 
-                                $('#vDays').val(obj.vDays);
+                                    $('#vDays').val(obj.vDays);
 
-                                if (vacations == 0) {
+                                    if (vacations == 0) {
 
-                                    $('#max_days').val(obj.casual_vacation_num);
+                                        $('#max_days').val(obj.casual_vacation_num);
 
-                                    $('#min_days').val(1);
+                                        $('#min_days').val(1);
+
+                                    }
 
                                 }
 
-                            }
+                            });
 
-                        });
+                            request.fail(function (jqXHR, textStatus) {
 
-                        request.fail(function (jqXHR, textStatus) {
+                                console.log("Request failed: " + textStatus);
 
-                            console.log("Request failed: " + textStatus);
+                            });
 
-                        });
 
 
                     } else {
@@ -2182,11 +2191,12 @@
             }
 
 
+
             function check_vacation_emp() {
 
                 var emp_id = $('#emp_id_fk').val();
 
-                if (emp_id && (!isNaN(emp_id))) {
+                if (emp_id &&(!isNaN(emp_id))) {
 
                     $.ajax({
 
@@ -2235,6 +2245,11 @@
             }
 
         </script>
+
+
+
+
+
 
 
         <?php

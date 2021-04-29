@@ -44,32 +44,28 @@
         font-weight: bold;
         color: #666;
     }
-
- .mailbox-attachment-info {
-     padding: 10px;
-     background: #f4f4f4;
- }
-
- .mailbox-attachment-size {
-     color: #999;
-     font-size: 12px;
-     margin-bottom: 17px;
- }
-
+    .mailbox-attachment-info {
+        padding: 10px;
+        background: #f4f4f4;
+    }
+    .mailbox-attachment-size {
+        color: #999;
+        font-size: 12px;
+        margin-bottom: 17px;
+    }
  .modal-dialog {
-     position: relative;
-     width: auto;
-     margin: 0 !important;
- }
-
- @media (min-width: 768px)
- <style >
- .modal-dialog {
-     width: 600px;
-     margin: 0 auto !important;
- }
+    position: relative;
+    width: auto;
+    margin: 0 !important;
+}
+@media (min-width: 768px)
+<style>
+.modal-dialog {
+    width: 600px;
+     margin: 0 auto !important ; 
+}
 </style>
-<?php
+  <?php
   /*$da3wat_msg[0]->emp_name;
   echo'<pre>';
   print_r($da3wat_msg[0]);
@@ -79,20 +75,20 @@
  if(isset($da3wat_msg) && !empty($da3wat_msg) ){
 	if($da3wat_msg[0]->seen=='' && empty($da3wat_msg[0]->seen) ){
  ?>
-        <div class="modal modal-startup fade" id="dawa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document" style="
+<div class="modal modal-startup fade" id="dawa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="
 width: 100%;
 ">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h6 class="modal-title" id="myModalLabel">
-                            <i class="fa fa-envelope-open-o" aria-hidden="true"></i>
-                            رسالة جديدة</h6>
-                    </div>
-                    <div class="modal-body">
-                        <div class="col-xs-12">
-
-                            <div class="col-xs-8">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="myModalLabel">
+                 <i class="fa fa-envelope-open-o" aria-hidden="true"></i>
+ رسالة جديدة</h6>
+            </div>
+            <div class="modal-body">
+    <div class="col-xs-12">
+    
+      <div class="col-xs-8">
                     <h6 class="" style="font-weight: bold !important;font-size: 20px; !important; color: #a70000;">
                        الاستاذ/<?= $da3wat_msg[0]->emp_name; ?>
                     </h6>
@@ -127,29 +123,31 @@ width: 100%;
    
  
    </div>
-
-
-                        </div>
-                        <!-- /.box-body -->
-                        <!-- yaraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->
-                        <div class="modal-footer">
-                            <div class="col-xs-12">
-                                <div class="col-md-12" id="actionn">
-                                    <div class="col-md-2">
-                                        <a onclick="confirm(<?= $da3wat_msg[0]->id ?>,'accept')"
-                                           class="btn btn-success btn-block"><b>تم الإطلاع</b></a>
-                                    </div>
-                                    <!-- <div class="col-md-2">
-<a onclick="confirm(<?= $da3wat_msg[0]->id ?>,'refuse')" class="btn btn-danger btn-block"><b>تحديد كغير مقروء</b></a>
+   
+   
+   
+    </div>
+<!-- /.box-body -->
+<!-- yaraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->
+<div class="modal-footer">
+<div class="col-xs-12">
+<div class="col-md-12" id="actionn">
+<div class="col-md-2">
+<a  onclick="confirm(<?=$da3wat_msg[0]->id?>,'accept')" class="btn btn-success btn-block"><b>تم الإطلاع</b></a>
+</div>
+<!-- <div class="col-md-2">
+<a onclick="confirm(<?=$da3wat_msg[0]->id?>,'refuse')" class="btn btn-danger btn-block"><b>تحديد كغير مقروء</b></a>
   </div>
   <div class="col-md-2">
-<a onclick="confirm(<?= $da3wat_msg[0]->id ?>,'wait')" class="btn btn-warning btn-block"><b> النظر  لاحقا</b></a>
+<a onclick="confirm(<?=$da3wat_msg[0]->id?>,'wait')" class="btn btn-warning btn-block"><b> النظر  لاحقا</b></a>
   </div>-->
-                                </div>
-                                <br/> <br/>
-                            </div>
+</div>
+ <br /> <br />
+    </div>
 
-                            <div class=" col-xs-12 ">
+    <div class=" col-xs-12 ">
+                                
+
 
 
                                 <ul class="mailbox-attachments clearfix">

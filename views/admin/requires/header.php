@@ -91,17 +91,16 @@
     <link rel="stylesheet"
           href="<?= base_url() ?>asisst/admin_asset/plugins1/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Theme style	-->
-    <link rel="stylesheet" href="<?= base_url() ?>asisst/admin_asset/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="<?= base_url() ?>asisst/admin_asset/css/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>asisst/admin_asset/plugins1/summernote/summernote-bs4.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <link rel="stylesheet" href="<?= base_url() ?>asisst/admin_asset/dist/css/custom.css">
+    <link rel="stylesheet" href="<?= base_url() ?>asisst/admin_asset/css/dist/css/custom.css">
     <style>
         .content-wrapper {
             margin-top: 42px !important;
             /* background: url(../img/logo-bg2.png); */
         }
-
         .name_of_charity {
             color: #0060b3;
             font-size: 16px;
@@ -111,14 +110,12 @@
             margin-top: 0px;
             border-radius: 5px
         }
-
         .name_of_charity img {
             float: right;
             /* height: 70px;*/
             width: 200px;
             height: 45px;
         }
-
         .name_of_vision img {
             float: right;
             height: 60px;
@@ -127,13 +124,11 @@
             border-right: 1px solid #fff;
             padding-right: 20px;
         }
-
         .name_of_charity p {
             float: right;
             margin-bottom: 0;
             font-size: 16px;
         }
-
         .navbar .nav-tabs > li.active > a,
         .navbar .nav-tabs > li.active > a:hover,
         .navbar .nav-tabs > li.active > a:focus,
@@ -142,18 +137,15 @@
             color: #002542;
             border-bottom-color: transparent;
         }
-
         .navbar-nav.navbar-right button {
             background-color: transparent;
             border: 0;
             color: #002542;
             font-size: 16px;
         }
-
         .navbar-nav.navbar-right button a {
             font-size: 16px;
         }
-
         .navbar-nav > li > a.home-icon {
             margin-top: 5px;
             margin-left: 20px;
@@ -162,7 +154,6 @@
             padding: 0 !important;
             margin-right: 10px;
         }
-
         .navbar-nav > li > a.home-icon span {
             color: #fff;
             margin-right: -48px;
@@ -170,7 +161,6 @@
             -webkit-transition: all 0.3s ease;
             -moz-transition: all 0.3s ease;
         }
-
         .navbar-nav > li > a.home-icon i {
             border-radius: 0;
             font-weight: 500;
@@ -178,19 +168,16 @@
             font-size: 23px;
             background-color: #293949;
         }
-
         .navbar-nav > li > a.home-icon:hover span,
         .navbar-nav > li > a.home-icon:focus span {
             margin-right: 0px;
         }
-
         .dropdown-menu > li > a.sign-out-btn:hover,
         .dropdown-menu > li > a.sign-out-btn:focus {
             background-image: none;
             background-color: #e7575e;
             border-color: #BF2D35;
         }
-
         .main-header .full-screen {
             position: relative;
             /* left: 0px; */
@@ -202,7 +189,6 @@
             color: #002542;
             cursor: pointer;
         }
-
         .main-header .full-screen i {
             background-color: transparent;
             border-radius: 0;
@@ -224,13 +210,11 @@
             /* box-shadow: -2px 2px 3px #fff; */
             border: 1px solid;
         }
-
         #MyClockDisplay {
             letter-spacing: 2px;
             margin-left: 14px;
             /*float: right;*/
         }
-
         .pray {
             border-radius: 5px !important;
             padding: 4px 6px 0 6px !important;
@@ -238,12 +222,10 @@
             position: absolute !important;
             top: -15px;
         }
-
         .pray a {
             color: #fff !important;
             font-weight: 500;
         }
-
         .pray a i {
             display: block;
             font-weight: 500 !important;
@@ -251,11 +233,9 @@
             background-color: transparent !important;
             color: #fff;
         }
-
         .w3-teal h3 {
             font-size: 16px;
         }
-
         .btn-email {
             position: fixed;
             bottom: 45px;
@@ -295,9 +275,8 @@
              <span class="pe-7s-angle-left-circle"></span>
             </a>-->
             <div class="navbar-custom-menu">
-                <ul class="nav navbar-nav col-sm-6" style="margin-top: 7px;">
-                    <li><a href="javascript:void(0)" onclick="get_menu();" class="sidebar-toggle"
-                           data-toggle="offcanvas" role="button">
+      <ul class="nav navbar-nav col-sm-6" style="">
+                    <li><a href="javascript:void(0)" onclick="get_menu();" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                             <!--<span class="sr-only">Toggle navigation</span>-->
                             <span class="fa fa-bars"></span>
                         </a></li>
@@ -322,7 +301,6 @@
                         font-weight: 300;
                         color: #575757;
                     }
-
                     .navbar-nav > li > a > i {
                         padding: 4px 3px;
                         width: 35px;
@@ -337,11 +315,9 @@
                         border-radius: 50%;
                         list-style: none;
                     }
-
                     #nav-container {
                         position: relative;
                     }
-
                     #nav-container .bg {
                         position: absolute;
                         top: 70px;
@@ -353,16 +329,13 @@
                         transition: .3s;
                         background: #000;
                     }
-
                     #nav-container:focus-within .bg {
                         visibility: visible;
                         opacity: .6;
                     }
-
                     #nav-container * {
                         visibility: visible;
                     }
-
                     .button-notify {
                         position: relative;
                         outline: none;
@@ -380,12 +353,10 @@
                         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
                         margin-top: 6px;
                     }
-
                     .button-notify i {
                         color: #fff;
                         font-size: 25px;
                     }
-
                     .icon-bar {
                         display: block;
                         width: 100%;
@@ -393,18 +364,15 @@
                         background: #aaa;
                         transition: .3s;
                     }
-
                     .icon-bar + .icon-bar {
                         margin-top: 5px;
                     }
-
                     /*#nav-container:focus-within .button-notify {
                       pointer-events: none;
                     }*/
                     .openNotify {
                         transform: translateX(0) !important;
                     }
-
                     #nav-content {
                         margin-top: 55px;
                         padding: 10px;
@@ -425,17 +393,14 @@
                         /* will-change: transform;
                          contain: paint;*/
                     }
-
                     #nav-content ul {
                         height: 100%;
                     }
-
                     #nav-content li {
                         width: 33.3%;
                         float: right;
                         text-align: center;
                     }
-
                     #nav-content li a i {
                         color: #fff;
                         display: block;
@@ -444,7 +409,6 @@
                         -webkit-transition: 0.5s all ease-in;
                         transition: 0.5s all ease-in;
                     }
-
                     #nav-content li a {
                         position: relative;
                         color: #fff;
@@ -456,17 +420,14 @@
                         background-color: #222;
                         margin: 2px;
                     }
-
                     #nav-content li a:hover {
                         color: #fff;
                         background-color: #0b5961;
                     }
-
                     #nav-content li a:hover i {
                         -webkit-transform: rotate(360deg);
                         transform: rotate(360deg);
                     }
-
                     #nav-content li a .badge {
                         position: absolute;
                         left: 0;
@@ -475,7 +436,6 @@
                         background-color: #E5343D;
                         font-weight: 500;
                     }
-
                     /*
                     #nav-container:focus-within #nav-content {
                       transform: none;
@@ -484,7 +444,6 @@
                         padding: 0;
                         list-style: none;
                     }
-
                     .count_notify {
                         position: absolute;
                         left: 0;
@@ -493,14 +452,13 @@
                         background-color: #E5343D;
                         font-weight: 500
                     }
-
                     .margin_notifaction {
                         float: left !important;
                     }
                 </style>
-                <ul class="navbar-nav col-sm-1" style="margin-top: 7px;">
+                <ul class="navbar-nav col-sm-2" >
                     <!-- Messages Dropdown Menu -->
-                    <li class="nav-item dropdown margin_notifaction" style="list-style: none;">
+                    <li class="nav-item dropdown margin_notifaction" style="list-style: none;margin-left: 15px;">
                         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
                             <i class="far fa-comments"></i>
                             <span class="badge badge-danger navbar-badge">3</span>
@@ -565,7 +523,7 @@
                         </div>
                     </li>
                     <!-- Notifications Dropdown Menu -->
-                    <li class="nav-item dropdown margin_notifaction" style="list-style: none;">
+                    <li class="nav-item dropdown margin_notifaction" style="list-style: none;margin-left: 15px;">
                         <a class="nav-link" data-toggle="dropdown" href="#">
                             <i class="far fa-bell"></i>
                             <span class="badge badge-warning navbar-badge">15</span>
@@ -592,7 +550,7 @@
                         </div>
                     </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right col-sm-3" style=" margin-top:10px;">
+        <ul class="nav navbar-nav navbar-right col-sm-2" style=" margin-top:5px;">
                     <?php
                     $out_title = "  نظام الجمعية الخيرية لرعاية الأيتام ببريدة - أبناء";
                     $out_link = "Dash/home";
@@ -618,12 +576,10 @@
                             box-shadow: 0px 0px 0px;
                             width: 100%;
                         }
-
                         .sidebar-mini.sidebar-collapse .main-header .navbar {
                             margin-left: 0px !important;
                             height: 46px;
                         }
-
                         .main-header .navbar {
                             -webkit-transition: margin-right 0.3s ease-in-out;
                             transition: margin-right 0.3s ease-in-out;
@@ -636,7 +592,6 @@
                             border-bottom: 1px solid #dee2e6;
                             /* background: url(../img/logo-bg2.png); */
                         }
-
                         .main-header .sidebar-toggle {
                             position: relative;
                             /* left: 0px; */
@@ -647,7 +602,6 @@
                             /* margin-right: 7px; */
                             color: #002542;
                         }
-
                         .main-header .full-screen {
                             position: relative;
                             /* left: 0px; */
@@ -659,14 +613,12 @@
                             color: #002542;
                             cursor: pointer;
                         }
-
                         .main-header .full-screen i {
                             background-color: transparent;
                             border-radius: 0;
                             font-size: 19px;
                             font-weight: 500;
                         }
-
                         .navbar-nav > li > a.home-icon i {
                             border-radius: 0;
                             font-weight: 500;
@@ -674,7 +626,6 @@
                             background-color: #293949;
                             font-size: 23px;
                         }
-
                         .main-header .sidebar-toggle span {
                             color: #fff;
                             font-weight: 500;
@@ -689,13 +640,11 @@
                             border-radius: 4px;
                             font-size: 21px;
                         }
-
                         .nav > li > a {
                             position: relative;
                             display: block;
                             padding: 11px 0px;
                         }
-
                         .navbar-nav > li > a.home-icon {
                             margin-top: 5px;
                             margin-left: 20px;
@@ -704,7 +653,6 @@
                             padding: 0 !important;
                             margin-right: 10px;
                         }
-
                         .icondown {
                             padding: 4px 3px;
                             width: 35px !important;
@@ -718,13 +666,11 @@
                             color: #fff;
                             border-radius: 50%;
                         }
-
                         .navbar-nav > li > a:visited {
                             background-color: #222;
                             background: #222;
                             color: #009688;
                         }
-
                         .navbar-nav > li > a {
                             /* padding: 4px 9px; */
                             padding: 1px 2px;
@@ -732,30 +678,25 @@
                             color: #009688;
                             word-spacing: 2px;
                         }
-
                         @media (min-width: 768px)
                             .navbar-nav > li > a {
                                 padding-top: 15px;
                                 padding-bottom: 15px;
                             }
-
                             .navbar-nav > li > a {
                                 padding-top: 10px;
                                 padding-bottom: 10px;
                                 line-height: 20px;
                             }
-
                             .navbar-brand, .navbar-nav > li > a {
                                 text-shadow: 0 1px 0 rgba(255, 255, 255, .25);
                             }
-
                             a:link, button, button:hover {
                                 -webkit-transition: all 0.5s ease;
                                 -moz-transition: all 0.5s ease;
                                 -o-transition: all 0.5s ease;
                                 transition: all 0.5s ease;
                             }
-
                             .backgroundmenu {
                                 background: #556071 !important;
                                 color: aliceblue !important;
@@ -766,20 +707,17 @@
                                 margin-left: 20px;
                                 height: 35px;
                             }
-
                             .logoname {
                                 font-size: 16px !important;
                                 color: aliceblue;
                                 margin-top: 8px;
                             }
-
                             .dropdown-menu > li > a {
                                 color: #0f0f0f;
                                 font-weight: 600;
                                 padding: 10px 21px;
                                 font-size: 14px !important;
                             }
-
                             .dropdown-menu {
                                 position: absolute;
                                 top: 100%;
@@ -802,7 +740,6 @@
                                 -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
                                 box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
                             }
-
                             .messages-menu > .dropdown-menu > li.header {
                                 border-top-left-radius: 4px;
                                 border-top-right-radius: 4px;
@@ -815,27 +752,22 @@
                                 font-size: 16px;
                                 font-weight: 600;
                             }
-
                             .messages-menu > .dropdown-menu > li .menu > li > a {
                                 margin: 0;
                                 padding: 10px 10px;
                             }
-
                             .pull-right {
                                 float: right !important;
                             }
-
                             .messages-menu > .dropdown-menu > li .menu > li > a > div > img {
                                 margin: auto auto auto 10px !important;
                                 width: 40px;
                                 height: 40px;
                                 border: 1px solid #908c8c;
                             }
-
                             .img-circle {
                                 border-radius: 50%;
                             }
-
                             .messages-menu > .dropdown-menu > li .menu > li > a > h4 {
                                 padding: 0;
                                 margin: 0 45px 0 0px !important;
@@ -844,7 +776,6 @@
                                 position: relative;
                                 font-weight: 700;
                             }
-
                             .navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a > h4 > small {
                                 color: #2196F3;
                                 font-size: 11px;
@@ -853,13 +784,11 @@
                                 left: 0;
                                 right: auto;
                             }
-
                             .messages-menu > .dropdown-menu > li .menu > li > a > p {
                                 margin: 0 0 0 45px;
                                 font-size: 12px;
                                 color: #888888;
                             }
-
                             .dropdown-help {
                                 text-align: right !important;
                             }
@@ -920,7 +849,7 @@
         </nav>
     </header>
     <div id="rocket_x"></div>
-    <!--    --><?php //$this->load->view('admin/requires/sidebar'); ?>
+<!--    --><?php //$this->load->view('admin/requires/sidebar'); ?>
 
     <div class="content-wrapper">
         <div class="modal" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -1090,15 +1019,12 @@
                 right: 9px;
                 z-index: 9999;
             }
-
             .notifaction .icoo i:hover {
                 background: #007bff !important;
             }
-
             .notifaction1 .icoo i:hover {
                 background: #007bff !important;
             }
-
             .notifaction1 .iconn {
                 display: inline-block;
                 color: #fffdfd;
@@ -1116,15 +1042,12 @@
                 margin-top: -30px;
                 background: #33485d !important;
             }
-
             .bg-danger2 {
                 background-color: #33485d !important;
             }
-
             .bg-danger1 {
                 background-color: #8f44ab !important;
             }
-
             .categories-icon .icon-box {
                 text-align: center;
                 padding: 0px;
@@ -1138,12 +1061,10 @@
                 box-shadow: 0 2px 15px -5px #dadada;
                 margin-top: 30px;
             }
-
             .categories-icon .icon-box .iconn {
                 margin-bottom: 4px;
                 transform: translate(-32%, -22%);
             }
-
             .categories-icon .icon-box .iconn i {
                 display: inline-block;
                 color: #fffdfd;
@@ -1160,7 +1081,6 @@
                 line-height: 50px;
                 margin-top: -30px;
             }
-
             .small-box > .small-box-footer {
                 background: rgba(0, 0, 0, .1);
                 color: rgba(255, 255, 255, .8);
@@ -1172,27 +1092,21 @@
                 z-index: 10;
                 font-size: 15px;
             }
-
             .bg-danger2 {
                 background-color: #33485d !important;
             }
-
             .bg-danger3 {
                 background-color: #2a80b9 !important;
             }
-
             .bg-danger4 {
                 background-color: #149e84 !important;
             }
-
             .bg-danger5 {
                 background-color: #f09b1a !important;
             }
-
             .bg-danger6 {
                 background-color: #e74b3c !important;
             }
-
             .small_notf {
                 font-size: .6rem;
                 font-weight: 300;
@@ -1201,7 +1115,6 @@
                 right: 0px;
                 top: -9px;
             }
-
             .searcchh input[type=text] {
                 width: 100%;
                 box-sizing: border-box;
@@ -1221,11 +1134,9 @@
                 border-radius: 1.25rem;
                 transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
             }
-
             .position-relative {
                 position: relative !important;
             }
-
             .filtter button {
                 border: 0;
                 background: none;
@@ -1236,7 +1147,6 @@
                 font-size: 18px;
                 color: black !important;
             }
-
             .badgee {
                 display: inline-block;
                 padding: .25em .4em;
@@ -1249,11 +1159,9 @@
                 border-radius: .25rem;
                 transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
             }
-
             .card-outline {
                 border-top: 3px solid #007bff;
             }
-
             .cardd1 {
                 margin-top: 8px;
                 color: black;

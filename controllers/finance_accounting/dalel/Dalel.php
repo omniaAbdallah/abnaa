@@ -470,10 +470,9 @@ public function add_editAccounDalel()
         $data['tree'] = $this->buildTree($records);
         $this->load->view('admin/finance_accounting/dalel/load_dalel_tree', $data);
     }
-
-
-    public function R_mali_period()
-    { //finance_accounting/dalel/Dalel/R_mali_period
+    
+    
+        public function R_mali_period(){ //finance_accounting/dalel/Dalel/R_mali_period
         $this->load->model('finance_accounting_model/dalel/Mali_model');
         // $this->load->model('finance_accounting_model/Reports');
         $data['records'] = $this->Mali_model->tree();
@@ -493,11 +492,11 @@ public function add_editAccounDalel()
         print_r($data['records']);
         echo "</pre>";
         die;*/
-        if ($_POST['status'] == 1) {
+        if($_POST['status'] ==1){
 
             $this->load->view('admin/finance_accounting/dalel/malil_v/get_mali_period_data_sub', $data);
 
-        } elseif ($_POST['status'] == 2) {
+        }elseif ($_POST['status'] ==2){
 
             $this->load->view('admin/finance_accounting/dalel/malil_v/get_mali_period_data_total', $data);
 

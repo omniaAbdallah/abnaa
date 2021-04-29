@@ -657,7 +657,7 @@ function buildTreeTable($tree, $count = 1)
 
                         '</div>';
                         
-                        $(win.document.body).find('.print-h').html('حركة حساب');
+                        $(win.document.body).find('.print-h').html('حركة حساب <?=$hesab_name?>');
                        
 
 

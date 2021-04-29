@@ -9,14 +9,7 @@
     }
 
     /* Style the tab */
-    .tab {
-        float: right;
-        border-left: 1px solid #585757;
-        background-color: #252525;
-        width: 18%;
-        height: 100%;
-        position: fixed;
-    }
+     
 
     /* Style the buttons inside the tab */
     .tab button {
@@ -71,11 +64,13 @@
 
     .cntr {
         /* overflow: scroll;*/
-        padding: 30px 15px 50px 40px;
+        /*padding: 30px 15px 50px 40px;*/
         width: calc(100% + 15px);
         height: calc(100% + 20px);
     }
-
+.panel-body {
+    padding: 1px 3px;
+}
     .itemm .title {
         display: inline-block;
         width: 100%;
@@ -163,7 +158,7 @@
     .sidebar-index {
         position: relative;
         /* height: 465px; */
-        /*margin-top: 47px;*/
+        margin-top: 47px;
     }
 
     @media (min-width: 768px) {
@@ -179,9 +174,218 @@
         }
     }
 </style>
+<style>
+    .collapsible {
+        background-color: rgb(237 237 237 / 28%);
+        color: white;
+        cursor: pointer;
+        padding: 12px 14px;
+        width: 100%;
+        border: none;
+        text-align: right;
+        outline: none;
+        font-size: 15px;
+        border-bottom-left-radius: 5px;
+        border-top-left-radius: 5px;
+    }
+
+    .active, .collapsible:hover {
+        background-color: #555;
+    }
+
+    .collapsible:after {
+        content: '\002B';
+        color: #ffc107;
+        font-weight: bold;
+        float: left;
+        margin-left: 5px;
+    }
+
+    .active1:after {
+        content: "\2212";
+    }
+
+    .content1 {
+        padding: 0 18px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        padding-top: 10px;
+
+    }
 
 
+    .itemm {
+        float: right;
+        display: inline-block;
+        margin-left: 40px;
+        width: calc((100% - -15.9px) / 5);
+        margin-bottom: 20px;
+    }
+
+
+    .tab {
+        float: right;
+        border-left: 1px solid #585757;
+        background-color: #252525;
+        width: 20%;
+        /*height: 100%;*/
+        height: 565px;
+        position: fixed;
+        overflow-y: scroll;
+    }
+
+    .tabcontent {
+        float: left;
+        padding: 0px 4px 0 0px;
+        /* border: 1px solid #ccc; */
+        width: 80%;
+        background: #333333;
+        overflow-y: scroll;
+        height: 630px;
+    }
+
+    .cntr {
+        /* overflow: scroll;*/
+        /*padding: 30px 0px 50px 7px;*/
+        width: calc(100% + 20px);
+        height: calc(100% + 20px);
+    }
+
+    .panel-heading a:hover {
+        /* color: #fff; */
+        color: #007bff;
+    }
+
+    .panel {
+        margin-bottom: 20px;
+        background-color: #ffffff1a;
+    }
+
+    .panel-headingg {
+        padding: 11px 15px;
+        border-bottom: 1px solid transparent;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        -webkit-border-top-right-radius: 0px;
+        -webkit-border-top-left-radius: 0px;
+        background: rgb(165 160 160 / 46%);
+        color: #fff;
+    }
+
+    .panel-headingg:hover {
+        background: #424242;
+        color: #f7f5f5;
+    }
+
+    a:hover, a:active, a:focus {
+        outline: none;
+        text-decoration: none;
+        color: #fff;
+        -webkit-transition: all .3s;
+        transition: all .3s;
+    }
+
+    .headingtab {
+        display: block;
+        width: 100%
+    }
+</style>
+<style>
+    .icon_side {
+        background-color: #007bff;
+        font-size: 20px;
+        text-shadow: none;
+        color: #fff;
+        width: 35px;
+        height: 35px;
+        vertical-align: middle;
+        line-height: 35px;
+        text-align: center;
+        border-radius: 50%;
+        margin-left: 5px;
+    }
+
+    /* Style the tab */
+
+
+    /* Style the buttons inside the tab */
+    .tab button {
+        display: block;
+        background-color: inherit;
+        color: #afafaf;
+        padding: 5px 8px;
+        width: 100%;
+        border: none;
+        outline: none;
+        text-align: right;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 14px;
+        border-bottom: 1px solid #333;
+    }
+
+    ::-webkit-scrollbar {
+        width: 1px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #333333 !important;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #333333 !important;
+    }
+
+
+    .scroll_main {
+        overflow-y: scroll;
+        height: 260px;
+    }
+
+    .itemm {
+        float: right;
+        display: inline-block;
+        margin-left: 40px;
+        /*width: calc((100% - 160.1px) / 5);*/
+        margin-bottom: 20px;
+    }
+</style>
+<style>
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        /*background-color: #2196F3;*/
+        /*padding: 10px;*/
+    }
+    .grid-item {
+        /*background-color: rgba(255, 255, 255, 0.8);*/
+        /*border: 1px solid rgba(0, 0, 0, 0.8);*/
+        /*padding: 20px;*/
+        /*font-size: 30px;*/
+        text-align: right;
+        padding: 10px 0;
+    }
+    *[class*="grid-width"]:after, .grid-container:after, *[class*="grid-width"]:before, .grid-container:before{
+        display: none;
+    }
+    .grid-item  a {
+        width: 100%;
+
+        font-size: 14px;
+        color: #ccc;
+    }
+    .grid-item a:hover {
+        color: #fff;
+    }
+</style>
 <aside class="main-sidebar">
+   <!-- <pre>
+        <?php /*print_r($main_groups);
+        die;*/?>
+    </pre>-->
     <div class="side-pad" id="firstDiv">
         <nav class="sidebar sidebar-index" id="">
             <div class="inner-sidebar">
@@ -213,7 +417,8 @@
                                                 echo 'id="defaultOpen"';
 
                                             } ?>
-                                        > <?php echo $leval->page_title ?></button>
+                                        ><i class="<?= $leval->page_icon_code ?> icon_side"></i> <?php echo $leval->page_title ?>
+                                        </button>
 
                                     <?php }
                                 } ?>
@@ -222,7 +427,7 @@
                     </div>
 
 
-                    <?php if (isset($main_groups) && $main_groups != null && !empty($main_groups)) {
+                    <?php $x=0; if (isset($main_groups) && $main_groups != null && !empty($main_groups)) {
                         foreach ($main_groups as $row) {
                             ?>
                             <?php
@@ -231,44 +436,51 @@
                                     ?>
 
                                     <div id="mainmenu<?= $leval->page_id ?>" class="tabcontent">
-                                        <div class="cntr">
-
-
+                                        <div class="panel-group" id="accordion<?= $leval->page_id ?>" role="tablist" aria-multiselectable="true">
                                             <?php if (isset($row->sub_one_pages) && !empty($row->sub_one_pages)) {
-                                                foreach ($row->sub_one_pages as $one) {
+                                                foreach ($row->sub_one_pages as $key=>$one) {
                                                     ?>
-                                                    <div class="itemm">
-                                                        <div class="title">
-                                                            <span><?= $one->page_title ?></span>
+                                                    <div class="panel panel-default">
+                                                        <a class="panel-title panel-headingg headingtab" role="button"
+                                                           data-toggle="collapse"
+                                                           data-parent="#accordion<?= $leval->page_id ?>"
+                                                           href="#collapse<?= $x ?>" aria-expanded="true"
+                                                           aria-controls="collapse<?=$x ?>">
+                                                            <?= $one->page_title ?>
+                                                        </a>
+
+                                                        <div id="collapse<?= $x ?>"
+                                                             class="panel-collapse collapse <?php if ($key == 0) echo 'in'; else echo ' '; ?>" role="tabpanel">
+                                                            <div class="panel-body cntr">
+
+                                                                <div class=" grid-container">
+
+<!--                                                                    <ul>-->
+                                                                        <?php if (isset($one->sub_tow_pages) && !empty($one->sub_tow_pages)) {
+                                                                            foreach ($one->sub_tow_pages as $tow) {
+                                                                                ?>
+                                                                                <div class="grid-item" >
+                                                                                    <a href="<?=base_url(). $tow->page_link ?>"><i class="icoon far fa-circle text-danger"></i>
+                                                                                        <p class="icon_name"><?= $tow->page_title ?> </p></a>
+                                                                                </div>
+                                                                            <?php }
+                                                                        } ?>
+
+<!--                                                                    </ul>-->
+                                                                </div>
+                                                            </div>
                                                         </div>
-
-
-                                                        <ul>
-                                                            <?php if (isset($one->sub_tow_pages) && !empty($one->sub_tow_pages)) {
-                                                                foreach ($one->sub_tow_pages as $tow) {
-                                                                    ?>
-                                                                    <li>
-
-                                                                        <a href="<?= $tow->page_link ?>"><i
-                                                                                    class="icoon far fa-circle text-danger"></i>
-                                                                            <p class="icon_name">  <?= $tow->page_title ?> </p>
-                                                                        </a>
-                                                                    </li>
-                                                                <?php }
-                                                            } ?>
-
-                                                        </ul>
                                                     </div>
-                                                <?php }
+                                                <?php $x++; }
                                             } ?>
 
 
                                         </div>
 
                                     </div>
-                                <?php }
+                                <?php $x++; }
                             } ?>
-                        <?php }
+                        <?php $x++; }
                     } ?>
                     <!-- stop -->
 

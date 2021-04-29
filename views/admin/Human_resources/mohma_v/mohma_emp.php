@@ -1,13 +1,14 @@
-<?php if (($_SESSION['role_id_fk'] == 3)) {
+<?php if( ($_SESSION['role_id_fk']==3))
+{
     ?>
-    <div class="col-sm-12 no-padding">
-        <div class="panel panel-bd lobidisable lobipanel lobipanel-sortable">
-            <div class="panel-heading">
-                <h3 class="panel-title"><?= $title ?></h3>
-            </div>
-            <div class="panel-body">
-                <?php
-                if (isset($result) && !empty($result))
+<div class="col-sm-12 no-padding">
+    <div class="panel panel-bd lobidisable lobipanel lobipanel-sortable">
+        <div class="panel-heading">
+            <h3 class="panel-title"><?= $title ?></h3>
+        </div>
+        <div class="panel-body">
+            <?php
+            if(isset($result)&&!empty($result))
             {
 //newww
             $mohma_name=$result->mohma_name;
@@ -215,13 +216,13 @@ $another_mohma='';
                     <thead>
                     <tr class="greentd">
                         <th>م</th>
-                        <th class="text-center">أسم المهمة</th>
+                        <th class="text-center">أسم  المهمة</th>
                         <th class="text-center">تاريخ الانشاء</th>
                         <th class="text-center"> تفاصيل المهمه</th>
-                        <th class="text-center"> اسناد من</th>
-                        <th class="text-center"> اسناد الي</th>
-                        <th class="text-center"> الوقت المقدر</th>
-                        <th class="text-center"> حالة المهمة</th>
+                        <th class="text-center">  اسناد من</th> 
+                       <th class="text-center">  اسناد الي</th> 
+                       <th class="text-center">  الوقت المقدر</th> 
+                       <th class="text-center"> حالة المهمة </th>
                         <th class="text-center">الإجراء</th>
                     </tr>
                     </thead>
@@ -235,52 +236,50 @@ $another_mohma='';
                             $add_comment = 'add_comment(' . $value->id . ')';
                             $link_delete = 'Delete_namozeg(' . $value->id . ')';
                         } else {
-                            $link_update = 'window.location="' . base_url() . 'human_resources/mohma/Mohma_c/update/' . $value->id . '";';
-                            $add_attaches = 'window.location="' . base_url() . 'human_resources/mohma/Mohma_c/add_attaches/' . $value->id . '";';
-                            $add_comment = 'window.location="' . base_url() . 'human_resources/mohma/Mohma_c/add_comment/' . $value->id . '";';
-                            $link_delete = 'window.location="' . base_url() . 'human_resources/mohma/Mohma_c/Delete_namozeg/' . $value->id . '";';
+                            $link_update = 'window.location="' . base_url() . 'human_resources/mohma/Mohma_c/update/' . $value->id. '";';
+                            $add_attaches = 'window.location="' . base_url() . 'human_resources/mohma/Mohma_c/add_attaches/' . $value->id. '";';
+                            $add_comment = 'window.location="' . base_url() . 'human_resources/mohma/Mohma_c/add_comment/' . $value->id. '";';
+                            $link_delete ='window.location="' . base_url() . 'human_resources/mohma/Mohma_c/Delete_namozeg/' . $value->id. '";';
                         }
 
-                        if ($value->suspend == 4) {
+                        if($value->suspend ==4){
                             $visit_ended = 'المهمة إنتهت';
-                            $visit_ended_color = '#ff8f8f';
-                        } elseif ($value->suspend != 4) {
-                            $visit_ended = 'المهمة جارية';
-                            $visit_ended_color = '#ffc049';
-                        }
+                            $visit_ended_color = '#ff8f8f'; 
+                         }elseif($value->suspend!=4){
+                              $visit_ended = 'المهمة جارية'; 
+                              $visit_ended_color = '#ffc049'; 
+                         }
                         ?>
                         <tr>
                             <td><?= $x++ ?></td>
                             <td>
-                                <?php
-                                echo $value->mohma_name;
-                                ?>
+                            <?php
+         echo   $value->mohma_name;
+                    ?>
                             </td>
                             <td style="color: #c30000;font-weight: bold;"><?= $value->mohma_date ?></td>
                             <td style="background: #dcaff9;"><?= $value->mohma_details ?></td>
-                            <td style="color: green;"><?= $value->publisher_name ?></td>
-                            <td style="color: blue;"><?= $value->emp_n ?></td>
-                            <td style="color: green;font-weight: bold;"><?= $value->num_days ?> يوم</td>
-                            <td
-                                    style="background:<?= $visit_ended_color ?>;">
-                                <?= $visit_ended ?>
-                            </td>
+                            <td style="color: green;"><?= $value->publisher_name ?></td> 
+                         <td style="color: blue;"><?= $value->emp_n ?></td> 
+                         <td style="color: green;font-weight: bold;"><?= $value->num_days ?> يوم</td> 
+                         <td
+                         style="background:<?=$visit_ended_color?>;">
+                         <?=$visit_ended?>
+                         </td>
                             <td>
-                                <div id="send_all_mohma<?= $value->id; ?>">
-                                    <?php if ($value->send_all_mohma == 0) { ?>
-                                        <button class="btn btn-info"
-                                                onclick="send_all_mohma( <?= $value->id; ?>)">
-                                            ارسال المهمة
-                                        </button>
-                                    <?php } ?>
-                                </div>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-warning">إجراءات</button>
-                                    <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                        <span class="caret"></span>
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
+<div id="send_all_mohma<?= $value->id; ?>">
+<?php if( $value->send_all_mohma==0){ ?>
+                              <button class="btn btn-info" 
+                                   onclick="send_all_mohma( <?= $value->id; ?>)">
+                                    ارسال المهمة </button>
+<?php }?>
+</div>
+                            <div class="btn-group">
+                  <button type="button" class="btn btn-warning">إجراءات</button>
+                  <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
                   <ul class="dropdown-menu">
 <li> <a data-toggle="modal" data-target="#myModal_details"
                                    onclick="get_all_data( <?= $value->id; ?>)">
@@ -313,7 +312,7 @@ $another_mohma='';
 <?php } ?>
 <?php
 }else{?>
-    <div class="alert alert-danger"> نظرا لانك مدير علي النظام .. لا يمكنك إضافة مهمة</div>
+<div class="alert alert-danger">    نظرا لانك  مدير علي النظام   .. لا يمكنك إضافة مهمة </div>
 <?php }?>
 <div class="modal fade" id="myModal_details" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel">
@@ -460,15 +459,17 @@ $another_mohma='';
             url: "<?php echo base_url();?>human_resources/mohma/Mohma_c/send_all_mohma",
             data: {id: id},
             success: function (msg) {
-                $('#send_all_mohma' + id).html('<span style="color:green;">تم ارسال المهمة</span>');
+                $('#send_all_mohma'+id).html('<span style="color:green;">تم ارسال المهمة</span>');
             }
         });
     }
 </script>
-    <script>
-        function add_option(valu) {
-            if (valu != '') {
-                var id = '<?php echo $last_id +1;?>';
+<script>
+    function add_option(valu)
+    {
+if(valu!='')
+{
+        var id='<?php echo $last_id +1;?>';
         var x=$('#destination').val();
         $('#destination').append('<option value='+id+' selected>'+valu+'</option>');
         $('.selectpicker').selectpicker('refresh');

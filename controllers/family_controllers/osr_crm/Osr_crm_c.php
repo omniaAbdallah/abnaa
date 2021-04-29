@@ -355,21 +355,21 @@ function end_review()
     }
 
 
-}
+} 
 
-    function get_all_operations()
-    {
-        $file_num = $this->input->post('file_num');
-        $mother_num = $this->input->post('mother_num');
-        if (!empty($mother_num)) {
-            $all_data = $this->Osr_crm_m->get_all_operations($mother_num);
+function get_all_operations()
+{
+    $file_num = $this->input->post('file_num');
+    $mother_num = $this->input->post('mother_num');
+    if (!empty($mother_num)) {
+        $all_data = $this->Osr_crm_m->get_all_operations($mother_num);
 
-        } else {
-            $all_data = array();
-        }
-        $data['all_data'] = $all_data;
-        $data['subview'] = 'admin/familys_views/osr_crm_v/all_operation_crm_v';
-        $this->load->view($data['subview'], $data);
+    } else {
+        $all_data = array();
     }
-
+    $data['all_data']=$all_data;
+    $data['subview'] = 'admin/familys_views/osr_crm_v/all_operation_crm_v';
+    $this->load->view($data['subview'], $data);
+}
+    
 }// END CLASS

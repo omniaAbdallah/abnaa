@@ -51,14 +51,12 @@
                         $ext = pathinfo($row->attachment, PATHINFO_EXTENSION);
                         if (in_array($ext, $image)) {
                             ?>
-                            <img src="<?= base_url() . "uploads/files/sarf_attaches/" . $row->attachment . '/' . $ext ?>"
-                                 class=""
+                            <img src="<?= base_url() . "uploads/files/sarf_attaches/" . $row->attachment.'/'.$ext ?>" class=""
                                  width="100" height="100">
                             <?php
                         } else if (in_array($ext, $file)) {
                             ?>
-                            <a target="_blank"
-                               href="<?= base_url() . "FamilyCashing/read_file/" . $row->attachment . '/' . $ext ?>">
+                            <a target="_blank" href="<?= base_url() . "FamilyCashing/read_file/" . $row->attachment.'/'.$ext ?>">
                                 <i class="fa fa-eye fa-2x" title=" قراءة"></i> </a>
                             <?php
                         }

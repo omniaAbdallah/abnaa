@@ -43,27 +43,23 @@
                         <table class="table">
                             <tbody>
                             <tr>
-                                <th colspan="2" scope="row"> الأجازة السنوية العادية لا تقل عن</th>
+                                <th colspan="2" scope="row"> الأجازة السنوية العادية لا تقل عن </th>
                                 <td colspan="2"><input id="result1" name="min_nums_in_year"
-                                                       value="<?php if (isset($table->min_nums_in_year) && !empty($table->min_nums_in_year)) {
+                                           value="<?php if (isset($table->min_nums_in_year) && !empty($table->min_nums_in_year)) {
                                                echo $table->min_nums_in_year;
-                                           } ?> " data-validation="required" class="form-control text-center  result"
-                                                       value=""></td>
+                                           } ?> " data-validation="required" class="form-control text-center  result" value=""></td>
                                 <th scope="row">يوم</th>
                             </tr>
                             <tr>
-                                <th colspan="2" scope="row"> عدد ايام الاجازة الطارئة المسموح به من رصيد الأجازة
-                                    السنوية
-                                </th>
+                                <th colspan="2" scope="row"> عدد ايام الاجازة الطارئة المسموح به من رصيد الأجازة السنوية</th>
                                 <td colspan="2"><input id="result1" name="emergency_nums_in_year"
-                                                       value="<?php if (isset($table->emergency_nums_in_year) && !empty($table->emergency_nums_in_year)) {
+                                           value="<?php if (isset($table->emergency_nums_in_year) && !empty($table->emergency_nums_in_year)) {
                                                echo $table->emergency_nums_in_year;
-                                           } ?> " data-validation="required" class="form-control text-center  result"
-                                                       value=""></td>
+                                           } ?> " data-validation="required" class="form-control text-center  result" value=""></td>
                                 <th scope="row">يوم</th>
                             </tr>
                             <tr>
-                                <th>إذا كانت الاجازة السنويه (عادية) أكبر من</th>
+                                <th >إذا كانت الاجازة السنويه (عادية) أكبر من </th>
                                 <td><input id="result1" name="max_nums_in_year"
                                            value="<?php if (isset($table->max_nums_in_year) && !empty($table->max_nums_in_year)) {
                                                echo $table->max_nums_in_year;
@@ -76,10 +72,10 @@
                                                echo $table->moda_takdem_talb;
                                            } ?>" data-validation="required" class="form-control text-center  result"
                                            value=""></td>
-                                <th> يوم</th>
+                                <th > يوم</th>
                             </tr>
                             <tr>
-                                <th>إذا كانت الاجازة السنوية (عادية) أقل من</th>
+                                <th >إذا كانت الاجازة السنوية (عادية) أقل من  </th>
                                 <td><input id="result1" name="min_nums_in_talb"
                                            value="<?php if (isset($table->min_nums_in_talb) && !empty($table->min_nums_in_talb)) {
                                                echo $table->min_nums_in_talb;

@@ -8,9 +8,7 @@ class Ta3mem_adv_c extends MY_Controller
         if ($this->session->userdata('is_logged_in') == 0) {
             redirect('login');
         }
-        $this->load->model('familys_models/for_dash/Counting');
-        $this->count_basic_in = $this->Counting->get_basic_in_num();
-        $this->files_basic_in = $this->Counting->get_files_basic_in();
+
         $this->load->helper(array('url', 'text', 'permission', 'form'));
         $this->load->model("human_resources_model/ta3mem_models/Ta3mem_adv_model");
     }

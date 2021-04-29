@@ -2,19 +2,19 @@
     <div class="col-sm-12 no-padding">
         <div class="panel panel-bd lobidisable lobipanel lobipanel-sortable">
             <div class="panel-heading">
-                <h3 class="panel-title"> <?= $title ?></h3>
+                <h3 class="panel-title"> <?=$title?></h3>
             </div>
             <div class="panel-body">
                 <table id="" class="example table table-bordered table-striped" role="table">
                     <thead>
                     <tr class="greentd">
                         <th>م</th>
-                        <th class="text-center">أسم المهمة</th>
+                        <th class="text-center">أسم  المهمة</th>
                         <th class="text-center">تاريخ الانشاء</th>
                         <th class="text-center"> تفاصيل المهمه</th>
-                        <th class="text-center"> اسناد من</th>
-                        <th class="text-center"> اسناد الي</th>
-                        <th class="text-center"> الوقت المقدر</th>
+                        <th class="text-center">  اسناد من</th> 
+                       <th class="text-center">  اسناد الي</th> 
+                       <th class="text-center">  الوقت المقدر</th> 
                         <th class="text-center">الإجراء</th>
                     </tr>
                     </thead>
@@ -22,74 +22,71 @@
                     <?php
                     $x = 1;
                     foreach ($records as $value) {
-
-                        $link_update = 'window.location="' . base_url() . 'human_resources/mohma/Mohma_c/update/' . $value->id . '";';
-                        $add_attaches = 'window.location="' . base_url() . 'human_resources/mohma/Mohma_c/add_attaches/' . $value->id . '";';
-                        $add_comment = 'window.location="' . base_url() . 'human_resources/mohma/Mohma_c/add_comment/' . $value->id . '";';
-                        $link_delete = 'window.location="' . base_url() . 'human_resources/mohma/Mohma_c/Delete_namozeg/' . $value->id . '";';
-
+                       
+                            $link_update = 'window.location="' . base_url() . 'human_resources/mohma/Mohma_c/update/' . $value->id. '";';
+                            $add_attaches = 'window.location="' . base_url() . 'human_resources/mohma/Mohma_c/add_attaches/' . $value->id. '";';
+                            $add_comment = 'window.location="' . base_url() . 'human_resources/mohma/Mohma_c/add_comment/' . $value->id. '";';
+                            $link_delete ='window.location="' . base_url() . 'human_resources/mohma/Mohma_c/Delete_namozeg/' . $value->id. '";';
+                        
                         ?>
                         <tr>
-                            <td><?= $x++ ?></td>
+                        <td><?= $x++ ?></td>
                             <td>
-                                <?php
-                                echo $value->mohma_name;
-                                ?>
+                            <?php
+         echo   $value->mohma_name;
+                    ?>
                             </td>
                             <td style="color: #c30000;font-weight: bold;"><?= $value->mohma_date ?></td>
                             <td style="background: #dcaff9;"><?= $value->mohma_details ?></td>
-                            <td style="color: green;"><?= $value->publisher_name ?></td>
-                            <td style="color: blue;"><?= $value->emp_n ?></td>
-                            <td style="color: green;font-weight: bold;"><?= $value->num_days ?> يوم</td>
+                            <td style="color: green;"><?= $value->publisher_name ?></td> 
+                         <td style="color: blue;"><?= $value->emp_n ?></td> 
+                         <td style="color: green;font-weight: bold;"><?= $value->num_days ?> يوم</td> 
                             <td>
 
-                                <!--  -->
+<!--  -->
 
 
-                                <!--  -->
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-warning">إجراءات</button>
-                                    <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                        <span class="caret"></span>
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a onclick=' swal({
-                                                    title: "هل انت متأكد من تنفيذ ؟",
-                                                    text: "",
-                                                    type: "warning",
-                                                    showCancelButton: true,
-                                                    confirmButtonClass: "btn-danger",
-                                                    confirmButtonText: "تنفيذ",
-                                                    cancelButtonText: "إلغاء",
-                                                    closeOnConfirm: false
-                                                    },
-                                                    function(){
-                                                    swal("تم تنفيذ!", "", "success");
-                                                    setTimeout(function(){window.location="<?= base_url() . 'human_resources/mohma/Mohma_c/end_mohma/' . $value->id ?>";}, 500);
-                                                    });'>
-                                                <i class="fa fa-archive"> </i> تنفيذ المهمة </a></li>
-                                        <li><a data-toggle="modal" data-target="#myModal_details"
-                                               onclick="get_all_data( <?= $value->id; ?>)">
-                                                <i class="fa fa-search"> </i>تفاصيل </a>
-                                        </li>
-                                        <li><a onclick='<?php echo $add_attaches ?>'><i class="fa fa-commenting-o"
-                                                                                        aria-hidden="true"></i>إضافة
-                                                مرفقات</a></li>
-                                        <li><a onclick='<?= $add_comment ?>'><i class="fa fa-comments-o"
-                                                                                aria-hidden="true"></i> اضافة رد </a>
-                                        </li>
-                                        <li><a onclick='<?= $link_update ?>'>
-                                                <i class="fa fa-pencil"></i>تعديل</a>
-                                        </li>
-                                        <li>
-                                            <a onclick='<?= $link_delete ?>'>
-                                                <i class="fa fa-trash"> </i> حذف </a></li>
+<!--  -->
+                            <div class="btn-group">
+                  <button type="button" class="btn btn-warning">إجراءات</button>
+                  <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <ul class="dropdown-menu">
+                  <li><a onclick=' swal({
+                                        title: "هل انت متأكد من تنفيذ ؟",
+                                        text: "",
+                                        type: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonClass: "btn-danger",
+                                        confirmButtonText: "تنفيذ",
+                                        cancelButtonText: "إلغاء",
+                                        closeOnConfirm: false
+                                        },
+                                        function(){
+                                        swal("تم تنفيذ!", "", "success");
+                                        setTimeout(function(){window.location="<?= base_url() . 'human_resources/mohma/Mohma_c/end_mohma/' . $value->id ?>";}, 500);
+                                        });'>
+                                    <i class="fa fa-archive"> </i> تنفيذ المهمة </a></li>
+<li> <a data-toggle="modal" data-target="#myModal_details"
+                                   onclick="get_all_data( <?= $value->id; ?>)">
+                                    <i class="fa fa-search"> </i>تفاصيل </a>
+                               </li>
+                    <li><a  onclick='<?php echo $add_attaches?>'><i class="fa fa-commenting-o" aria-hidden="true"></i>إضافة  مرفقات</a></li>
+                    <li><a onclick='<?= $add_comment?>'><i class="fa fa-comments-o" aria-hidden="true"></i> اضافة رد  </a></li>            
+                    <li>  <a onclick='<?=$link_update?>'>
+<i class="fa fa-pencil"></i>تعديل</a>
+</li>
+<li>
+<a onclick='<?=$link_delete?>'>
+                                    <i class="fa fa-trash"> </i> حذف </a></li>
+                                    
 
 
-                                    </ul>
-                                </div>
+                                
+                  </ul>
+                </div>   
                             </td>
                         </tr>
                         <?php

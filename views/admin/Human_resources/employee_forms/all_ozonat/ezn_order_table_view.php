@@ -32,7 +32,7 @@
 
                         <th style="width: 90px;">نوع الاذن</th>
 
-                        <th style="width: 90px;">تاريخ الاذن</th>
+                         <th style="width: 90px;">تاريخ الاذن</th>
 
                         <th style="width: 200px;">اسم الموظف</th>
 
@@ -67,6 +67,7 @@
     </div>
 
 </div>
+
 
 
 <!-- detailsModal -->
@@ -125,7 +126,7 @@
 
                 </button>
 
-                <button type="button" class="btn btn-labeled btn-danger " onclick="$('#detailsModal').modal('hide')">
+                <button type="button" class="btn btn-labeled btn-danger " onclick="$('#detailsModal').modal('hide')" >
 
                     <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>إغلاق
 
@@ -151,7 +152,7 @@
 
             <div class="modal-header">
 
-                <button type="button" class="close" onclick="$('#Ozonat_detailsModal').modal('hide')">&times;</button>
+                <button type="button" class="close" onclick="$('#Ozonat_detailsModal').modal('hide')" >&times;</button>
 
                 <h4 class="modal-title"> التفاصيل </h4>
 
@@ -173,8 +174,7 @@
 
                 </button>
 
-                <button type="button" class="btn btn-labeled btn-danger "
-                        onclick="$('#Ozonat_detailsModal').modal('hide')">
+                <button type="button" class="btn btn-labeled btn-danger " onclick="$('#Ozonat_detailsModal').modal('hide')" >
 
                     <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>إغلاق
 
@@ -216,7 +216,7 @@ if (!isset($_POST['from_profile'])) { ?>
 
                     {"bSortable": true},
 
-                    {"bSortable": true},
+                     {"bSortable": true},
 
                     {"bSortable": true},
 

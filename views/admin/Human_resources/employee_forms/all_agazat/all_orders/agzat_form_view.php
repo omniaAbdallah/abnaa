@@ -143,7 +143,9 @@
                             ?>
                             <label class="label ">فئة الاجازه</label>
                             <select name="f2a_agaza" id="f2a_agaza" onchange="chech_agaza_year() "
-                                    data-validation="required" class="form-control ">
+                                    data-validation="required"
+                                    data-validation-depends-on="no3_agaza" break2=""
+                                    data-validation-depends-on-value="2" class="form-control ">
                                 <option value=" " selected="">اختر</option>
                                 <?php
                                 foreach ($vacations_f2a as $key => $row) {
@@ -450,11 +452,11 @@
                 var end_date = $('#end_date').val();
                 var num_days = $('#num_days').val();
                 if (f2a_agaza == 1) {
-                    var mowazf_badel = 2;
+                    var mowazf_badel=2;
                 } else if (f2a_agaza == 2) {
                     var mowazf_badel = $("select#no3_agaza").find("option:selected").attr('data-mowazf_badel');
                 }
-                if (emp && vacations && (!isNaN(emp)) && (!isNaN(vacations))) {
+                    if (emp && vacations && (!isNaN(emp)) && (!isNaN(vacations)) &&(vacations==2)) {
                     console.log('vacations :' + vacations + "\n emp : " + emp);
                     var request = $.ajax({
                         url: "<?php echo base_url() . 'human_resources/employee_forms/all_agazat/all_orders/Vacation/get_avalibal_days_year'?>",
@@ -473,7 +475,7 @@
                                 $('#max_days').val(obj.setting.emergency_nums_in_year);
                                 $('#min_days').val(1);
                                 $('#allDayes').val(obj.setting.emergency_nums_in_year);
-                                var mowazf_badel = 2;
+                                var mowazf_badel=2;
                             } else if (f2a_agaza == 2) {
                                 var mowazf_badel = $("select#no3_agaza").find("option:selected").attr('data-mowazf_badel');
 
@@ -707,18 +709,18 @@
                 if (no3_agaza != 52) {
                     if (parseFloat($('#num_days').val()) <= parseFloat($('#max_days').val())) {
                         if (parseFloat($('#num_days').val()) <= parseFloat($('#allDayes').val())) {
-                            if (f2a_agaza == 2) {
-                                if (parseFloat($('#num_days').val()) <= parseFloat($('#min_days').val())) {
-                                    swal({
-                                        title: 'المدة المحددة  يجب أن تتخطى  الحد الادنى   ',
-                                        text: ' الحد الادنى :' + $('#min_days').val(),
-                                        type: 'warning',
-                                        confirmButtonColor: '#3085d6',
-                                        confirmButtonText: 'تم'
-                                    });
-                                    return false;
-                                }
-                            }
+                         if (f2a_agaza == 2) {
+                        if (parseFloat($('#num_days').val()) <= parseFloat($('#min_days').val())) {
+                            swal({
+                                title: 'المدة المحددة  يجب أن تتخطى  الحد الادنى   ',
+                                text: ' الحد الادنى :' + $('#min_days').val(),
+                                type: 'warning',
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: 'تم'
+                            });
+                            return false;
+                        }
+                    }
                             save_me();
                         } else {
                             swal({
@@ -946,10 +948,10 @@
             }
 
             function writeIslamicDate(adjustment) {
-                var wdNames = ["Ahad", "Ithnin", "Thulatha", "Arbaa", "Khams", "Jumuah", "Sabt"];
-                var iMonthNames = ["Muharram", "Safar", "Rabi'ul Awwal", "Rabi'ul Akhir",
+                var wdNames = new Array("Ahad", "Ithnin", "Thulatha", "Arbaa", "Khams", "Jumuah", "Sabt");
+                var iMonthNames = new Array("Muharram", "Safar", "Rabi'ul Awwal", "Rabi'ul Akhir",
                     "Jumadal Ula", "Jumadal Akhira", "Rajab", "Sha'ban",
-                    "Ramadan", "Shawwal", "Dhul Qa'ada", "Dhul Hijja"];
+                    "Ramadan", "Shawwal", "Dhul Qa'ada", "Dhul Hijja");
                 var iDate = kuwaiticalendar(adjustment);
                 var outputIslamicDate = (iDate[5]) + '/' + (iDate[6]) + '/' + iDate[7];
                 return outputIslamicDate;
@@ -1014,7 +1016,7 @@
 
                 }
 
-                if (valu == 0) {
+                    if (valu == 0) {
                     $('#mowazf_badel_div').hide();
                     // document.getElementById("emp_badel_promise").setAttribute("disabled", "disabled");
                     // document.getElementById("promise").setAttribute("disabled", "disabled");
@@ -1024,11 +1026,11 @@
                     // document.getElementById("end_day").setAttribute("disabled", "disabled");
                     // document.getElementById("start_day").setAttribute("disabled", "disabled");
                 } else {
-                    if (f2a_agaza == 1) {
-                        var mowazf_badel = 2;
-                    } else {
-                        var mowazf_badel = $("select#no3_agaza").find("option:selected").attr('data-mowazf_badel');
-                    }
+                        if (f2a_agaza == 1) {
+                            var mowazf_badel=2;
+                        } else  {
+                            var mowazf_badel = $("select#no3_agaza").find("option:selected").attr('data-mowazf_badel');
+                        }
                     if (valu == 3 || valu == 4) {
                         $('#agaza_mardia_div').show();
                         $('#daraget_waffa_div').hide();

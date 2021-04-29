@@ -86,28 +86,26 @@ public function get_all_files(){
         $this->db->where('basic.file_update_date>=',$this->input->post('date_from'));
         $this->db->where('basic.file_update_date!=',0);
     }
-    if (!empty($this->input->post('date_to'))) {
-        $this->db->where('basic.file_update_date<=', $this->input->post('date_to'));
-        $this->db->where('basic.file_update_date!=', 0);
+    if (!empty($this->input->post('date_to'))){
+        $this->db->where('basic.file_update_date<=',$this->input->post('date_to'));
+        $this->db->where('basic.file_update_date!=',0);
     }
-    if (!empty($this->input->post('category'))) {
-        $this->db->where('basic.family_cat', $this->input->post('category'));
+    if (!empty($this->input->post('category'))){
+        $this->db->where('basic.family_cat',$this->input->post('category'));
     }
-    //  $this->db->where('TO_SECONDS(basic.file_update_date)>=TO_SECONDS( NOW())') ;
-    $this->db->where('basic.file_update_date <=', date('Y-m-d'));
-    // $this->db->where('basic.file_update_date >',date('Y-m-d'));
-    $this->db->order_by('file_update_date', "DESC");
-//$this->db->order_by('file_num',"asc");
+  //  $this->db->where('TO_SECONDS(basic.file_update_date)>=TO_SECONDS( NOW())') ;
+   $this->db->where('basic.file_update_date <=',date('Y-m-d'));
+  // $this->db->where('basic.file_update_date >',date('Y-m-d'));
+// $this->db->order_by('file_update_date',"DESC");
+$this->db->order_by('file_num',"asc");
     $query = $this->db->get();
-    if ($query->num_rows() > 0) {
-        $data = $query->result_array();
-        $i = 0;
-        foreach ($query->result_array() as $array) {
-            $data[$i] = $array;
-            $data[$i]['nasebElfard'] = $this->getNaseb($data[$i]['faher_name'], $data[$i]['categorey']);
-            $data[$i]['fe2a_color'] = $this->get_from_cat($data[$i]['family_cat'], 'color');
-            $i++;
-        }
+    if($query->num_rows() >0){
+        $data = $query->result_array(); $i =0;
+        foreach ($query->result_array() as $array){
+            $data[$i] =  $array;
+            $data[$i]['nasebElfard'] =  $this->getNaseb($data[$i]['faher_name'],$data[$i]['categorey']);
+            $data[$i]['fe2a_color'] =  $this->get_from_cat($data[$i]['family_cat'],'color');
+            $i++;  }
         return $data;
     }
     return  $query->result_array();

@@ -146,7 +146,7 @@ if($this->input->post('hesab_no3') == 1){
             $result = $query->result();
             foreach($result as $key=>$value)
             {
-                $query = $this->db->query('select SUM(`maden`) AS madeen from `finance_quods_details` where `rkm_hesab` = ' . $result[$key]->code . '');
+                $query = $this->db->query('select SUM(`maden`) AS madeen from `finance_quods_details` where `rkm_hesab` = '.$result[$key]->code.'');
                 $madeen_result = $query->result();
                 $query = $this->db->query('select SUM(dayen) AS dayen from finance_quods_details where rkm_hesab = '.$result[$key]->code.'');
                 $dayen_result = $query->result();
@@ -165,7 +165,7 @@ if($this->input->post('hesab_no3') == 1){
                 $children = $this->build_child($result[$key]->id);              
         
                 if( !empty($children[0]) ){
-                    $query2 = $this->db->query('select SUM(`last_value`) AS value from `dalel` where `parent` = ' . $result[$key]->id . '');
+                    $query2 = $this->db->query('select SUM(`last_value`) AS value from `dalel` where `parent` = '.$result[$key]->id.'');
                     $result2 = $query2->result();
                     $role['value'] = $result2[0]->value;
                     $role['children'] = $children[0];
@@ -203,7 +203,7 @@ if($this->input->post('hesab_no3') == 1){
             $role = array();
             
             if($result[$key]->parent == $parent){
-                $query2 = $this->db->query('SELECT SUM(`last_value`) AS value FROM `dalel` WHERE `parent` = ' . $result[$key]->id . '');
+                $query2 = $this->db->query('SELECT SUM(`last_value`) AS value FROM `dalel` WHERE `parent` = '.$result[$key]->id.'');
                 $result2 = $query2->result();
                 
                 $query = $this->db->query('select SUM(maden) AS maden from finance_quods_details where rkm_hesab = '.$result[$key]->code.'');

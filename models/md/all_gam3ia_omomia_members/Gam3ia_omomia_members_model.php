@@ -31,15 +31,15 @@ class Gam3ia_omomia_members_model extends CI_Model
                   $data[$arr_name_db[$key]] = $this->chek_Null($item);
               }
           }*/
-
-        //yara
+          
+          //yara
         $data['madina_fk'] = $this->chek_Null($this->input->post('city_id_fk'));
         $madina_fk = $this->input->post('city_id_fk');
         $madina_title = $this->get_id('cities', 'id', $madina_fk, 'name');
         $data['madina_title'] = $madina_title;
 //yara
-
-
+          
+          
         $data['name'] = $this->chek_Null($this->input->post('name'));
         $data['gns'] = $this->chek_Null($this->input->post('gns'));
 
@@ -220,7 +220,7 @@ class Gam3ia_omomia_members_model extends CI_Model
         $this->db->select('md_all_gam3ia_omomia_members.*, md_all_gam3ia_omomia_odwiat.rkm_odwia as rkm_odwia_full , md_all_gam3ia_omomia_odwiat.no3_odwia_title ,md_all_gam3ia_omomia_odwiat.rkm_odwia,
         md_all_gam3ia_omomia_odwiat.odwia_status_title
           ');
-
+       
         $this->db->from('md_all_gam3ia_omomia_members');
         $this->db->join('md_all_gam3ia_omomia_odwiat', 'md_all_gam3ia_omomia_odwiat.member_id_fk = md_all_gam3ia_omomia_members.id', "LEFT");
         $this->db->order_by("md_all_gam3ia_omomia_odwiat.rkm_odwia", "asc");
@@ -229,7 +229,7 @@ class Gam3ia_omomia_members_model extends CI_Model
             $i = 0;
             foreach ($query->result() as $row) {
                 $data[$i] = $row;
-                // $data[$i]->odwiat = $this->get_odwiat($row->id);
+               // $data[$i]->odwiat = $this->get_odwiat($row->id);
                 $i++;
             }
             return $data;
@@ -244,8 +244,8 @@ class Gam3ia_omomia_members_model extends CI_Model
     {
         $this->db->select('md_all_gam3ia_omomia_members.*,md_all_gam3ia_omomia_odwiat.odwia_status_fk');
         $this->db->from('md_all_gam3ia_omomia_members');
-        $this->db->where('md_all_gam3ia_omomia_odwiat.odwia_status_fk', 1);
-        $this->db->join('md_all_gam3ia_omomia_odwiat', 'md_all_gam3ia_omomia_odwiat.member_id_fk = md_all_gam3ia_omomia_members.id', "LEFT");
+          $this->db->where('md_all_gam3ia_omomia_odwiat.odwia_status_fk', 1);
+         $this->db->join('md_all_gam3ia_omomia_odwiat', 'md_all_gam3ia_omomia_odwiat.member_id_fk = md_all_gam3ia_omomia_members.id', "LEFT");
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             $i = 0;
@@ -260,14 +260,13 @@ class Gam3ia_omomia_members_model extends CI_Model
         }
 
     }
-
-    public function get_odwiat_web($id)
+   public function get_odwiat_web($id)
     {
         $this->db->where('member_id_fk', $id);
-        $this->db->where('odwia_status_fk', 1);
+         $this->db->where('odwia_status_fk', 1);
         $this->db->select('*');
         $this->db->from('md_all_gam3ia_omomia_odwiat');
-        $this->db->order_by("rkm_odwia", "asc");
+         $this->db->order_by("rkm_odwia", "asc");
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->row();
@@ -283,7 +282,7 @@ class Gam3ia_omomia_members_model extends CI_Model
     {
         $this->db->select('*');
         $this->db->from('md_all_gam3ia_omomia_members');
-
+       
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             $i = 0;
@@ -305,7 +304,7 @@ class Gam3ia_omomia_members_model extends CI_Model
         $this->db->where('member_id_fk', $id);
         $this->db->select('*');
         $this->db->from('md_all_gam3ia_omomia_odwiat');
-        $this->db->order_by("rkm_odwia", "asc");
+         $this->db->order_by("rkm_odwia", "asc");
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             return $query->row();
@@ -523,98 +522,91 @@ class Gam3ia_omomia_members_model extends CI_Model
         }
         return false;
     }
-    /***************************/
+/***************************/
 
-
-    //yara
-
-
+  
+  //yara
+    
+    
     public function add_setting_mo2hl($type)
     {
         $data['title_setting'] = $this->chek_Null($this->input->post('mo2hl'));
-
+     
         $data['type'] = $type;
         $this->db->insert('employees_settings', $data);
     }
-
     public function add_setting_esdar($type)
     {
         $data['title_setting'] = $this->chek_Null($this->input->post('esdar'));
-
+     
         $data['type'] = $type;
         $this->db->insert('employees_settings', $data);
     }
-
-    public function update_setting_mo2hl($type, $id)
+    public function update_setting_mo2hl($type,$id)
     {
         $data['title_setting'] = $this->chek_Null($this->input->post('mo2hl'));
-
+     
         $data['type'] = $type;
-        $this->db->where('id_setting', $id)->update('employees_settings', $data);
+        $this->db->where('id_setting',$id)->update('employees_settings', $data);
     }
-
-    public function update_setting_esdar($type, $id)
+    public function update_setting_esdar($type,$id)
     {
         $data['title_setting'] = $this->chek_Null($this->input->post('esdar'));
-
+     
         $data['type'] = $type;
-        $this->db->where('id_setting', $id)->update('employees_settings', $data);
+        $this->db->where('id_setting',$id)->update('employees_settings', $data);
     }
-
     public function delete_setting_mo2hl($id)
     {
 
         $this->db->where("id_setting", $id);
         $this->db->delete("employees_settings");
     }
-
-
-    public function GetFromGeneral_settings_mo2hl($id, $type)
+  
+    
+    public function GetFromGeneral_settings_mo2hl($id,$type)
     {
         $this->db->select('*');
         $this->db->from('employees_settings');
         $this->db->where('type', $type);
         $this->db->where('id_setting', $id);
         $query = $this->db->get()->row();
-
+       
         return $query;
     }
   
 ///yara
 
-
+   
     //yara
     public function add_setting($type)
     {
         $data['title_setting'] = $this->chek_Null($this->input->post('mhna'));
-
+     
         $data['type'] = $type;
         $this->db->insert('md_settings', $data);
     }
-
-    public function update_setting($type, $id)
+    public function update_setting($type,$id)
     {
         $data['title_setting'] = $this->chek_Null($this->input->post('mhna'));
-
+     
         $data['type'] = $type;
-        $this->db->where('id_setting', $id)->update('md_settings', $data);
+        $this->db->where('id_setting',$id)->update('md_settings', $data);
     }
-
     public function delete_setting($id)
     {
 
         $this->db->where("id_setting", $id);
         $this->db->delete("md_settings");
     }
-
-    public function GetFromGeneral_settings($id, $type)
+    public function GetFromGeneral_settings($id,$type)
     {
         $this->db->select('*');
         $this->db->from('md_settings');
         $this->db->where('type', $type);
         $this->db->where('id_setting', $id);
         $query = $this->db->get()->row();
-
+       
         return $query;
     }
 
@@ -622,7 +614,7 @@ class Gam3ia_omomia_members_model extends CI_Model
 
     public function change_status_account($valu, $id)
     {
-        $status = 1 - $valu;
+        $status = 1- $valu;
         $data['suspend'] = $status;
         $this->db->where('id', $id)->update('md_all_gam3ia_omomia_members', $data);
 
@@ -632,89 +624,87 @@ class Gam3ia_omomia_members_model extends CI_Model
     public function update_account_data($id)
     {
         $data['memb_user_name'] = $this->chek_Null($this->input->post('memb_user_name'));
-        $data['memb_password'] = sha1(md5($this->input->post('memb_password')));
+        $data['memb_password'] =  sha1(md5($this->input->post('memb_password')));
 
         //$data['suspend'] = $this->chek_Null($this->input->post('suspend'));
         $this->db->where('id', $id);
         $this->db->update('md_all_gam3ia_omomia_members', $data);
     }
-    /*********************************************************************/
+/*********************************************************************/
 
 // yara7-5-2020
-    public function insert_attach($id, $images)
+public function insert_attach($id,$images)
+{
+    if(isset($images)&& !empty($images))
     {
-        if (isset($images) && !empty($images)) {
-            $count = count($images);
-            for ($x = 0; $x < $count; $x++) {
-                $data['title'] = $this->input->post('title');
-                $data['file'] = $images[$x];
-                $data['mem_id_fk'] = $id;
-                $data['date'] = strtotime(date("Y-m-d"));
-                $data['date_ar'] = date("Y-m-d");
-                if ($_SESSION['role_id_fk'] == 1) {
+        $count=count($images);
+        for($x=0; $x<$count;$x++)
+        {
+            $data['title']=$this->input->post('title');
+            $data['file']=$images[$x];
+            $data['mem_id_fk']=$id;
+            $data['date']= strtotime(date("Y-m-d"));
+            $data['date_ar']= date("Y-m-d");
+            if($_SESSION['role_id_fk']==1){
 
-                    $data['publisher'] = $_SESSION['user_id'];
-                    $data['publisher_name'] = $_SESSION['user_name'];
-                } else if ($_SESSION['role_id_fk'] == 2) {
-                    $data['publisher'] = $this->get_id("magls_members_table", 'id', $_SESSION['emp_code'], "id");
-                    $data['publisher_name'] = $this->get_id("magls_members_table", 'id', $_SESSION['emp_code'], "member_name");
-
-                } else if ($_SESSION['role_id_fk'] == 3) {
-                    $data['publisher'] = $this->get_id("employees", 'id', $_SESSION['emp_code'], "id");
-                    $data['publisher_name'] = $this->get_id("employees", 'id', $_SESSION['emp_code'], "employee");
-                } else if ($_SESSION['role_id_fk'] == 4) {
-                    $data['publisher'] = $this->get_id("general_assembley_members", 'id', $_SESSION['emp_code'], "id");
-                    $data['publisher_name'] = $this->get_id("general_assembley_members", 'id', $_SESSION['emp_code'], "name");
-                }
-                $this->db->insert('md_all_gam3ia_omomia_morfq', $data);
+                $data['publisher']=$_SESSION['user_id'];
+                $data['publisher_name']=$_SESSION['user_name'];;
             }
+            else if ($_SESSION['role_id_fk']==2){
+                $data['publisher'] = $this->get_id("magls_members_table",'id',$_SESSION['emp_code'],"id");
+                $data['publisher_name'] = $this->get_id("magls_members_table",'id',$_SESSION['emp_code'],"member_name");
+        
+            }
+            else if ($_SESSION['role_id_fk']==3){
+                $data['publisher'] = $this->get_id("employees",'id',$_SESSION['emp_code'],"id");
+                $data['publisher_name'] = $this->get_id("employees",'id',$_SESSION['emp_code'],"employee");
+            }
+            else if ($_SESSION['role_id_fk']==4){
+                $data['publisher'] = $this->get_id("general_assembley_members",'id',$_SESSION['emp_code'],"id");
+                $data['publisher_name'] = $this->get_id("general_assembley_members",'id',$_SESSION['emp_code'],"name");
+            }
+            $this->db->insert('md_all_gam3ia_omomia_morfq',$data);
         }
     }
-
-    public function delete_morfq($id)
-    {
-        $this->db->where('id', $id)->delete('md_all_gam3ia_omomia_morfq');
-    }
-
-    public function get_morfq_by_id($id)
-    {
-        $this->db->where('mem_id_fk', $id);
-        $query = $this->db->get('md_all_gam3ia_omomia_morfq');
+}
+public function delete_morfq($id)
+{
+$this->db->where('id',$id)->delete('md_all_gam3ia_omomia_morfq');
+}
+public function get_morfq_by_id($id){
+    $this->db->where('mem_id_fk',$id);
+    $query = $this->db->get('md_all_gam3ia_omomia_morfq');
         return $query->result();
-    }
-
-    public function get_images($id)
+}
+public function get_images($id)
+{
+    $this->db->where('id',$id);
+    $query=$this->db->get('md_all_gam3ia_omomia_morfq');
+    if($query->num_rows()>0)
     {
-        $this->db->where('id', $id);
-        $query = $this->db->get('md_all_gam3ia_omomia_morfq');
-        if ($query->num_rows() > 0) {
-            return $query->result();
-        } else {
-            return false;
-        }
+        return $query->result();
+    }else{
+        return false;
     }
-
-    public function get_table($table, $arr)
-    {
-        if (!empty($arr)) {
-            $this->db->where($arr);
-        }
-        $query = $this->db->get($table);
-        if ($query->num_rows() > 0) {
-            return $query->result();
-        } else {
-            return false;
-        }
+}
+public function get_table($table,$arr){
+    if (!empty($arr)){
+        $this->db->where($arr);
     }
-
-    public function get_table_by_id($table, $arr)
-    {
-        if (!empty($arr)) {
-            $this->db->where($arr);
-        }
-        $query = $this->db->get($table)->row();
+    $query = $this->db->get($table);
+    if ($query->num_rows()>0){
+        return $query->result();
+    } else{
+        return false;
+    }
+}
+public function get_table_by_id($table,$arr){
+    if (!empty($arr)){
+        $this->db->where($arr);
+    }
+    $query = $this->db->get($table)->row();
         return $query;
-    }
+}
 
 
   
